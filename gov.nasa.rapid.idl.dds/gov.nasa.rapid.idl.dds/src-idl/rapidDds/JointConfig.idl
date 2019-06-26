@@ -1,0 +1,72 @@
+#ifndef rapid_JointConfig_idl
+#define rapid_JointConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief JointConfig describes the joints in an Agent and their relation to each other using the FrameStore.
+ * JointSample delivers telemetry about the joints of an Agent.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * JointDef defines the frame and DOF for a specific Agent's joints.
+    //@copy-declaration  */
+    struct JointDef {
+
+        //@copy-declaration /**
+        //@copy-declaration  * Name of frame that joint reports its position in - should match a frame in FrameStore.
+        //@copy-declaration  */
+        String128 frameName;
+        
+        //@copy-declaration /**
+        //@copy-declaration  * Defines the axis of rotation or motion. Note: This will change in the near future.
+        //@copy-declaration  */
+        String64 dof;
+    };
+
+    typedef sequence<JointDef,64> JointDefSequence;
+   
+    //@copy-c-declaration class JointConfigTypeSupport;
+    //@copy-c-declaration class JointConfigDataWriter;
+    //@copy-c-declaration class JointConfigDataReader;
+    //@copy-c-declaration struct JointConfigSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Joint configuration of a kinematic chain. Gives configuration of joint data for a specific Agent. Joint
+    //@copy-declaration  * data is delivered using JointSample.
+    //@copy-declaration  */
+    valuetype JointConfig : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef JointConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef JointConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef JointConfigDataReader DataReader;
+        //@copy-c-declaration typedef JointConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef JointConfig Type;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Name of the joint group.
+        //@copy-declaration  */
+        public String32 jointGroupName;
+
+        //@copy-declaration /**
+        //@copy-declaration  * JointDefs for each joint.
+        //@copy-declaration  */
+        public JointDefSequence jointDefinitions;
+    };
+
+};
+
+#endif // rapid_JointConfig_idl

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Free Flyer OCU" uid="FreeFlyerWorkbench" id="gov.nasa.arc.ff.ocu.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" useFeatures="true" includeLaunchers="true">
+
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-clearPersistedState -consoleLog
+      </programArgs>
+      <programArgsLin>
+         <argsX86_64>-vm
+../../../jre/bin/java</argsX86_64>
+      </programArgsLin>
+      <programArgsMac>-vm
+../../../jre/Home/lib/jli/libjli.dylib
+      </programArgsMac>
+      <vmArgs>-Declipse.log.enabled=false
+      </vmArgs>
+      <vmArgsLin>-Dosgi.requiredJavaVersion=1.8
+      </vmArgsLin>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts -Dosgi.requiredJavaVersion=1.8
+      </vmArgsMac>
+      <vmArgsWin>-Djna.library.path=.\plugins\org.vlcj_1.0.0\com\sun\jna\win32-x86
+      </vmArgsWin>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <splash
+      location="gov.nasa.arc.ff.ocu"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="000000" />
+   <launcher name="AstroBeeWB">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+      <macos include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</macos>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+   </vm>
+
+   <license>
+        <text>
+   Copyright © 2019, United States Government, as represented by the 
+Administrator of the National Aeronautics and Space Administration. All 
+rights reserved.
+ 
+The Astrobee Control Station platform is licensed under the Apache License, 
+Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance 
+with the License. You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0. 
+  
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the 
+License for the specific language governing permissions and limitations 
+under the License.
+         </text>
+   </license>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="gov.nasa.arc.ff.ocu.feature"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="_feature_gov.nasa.arc.irg.iss.ui"/>
+      <feature id="_feature_com.ardor3d"/>
+      <feature id="_feature_gov.nasa.arc.verve.common"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="_feature_gov.nasa.rapid.v2"/>
+      <feature id="_feature_gov.nasa.arc.verve.scene"/>
+      <feature id="_feature_gov.nasa.test.framework"/>
+   </features>
+
+   <configurations>
+      <plugin id="gov.nasa.arc.irg.log.forwarder" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+   </configurations>
+
+</product>

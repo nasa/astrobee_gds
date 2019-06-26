@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config><section name="Frames" >
+    <!-- K10 RED Rover Frame -->
+    <!-- The <rover>Frame is the center of the robot. In K10's case,
+     that's the axle that the linkage swings around. It is directly on the ground. -->
+    <FrameRpy name="K10Black"/>
+
+    <!-- K10 RED Frames -->
+    <!-- linkageFrame is the center of the axle that the linkage swings around.
+     It is directly above the roverFrame. -->
+     <FrameRpy name="linkageFrame">
+     	<parent value="K10Black"/>
+     	<z>-0.352</z>
+     </FrameRpy>
+     
+    <!-- The rocker frames are just the extension of the linkage axis out to the
+     sides of the rover. -->
+    <FrameRpy name="rightRocker">
+    	<parent value="linkageFrame"/>
+    	<y>0.389</y>
+    </FrameRpy>
+    
+    <FrameRpy name="rightRocker">
+    	<parent value="linkageFrame"/>
+    	<y>-0.389</y>
+    </FrameRpy>
+    
+    <FrameRpy name="rightRocker">
+    	<parent value="linkageFrame"/>
+    	<y>-0.389</y>
+    </FrameRpy>
+    
+    <FrameRpy name="rightFrontSteerMount">
+    	<parent value="rightRocker"/>
+    	<x>0.406</x>
+    </FrameRpy>
+    
+    <FrameRpy name="rightRearSteerMount">
+    	<parent value="rightRocker"/>
+    	<x>-0.406</x>
+    </FrameRpy>
+    
+    <FrameRpy name="leftFrontSteerMount">
+    	<parent value="leftRocker"/>
+    	<x>0.406</x>
+    </FrameRpy>
+    
+    <FrameRpy name="leftRearSteerMount">
+    	<parent value="leftRocker"/>
+    	<x>-0.406</x>
+    </FrameRpy>
+    
+    <!-- The steer frames are tweaked as the wheels steer. Rotation is about z. -->
+    <FrameRpy name="rightFrontSteerFrame">
+    	<parent value="rightFrontSteerMount"/>
+    </FrameRpy>
+    
+    <FrameRpy name="rightRearSteerFrame">
+	    <parent value="rightRearSteerMount"/>
+    </FrameRpy>
+    
+    <FrameRpy name="leftFrontSteerFrame">
+    	<parent value="leftFrontSteerMount"/>
+    </FrameRpy>
+    
+    <FrameRpy name="leftRearSteerFrame">
+    	<parent value="leftRearSteerMount"/>
+    </FrameRpy>
+    
+    <!-- The wheel mounts are the actual wheel axles. -->
+    <FrameRpy name="rightFrontWheelMount">
+    	<parent value="rightFrontSteerFrame"/>
+    	<x>0.207</x>
+    </FrameRpy>
+    
+    <FrameRpy name="rightRearWheelMount">
+        <parent value="rightRearSteerFrame"/>
+    	<x>0.207</x>
+    </FrameRpy>
+    
+    <FrameRpy name="leftFrontWheelMount">
+    	<parent value="leftFrontSteerFrame"/>
+    	<x>0.207</x>
+    </FrameRpy>
+    
+    <FrameRpy name="leftRearWheelMount">
+      <parent value="leftRearSteerFrame"/>
+    	<x>0.207</x>
+    </FrameRpy>
+    
+    <!-- Finally, the wheel frames are the things that actually turn as we
+     drive. rotation about y axis. -->
+    <FrameRpy name="rightFrontWheelFrame">
+    	<parent value="rightFrontWheelMount"/>
+    </FrameRpy>
+    
+    <FrameRpy name="rightRearWheelFrame">
+    	<parent value="rightRearWheelMount"/>
+    </FrameRpy>
+    
+    <FrameRpy name="leftFrontWheelFrame">
+    	<parent value="leftFrontWheelMount"/>
+    </FrameRpy>
+    
+    <FrameRpy name="leftRearWheelFrame">
+    	<parent value="leftRearWheelMount"/>
+    </FrameRpy>
+    
+    <!-- GPS antenna -->
+    <FrameRpy name="gpsAntenna">
+    	<parent value="K10Black"/>
+    	<x>-0.229</x>
+    	<z>-1.2</z>
+    </FrameRpy>
+    
+    <!-- PTZ mount location -->
+    <FrameRpy name="ptzMount">
+    	<parent value="K10Black"/>
+    	<x>0.01143</x>
+    	<z>-1.158</z>
+    	<roll>3.14159</roll>
+    </FrameRpy>
+    
+    <!-- PTZ frame -->
+    <FrameRpy name="ptzFrame">
+    	<parent value="ptzMount"/>
+    </FrameRpy>
+    
+    <!-- PTZ target location -->
+    <FrameRpy name="ptzTarget">
+    	<parent value="ptzMount"/>
+    </FrameRpy>
+    
+    <!-- Urg target location -->
+    <FrameRpy name="lidarFrame0">
+    	<parent value="K10Black"/>
+    	<x>0.075</x>
+    	<z>-1.0</z>
+    	<pitch>-1.0</pitch>
+    </FrameRpy>
+  </section>
+</config>

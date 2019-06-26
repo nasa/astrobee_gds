@@ -1,0 +1,48 @@
+#ifndef rapid_ext_traclabs_NoticeTypes_idl
+#define rapid_ext_traclabs_NoticeTypes_idl
+
+module rapid
+{
+  module ext
+  {
+    module traclabs
+    {
+    
+      enum LatencyType {
+        LATENCY_DONTCARE,
+        LATENCY_IMMEDIATE, 
+        LATENCY_DEFERRED, 
+        LATENCY_ARCHIVE
+      };
+    
+      enum FocusOfAttentionType { 
+        FA_DONTCARE,
+        FA_PRIMARY, 
+        FA_SECONDARY, 
+        FA_NOSHIFT 
+      };
+    	
+      enum ModalityType { 
+        MODALITY_DONTCARE, 
+        MODALITY_3DNOTICE, 
+        MODALITY_3DAVATAR, 
+        MODALITY_WEBGUI, 
+        MODALITY_EMAIL, 
+        MODALITY_DISPLAY, 
+        MODALITY_DISPLAYQUEUE, 
+        MODALITY_PERSONALARCHIVE, 
+        MODALITY_SPEECH,
+        MODALITY_STATUSBAR
+      };
+      
+      enum NoticeAckState {
+        NAS_DONTCARE,
+        NAS_UNACKNOWLEDGED,
+        NAS_ACKNOWLEDGED
+      };
+      
+    };
+  };
+};
+
+#endif // rapid_ext_traclabs_NoticeTypes_idl

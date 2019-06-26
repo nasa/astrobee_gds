@@ -1,0 +1,33 @@
+/*
+ * Copyright 2015 (c) 2015 Intelligent Robotics Group, NASA ARC
+ */
+
+#include "Message.idl"
+
+module rapid {
+  module ext {
+    module astrobee {
+
+      //@copy-c-declaration class DataToDiskConfigTypeSupport;
+      //@copy-c-declaration class DataToDiskConfigDataWriter;
+      //@copy-c-declaration class DataToDiskConfigDataReader;
+      //@copy-c-declaration struct DataToDiskConfigSeq;
+
+      //@copy-declaration /**
+      //@copy-declaration   * Config for the DataToDiskState message. Lists rostopics available to save to disk.
+      //@copy-declaration   */
+      valuetype DataToDiskConfig : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef DataToDataToDiskConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef DataToDiskConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef DataToDiskConfigDataReader DataReader;
+        //@copy-c-declaration typedef DataToDiskConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef DataToDiskConfig Type;
+
+        public String128Sequence64 topics;
+      };
+
+    };
+  };
+};

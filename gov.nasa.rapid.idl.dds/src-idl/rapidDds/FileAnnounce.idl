@@ -1,0 +1,54 @@
+#ifndef rapid_FileAnnounce_idl
+#define rapid_FileAnnounce_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief See RAFT documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-c-declaration class FileAnnounceTypeSupport;
+    //@copy-c-declaration class FileAnnounceDataWriter;
+    //@copy-c-declaration class FileAnnounceDataReader;
+    //@copy-c-declaration struct FileAnnounceSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Holds information about a file that could be transferred to the ground from the robot.
+    //@copy-declaration  */
+    valuetype FileAnnounce : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FileAnnounceTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FileAnnounceDataWriter DataWriter;
+        //@copy-c-declaration typedef FileAnnounceDataReader DataReader;
+        //@copy-c-declaration typedef FileAnnounceSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FileAnnounce Type;
+
+        //@copy-declaration /** The unique identifier for this file. */
+        public String64 fileUuid; //@key
+
+        //@copy-declaration /** URI of where the file is located. */
+        public String256 fileLocator;
+
+        //@copy-declaration /** Total size of the file in bytes. */
+        public long long fileSize;
+
+        //@copy-declaration /** Additional key/value pairs of metadata such as group-id or mime-type. */
+        public KeyTypeValueSequence16 metaData;
+    };
+};
+
+#endif // rapid_FileAnnounce_idl

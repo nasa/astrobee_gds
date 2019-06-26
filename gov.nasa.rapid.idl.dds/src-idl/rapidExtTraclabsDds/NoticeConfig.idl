@@ -1,0 +1,40 @@
+#ifndef rapid_ext_traclabs_NoticeConfig_idl
+#define rapid_ext_traclabs_NoticeConfig_idl
+
+#include "NoticeTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module traclabs
+    {
+      //@copy /**
+      //@copy  * Notice item description
+      //@copy  */
+      struct NoticeItem {
+        String16 itemId;
+        String64 itemDescription;
+      }; 
+      typedef sequence<NoticeItem,64> NoticeItemSequence;
+      
+      //@copy /**
+      //@copy  * NoticeConfig describes the possible notice items
+      //@copy  * and value keys for extension data
+      //@copy  */ 
+      valuetype NoticeConfig : Message {
+        
+        //@copy-c-declaration typedef NoticeConfig Type;
+
+        public NoticeItemSequence items;
+        
+        //@copy /** extension metadata */  
+        public KeyTypeValueSequence16 valueKeys;
+      };
+      
+    };
+  };
+};
+
+#endif // rapid_ext_traclabs_NoticeConfig_idl

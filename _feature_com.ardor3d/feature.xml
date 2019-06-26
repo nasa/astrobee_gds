@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="_feature_com.ardor3d"
+      label="Ardor3D Feature"
+      version="0.9.17"
+      provider-name="Ardor Labs">
+
+   <description>
+      This feature includes all the required plugins you need to have Ardor3D within Eclipse.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.apache.xerces"/>
+   </requires>
+
+   <plugin
+         id="com.ardor3d"
+         download-size="0"
+         install-size="0"
+         version="0.9.17"/>
+
+   <plugin
+         id="org.lwjgl"
+         download-size="0"
+         install-size="0"
+         version="2.7.1"/>
+
+   <plugin
+         id="org.jdom"
+         download-size="0"
+         install-size="0"
+         version="1.0.1"
+         unpack="false"/>
+
+   <plugin
+         id="com.ardor3d.swt.macosx.x86_64"
+         os="macosx"
+         arch="x86_64"
+         download-size="0"
+         install-size="0"
+         version="0.9.17"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.ardor3d.math"
+         download-size="0"
+         install-size="0"
+         version="0.9.17"
+         unpack="false"/>
+
+   <plugin
+         id="javax.media.opengl2"
+         download-size="0"
+         install-size="0"
+         version="2.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,123 @@
+#ifndef rapid_ext_arc_WheelGroupSample_idl
+#define rapid_ext_arc_WheelGroupSample_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      //! The set of available control modes.
+      /** Not all motors support all control modes. */
+      enum CtrlMode { CTRL_POSITION, CTRL_TRAPECOID, CTRL_TRAJECTORY, CTRL_HOLD, CTRL_OFF };
+      //! Target positions can be specified absolute or relative.
+      enum PositionMode { POS_ABS, POS_REL, POS_NA };
+
+      struct  MotorProfile
+      {
+        //! Commanded control mode.
+        CtrlMode ctrlMode;
+        //! Positioning mode for CTRL_POSITION, CTRL_TRAPECOID, CTRL_TRAJECTORY modes.
+        /** Control modes, which don't specify position are supposed to set posMode to POS_NA. */
+        PositionMode posMode;
+
+        //! Target position.
+        /** Control modes, which don't specify position are supposed to set this field to NAN. */
+        double position;
+        //! Target or max speed.
+        /** Control modes, which don't specify speed are supposed to set this field to NAN. */
+        float speed;
+        //! Max acceleration.
+        /**
+         * This is an absolute value. It is assumed that the maximum decelleration is -acc.
+         * Control modes, which don't specify acceleration are supposed to set this field to NAN.
+         */
+        float acc;
+      };
+
+      struct MotorState
+      {
+        MotorProfile cmd;
+        
+        //! Current postition of the motor (in rad).
+        double position;
+        //! Current speed of the motor (in rad/s).
+        float speed;
+      };
+
+      typedef sequence<MotorState, 32> MotorStateSequence32;
+
+
+      valuetype WheelGroupSample : Message
+      {
+        //@copy-c-declaration typedef WheelGroupSample Type;
+
+        //! The expected time for reaching the target values in the motors[].state.cmd structs.
+        /** For cmdProfile commands, this is a rough estimate of the execution time.
+         * For cmdTrajectory commands, this is the time, by which the currently
+         * targeted trajectory sample will be reached. This is the time given as reference
+         * value (ref) when over-writing a trajectory command. */
+        public long long targetTime;
+
+        //! Curvature described by the wheel-group.
+        /** fabs(curvature) >= 1000 is considered a point-turn.
+         * NAN value describes unaligned wheels or unkown state.
+         */
+        public float curvature;
+        //! Curvature rate of the wheel-group.
+        /** NAN value describes unaligned wheels or unkown state.
+         */
+        public float curvatureRate;
+        //! Velocity of the wheel-group along the curvature.
+        /** Unit is m/s.
+         * For fabs(curvature) >= 1000 this value is undefined.
+         */
+        public float speed;
+        //! Crab-angle described by the wheel-group.
+        /** Angle is in radians.
+         * NAN value describes unaligned wheels or unkown state.
+         */
+        public float crabAngle;
+
+        //! Time-derivative of crabAngle;
+        public float crabRate;
+
+        //! Target curvature in rad.
+        /** Note: fabs(curvature) >= 1000 is considered a point-turn. */
+        public float targetCurvature;
+        //! Target curvature rate ins rad/s.
+        /** Unit: rad/s. */
+        public float targetCurvatureRate;
+        //! Target crab rate in rad/s.
+        public float targetCrabRate;
+        //! Target velocity along the curvature in m/s.
+        public float targetSpeed;
+        //! Target drive direction relative to primary vehicle axis.
+        public float targetCrabAngle;
+
+        
+        
+        //! State of the individual motors of the group.
+        public MotorStateSequence32 motors;
+        //! The status of the individual motors.
+        /** For regular status, this should be the same as status.
+         * Errors can be differentiated by motor.
+         * If empty, status is assumed identical for all motors.
+         */
+        public LongSequence32 motorStatus;
+
+        //! Current readings of the individual motors (amp).
+        /** Empty if not available. */
+        public FloatSequence32 currents;
+        //! Temperature readings of the individual motors (celsius).
+        /** Empty if not available. */
+        public FloatSequence32 temperatures;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_WheelGroupSample_idl

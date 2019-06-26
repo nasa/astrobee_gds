@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Verve 3D UI Plug-in
+Bundle-SymbolicName: gov.nasa.arc.verve.ui3d
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.ui3d.Ui3dActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.apache.log4j,
+ gov.nasa.arc.verve.common,
+ org.apache.commons.lang,
+ gov.nasa.arc.verve.common.ardor3d
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.verve.ui3d,
+ gov.nasa.arc.verve.ui3d.font,
+ gov.nasa.arc.verve.ui3d.hud,
+ gov.nasa.arc.verve.ui3d.hud.animation,
+ gov.nasa.arc.verve.ui3d.notify,
+ gov.nasa.arc.verve.ui3d.skin,
+ gov.nasa.arc.verve.ui3d.task,
+ gov.nasa.arc.verve.ui3d.widgets
+Bundle-Vendor: NASA IRG

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="lib" path="commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-animation-0.9-20121205.160201-17.jar" sourcepath="ardor3d-animation-0.9-20121205.160201-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-awt-0.9-20121205.155803-17.jar" sourcepath="ardor3d-awt-0.9-20121205.155803-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-collada-0.9-20121205.160305-17.jar" sourcepath="ardor3d-collada-0.9-20121205.160305-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-core-0.9-20121205.155301-17.jar" sourcepath="ardor3d-core-0.9-20121205.155301-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-effects-0.9-20121205.160048-17.jar" sourcepath="ardor3d-effects-0.9-20121205.160048-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-extras-0.9-20121205.155917-17.jar" sourcepath="ardor3d-extras-0.9-20121205.155917-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-jogl-0.9-20121205.155431-17.jar" sourcepath="ardor3d-jogl-0.9-20121205.155431-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-lwjgl-0.9-20121205.155605-17.jar" sourcepath="ardor3d-lwjgl-0.9-20121205.155605-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-swt-0.9-20121205.155707-17.jar" sourcepath="ardor3d-swt-0.9-20121205.155707-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-terrain-0.9-20121205.160654-17.jar" sourcepath="ardor3d-terrain-0.9-20121205.160654-17-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="ardor3d-ui-0.9-20121205.160516-17.jar" sourcepath="ardor3d-ui-0.9-20121205.160516-17-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

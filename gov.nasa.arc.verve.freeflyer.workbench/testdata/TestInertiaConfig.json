@@ -1,0 +1,15 @@
+{	
+	"inertiaConfigs" : [ {
+    	"name" : "UnloadedAstrobee",
+    	"mass" : 5.0,
+    	"matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ]
+  	}, {
+    	"name" : "OffbalanceAstrobee",
+    	"mass" : 7.2,
+    	"matrix" : [ 1.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.5, 0.5  ]
+  	}, {
+      	"name" : "Heavy",
+    	"mass" : 15.0,
+  	  	"matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0  ]
+ 	} ]
+}

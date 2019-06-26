@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_JTCH8EqJEeS1dtzzyUbHSg">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_L1e2kEqJEeS1dtzzyUbHSg" featurename="addons" parentElementId="gov.nasa.arc.ff.ocu.application">
+    <elements xsi:type="application:Addon" xmi:id="_D_ocwEsaEeScno_PtCrM0g" elementId="gov.nasa.ensemble.ui.databinding.e4.addon.0" contributionURI="bundleclass://gov.nasa.ensemble.ui.databinding.e4/gov.nasa.ensemble.ui.databinding.databinding.BoundWidgetFactory"/>
+  </fragments>
+</fragment:ModelFragments>

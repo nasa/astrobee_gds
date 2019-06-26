@@ -1,0 +1,84 @@
+#ifndef rapid_AgentConfig_idl
+#define rapid_AgentConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief Sends Agent-specific telemetry.
+ *
+ * \details AgentConfig sends out the list of telemetry to be reported in AgentState (name and type of data). Also holds list of
+ * extra topics if needed.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-c-declaration class AgentConfigTypeSupport;
+    //@copy-c-declaration class AgentConfigDataWriter;
+    //@copy-c-declaration class AgentConfigDataReader;
+    //@copy-c-declaration struct AgentConfigSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * AgentConfig
+    //@copy-declaration  */
+    valuetype AgentConfig : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef AgentConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef AgentConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef AgentConfigDataReader DataReader;
+        //@copy-c-declaration typedef AgentConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef AgentConfig Type;
+
+        //@copy-declaration /**
+        //@copy-declaration  * tags that describe the Agent
+        //@copy-declaration  */
+        public String16Sequence16 agentTags;
+
+        //@copy-declaration /**
+        //@copy-declaration  * List of topic names for messages from Agents that have multiple of a message type. 
+        //@copy-declaration  * The convention for topic naming is the base topic name, appended by a dash ("-")
+        //@copy-declaration  * and a descriptive lower-case string. For example, rapid_position_sample-right_end_effector
+        //@copy-declaration  */
+        public String128Sequence64 topics;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Agent-specific state information can be stored in this extras sequence. The Name and Type
+        //@copy-declaration  * information is stored in the KeyTypeSequence, and the AgentState message provides the values. The
+        //@copy-declaration  * key denotes the name of a piece of information, the type is the DataType of the information, and the
+        //@copy-declaration  * Value is the current value of the information upon start-up. This sequence has a counterpart in
+        //@copy-declaration  * AgentState, named 'values'.
+        //@copy-declaration  *
+        //@copy-declaration  * For example,
+        //@copy-declaration  *
+        //@copy-declaration  * <code>
+        //@copy-declaration  *   AgentConfig.valueKeys[0] = 'fooBar', BOOLEAN<br>
+        //@copy-declaration  *   AgentConfig.valueKeys[1] = 'driveFace', INT<br>
+        //@copy-declaration  *   AgentConfig.valueKeys[2] = 'fluxCapacitance', FLOAT<br>
+        //@copy-declaration  * </code>
+        //@copy-declaration  *
+        //@copy-declaration  * Updates are published as:
+        //@copy-declaration  *
+        //@copy-declaration  * <code>
+        //@copy-declaration  *   AgentState.values[0] = 'false'<br>
+        //@copy-declaration  *   AgentState.values[1] = '2'<br>
+        //@copy-declaration  *   AgentState.values[2] = '3.14159'<br>
+        //@copy-declaration  * </code>
+        //@copy-declaration  *
+        //@copy-declaration  * The value in the Sequence is the default value for that key.
+        //@copy-declaration  */
+        public KeyTypeValueSequence64 valueKeys;
+    };
+
+};
+
+#endif // rapid_AgentConfig_idl

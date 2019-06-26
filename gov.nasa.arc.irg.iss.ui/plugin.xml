@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Sample Perspective"
+            class="gov.nasa.arc.irg.iss.ui.perspective.SamplePerspective"
+            id="gov.nasa.arc.irg.iss.ui.perspective.SamplePerspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true"
+            name="Log"
+            icon="icons/log_16.png"
+            class="gov.nasa.arc.irg.iss.ui.view.log.DetachedLogView"
+            restorable="true"
+            id="gov.nasa.arc.irg.iss.ui.view.log.DetachedLogView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="gov.nasa.arc.irg.iss.ui.command.ExitHandler"
+            name="Exit"
+            description="Exit Workbench"
+            id="gov.nasa.arc.irg.iss.ui.exit">
+      </command>
+      <command
+            defaultHandler="org.eclipse.ui.internal.handlers.HelpContentsHandler"
+            name="Help"
+            description="View Help"
+            id="gov.nasa.arc.irg.iss.ui.help">
+      </command>
+      <command
+            defaultHandler="gov.nasa.arc.irg.iss.ui.command.ViewLogHandler"
+            name="Log"
+            description="View Log"
+            id="gov.nasa.arc.irg.iss.ui.commandLog">
+      </command>
+      <command
+            defaultHandler="gov.nasa.arc.irg.iss.ui.command.OpenSamplePerspectiveHandler"
+            name="Verify Connection"
+            id="gov.nasa.arc.irg.iss.ui.command.OpenSamplePerspectiveHandler">
+      </command>
+      <command
+            defaultHandler="gov.nasa.arc.irg.iss.ui.command.NetworkStatusHandler"
+            name="Network"
+            id="gov.nasa.arc.irg.iss.ui.command.NetworkStatusHandler">
+      </command>
+      <command
+            defaultHandler="gov.nasa.arc.irg.iss.ui.command.ResetPerspectiveHandler"
+            name="Restore Views"
+            id="gov.nasa.arc.irg.iss.ui.command.ResetPerspectiveHandler">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File"
+               mnemonic="F"
+               id="gov.nasa.arc.irg.iss.ui.file">
+            <command
+                  commandId="gov.nasa.arc.irg.iss.ui.exit"
+                  label="Exit"
+                  icon="icons/exit_24.png"
+                  style="push"
+                  mnemonic="x">
+            </command>
+         </menu>
+         <menu
+               label="Help"
+               mnemonic="H"
+               id="gov.nasa.arc.irg.iss.ui.help">
+            <command
+                  commandId="org.eclipse.ui.help.helpContents"
+                  label="Help"
+                  icon="icons/help_24.png"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.help.aboutAction"
+                  label="About"
+                  style="push"
+                  mnemonic="A">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="gov.nasa.arc.irg.iss.ui.exit"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+X">
+      </key>
+      <key
+            commandId="org.eclipse.ui.help.helpContents"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F1">
+      </key>
+      <key
+            commandId="org.eclipse.ui.help.aboutAction"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Alt+A">
+      </key>
+      <key
+            commandId="gov.nasa.arc.irg.iss.ui.commandLog"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Alt+L">
+      </key>
+      <key
+            commandId="gov.nasa.arc.irg.iss.ui.command.NetworkStatusHandler"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Alt+N">
+      </key>
+      <key
+            commandId="gov.nasa.arc.irg.iss.ui.command.ResetPerspectiveHandler"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+R">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.themes">
+      <themeElementCategory
+            label="ISS"
+            id="gov.nasa.arc.irg.iss.ui.themeCategory">
+         <description>
+         </description>
+      </themeElementCategory>
+      <theme
+            name="ISS Theme"
+            id="gov.nasa.arc.irg.iss.ui.theme">
+         <fontOverride
+               value="Sans serif-regular-10"
+               id="org.eclipse.jface.textfont">
+         </fontOverride>
+         <fontOverride
+               value="Sans serif-regular-10"
+               id="org.eclipse.jface.dialogfont">
+         </fontOverride>
+         <fontOverride
+               value="Sans serif-bold-12"
+               id="org.eclipse.jface.bannerfont">
+         </fontOverride>
+         <fontOverride
+               value="Sans serif-bold-12"
+               id="org.eclipse.jface.headerfont">
+         </fontOverride>
+      </theme>
+      <colorDefinition
+            label="Default Font Color"
+            categoryId="gov.nasa.arc.irg.iss.ui.themeCategory"
+            value="COLOR_BLACK"
+            id="gov.nasa.arc.irg.iss.ui.fontColor">
+         <description>
+         </description>
+      </colorDefinition>
+      <fontDefinition
+            label="Default ISS Font"
+            categoryId="gov.nasa.arc.irg.iss.ui.themeCategory"
+            value="Sans serif-regular-10"
+            id="gov.nasa.arc.irg.iss.ui.font">
+         <description>
+         </description>
+      </fontDefinition>
+   </extension>
+   <extension
+         id="gov.nasa.arc.irg.iss.ui.fragment"
+         point="org.eclipse.e4.workbench.model">
+      <fragment
+            uri="fragment.e4xmi">
+      </fragment>
+   </extension>
+
+</plugin>

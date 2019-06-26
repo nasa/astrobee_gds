@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>gov.nasa.arc.irg</groupId>
+  <artifactId>gov.nasa.arc.irg.util</artifactId>
+  <name>gov.nasa.arc.irg.util</name>
+  <description>Non UI utilities from NASA Ames IRG</description>
+  
+	<packaging>eclipse-plugin</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+				
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
+				</configuration>
+				<executions>
+		             <execution>
+		               <id>plugin-source</id>
+		               <goals>
+		                 <goal>plugin-source</goal>
+		               </goals>
+		             </execution>
+		        </executions>
+
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+	</build>
+</project>

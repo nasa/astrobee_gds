@@ -1,0 +1,115 @@
+#ifndef rapid_ext_NavMapSample_idl
+#define rapid_ext_NavMapSample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "NavMapConfig.idl"
+
+/**
+ * \file
+ *
+ * \brief Defines how a navigation map is sent using NavMapSample.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    module ext {
+
+        //@copy-declaration /**
+        //@copy-declaration  * Map layer data for data samples reduced to 8 bit values. Data structure holding a vector of data
+        //@copy-declaration  * points. To reduce footprint, the data is sent as 8 bit values (octet). The data-structure holds an
+        //@copy-declaration  * offset and a scaling factor, to restore the original data samples. e.g.
+        //@copy-declaration  * <code>
+        //@copy-declaration  * double value = data * scale + offset
+        //@copy-declaration  * </code>
+        //@copy-declaration  * The density parameter allows a layer to be of lower resolution than the map itself.
+        //@copy-declaration  */
+        struct OctetMapLayer {
+
+            //@copy-declaration /** Data value offset. */
+            double offset;
+
+            //@copy-declaration /** Data value scale. */
+            float scale;
+
+            //@copy-declaration /**
+            //@copy-declaration  * Sampling density. A full resolution layer has a density of 1, a half resolution layer has a
+            //@copy-declaration  * density of 2, etc. <i>Sampling density must be a power of 2</i>
+            //@copy-declaration  */
+            short density;
+
+            //@copy-declaration /** Vector of 8 bit data samples. */
+            OctetSequence128K data;
+        };
+    
+        //@copy-declaration /**
+        //@copy-declaration  * Map layer data for data samples reduced to 16 bit values. Data structure holding a vector of data
+        //@copy-declaration  * points. To reduce footprint, the data is sent as 16 bit values (short). The data-structure holds an
+        //@copy-declaration  * offset and a scaling factor, to restore the original data samples. e.g.
+        //@copy-declaration  * <code>
+        //@copy-declaration  * double value = data * scale + offset
+        //@copy-declaration  * </code>
+        //@copy-declaration  * The density parameter allows a layer to be of lower resolution than the map itself.
+        //@copy-declaration  */
+        struct ShortMapLayer {
+
+            //@copy-declaration /** Data value offset. */
+            double offset;
+
+            //@copy-declaration /** Data value scale. */
+            float scale;
+
+            //@copy-declaration /**
+            //@copy-declaration  * Sampling density. A full resolution layer has a density of 1, a half resolution (in both
+            //@copy-declaration  * dimensions) layer has a density of 2, etc. <i>Sampling density must be a power of 2</i>
+            //@copy-declaration  */
+            short density;
+
+            //@copy-declaration /** Vector of 16 bit data samples. */
+            ShortSequence128K data;
+        };
+        
+        
+        typedef sequence<ShortMapLayer,NAVMAP_NUM_SHORT_LAYERS> ShortMapLayerSequence;
+        typedef sequence<OctetMapLayer,NAVMAP_NUM_OCTET_LAYERS> OctetMapLayerSequence;
+        
+        //@copy-c-declaration class NavMapSampleTypeSupport;
+        //@copy-c-declaration class NavMapSampleDataWriter;
+        //@copy-c-declaration class NavMapSampleDataReader;
+        //@copy-c-declaration struct NavMapSampleSeq;
+    
+        //@copy-declaration /** 
+        //@copy-declaration  * Telemetry data structure for transfering maps.
+        //@copy-declaration  */
+        valuetype NavMapSample : Message {
+        
+            //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+            //@copy-c-declaration typedef NavMapSampleTypeSupport TypeSupport;
+            //@copy-c-declaration typedef NavMapSampleDataWriter DataWriter;
+            //@copy-c-declaration typedef NavMapSampleDataReader DataReader;
+            //@copy-c-declaration typedef NavMapSampleSeq Seq;
+            //@copy-c-declaration #endif
+            //@copy-c-declaration typedef NavMapSample Type;
+
+            //@copy-declaration /** The x,y integer tile idenitifier. */
+            public long tileId[2]; //@key
+    
+            //@copy-declaration /**
+            //@copy-declaration  * Location of the map in the reference frame. This is a 6 dof pose, so far all our mapping
+            //@copy-declaration  * algorithms only deal with rotations around the z-axis.
+            //@copy-declaration  */
+            public Transform3D location;
+    
+            public ShortMapLayerSequence shortLayers;
+            public OctetMapLayerSequence octetLayers;
+        };
+    };
+};
+
+#endif // rapid_ext_NavMapSample_idl

@@ -1,0 +1,36 @@
+#ifndef rapid_ext_arc_HydraConfig_idl
+#define rapid_ext_arc_HydraConfig_idl
+
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      //@copy-c-declaration class HydraConfigTypeSupport;
+      //@copy-c-declaration class HydraConfigDataWriter;
+      //@copy-c-declaration class HydraConfigDataReader;
+      //@copy-c-declaration struct HydraConfigSeq;
+      valuetype HydraConfig : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef HydraConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef HydraConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef HydraConfigDataReader DataReader;
+        //@copy-c-declaration typedef HydraConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef HydraConfig Type;
+
+        //@copy-declaration /** Specifies name of instrument */
+        public String32 name; 
+
+        //@copy-declaration /** Specifies any additional metaData */
+        public KeyTypeValueSequence32 valueKeys;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_HydraConfig_idl

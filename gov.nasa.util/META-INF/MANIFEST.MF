@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: NASA Util
+Bundle-SymbolicName: gov.nasa.util
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.util.NasaUtilActivator
+Bundle-Vendor: NASA
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.log4j;visibility:=reexport,
+ org.apache.commons.io;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.util

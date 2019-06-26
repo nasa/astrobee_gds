@@ -1,0 +1,57 @@
+#ifndef rapid_RapidConstants_idl
+#define rapid_RapidConstants_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Currently holds names of commonly used topics.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * A list of commonly used topic names. If an Agent has multiple of the same message type, the topics
+    //@copy-declaration  * should be named accordingly and listed in the AgentConfig topics. Custom topic names should
+    //@copy-declaration  * have the standard name as the root, separated from the specialization by the "-" character, e.g.
+    //@copy-declaration  * <code>rapid_position_sample-relative<code>
+    //@copy-declaration  */
+    const String64 ACK_TOPIC                  = "rapid_ack";
+    const String64 AGENT_CONFIG_TOPIC         = "rapid_agent_config";
+    const String64 AGENT_STATE_TOPIC          = "rapid_agent_state";
+    const String64 COMMAND_TOPIC              = "rapid_command";
+    const String64 COMMAND_CONFIG_TOPIC       = "rapid_command_config";
+    const String64 FILEANNOUNCE_TOPIC         = "rapid_fileannounce";
+    const String64 FILEQUEUE_COMMAND_TOPIC    = "rapid_filequeue_command";
+    const String64 FILEQUEUE_CONFIG_TOPIC     = "rapid_filequeue_config";
+    const String64 FILEQUEUE_SAMPLE_TOPIC     = "rapid_filequeue_sample";
+    const String64 FILEQUEUE_STATE_TOPIC      = "rapid_filequeue_state";
+    const String64 FILEQUEUEENTRY_STATE_TOPIC = "rapid_filequeueentry_state";
+    const String64 FILEQUEUEENTRY_STATE_RECEIVER_TOPIC = "rapid_filequeueentry_state_receiver";
+    const String64 FILEQUEUERECEIVER_SAMPLE_TOPIC = "rapid_filequeuereceiver_sample";
+    const String64 FRAMESTORE_CONFIG_TOPIC    = "rapid_framestore_config";
+    const String64 IMAGESENSOR_SAMPLE_TOPIC   = "rapid_imagesensor_sample";
+    const String64 IMAGESENSOR_STATE_TOPIC    = "rapid_imagesensor_state";
+    const String64 JOINT_CONFIG_TOPIC         = "rapid_joint_config";
+    const String64 JOINT_SAMPLE_TOPIC         = "rapid_joint_sample";
+    const String64 MACRO_CONFIG_TOPIC         = "rapid_macro_config";
+    const String64 MACRO_STATE_TOPIC          = "rapid_macro_state";
+    const String64 POINTCLOUD_CONFIG_TOPIC    = "rapid_pointcloud_config";
+    const String64 POINTCLOUD_SAMPLE_TOPIC    = "rapid_pointcloud_sample";
+    const String64 POSITION_CONFIG_TOPIC      = "rapid_position_config";
+    const String64 POSITION_SAMPLE_TOPIC      = "rapid_position_sample";
+    const String64 QUEUE_STATE_TOPIC          = "rapid_queue_state";
+    const String64 TEXTMESSAGE_TOPIC          = "rapid_textmessage";
+    const String64 ACCESSCONTROL_STATE_TOPIC  = "rapid_accesscontrol_state";
+
+};
+
+#endif // rapid_RapidConstants_idl

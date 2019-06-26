@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="gov.nasa.arc.verve.common.ardor3d.preferences.CameraPreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="gov.nasa.arc.verve.common.preferences.VervePreferencePage"
+            class="gov.nasa.arc.verve.common.ardor3d.preferences.CameraPreferencePage"
+            id="gov.nasa.arc.verve.ardor3d.preferences.CamerasPreferencePage"
+            name="Camera View">
+      </page>
+   </extension>
+   <extension
+         point="gov.nasa.arc.viz.io.ModelImporterFactory">
+      <importer
+            modelImporterFactory="gov.nasa.arc.verve.common.ardor3d.io.model.BinaryImporterFactory">
+         <fileExtension
+               extension="ardor3d">
+         </fileExtension>
+      </importer>
+   </extension>
+
+</plugin>

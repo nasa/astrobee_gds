@@ -1,0 +1,70 @@
+#ifndef rapid_ext_TrajectorySample_idl
+#define rapid_ext_TrajectorySample_idl
+
+/*
+ * Copyright (c) 2012 United States Government as represented by the 
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Sends information about the intended path of the robot.
+ *
+ * \ingroup idlfiles
+ */
+module rapid{
+  module ext{
+    //@copy /** 
+    //@copy  * SegmentType describes the type of segment that is being represented.
+    //@copy  */
+    enum SegmentType {
+      SEG_STRAIGHT, // straight line segment -- translation but no rotation; body heading keeps a constant angle with the line
+      SEG_ARC,      // circular arc -- body heading keeps a constant angle with tangent of the circle
+      SEG_POINTTURN, // pure turn -- rotation but no translation
+      SEG_CLOTHOID // for future expansion
+    };
+
+    //@copy /**
+    //@copy  * SingleSegment holds the info for an "atomic" segment.
+    //@copy  *  
+    //@copy  */
+    valuetype SingleSegment {
+      public SegmentType type;
+      public float distance;		// length of straight line, angle of arc or point turn in radians.
+      public float length;			// length of straight line or arc in meters; zero for point turn in radians.
+      public float angleOffset;		// angle (yaw) between motion path heading and robot orientation -- restricted to +/-pi -- generally zero when the robot is not crabbing
+      public Transform3D start;		// the anticipated robot state at the start of the segment
+      public Transform3D end;		// the anticipated robot state at the end of the segment
+      public float velocity;		// The expected cruise velocity during this segment: m/s for straight and arc, rad/s for point turns
+    };
+ 
+    typedef sequence<SingleSegment,32> SegmentSequence;
+
+    //@copy-c-declaration class TrajectorySampleTypeSupport;
+    //@copy-c-declaration class TrajectorySampleDataWriter;
+    //@copy-c-declaration class TrajectorySampleDataReader;
+    //@copy-c-declaration struct TrajectorySampleSeq;
+    //@copy /**
+    //@copy  * TrajectorySample is a message that holds the current sequence of geometric trajectory segments that the robot plans to follow.
+    //@copy  * The receiver will need to convert this to whatever form they need to identify potential collisions or to render it in a GUI
+    //@copy  */
+    valuetype TrajectorySample: Message {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef TrajectorySampleTypeSupport TypeSupport;
+      //@copy-c-declaration typedef TrajectorySampleDataWriter DataWriter;
+      //@copy-c-declaration typedef TrajectorySampleDataReader DataReader;
+      //@copy-c-declaration typedef TrajectorySampleSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef TrajectorySample Type;
+
+      public SegmentSequence geometricSegments;
+    };
+  };
+}; 
+
+#endif // rapid_ext_TrajectorySample_idl

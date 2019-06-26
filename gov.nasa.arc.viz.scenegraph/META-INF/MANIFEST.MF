@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Viz Scenegraph Plug-in
+Bundle-SymbolicName: gov.nasa.arc.viz.scenegraph
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.viz.scenegraph.ScenegraphActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ gov.nasa.arc.irg.util,
+ org.apache.log4j,
+ com.ardor3d;visibility:=reexport,
+ gov.nasa.util
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.viz.scenegraph,
+ gov.nasa.arc.viz.scenegraph.operation,
+ gov.nasa.arc.viz.scenegraph.task,
+ gov.nasa.arc.viz.scenegraph.visitor
+Bundle-Vendor: NASA IRG

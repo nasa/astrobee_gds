@@ -1,0 +1,10 @@
+source.. = src/
+output.. = bin/
+bin.includes = META-INF/,\
+               .,\
+               src/gov/nasa/arc/irg/util/log/defaultLog4j.properties,\
+               icons/,\
+               images/
+qualifier = context
+src.includes = images/,\
+               icons/

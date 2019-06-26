@@ -1,0 +1,65 @@
+#ifndef rapid_ext_Trajectory2DConfig_idl
+#define rapid_ext_Trajectory2DConfig_idl
+
+/*
+ * Copyright (c) 2012 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+module rapid
+{
+  module ext
+  {
+    //@copy-declaration /**
+    //@copy-declaration  * Specifies how to interpret the sequence of transforms
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>RTRANS2D_RELATIVE_TO_ORIGIN: transforms are all offsets from the origin
+    //@copy-declaration  *   <li>RTRANS2D_RELATIVE_TO_PREVIOUS: transform is relative to the previous transform; the first transform is relative to the origin 
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum RTrans2DInterpretation {
+      RTRANS2D_RELATIVE_TO_ORIGIN,
+      RTRANS2D_RELATIVE_TO_PREVIOUS
+    };
+    
+    //@copy-c-declaration class Trajectory2DConfigTypeSupport;
+    //@copy-c-declaration class Trajectory2DConfigDataWriter;
+    //@copy-c-declaration class Trajectory2DConfigDataReader;
+    //@copy-c-declaration struct Trajectory2DConfigSeq;
+
+    valuetype Trajectory2DConfig : Message
+    {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef Trajectory2DConfigTypeSupport TypeSupport;
+      //@copy-c-declaration typedef Trajectory2DConfigDataWriter DataWriter;
+      //@copy-c-declaration typedef Trajectory2DConfigDataReader DataReader;
+      //@copy-c-declaration typedef Trajectory2DConfigSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef Trajectory2DConfig Type;
+
+      //@copy-declaration /** Denotes the frame the pose is given in. This frame should exist in the frame store. */
+      public String128 referenceFrame;
+      
+      //@copy-declaration /** Interpretation of trajectory transforms - either relative to origin, or relative to previous */
+      public RTrans2DInterpretation trajectoryInterp;
+      
+      //@copy-declaration /** 
+      //@copy-declaration  * The sampling interval for the trajectory sequence in microsec. Typically 0.1s. 
+      //@copy-declaration  * If the trajectory is not time sampled, this field should be set to 0
+      //@copy-declaration  */
+      public long long samplingInterval;
+      
+      
+      //@copy-declaration /** 
+      //@copy-declaration  * keys describing the fields in the trajectory RTransMetaSequence
+      //@copy-declaration  */
+      public KeyTypeSequence4 trajectoryMetaKeys;
+    };
+  };
+};
+
+#endif // rapid_ext_Trajectory2DConfig_idl

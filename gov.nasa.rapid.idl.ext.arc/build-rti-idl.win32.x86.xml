@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<project xmlns:ac="antlib:net.sf.antcontrib" name="gov.nasa.rapid.idl.ext.arc" default="codegen" basedir=".">
+	
+	<!-- need this because ant isn't defaulting to version 1.7.x operations -->
+	<typedef uri="antlib:net.sf.antcontrib" classpath="${basedir}/../net.sf.antcontrib/ant-contrib-1.0b1.jar"/>
+	
+	<property environment="env"/>
+	<property file="build.properties"/>
+	<property name="ndds.resource.dir"	value="${rtiResourceDir.win32.x86}"/>
+	<property name="nddshome" 		 	value="${rtiNddsHome.win32.x86}"/>
+	<property name="ndds.class.dir"  	value="${rtiNddsClassDir.win32.x86}"/>
+	<property name="plugin.bin.dir"		value="${pluginBinDir}"/>
+	<property name="rti.java"           value="${rtiNddsJavaVM.win32.x86}"/>
+	<property name="java.home"          value="env.JAVA_HOME"/>
+	
+	<property name="jvm-option-resource-directory"  value="-DNDDS_RESOURCE_DIR=${ndds.resource.dir}"/>
+	<property name="jvm-option-ndds-directory"      value="-DNDDSHOME=${nddshome}"/>
+	<property name="rtiddsgen-jvm-options" 		    value="${jvm-option-ndds-directory} ${jvm-option-resource-directory}"/>
+	
+	<property name="rapid-idl-plugin"               value="gov.nasa.rapid.idl.dds"/>
+	<property name="source-rapid-directory"         value="${basedir}/../${rapid-idl-plugin}/${idl.source}/rapidDds"/>
+	<property name="source-local-directory"         value="${basedir}/${idl.source}/rapidExtArcDds"/>
+	<property name="generated-source-directory"     value="${basedir}/${idl.output}"/>
+	<property name="output-language"                value="${idl.output.language}"/>
+	
+	<property name="option-output-language"   		value="-language ${output-language}"/>
+	<!-- property name="option-package-name"        	value="-package gov.nasa.rapid.idl.dds"/ -->
+	<property name="option-package-name"        	value=""/>
+	<property name="option-overwrite-gen-src"		value="-replace"/>
+	<property name="option-rti-include-directory"	value="-I${source-rapid-directory} -I${source-local-directory}"/>
+	<property name="option-output-directory"  		value="-d ${generated-source-directory}"/>
+	<property name="rtiddsgen-options" 
+		value="${option-output-directory} ${option-output-language} ${option-package-name} ${option-rti-include-directory} ${option-overwrite-gen-src} ${rtiddsgen.options}"/>
+	
+	<!-- Everything is being done in ant task
+	<taskdef name="dds" classname="gov.nasa.rapid.dds.codegen.CodeGenTask" classpath="${plugin.bin.dir}:${ndds.class.dir}/rtiddsgen.jar" />
+	-->
+	
+	<target name="codegen" description="generate code from idl">
+		<antcall target="cleanup-old-src"/>
+		
+		<echo message="generating code.." />
+        <ac:for param="idl-file-to-generate">
+        	<path>
+            	<fileset dir="${source-local-directory}" includes="*.idl"/>
+            </path>
+            <sequential>
+				<antcall target="rtiddsgen">
+					<param name="idl-file" value="@{idl-file-to-generate}"/>
+				</antcall>
+            </sequential>
+        </ac:for>
+	</target>
+	
+	
+	<target name="cleanup-old-src">
+		<echo message="removing old generated source to eliminate confusion..."/>
+		<delete>
+			<fileset dir="${generated-source-directory}" includes="**/*.java"/>
+		</delete>
+	</target>
+			
+	<target name="rtiddsgen">
+		<echo message="generating code.. ${idl-file}"/>
+		
+		<!-- use rti specific JVM with inline args.. will get deprecated warnings -->
+		<java jvm="${rti.java}" 
+			  fork="true" 
+			  jar="${ndds.class.dir}/rtiddsgen.jar"
+			  jvmargs="${rtiddsgen-jvm-options}"
+			  args="${rtiddsgen-options} ${idl-file}">
+		 </java>		
+
+ 	</target>
+				
+</project>

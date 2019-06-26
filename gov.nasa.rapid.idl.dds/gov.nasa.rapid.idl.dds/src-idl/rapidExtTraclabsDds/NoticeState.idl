@@ -1,0 +1,56 @@
+#ifndef rapid_ext_traclabs_NoticeState_idl
+#define rapid_ext_traclabs_NoticeState_idl
+
+#include "NoticeTypes.idl"
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module traclabs
+    {
+      
+      typedef sequence<ModalityType,8> ModalityTypes;
+
+      //@copy /**
+      //@copy  * NoticeState represents the current state of 
+      //@copy  * of all published notice items. The data type is keyed
+      //@copy  * on itemId, so each notice item represents a separate instance. 
+      //@copy  */
+      valuetype NoticeState : Message {
+        //@copy-c-declaration typedef NoticeState Type;
+
+
+        //@copy /** what notice relates to (ie. ESTOP) */
+        public String16  itemId; //@key
+        //@copy /** unique for each notice */
+        public String16  noticeId;  
+
+        public LatencyType          latency;
+        public FocusOfAttentionType foa;
+        public ModalityTypes        modalities;
+        //@copy /** how long notice should remain active, in seconds */
+        public long                 timeout;
+	
+        //@copy /** acknowledgement state of notice */
+        public NoticeAckState       ackState;
+        //@copy /** 
+        //@copy  * If DONTCARE, string is empty
+        //@copy  * If UNACKNOWLEDGED, id of who should acknowledge notice. 
+        //@copy  * If ACKNOWLEDGED, id of who acknowledged notice
+        //@copy  */
+        public String64             ackTarget;
+	
+        public String64             subject;
+        public String128            body;
+        
+        //@copy /** extension data */  
+        public ValueSequence16      values;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_traclabs_NoticeState_idl

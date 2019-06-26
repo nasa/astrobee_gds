@@ -1,0 +1,43 @@
+/*
+ * Copyright 2015 (c) 2015 Intelligent Robotics Group, NASA ARC
+ */
+
+#include "BaseTypes.idl"
+
+module rapid {
+  module ext {
+    module astrobee {
+
+      //@copy-declaration /**
+      //@copy-declaration  * A list of commonly used topic names. If an Agent has multiple of the same message type, the topics
+      //@copy-declaration  * should be named accordingly and listed in the AgentConfig topics. Custom topic names should
+      //@copy-declaration  * have the standard name as the root, separated from the specialization by the "-" character, e.g.
+      //@copy-declaration  * <code>rapid_position_sample-relative<code>
+      //@copy-declaration  */
+
+      const String64 AGENT_STATE_TOPIC = "astrobee_agent_state";
+      const String64 ARM_GRIPPER_TOPIC = "astrobee_arm_gripper_state";
+      const String64 ARM_MOBILITY_TOPIC = "astrobee_arm_mobility_state";
+      const String64 ARM_STATE_TOPIC = "astrobee_arm_state";
+      const String64 COMMAND_STATUS_TOPIC = "astrobee_command_status_sequence";
+      const String64 COMM_STATE_TOPIC = "astrobee_comm_state";
+      const String64 COMPONENT_CONFIG_TOPIC = "component_config_topic";
+      const String64 COMPONENT_STATE_TOPIC = "component_state_topic";
+      const String64 COMPRESSED_FILE_TOPIC = "astrobee_compressed_file";
+      const String64 DATA_TO_DISK_FILE_TOPIC = "astrobee_data_to_disk_file";
+      const String64 DISK_CONFIG_TOPIC = "disk_config_topic";
+      const String64 DISK_STATE_TOPIC = "disk_state_topic";
+      const String64 EPS_CONFIG_TOPIC = "astrobee_eps_config";
+      const String64 EPS_STATE_TOPIC = "astrobee_eps_state";
+      const String64 EXECUTION_TOPIC = "astrobee_execution_state";
+      const String64 FAULT_STATE_TOPIC = "astrobee_fault_state";
+      const String64 FAULT_TOPIC = "astrobee_fault";
+      const String64 MOBILITY_TOPIC = "astrobee_mobility_state";
+      const String64 OPERATING_TOPIC = "astrobee_compressed_file";
+      const String64 PLAN_STATUS_TOPIC = "astrobee_plan_status";
+      const String64 TELEMETRY_STATE_TOPIC = "astrobee_telemetry_state";
+      const String64 TELEMETRY_CONFIG_TOPIC = "astrobee_telemetry_config";
+
+    };
+  };
+};

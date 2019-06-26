@@ -1,0 +1,74 @@
+#ifndef rapid_FrameStoreConfig_idl
+#define rapid_FrameStoreConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief See FrameStore documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** Frame Definition */
+    struct FrameDef {
+
+        //@copy-declaration /** The name of the frame. */
+        String32 name;
+        
+        //@copy-declaration /**
+        //@copy-declaration  * The name of the parent frame. This can contain a (partial) path to ensure uniqueness. An empty
+        //@copy-declaration  * parent name denotes a root frame. The C++ implementation will always put the fully qualified path in
+        //@copy-declaration  * there for starters.
+        //@copy-declaration  */
+        String256 parent;
+        
+        //@copy-declaration /**
+        //@copy-declaration  * The coordinate frame transform. For frames updated by telemetry (...Sample messages), this does not
+        //@copy-declaration  * change with updates of the acutal value, but only contains the start configuration.
+        //@copy-declaration  */
+        Transform3D transform;
+        
+        //@copy-declaration /** Sequence of extra values stored with the frame, such as lat/lon for UTM-grid frames. */
+        KeyTypeValueSequence8 extras;
+    };
+
+    //@copy-declaration /**
+    //@copy-declaration  * A sequence of frame definitions. The frames are presented in depth-first pre-order. That is, any parent
+    //@copy-declaration  * field of a FrameDefSequence entry denotes a frame with a smaller index in the sequence than the entry
+    //@copy-declaration  * has.
+    //@copy-declaration  */
+    typedef sequence<FrameDef, 256> FrameDefSequence;
+
+    //@copy-c-declaration class FrameStoreConfigTypeSupport;
+    //@copy-c-declaration class FrameStoreConfigDataWriter;
+    //@copy-c-declaration class FrameStoreConfigDataReader;
+    //@copy-c-declaration struct FrameStoreConfigSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * FrameConfig
+    //@copy-declaration  */
+    valuetype FrameStoreConfig : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FrameStoreConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FrameStoreConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef FrameStoreConfigDataReader DataReader;
+        //@copy-c-declaration typedef FrameStoreConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FrameStoreConfig Type;
+
+        public FrameDefSequence frames;
+    };
+
+};
+
+#endif // rapid_FrameStoreConfig_idl

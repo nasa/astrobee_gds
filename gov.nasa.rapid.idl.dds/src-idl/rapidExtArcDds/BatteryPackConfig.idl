@@ -1,0 +1,35 @@
+#ifndef rapid_BatteryPackConfig_idl
+#define rapid_BatteryPackConfig_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+
+    //@copy-c-declaration class BatteryPackConfigTypeSupport;
+    //@copy-c-declaration class BatteryPackConfigDataWriter;
+    //@copy-c-declaration class BatteryPackConfigDataReader;
+    //@copy-c-declaration struct BatteryPackConfigSeq;
+
+      valuetype BatteryPackConfig : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef BatteryPackConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef BatteryPackConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef BatteryPackConfigDataReader DataReader;
+        //@copy-c-declaration typedef BatteryPackConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef BatteryPackConfig Type;
+
+        public String32Sequence16 controllerNames;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_BatteryPackConfig_idl

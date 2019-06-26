@@ -1,0 +1,53 @@
+#ifndef rapid_Header_idl
+#define rapid_Header_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Header to the Message IDL.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** Header of all messages. */
+    struct Header {
+
+        //@copy-declaration /** Source name of the message. This is a key for filtering in DDS. */
+        String32 srcName; //@key
+        
+        //@copy-declaration /**
+        //@copy-declaration  * Agent to which this message is being sent or from which this message was sent. This is also a key
+        //@copy-declaration  * for filtering in DDS.
+        //@copy-declaration  */
+        String32 assetName; //@key
+        
+        //@copy-declaration /** 
+        //@copy-declaration  * Timestamp is the number of microseconds elapsed since midnight proleptic 
+        //@copy-declaration  * Coordinated Universal Time (UTC) of January 1, 1970, not counting leap seconds 
+        //@copy-declaration  */
+        long long timeStamp;
+        
+        //@copy-declaration /**
+        //@copy-declaration  * If statusCode >= 0, then all is well. If statusCode < 0, there is some sort of error.
+        //@copy-declaration  * Each status shall have its own convention for error codes.
+        //@copy-declaration  */
+        long statusCode;
+         
+        //@copy-declaration /**
+        //@copy-declaration  * Serial denotes a config/state pair (i.e. the code in a config header should match the code in the
+        //@copy-declaration  * corresponding state header).
+        //@copy-declaration  */
+        long serial;
+    };
+};
+
+#endif // rapid_Header_idl

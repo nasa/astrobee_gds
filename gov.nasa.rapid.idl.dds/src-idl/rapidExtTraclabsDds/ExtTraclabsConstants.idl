@@ -1,0 +1,27 @@
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Currently holds names of commonly used topics for the ext::traclabs namespace
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+  module ext {
+    module traclabs {
+
+      //@copy-declaration /**
+      //@copy-declaration  * A list of commonly used topic names. 
+      //@copy-declaration  * Custom topic names should
+      //@copy-declaration  * have the standard name as the root, separated from the specialization by the "-" character, e.g.
+      //@copy-declaration  * <code>rapid_position_sample-relative<code>
+      //@copy-declaration  */
+      const String64 NOTICE_CONFIG_TOPIC = "traclabs_notice_config";
+      const String64 NOTICE_STATE_TOPIC  = "traclabs_notice_state";
+      const String64 NOTICE_ACK_TOPIC    = "traclabs_notice_ack";
+      
+    };
+  };    
+};
+

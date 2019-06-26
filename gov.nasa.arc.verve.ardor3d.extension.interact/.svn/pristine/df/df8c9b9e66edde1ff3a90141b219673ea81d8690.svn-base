@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: VERVE Ardor3d Interact PLUGIN
+Bundle-SymbolicName: gov.nasa.arc.verve.ardor3d.extension.interact
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.ardor3d;bundle-version="0.9.17"
+Export-Package: gov.nasa.arc.verve.ardor3d.extension.interact,
+ gov.nasa.arc.verve.ardor3d.extension.interact.data,
+ gov.nasa.arc.verve.ardor3d.extension.interact.filter,
+ gov.nasa.arc.verve.ardor3d.extension.interact.widget

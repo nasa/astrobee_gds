@@ -1,0 +1,386 @@
+#ifndef rapid_CommandConstants_idl
+#define rapid_CommandConstants_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the 
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief CommandConstants holds parameter lists for common commands.
+ *
+ * \details Command is sent by a remote application to command an Agent. CommandConfig sends a list of commands that are supported
+ * by the sending Agent, which are encapsulated in a CommandDef struct. The parameters listed for each of these common commands are
+ * guaranteed to be used by an Agent that lists the command in its CommandConfig.
+ *
+ * Access Control parameters provide a method of transferring control between remote operators. AccessControlState is used to send
+ * the current controller and list of requestors. AccessControlConstants provides static values used in the state.
+ *
+ * \ingroup idlfiles
+ */ 
+module rapid {
+
+    //   For a sample command, define the command key:
+    //
+    //     const String32 COMMAND = "Command";
+    //
+    //   Next, define a method on the command:
+    //
+    //     const String32 COMMAND_METHOD_FOO = "foo";
+    //
+    //   Finally, define method parameters:
+    //
+    //     const String32 COMMMAND_METHOD_FOO_PARAM_BAR = "fooParam1";
+    //     const String32 COMMMAND_METHOD_FOO_DTYPE_BAR = RAPID_FLOAT;
+
+    //@copy-declaration /**
+    //@copy-declaration  * The commands in the Admin Command Group provide high-level test functions and control parameters.
+    //@copy-declaration  * 
+    //@copy-declaration  * The Admin Command Group contains the following commands:
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>echo: Echo the parameter text.
+    //@copy-declaration  *   <li>shutdown: Terminate the bridge.
+    //@copy-declaration  *   <li>noOp: No operation command.
+    //@copy-declaration  *   <li>setPositionSamplePublishRate: Publish Agent pose at given rate.
+    //@copy-declaration  *   <li>positionSamplePublishRate: Get Agent pose publication rate.
+    //@copy-declaration  *   <li>setJointSamplePublishRate: Publish Agent articulation at given rate.
+    //@copy-declaration  *   <li>jointSampleRate: Get Agent articulation publication rate.
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    const String32 ADMIN = "Admin"; 
+
+    //@copy-declaration /**  Echos the parameter text. */
+    const String32 ADMIN_METHOD_ECHO = "echo"; 
+
+    //@copy-declaration /** Key for parameter used in reply by bridge. */
+    const String32 ADMIN_METHOD_ECHO_PARAM_ECHOTEXT = "echoText"; 
+    const DataType ADMIN_METHOD_ECHO_DTYPE_ECHOTEXT = RAPID_STRING;
+    
+    //@copy-declaration /** Terminate the bridge. */
+    const String32 ADMIN_METHOD_SHUTDOWN = "shutdown"; 
+
+    //@copy-declaration /** No operation command. */
+    const String32 ADMIN_METHOD_NOOP = "noOp";
+
+    //@copy-declaration /** Publish Agent pose at given rate. */
+    const String32 ADMIN_METHOD_SETPOSITIONSAMPLEPUBLISHRATE = "setPositionSamplePublishRate"; 
+
+    //@copy-declaration /** In Hz. */
+    const String32 ADMIN_METHOD_SETPOSITIONSAMPLEPUBLISHRATE_PARAM_POSERATE = "positionSamplePublishRate";
+
+    //@copy-declaration /** Publish Agent articulation at given rate. */
+    const DataType ADMIN_METHOD_SETPOSITIONSAMPLEPUBLISHRATE_DTYPE_POSERATE = RAPID_FLOAT;
+
+    //@copy-declaration /** Publish Agent articulation at given rate. */
+    const String32 ADMIN_METHOD_SETJOINTSAMPLEPUBLISHRATE = "setJointSamplePublishRate";
+
+    //@copy-declaration /** Publish Agent articulation at given rate. */
+    const String32 ADMIN_METHOD_SETJOINTSAMPLEPUBLISHRATE_PARAM_JOINTSAMPLERATE = "jointSampleRate";
+
+    //@copy-declaration /** Publish Agent articulation at given rate. */
+    const DataType ADMIN_METHOD_SETJOINTSAMPLEPUBLISHRATE_DTYPE_JOINTSAMPLERATE = RAPID_FLOAT; 
+
+    //@copy-declaration /**
+    //@copy-declaration  * The commands in the ImageSensor Command Group are used to capture images from Agent-mounted cameras.
+    //@copy-declaration  * 
+    //@copy-declaration  * The ImageSensor Command Group contains the following commands:
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>reqSensorState:
+    //@copy-declaration  *   <li>imageAcquire:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    const String32 IMAGESENSOR = "ImageSensor";
+
+    //@copy-declaration /** ImageSensorState message. */
+    const String32 IMAGESENSOR_METHOD_REQSENSORSTATE = "reqSensorState";
+
+    //@copy-declaration /** Message. */
+    const String32 IMAGESENSOR_METHOD_REQSENSORSTATE_PARAM_SENSORNAME = "sensorName";
+    
+    //@copy-declaration /** Message. */
+    const DataType IMAGESENSOR_METHOD_REQSENSORSTATE_DTYPE_SENSORNAME = RAPID_STRING;
+
+    //@copy-declaration /** Send image acquire command with this command, the ImageCommand attribute will be populated. */
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE = "imageAcquire";
+
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_CAMERA_NAME = "cameraName";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_CAMERA_NAME = RAPID_STRING;
+
+    //@copy-declaration /** IMAGESENSOR_CAMERA_TYPE_xxx. */
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_CAMERA_TYPE = "cameraType";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_CAMERA_TYPE = RAPID_STRING;
+
+    //@copy-declaration /** MIMETypeConstants. */
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_CAMERA_MIME_TYPE = "mimeType";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_CAMERA_MIME_TYPE = RAPID_STRING;
+
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_PAN = "pan";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_PAN = RAPID_FLOAT;
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_TILT = "tilt";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_TILT = RAPID_FLOAT;
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_ZOOM = "zoom";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_ZOOM = RAPID_FLOAT;
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_HFOV = "hFOV";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_HFOV = RAPID_FLOAT;
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_VFOV = "vFOV";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_VFOV = RAPID_FLOAT;
+
+    //@copy-declaration /** IMAGESENSOR_COLOR_TYPE_XXX */
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_COLORTYPE = "colorType";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_COLORTYPE = RAPID_STRING;
+
+    //@copy-declaration /** IMAGESENSOR_CAPTURE_XXX */
+    const String32 IMAGESENSOR_METHOD_IMAGEACQUIRE_PARAM_CAPTURE = "captureType";
+    const DataType IMAGESENSOR_METHOD_IMAGEACQUIRE_DTYPE_CAPTURE = RAPID_STRING;
+
+    const String32 IMAGESENSOR_COLOR_TYPE_COLOR     = "color";
+    const String32 IMAGESENSOR_COLOR_TYPE_GRAYSCALE = "grayscale";
+    
+    const String32 IMAGESENSOR_CAPTURE_STREAMING   = "streaming";
+    const String32 IMAGESENSOR_CAPTURE_SINGLE_SHOT = "singleImage";
+    const String32 IMAGESENSOR_CAPTURE_MULTI_SHOT  = "multiImage";
+                                                                     
+    const String32 IMAGESENSOR_CAMERA_TYPE_WEBCAM   = "webcam";
+    const String32 IMAGESENSOR_CAMERA_TYPE_DSLR     = "dslr";
+    const String32 IMAGESENSOR_CAMERA_TYPE_GIGAPAN  = "gigapan";
+
+    //@copy-declaration /**
+    //@copy-declaration  * The commands in the Mobility Command Group controls the motion of navigable rovers over a surface.
+    //@copy-declaration  * 
+    //@copy-declaration  * The Mobility Command Group contains the following commands:
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>simpleMove:
+    //@copy-declaration  *   <li>simpleMove6DOF:
+    //@copy-declaration  *   <li>move:
+    //@copy-declaration  *   <li>move6DOF
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    const String32 MOBILITY = "Mobility";
+
+    //@copy-declaration /** Stops all motion of the Agent, joints, wheels, etc. */
+    const String32 MOBILITY_METHOD_STOPALLMOTION = "stopAllMotion";
+
+    const String32 MOBILITY_METHOD_SIMPLEMOVE = "simpleMove";
+    const String32 MOBILITY_METHOD_SIMPLEMOVE_PARAM_FRAME_NAME   = "referenceFrame";
+    const DataType MOBILITY_METHOD_SIMPLEMOVE_DTYPE_FRAME_NAME   = RAPID_STRING;
+    const String32 MOBILITY_METHOD_SIMPLEMOVE_PARAM_END_LOCATION = "xyt";
+    const DataType MOBILITY_METHOD_SIMPLEMOVE_DTYPE_END_LOCATION = RAPID_VEC3d;
+    const String32 MOBILITY_METHOD_SIMPLEMOVE_PARAM_END_LOCATION_TOLERANCE = "xytTolerance";
+    const DataType MOBILITY_METHOD_SIMPLEMOVE_DTYPE_END_LOCATION_TOLERANCE = RAPID_VEC3d;
+
+    const String32 MOBILITY_METHOD_SIMPLEMOVE6DOF = "simpleMove6DOF";
+    const String32 MOBILITY_METHOD_SIMPLEMOVE6DOF_PARAM_FRAME_NAME   = "referenceFrame";
+    const DataType MOBILITY_METHOD_SIMPLEMOVE6DOF_DTYPE_FRAME_NAME   = RAPID_STRING;
+    const String32 MOBILITY_METHOD_SIMPLEMOVE6DOF_PARAM_END_LOCATION = "xyz";
+    const DataType MOBILITY_METHOD_SIMPLEMOVE6DOF_DTYPE_END_LOCATION = RAPID_VEC3d;
+    const String32 MOBILITY_METHOD_SIMPLEMOVE6DOF_PARAM_END_LOCATION_TOLERANCE = "xyzTolerance";
+    const DataType MOBILITY_METHOD_SIMPLEMOVE6DOF_DTYPE_END_LOCATION_TOLERANCE = RAPID_VEC3d;
+    const String32 MOBILITY_METHOD_SIMPLEMOVE6DOF_PARAM_ROT = "rot"; 
+    const DataType MOBILITY_METHOD_SIMPLEMOVE6DOF_DTYPE_ROT = RAPID_MAT33f;    
+
+    const String32 MOBILITY_METHOD_MOVE = "move";
+
+    const String32 MOBILITY_METHOD_MOVE_PARAM_FRAME_NAME = "referenceFrame";
+    const DataType MOBILITY_METHOD_MOVE_DTYPE_FRAME_NAME = RAPID_STRING;
+
+    //@copy-declaration /**  Can be defined as a rotation about an axis. */
+    const String32 MOBILITY_METHOD_MOVE_PARAM_END_LOCATION = "xyt";
+    const DataType MOBILITY_METHOD_MOVE_DTYPE_END_LOCATION = RAPID_VEC3d;
+
+    //@copy-declaration /**
+    //@copy-declaration  * The x,y,theta tolerance for waypoint. Theta is specified in radians. For a non-directional waypoint, use
+    //@copy-declaration  * negative or > PI value.
+    //@copy-declaration  */
+    const String32 MOBILITY_METHOD_MOVE_PARAM_END_LOCATION_TOLERANCE = "xytTolerance"; 
+    const DataType MOBILITY_METHOD_MOVE_DTYPE_END_LOCATION_TOLERANCE = RAPID_VEC3d;
+
+    //@copy-declaration /** In meters/sec. */
+    const String32 MOBILITY_METHOD_MOVE_PARAM_HINTED_SPEED = "hintedSpeed";
+    const DataType MOBILITY_METHOD_MOVE_DTYPE_HINTED_SPEED = RAPID_FLOAT;
+
+    const String32 MOBILITY_METHOD_MOVE_PARAM_NAV_ALGO     = "navAlgo";
+    const DataType MOBILITY_METHOD_MOVE_DTYPE_NAV_ALGO     = RAPID_STRING;
+    
+    const String32 MOBILITY_METHOD_MOVE6DOF = "move6DOF";
+    const String32 MOBILITY_METHOD_MOVE6DOF_PARAM_FRAME_NAME   = "referenceFrame";
+    const DataType MOBILITY_METHOD_MOVE6DOF_DTYPE_FRAME_NAME   = RAPID_STRING;
+    const String32 MOBILITY_METHOD_MOVE6DOF_PARAM_END_LOCATION = "xyz";
+    const DataType MOBILITY_METHOD_MOVE6DOF_DTYPE_END_LOCATION = RAPID_VEC3d;
+    const String32 MOBILITY_METHOD_MOVE6DOF_PARAM_END_LOCATION_TOLERANCE = "xyzTolerance";
+    const DataType MOBILITY_METHOD_MOVE6DOF_DTYPE_END_LOCATION_TOLERANCE = RAPID_VEC3d;
+    const String32 MOBILITY_METHOD_MOVE6DOF_PARAM_ROT          = "rot"; 
+    const DataType MOBILITY_METHOD_MOVE6DOF_DTYPE_ROT          = RAPID_MAT33f;    
+
+    //@copy-declaration /**  In meters/sec. */
+    const String32 MOBILITY_METHOD_MOVE6DOF_PARAM_HINTED_SPEED = "hintedSpeed";
+    const DataType MOBILITY_METHOD_MOVE6DOF_DTYPE_HINTED_SPEED = RAPID_FLOAT;
+    const String32 MOBILITY_METHOD_MOVE6DOF_PARAM_NAV_ALGO     = "navAlgo";
+    const DataType MOBILITY_METHOD_MOVE6DOF_DTYPE_NAV_ALGO     = RAPID_STRING;
+    
+    //@copy-declaration /** Navigation Algorithm for MobilityCommand. */
+    const String32 NAV_ALGO_SAFE  = "RAPID_NAV_SAFE";
+    const String32 NAV_ALGO_BLIND = "RAPID_NAV_BLIND";
+
+    //@copy-declaration /** Frame information for MobilityCommand and CameraCommand. */
+    const String32 FRAME_NAME_UTM    = "RAPID_UTM_FRAME";
+    const String32 FRAME_NAME_SITE   = "RAPID_SITE_FRAME";
+    const String32 FRAME_NAME_ROVER  = "RAPID_ROVER_FRAME";
+
+    //@copy-declaration /**
+    //@copy-declaration  * The commands in the Queue command group control task execution within the Sequencer.
+    //@copy-declaration  * 
+    //@copy-declaration  * The Queue Command Group contains the following commands:
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>cancelCurrentTask:
+    //@copy-declaration  *   <li>cancelAll:
+    //@copy-declaration  *   <li>deleteAll:
+    //@copy-declaration  *   <li>suspendOnCompletion:
+    //@copy-declaration  *   <li>suspend:
+    //@copy-declaration  *   <li>resume:
+    //@copy-declaration  *   <li>loadMacro:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    const String32 QUEUE = "Queue";
+    
+    //@copy-declaration /** Abort all active commands (as possible). */
+    const String32 QUEUE_METHOD_CANCELCURRENTTASK = "cancelCurrentTask";
+    
+    //@copy-declaration /** Mark all commands as canceled. */
+    const String32 QUEUE_METHOD_CANCELALL = "cancelAll";
+    
+    //@copy-declaration /** Clear all commands. */
+    const String32 QUEUE_METHOD_DELETEALL = "deleteAll";
+
+    //@copy-declaration /** Complete currently executed command and suspend queue execution. */
+    const String32 QUEUE_METHOD_SUSPENDONCOMPLETE = "suspendOnCompletion";
+
+    //@copy-declaration /** Abort currently executed command (if possible) and suspend queue execution. */
+    const String32 QUEUE_METHOD_SUSPEND = "suspend";
+
+    //@copy-declaration /** Resume queue execution. */
+    const String32 QUEUE_METHOD_RESUME = "resume";
+    
+    //@copy-declaration /** Load the macro with the specified name and version number. */
+    const String32 QUEUE_METHOD_LOADMACRO = "loadMacro";    
+
+    //@copy-declaration /** Queue paramter: macroName key field name */
+    const String32 QUEUE_METHOD_LOADMACRO_PARAM_NAME    = "name"; 
+    const DataType QUEUE_METHOD_LOADMACRO_DTYPE_NAME    = RAPID_STRING;
+    const String32 QUEUE_METHOD_LOADMACRO_PARAM_VERSION = "serial"; 
+    const DataType QUEUE_METHOD_LOADMACRO_DTYPE_VERSION = RAPID_INT;
+
+    //@copy-declaration /** Delete the macro with the specified name from the Macro library (not the Queue). */
+    const String32 QUEUE_METHOD_DELETEMACRO = "deleteMacro";    
+
+    const String32 QUEUE_METHOD_DELETEMACRO_PARAM_NAME    = "name"; 
+    const DataType QUEUE_METHOD_DELETEMACRO_DTYPE_NAME    = RAPID_STRING;
+
+    //@copy-declaration /** Mark a command as canceled (moving it to the completed queue). */
+    const DataType QUEUE_METHOD_DTYPE_CMDID = RAPID_STRING; 
+    const String32 QUEUE_METHOD_CANCELCOMMAND = "cancelCommand";
+    const String32 QUEUE_METHOD_CANCELCOMMAND_PARAM_CMDID = "cmdId";
+    //@copy-declaration /** To come. */
+    const String32 QUEUE_METHOD_REQUEUE = "requeue";
+    const String32 QUEUE_METHOD_REQUEUE_PARAM_CMDID = "cmdId";
+    const String32 QUEUE_METHOD_REQUEUE_PARAM_TARGETCMDID = "targetCmdId";
+    
+
+
+    //@copy-declaration /**
+    //@copy-declaration  * The commands in the AccessControl command group govern transfer of control of agents between operators.
+    //@copy-declaration  * 
+    //@copy-declaration  * The AccessControl Command Group contains the following commands:
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>requestControl:
+    //@copy-declaration  *   <li>grabControl:
+    //@copy-declaration  *   <li>releaseControl:
+    //@copy-declaration  *   <li>transferControl:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    const String32 ACCESSCONTROL = "AccessControl";
+
+    //@copy-declaration /** AccessControl method type for requesting control of an Agent. */
+    const String32 ACCESSCONTROL_METHOD_REQUESTCONTROL = "requestControl";
+
+    //@copy-declaration /** AccessControl method type for grabbing control of an Agent. */
+    const String32 ACCESSCONTROL_METHOD_GRABCONTROL = "grabControl";
+
+    //@copy-declaration /** AccessControl method type for release control of an Agent. */
+    const String32 ACCESSCONTROL_METHOD_RELEASECONTROL = "releaseControl";
+
+    //@copy-declaration /** AccessControl method type for transferring control of an Agent.*/
+    const String32 ACCESSCONTROL_METHOD_TRANSFERCONTROL = "transferControl";
+
+    const String32 ACCESSCONTROL_METHOD_TRANSFERCONTROL_PARAM_RECIPIENT = "controlRecipient";
+
+    const DataType ACCESSCONTROL_METHOD_TRANSFERCONTROL_DTYPE_RECIPIENT = RAPID_STRING;
+
+    //@copy-declaration /**  
+    //@copy-declaration  *  RAFT: RAPID Advanced File Transfer subsystem.  
+    //@copy-declaration  *  
+    //@copy-declaration  * The RAFT Command Group contains the following commands:
+    //@copy-declaration  * 
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>putFile:
+    //@copy-declaration  *   <li>putMatching:
+    //@copy-declaration  *   <li>removeFile:
+    //@copy-declaration  *   <li>pause:
+    //@copy-declaration  *   <li>resume:
+    //@copy-declaration  *   <li>setBandwidth:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  * 
+    //@copy-declaration  */
+    const String32 RAFT = "RAFT"; 
+
+    //@copy-declaration /** RAFT paramter: Uuid of file. */
+    const String32 RAFT_METHOD_PARAM_UUID = "uuid"; 
+    const DataType RAFT_METHOD_DTYPE_UUID = RAPID_STRING;
+    
+    //@copy-declaration /** RAFT paramter: Priority of file. */
+    const String32 RAFT_METHOD_PARAM_PRIORITY = "priority"; 
+    const DataType RAFT_METHOD_DTYPE_PRIORITY = RAPID_FLOAT;
+
+    //@copy-declaration /** RAFT paramter: metaData key field name */
+    const String32 RAFT_METHOD_PARAM_KEY = "key"; 
+    const DataType RAFT_METHOD_DTYPE_KEY = RAPID_STRING;
+
+    //@copy-declaration /** RAFT paramter: value of the metaData key field. For now, only stings are supported. */
+    const String32 RAFT_METHOD_PARAM_VALUE = "value"; 
+    const DataType RAFT_METHOD_DTYPE_VALUE = RAPID_STRING;  
+    
+    //@copy-declaration /** RAFT paramter: Channel id. */
+    const String32 RAFT_METHOD_PARAM_CHANNELID = "channelId"; 
+    const DataType RAFT_METHOD_DTYPE_CHANNELID = RAPID_INT;
+    
+    //@copy-declaration /** RAFT paramter: Bandwidth. */
+    const String32 RAFT_METHOD_PARAM_BANDWIDTHBPS = "bandwidthBps"; 
+    const DataType RAFT_METHOD_DTYPE_BANDWIDTHBPS = RAPID_INT;
+    const String32 RAFT_METHOD_PARAM_PREFETCHKBANDWIDTHBPS = "prefetchBandwidthBps"; 
+    const DataType RAFT_METHOD_DTYPE_PREFETCHKBANDWIDTHBPS = RAPID_INT;
+    
+    //@copy-declaration /**  Put file into RAFT queue. */
+    const String32 RAFT_METHOD_PUTFILE = "putFile";
+
+    //@copy-declaration /**  Put data product files into RAFT queue. */
+    const String32 RAFT_METHOD_PUTMATCHING = "putMatching"; 
+
+    //@copy-declaration /** Remove file from RAFT queue. */
+    const String32 RAFT_METHOD_REMOVEFILE = "removeFile"; 
+
+    //@copy-declaration /** Pause a RAFT queue. */
+    const String32 RAFT_METHOD_PAUSE = "pause";
+
+    //@copy-declaration /** Resume a RAFT queue. */
+    const String32 RAFT_METHOD_RESUME = "resume";
+
+    //@copy-declaration /** Resume a RAFT queue. */
+    const String32 RAFT_METHOD_SETBANDWIDTH = "setBandwidth";
+
+};
+
+#endif // rapid_CommandConstants_idl

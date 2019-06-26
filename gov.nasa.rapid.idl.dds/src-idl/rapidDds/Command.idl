@@ -1,0 +1,93 @@
+#ifndef rapid_Command_idl
+#define rapid_Command_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief A Command is an instruction or signal that, when sent to an 'Agent,' causes the 'Agent' to perform one of its basic functions.
+ *
+ * \details CommandConfig sends a list of commands that are supported by the sending Agent, which are encapsulated in a CommandDef
+ * struct. CommandConstants holds parameter lists for common commands. The parameters listed for each of these common commands are
+ * guaranteed to be used by an Agent that lists the command in its CommandConfig.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * QueueAction
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li> BYPASS: the cmd is acted upon immediately.
+    //@copy-declaration  *   <li> APPEND: the cmd is appended to the tail of the Pending queue. This is the normal operation for commanding.
+    //@copy-declaration  *   <li> DELETE: the cmd with the ID specified in targetCmdID is removed from the queue.
+    //@copy-declaration  *   <li> INSERT: the cmd is inserted immediately following the cmd with the ID specified in targetCmdID.
+    //@copy-declaration  *		      If targetCmdID is "head", then the cmd is inserted at the head of the queue.
+    //@copy-declaration  *   <li> REPLACE: cmd replaces the ID specified in targetCmdID. This cmd will have a new ID
+    //@copy-declaration  * <ul>
+    //@copy-declaration  */
+    enum QueueAction {
+        QUEUE_BYPASS,
+        QUEUE_APPEND,
+        QUEUE_DELETE,
+        QUEUE_INSERT,
+        QUEUE_REPLACE
+    };
+
+    //@copy-c-declaration class CommandTypeSupport;
+    //@copy-c-declaration class CommandDataWriter;
+    //@copy-c-declaration class CommandDataReader;
+    //@copy-c-declaration struct CommandSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Command is a message used to send directives to an Agent.
+    //@copy-declaration  */
+    valuetype Command: Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef CommandTypeSupport TypeSupport;
+        //@copy-c-declaration typedef CommandDataWriter DataWriter;
+        //@copy-c-declaration typedef CommandDataReader DataReader;
+        //@copy-c-declaration typedef CommandSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef Command Type;
+        
+        //@copy-declaration /** Name of command being sent. Should get this from list of possible commands in CommandConfig. */
+        public String64 cmdName;
+        
+        //@copy-declaration /** Unique identifier for command, = username+timestamp. */
+        public String64 cmdId;
+        
+        //@copy-declaration /** Source that generated the command. */
+        public String32 cmdSrc;
+        
+        //@copy-declaration /** Subsystem name if command is being sent to subsystem of an Agent. */
+        public String32 subsysName;
+        
+        //@copy-declaration /** Value of the arguments for this particular command. */
+        public ParameterSequence16 arguments;
+        
+        //@copy-declaration /** For queue manipulation. Normally "QUEUE_APPEND". */
+        public QueueAction cmdAction;
+        
+        //@copy-declaration /**
+        //@copy-declaration  * targetCmdId:
+        //@copy-declaration  * <ul>
+        //@copy-declaration  *   <li> if QUEUE_BYPASS, targetCmdId is not used
+        //@copy-declaration  *   <li> if QUEUE_APPEND, targetCmdId is not used
+        //@copy-declaration  *   <li> if QUEUE_DELETE, targetCmdId identifies the cmdId of the cmd to be removed
+        //@copy-declaration  *   <li> if QUEUE_INSERT, targetCmdId identifies the cmdId of the cmd immediately preceding the target slot. If "head", then the head of the queue.
+        //@copy-declaration  *   <li> if QUEUE_REPLACE, targetCmdId identifies the cmdId of the cmd to be replaced
+        //@copy-declaration  * <ul>
+        //@copy-declaration  */
+        public String64 targetCmdId;       
+    };
+};
+
+#endif // rapid_Command_idl

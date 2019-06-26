@@ -1,0 +1,129 @@
+#ifndef rapid_ext_SystemInfoConfig_idl
+#define rapid_ext_SystemInfoConfig_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{ 
+  module ext
+  {
+    /** Battery status information acquired through /proc/acpi/battery/BAT# */
+    struct BatteryInfoConfig
+    {
+      String32 name;
+      octet percentageLow;
+      octet percentageCritical;
+    };
+    /** Typedef to accommodate multiple batteries. */
+    typedef sequence<BatteryInfoConfig, 32> BatteryInfoConfigSequence;
+    
+    /** Memory usage information acquired through /proc/meminfo, Units are bytes. */
+    struct MemoryInfoConfig
+    {
+      long total;    
+      long memoryLow;
+      long memoryCritical;
+    };
+  
+    /** Cpu usage information acquired through /proc/stats.
+     * For K10, units are jiffies (1/100th sec), may vary with arch-type. */
+    struct CpuInfoConfig
+    {
+      long numCpus;
+      float busyHigh;
+      float busyCritical;
+    };
+  
+    /** Filesystem status information acquired through statfs */
+    struct FilesystemInfoConfig
+    {
+      long long capacity;
+      String64 name;
+      long long availableLow;
+      long long availableCritical;
+    };
+    /** Typedef to accommodate multiple filesystems. */
+    typedef sequence<FilesystemInfoConfig, 32> FilesystemInfoConfigSequence;
+    
+    /** Temperature information acquired through /proc/acpi/thermal_zone/... 
+     * Currently K10 brains only provide one /proc-type thermal zone. */
+    struct ThermalInfoConfig
+    {
+      /** The location temperature zones is motherboard-vendor specific. */
+      String32 location;
+      float temperatureLow;
+      float temperatureHigh;
+      float temperatureLowCritical;
+      float temperatureHighCritical;
+    };
+
+    /** Typedef to accommodate multiple thermal zones. */
+    typedef sequence<ThermalInfoConfig, 32> ThermalInfoConfigSequence;
+  
+    /** Network device traffic information acquired through /proc/net/dev.
+     * Units are kbps for tx/rx, packets for total errors (tx errors + rx errors). */
+    struct NetTrafficInfoConfig
+    {
+      String32 name;
+      long rxBandwidth; // kbps
+      long txBandwidth; // kbps
+      long rxHigh;
+      long rxCritical;
+      long txHigh;
+      long txCritical;
+    };
+    /** Typedef to accomodate multiple network interfaces. */
+    typedef sequence<NetTrafficInfoConfig, 16> NetTrafficInfoConfigSequence;
+    
+    /** Wireless network status information returned by Linux ioctl() calls.  For more
+     * information, research SIOCGIWFREQ/SIOCGIWRATE and "/proc/net/wireless".
+     * 
+     * @author original: Trey Smith, updated: Hans Utz, Kyle Dunn
+     * @date 13-Mar-2009 */
+    struct WifiInfoConfig
+    {
+      String32 name;
+      long qualityLow;
+      long qualityCritical;
+    };
+    /** Typedef to accommodate multiple wireless interfaces. */
+    typedef sequence<WifiInfoConfig, 8> WifiInfoConfigSequence;
+  
+    //@copy-c-declaration class SystemInfoConfigTypeSupport;
+    //@copy-c-declaration class SystemInfoConfigDataWriter;
+    //@copy-c-declaration class SystemInfoConfigDataReader;
+    //@copy-c-declaration struct SystemInfoConfigSeq;
+
+    /** Status information for various laptop components.
+     * 
+     * @author Hans Utz, Kyle Dunn
+     * @date 13-Mar-2009 */
+    valuetype SystemInfoConfig : Message
+    { 
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef SystemInfoConfigTypeSupport TypeSupport;
+      //@copy-c-declaration typedef SystemInfoConfigDataWriter DataWriter;
+      //@copy-c-declaration typedef SystemInfoConfigDataReader DataReader;
+      //@copy-c-declaration typedef SystemInfoConfigSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef SystemInfoConfig Type;
+            
+      public BatteryInfoConfigSequence batteries;
+    
+      public MemoryInfoConfig memory;
+    
+      public CpuInfoConfig cpus;
+ 
+      public FilesystemInfoConfigSequence filesystems;
+    
+      public ThermalInfoConfigSequence temperatures;
+    
+      public NetTrafficInfoConfigSequence netInterfaces;
+    
+      public WifiInfoConfigSequence wifiInterfaces;
+    };
+  };
+};
+
+#endif // rapid_ext_SystemInfoConfig_idl

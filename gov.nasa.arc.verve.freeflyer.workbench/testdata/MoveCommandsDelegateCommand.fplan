@@ -1,0 +1,84 @@
+{
+  "type" : "ModuleBayPlan",
+  "operatingLimits" : {
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1,
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01
+  },
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "visible" : true,
+  "site" : {
+    "type" : "Site",
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "dateCreated" : "2016-01-11T19:43:46Z",
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "xpjson" : "0.1",
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "dateModified" : "2016-08-08T16:22:20Z",
+  "libraryURLs" : [ ],
+  "valid" : true,
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "0",
+    "id" : "ModuleBayStation",
+    "sequence" : [ {
+      "type" : "unperch",
+      "displayName" : "0.0 Unperch",
+      "color" : "#555555",
+      "blocking" : true,
+      "scopeTerminate" : true,
+      "name" : "0.0 Unperch",
+      "id" : "Unperch"
+    }, {
+      "type" : "wait",
+      "duration" : 5,
+      "displayName" : "0.1 Wait",
+      "color" : "#555555",
+      "blocking" : true,
+      "scopeTerminate" : true,
+      "name" : "0.1 Wait",
+      "id" : "Wait"
+    } ]
+  } ],
+  "name" : "MoveCommandsDelegateCommand",
+  "id" : "MoveCommandsDelegateCommand"
+}

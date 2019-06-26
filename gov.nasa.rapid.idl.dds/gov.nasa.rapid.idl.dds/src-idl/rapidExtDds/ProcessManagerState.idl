@@ -1,0 +1,44 @@
+#ifndef rapid_ext_ProcessManagerState_idl
+#define rapid_ext_ProcessManagerState_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    enum ProcessStatus {
+      PROCESS_STATE_UNAVAIL,
+      PROCESS_STATE_STARTING,
+      PROCESS_STATE_RESTARTING,
+      PROCESS_STATE_RUNNING,
+      PROCESS_STATE_STOPPING,
+      PROCESS_STATE_STOPPED,
+      PROCESS_STATE_STOPPED_UNEXPECTEDLY,
+      PROCESS_STATE_COMPLETED,
+      PROCESS_STATE_KILLED
+    };
+    typedef sequence<ProcessStatus,32> ProcessStatusSequence;
+    
+    //@copy-c-declaration class ProcessManagerStateTypeSupport;
+    //@copy-c-declaration class ProcessManagerStateDataWriter;
+    //@copy-c-declaration class ProcessManagerStateDataReader;
+    //@copy-c-declaration struct ProcessManagerStateSeq;
+    valuetype ProcessManagerState : Message
+    {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef ProcessManagerStateTypeSupport TypeSupport;
+      //@copy-c-declaration typedef ProcessManagerStateDataWriter DataWriter;
+      //@copy-c-declaration typedef ProcessManagerStateDataReader DataReader;
+      //@copy-c-declaration typedef ProcessManagerStateSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef ProcessManagerState Type;
+      
+      //@copy /** status sequence corresponds with ProcessManagerConfig.processes sequence */
+      public ProcessStatusSequence processStatus;
+    };
+  };
+};
+
+#endif // rapid_ext_ProcessManagerState_idl

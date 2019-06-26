@@ -1,0 +1,55 @@
+#ifndef rapid_ext_arc_GpsSample_idl
+#define rapid_ext_arc_GpsSample_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      /**
+       * The status of a GPS sensor.
+       * 
+       * This is probably a bit over-specialized for the one that we have.
+       *
+       * @author Hans Utz
+       * @updated 21-May-2006 8:23:53 PM
+       * @updated 08-Aug-2014 mallan: added undulation field
+       */
+
+      //@copy-c-declaration class GpsSampleTypeSupport;
+      //@copy-c-declaration class GpsSampleDataWriter;
+      //@copy-c-declaration class GpsSampleDataReader;
+      //@copy-c-declaration struct GpsSampleSeq;
+
+      valuetype GpsSample : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef GpsSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef GpsSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef GpsSampleDataReader DataReader;
+        //@copy-c-declaration typedef GpsSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef GpsSample Type;
+
+        //@copy-declaration /** The coordinates of the receiver in meters*/
+        //@copy-declaration /** xyz is in NEU coordinates, z is ellipsoidal height*/
+        public Vec3d     xyz;       
+        public Vec3d     sigmaXyz;
+        public octet     utmZone;
+        public char      utmDesig;
+        public octet     mode;
+        public octet     numSats;
+        public long long diffAge;
+        public long long solAge;
+        //@copy-declaration /** mean sea level(orthometric height) = z(ellipsoidal height) - undulation (geoid height)*/
+        public float     undulation;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_GpsSample_idl

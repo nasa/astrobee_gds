@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: E4
+Bundle-SymbolicName: gov.nasa.arc.verve.ui.e4;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: gov.nasa.arc.verve.common,
+ org.eclipse.swt,
+ org.eclipse.jface,
+ org.eclipse.core.runtime,
+ org.eclipse.core.databinding,
+ gov.nasa.ensemble.ui.databinding.e4,
+ gov.nasa.arc.verve.ardor3d.e4,
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.ui.workbench
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.verve.ui.e4.view

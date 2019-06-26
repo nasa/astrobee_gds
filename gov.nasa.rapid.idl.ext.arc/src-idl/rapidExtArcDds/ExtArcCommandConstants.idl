@@ -1,0 +1,176 @@
+#ifndef rapid_ext_arc_ExtArcCommandConstants_idl
+#define rapid_ext_arc_ExtArcCommandConstants_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief ExtCommandConstants holds parameter lists for extension commands.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+  module ext {
+    module arc {
+
+      //   For a sample command, define the command key:
+      //
+      //     const String32 COMMAND = "Command";
+      //
+      //   Next, define a method on the command:
+      //
+      //     const String32 COMMAND_METHOD_FOO = "foo";
+      //
+      //   Finally, define method parameters:
+      //
+      //     const String32 COMMMAND_METHOD_FOO_PARAM_BAR = "fooParam1";
+      //     const String32 COMMMAND_METHOD_FOO_DTYPE_BAR = RAPID_FLOAT;
+
+      const String32 FIELDDMAPPING = "FieldDMapping";
+
+      //@copy-declaration /**  Request to start a process. */
+      const String32 FIELDDMAPPING_METHOD_SETACTIVE = "setActive";
+      //@copy-declaration /** Key for parameter used in FIELDDMAPPING. */
+      const String32 FIELDDMAPPING_METHOD_PARAM_FLAG = "flag";
+      const DataType FIELDDMAPPING_METHOD_DTYPE_FLAG = RAPID_BOOL;
+
+      const String32 DSTARLITEMAPPING = "DStarLiteMapping";
+      const String32 DSTARLITEMAPPING_METHOD_SETACTIVE = "setActive";
+      const String32 DSTARLITEMAPPING_METHOD_PARAM_FLAG = "flag";
+      const DataType DSTARLITEMAPPING_METHOD_DTYPE_FLAG = RAPID_BOOL;	
+
+
+      const String32 MOTION = "Motion";
+      const DataType MOTION_METHOD_DTYPE = RAPID_FLOAT;
+
+      const String32 MOTION_METHOD_ABORT = "abort";
+      const String32 MOTION_METHOD_SETSPEED = "setSpeed";
+      const String32 MOTION_METHOD_SETSPEED_PARAM_MAXWHEELSPEED = "maxWheelSpeed";
+
+      const String32 MOTION_METHOD_DRIVEARC = "driveArc";
+      const String32 MOTION_METHOD_DRIVEARC_PARAM_DISTANCE = "distance";
+      const String32 MOTION_METHOD_DRIVEARC_PARAM_HEADINGCHANGE = "headingChange";
+      const String32 MOTION_METHOD_DRIVEARC_PARAM_CRABDIRECTION = "crabDirection";
+
+      const String32 MOTION_METHOD_DRIVETO = "driveTo";
+      const String32 MOTION_METHOD_DRIVETO_PARAM_DELTAX = "dX";
+      const String32 MOTION_METHOD_DRIVETO_PARAM_DELTAY = "dY";
+      const String32 MOTION_METHOD_DRIVETO_PARAM_HEADINGCHANGE = "headingChange";
+
+      const String32 PAINTER = "Painter";
+
+      const String32 PAINTER_METHOD_DRAWLINE = "drawLine";
+      const String32 PAINTER_METHOD_DRAWLINE_PARAM_LABEL = "label";
+      const DataType PAINTER_METHOD_DRAWLINE_DTYPE_LABEL = RAPID_STRING;
+      const String32 PAINTER_METHOD_DRAWLINE_PARAM_TYPE = "type";
+      const DataType PAINTER_METHOD_DRAWLINE_DTYPE_TYPE = RAPID_STRING;
+      const String32 PAINTER_METHOD_DRAWLINE_PARAM_WIDTH = "width";
+      const DataType PAINTER_METHOD_DRAWLINE_DTYPE_WIDTH = RAPID_FLOAT;
+      const String32 PAINTER_METHOD_DRAWLINE_PARAM_XYZ0 = "xyz0";
+      const DataType PAINTER_METHOD_DRAWLINE_DTYPE_XYZ0 = RAPID_VEC3d;
+      const String32 PAINTER_METHOD_DRAWLINE_PARAM_XYZ1 = "xyz1";
+      const DataType PAINTER_METHOD_DRAWLINE_DTYPE_XYZ1 = RAPID_VEC3d;
+
+      const String32 PAINTER_METHOD_ERASELINE = "eraseLine";
+      const String32 PAINTER_METHOD_ERASELINE_PARAM_LABEL = "label";
+      const DataType PAINTER_METHOD_ERASELINE_DTYPE_LABEL = RAPID_STRING;
+
+
+      const String32 SCI = "ScienceInstrument";
+      const String32 SCI_METHOD_SETPARAMETERS = "setParameters";
+      const DataType SCI_METHOD_DTYPE_DOCUMENT = RAPID_STRING;
+      const String32 SCI_METHOD_PARAM_DOCUMENT0 = "document0";
+      const String32 SCI_METHOD_PARAM_DOCUMENT1 = "document1";
+      const String32 SCI_METHOD_PARAM_DOCUMENT2 = "document2";
+      const String32 SCI_METHOD_PARAM_DOCUMENT3 = "document3";
+      const String32 SCI_METHOD_PARAM_DOCUMENT4 = "document4";
+      const String32 SCI_METHOD_PARAM_DOCUMENT5 = "document5";
+      const String32 SCI_METHOD_PARAM_DOCUMENT6 = "document6";
+      const String32 SCI_METHOD_PARAM_DOCUMENT7 = "document7";
+      const String32 SCI_METHOD_ACQUIRE = "acquire";
+      const DataType SCI_METHOD_DTYPE_STATIONMETADATA = RAPID_STRING;
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA0 = "stationMetadata0";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA1 = "stationMetadata1";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA2 = "stationMetadata2";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA3 = "stationMetadata3";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA4 = "stationMetadata4";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA5 = "stationMetadata5";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA6 = "stationMetadata6";
+      const String32 SCI_METHOD_PARAM_STATIONMETADATA7 = "stationMetadata7";
+
+
+      const String32 IMGSTREAM = "ImageStream";
+      const String32 IMGSTREAM_METHOD_setResolution = "setResolution";
+      const String32 IMGSTREAM_METHOD_setResolution_PARAM_divisor = "divisor"; // 1 == full res, 2 = half res, etc.
+      const DataType IMGSTREAM_METHOD_setResolution_DTYPE_divisor = RAPID_INT;
+
+      const String32 IMGSTREAM_METHOD_setResizeWidth = "setResizeWidth";
+      const String32 IMGSTREAM_METHOD_setResizeWidth_PARAM_width = "width";
+      const DataType IMGSTREAM_METHOD_setResizeWidth_DTYPE_width = RAPID_INT;
+
+      const String32 IMGSTREAM_METHOD_setResizeHeight = "setResizeHeight";
+      const String32 IMGSTREAM_METHOD_setResizeHeight_PARAM_height = "height";
+      const DataType IMGSTREAM_METHOD_setResizeHeight_DTYPE_height = RAPID_INT;
+
+      const String32 IMGSTREAM_METHOD_setResize = "setResize";
+      const String32 IMGSTREAM_METHOD_setResize_PARAM_width  = "width"; 
+      const DataType IMGSTREAM_METHOD_setResize_DTYPE_width  = RAPID_INT;
+      const String32 IMGSTREAM_METHOD_setResize_PARAM_height = "height";
+      const DataType IMGSTREAM_METHOD_setResize_DTYPE_height = RAPID_INT;
+
+      // Compression quality
+      const String32 IMGSTREAM_METHOD_setResizeQuality = "setResizeQuality";
+      const String32 IMGSTREAM_METHOD_setResizeQuality_PARAM_quality = "quality"; // resize quality, 0~4 (0 always nearest neighbor)
+      const DataType IMGSTREAM_METHOD_setResizeQuality_DTYPE_quality = RAPID_INT;
+
+      const String32 IMGSTREAM_METHOD_setCrop = "setCrop";
+      const String32 IMGSTREAM_METHOD_setCrop_PARAM_cropX  = "cropX"; 
+      const DataType IMGSTREAM_METHOD_setCrop_DTYPE_cropX  = RAPID_INT;
+      const String32 IMGSTREAM_METHOD_setCrop_PARAM_cropY  = "cropY";
+      const DataType IMGSTREAM_METHOD_setCrop_DTYPE_cropY  = RAPID_INT;
+      const String32 IMGSTREAM_METHOD_setCrop_PARAM_width  = "width"; 
+      const DataType IMGSTREAM_METHOD_setCrop_DTYPE_width  = RAPID_INT;
+      const String32 IMGSTREAM_METHOD_setCrop_PARAM_height = "height";
+      const DataType IMGSTREAM_METHOD_setCrop_DTYPE_height = RAPID_INT;
+
+      // Compression quality
+      const String32 IMGSTREAM_METHOD_setQuality = "setQuality";
+      const String32 IMGSTREAM_METHOD_setQuality_PARAM_quality = "quality"; // jpeg quality, range 0-100
+      const DataType IMGSTREAM_METHOD_setQuality_DTYPE_quality = RAPID_INT;
+
+      const String32 IMGSTREAM_METHOD_setSaveImages = "setSaveImages";
+      const String32 IMGSTREAM_METHOD_setSaveImages_PARAM_saveImages = "saveImages";
+      const DataType IMGSTREAM_METHOD_setSaveImages_DTYPE_saveImages = RAPID_BOOL;
+
+      const String32 IMGSTREAM_METHOD_reconnect = "reconnect";
+
+      
+      const String32 ADVNAV = "AdvNav";
+      const String32 ADVNAV_METHOD_startGlobalAlign = "startGlobalAlign";
+
+      
+      const String32 ROSBRIDGE = "RosBridge";
+      const String32 ROSBRIDGE_METHOD_setMinSeparation = "setMinSeparation";
+      const String32 ROSBRIDGE_METHOD_setMinSeparation_PARAM_msec = "msec"; // min separation between images in milliseconds
+      const DataType ROSBRIDGE_METHOD_setMinSeparation_DTYPE_msec = RAPID_INT;
+      
+      const String32 GIMBAL = "Gimbal";
+      const String32 GIMBAL_METHOD_setPanTilt = "setPanTilt";
+      const String32 GIMBAL_METHOD_setPanTilt_PARAM_pan  = "pan";
+      const DataType GIMBAL_METHOD_setPanTilt_DTYPE_pan  = RAPID_FLOAT;
+      const String32 GIMBAL_METHOD_setPanTilt_PARAM_tilt = "tilt";
+      const DataType GIMBAL_METHOD_setPanTilt_DTYPE_tilt = RAPID_FLOAT;
+      
+    };
+  };
+};
+
+
+#endif // rapid_ext_arc_ExtArcCommandConstants_idl

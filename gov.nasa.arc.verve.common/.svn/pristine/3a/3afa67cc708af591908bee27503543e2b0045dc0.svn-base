@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry excluding="gov/nasa/arc/verve/common/loader/DataLoader.java|gov/nasa/arc/verve/common/loader/XMLLoader.java|gov/nasa/arc/verve/common/loader/BinaryLoader.java|gov/nasa/arc/verve/common/LoaderManager.java|gov/nasa/arc/verve/common/util/SpatialUtil.java|gov/nasa/arc/verve/common/text/BMFontRenderState.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="resrc"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ardor3d Plug-in
+Bundle-SymbolicName: gov.nasa.arc.verve.common.ardor3d;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.common.ardor3d.VerveArdor3dActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.apache.log4j,
+ gov.nasa.arc.verve.common;visibility:=reexport,
+ gov.nasa.arc.verve.ardor3d.scenegraph.shape,
+ gov.nasa.arc.viz.scenegraph;visibility:=reexport,
+ gov.nasa.arc.irg.util.ui,
+ gov.nasa.arc.viz.io
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6, JavaSE-1.7
+Export-Package: gov.nasa.arc.verve.common.ardor3d,
+ gov.nasa.arc.verve.common.ardor3d.bounding,
+ gov.nasa.arc.verve.common.ardor3d.framework,
+ gov.nasa.arc.verve.common.ardor3d.framework.screenshot,
+ gov.nasa.arc.verve.common.ardor3d.input.control,
+ gov.nasa.arc.verve.common.ardor3d.interact,
+ gov.nasa.arc.verve.common.ardor3d.interact.filter,
+ gov.nasa.arc.verve.common.ardor3d.io.model,
+ gov.nasa.arc.verve.common.ardor3d.preferences,
+ gov.nasa.arc.verve.common.ardor3d.pssm,
+ gov.nasa.arc.verve.common.ardor3d.shape,
+ gov.nasa.arc.verve.common.ardor3d.shape.grid,
+ gov.nasa.arc.verve.common.ardor3d.text,
+ gov.nasa.arc.verve.common.ardor3d.util,
+ gov.nasa.arc.verve.common.ardor3d.util.export,
+ gov.nasa.arc.verve.common.ardor3d.util.geom
+Bundle-Vendor: NASA IRG

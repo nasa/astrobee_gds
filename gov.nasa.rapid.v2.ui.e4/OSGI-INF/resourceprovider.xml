@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="gov.nasa.rapid.v2.e4.ui.e4.parts">
+   <implementation class="gov.nasa.rapid.v2.e4.ui.e4.parts.ImageResourceProvider"/>
+   <service>
+      <provide interface="org.eclipse.e4.tools.services.IResourceProviderService"/>
+   </service>
+   <properties entry="OSGI-INF/resources.properties"/>
+</scr:component>

@@ -1,0 +1,67 @@
+#ifndef rapid_ext_arc_MobilitySample_idl
+#define rapid_ext_arc_MobilitySample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief MobilitySample defines a snapshot of the Mobility subsystem's state.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+  module ext {
+
+    module arc {
+
+    //@copy-c-declaration class MobilitySampleTypeSupport;
+    //@copy-c-declaration class MobilitySampleDataWriter;
+    //@copy-c-declaration class MobilitySampleDataReader;
+    //@copy-c-declaration struct MobilitySampleSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * MobilitySample defines a snapshot of the Mobility subsystem's state.
+    //@copy-declaration  */
+    valuetype MobilitySample : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef MobilitySampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef MobilitySampleDataWriter DataWriter;
+        //@copy-c-declaration typedef MobilitySampleDataReader DataReader;
+        //@copy-c-declaration typedef MobilitySampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef MobilitySample Type;
+
+        public String32 goalName;
+        public String128 commandFrame;
+        public Vec3d xyt;
+        public Vec3d xytTolerance;
+        public float hintedSpeed;
+        public String32 navAlgo;
+		//@copy-declaration /** extension values */
+        public KeyTypeValueSequence8 keyedValues;
+     };
+
+      // status definitions
+      const long GOAL_UNKNOWN_NAME = -6;
+      const long GOAL_OUT_OF_RANGE = -5;
+      const long GOAL_FAILURE = -4;
+      const long GOAL_TIMEOUT = -3;
+      const long GOAL_INTERRUPTED = -2;
+      const long GOAL_INACTIVE = -1;
+      const long GOAL_ACHIEVED = 0;
+      const long GOAL_ACTIVE = 1;
+      const long GOAL_NULL = -7;
+    };
+  };
+};
+
+#endif // rapid_ext_arc_MobilitySample_idl

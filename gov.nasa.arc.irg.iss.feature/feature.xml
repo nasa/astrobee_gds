@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="gov.nasa.arc.irg.iss.feature"
+      label="IRG ISS Feature"
+      version="1.0.0.qualifier"
+      provider-name="NASA Ames IRG">
+
+   <description url="http://www.example.com/description">
+      Plugins to facilitate RCP application development for the ISS, compliant with IDAGS.
+      Includes:
+      gov.nasa.arc.irg.iss.ui
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="gov.nasa.arc.irg.iss.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,33 @@
+{
+  "type" : "FreeFlyerPlan",
+  "site" : {
+    "type" : "Site",
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "visible" : true,
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "valid" : false,
+  "defaultTolerance" : 1.0,
+  "creator" : "rocs",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "dateCreated" : "2015-07-07T17:01:26Z",
+  "dateModified" : "2015-07-07T17:01:26Z",
+  "defaultSpeed" : 0.05,
+  "libraryURLs" : [ ],
+  "xpjson" : "0.1",
+  "sequence" : [ ],
+  "name" : "/test_plan",
+  "id" : "/test_plan"
+}

@@ -1,0 +1,159 @@
+{
+  "type" : "ModuleBayPlan",
+  "operatingLimits" : {
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01,
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1
+  },
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "site" : {
+    "type" : "Site",
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "valid" : true,
+  "dateModified" : "2017-02-10T23:20:25Z",
+  "libraryURLs" : [ ],
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "visible" : true,
+  "xpjson" : "0.1",
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "dateCreated" : "2017-02-10T23:13:37Z",
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "0",
+    "id" : "be7f108c-19a1-403b-84d5-bdc7ebce6062",
+    "sequence" : [ {
+      "type" : "startGuestScience",
+      "power" : 0.0,
+      "displayName" : "0.0 StartGuestScience Guest Science A",
+      "guestScienceApkGds" : {
+        "primary" : true,
+        "shortName" : "Guest Science A",
+        "duration" : 0,
+        "guestScienceCommands" : [ {
+          "name" : "Command A 1",
+          "command" : "command body for command A 1",
+          "duration" : 11,
+          "power" : 10.0
+        }, {
+          "name" : "Command A 2",
+          "command" : "command body for command A 2",
+          "duration" : 0,
+          "power" : 20.0
+        }, {
+          "name" : "Command A 3",
+          "command" : "command body for command A 3",
+          "duration" : 31,
+          "power" : 0.0
+        } ],
+        "power" : 0.0,
+        "apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceA"
+      },
+      "apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceA",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.0 StartGuestScience",
+      "id" : "7c808c8c-8d03-4a88-9c1e-26b3db43fb18",
+      "displayName" : "0.0 StartGuestScience",
+      "power" : 0.0
+    }, {
+      "type" : "stopGuestScience",
+      "displayName" : "0.1 StopGuestScience Guest Science C",
+      "guestScienceApkGds" : {
+        "primary" : false,
+        "shortName" : "Guest Science C",
+        "duration" : 0,
+        "guestScienceCommands" : [ {
+          "name" : "Command C 1",
+          "command" : "command body for command C 1",
+          "duration" : 0,
+          "power" : 0.0
+        } ],
+        "power" : 11.0,
+        "apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceC"
+      },
+      "apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceC",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.1 StopGuestScience",
+      "id" : "c8a33c54-e29d-4420-a75e-f1a849f676a3"
+    }, {
+      "type" : "customGuestScience",
+      "displayName" : "0.2 CustomGuestScience Guest Science A Command A 1",
+      "command" : "command body for command A 1",
+      "power" : 10.0,
+      "commandIndex" : "0",
+      "guestScienceApkGds" : {
+        "primary" : true,
+        "shortName" : "Guest Science A",
+        "duration" : 0,
+        "guestScienceCommands" : [ {
+          "name" : "Command A 1",
+          "command" : "command body for command A 1",
+          "duration" : 11,
+          "power" : 10.0
+        }, {
+          "name" : "Command A 2",
+          "command" : "command body for command A 2",
+          "duration" : 0,
+          "power" : 20.0
+        }, {
+          "name" : "Command A 3",
+          "command" : "command body for command A 3",
+          "duration" : 31,
+          "power" : 0.0
+        } ],
+        "power" : 0.0,
+        "apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceA"
+      },
+      "apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceA",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.2 CustomGuestScience",
+      "id" : "6a3298ed-70fd-4e1b-ab90-a19521dc9546"
+    } ]
+  } ],
+  "name" : "PlanWithGuestScienceCommands",
+  "id" : "d1ca573c-727c-4554-b18b-f8a977de6528"
+}

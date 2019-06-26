@@ -1,0 +1,37 @@
+#ifndef rapid_ext_arc_GenericConfig_idl
+#define rapid_ext_arc_GenericConfig_idl
+
+//idl
+
+#include "Message.idl"
+
+module rapid
+{
+    module ext
+    {
+        module arc
+        {
+            //@copy-c-declaration class GenericConfigTypeSupport;
+            //@copy-c-declaration class GenericConfigDataWriter;
+            //@copy-c-declaration class GenericConfigDataReader;
+            //@copy-c-declaration struct GenericConfigSeq;
+
+            valuetype GenericConfig : Message 
+            {
+
+                //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+                //@copy-c-declaration typedef GenericConfigTypeSupport TypeSupport;
+                //@copy-c-declaration typedef GenericConfigDataWriter DataWriter;
+                //@copy-c-declaration typedef GenericConfigDataReader DataReader;
+                //@copy-c-declaration typedef GenericConfigSeq Seq;
+                //@copy-c-declaration #endif
+                //@copy-c-declaration typedef GenericConfig Type;
+
+                public String32 category;
+                public KeyTypeValueSequence32 metaData;
+            };
+        };
+    };
+};
+
+#endif // rapid_ext_arc_GenericConfig_idl

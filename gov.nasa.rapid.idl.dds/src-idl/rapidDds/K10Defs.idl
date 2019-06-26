@@ -1,0 +1,46 @@
+#ifndef rapid_K10Defs_idl
+#define rapid_K10Defs_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Defines constants related to the K10 robot as a convenience for programmers.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** Indexes for k10 motor group messages. */
+    module k10 {
+
+        module joint {
+        
+			//@copy-declaration /** Motor group includes steering and wheel angles. */
+            const String32 JOINTS_MOTOR_GROUP = "MotorGroup";
+
+			//@copy-declaration /** Arm that had been mounted on K9 previously. */
+            const String32 JOINTS_K9_ARM = "K9Arm";
+
+            //@copy-declaration /** Indexes for the motor group. */
+            const long FL_DRIVE = 0; /// front left drive
+            const long FR_DRIVE = 1; /// front right drive
+            const long RL_DRIVE = 2; /// rear left drive
+            const long RR_DRIVE = 3; /// rear right drive
+            const long FL_STEER = 4; /// front left steer/drive
+            const long FR_STEER = 5; /// front right steer/drive
+            const long RL_STEER = 6; /// rear left steer/drive
+            const long RR_STEER = 7; /// rear right steer/drive
+
+        };
+    };
+};
+
+#endif // rapid_K10Defs_idl

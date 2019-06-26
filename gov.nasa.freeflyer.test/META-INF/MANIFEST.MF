@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Alltest
+Bundle-SymbolicName: gov.nasa.freeflyer.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: gov.nasa.arc.irg.plan.ui,
+ org.junit,
+ gov.nasa.arc.irg.plan,
+ gov.nasa.arc.verve.freeflyer.workbench

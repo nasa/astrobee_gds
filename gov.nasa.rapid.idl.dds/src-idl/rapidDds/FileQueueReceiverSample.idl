@@ -1,0 +1,60 @@
+#ifndef rapid_FileQueueReceiverSample_idl
+#define rapid_FileQueueReceiverSample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief See RAFT documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-c-declaration class FileQueueReceiverSampleTypeSupport;
+    //@copy-c-declaration class FileQueueReceiverSampleDataWriter;
+    //@copy-c-declaration class FileQueueReceiverSampleDataReader;
+    //@copy-c-declaration struct FileQueueReceiverSampleSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Holds information about a file that could be transferred to the ground from the robot.
+    //@copy-declaration  */
+    valuetype FileQueueReceiverSample : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FileQueueReceiverSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FileQueueReceiverSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef FileQueueReceiverSampleDataReader DataReader;
+        //@copy-c-declaration typedef FileQueueReceiverSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FileQueueReceiverSample Type;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Connection status to the file queue.
+        //@copy-declaration  */
+        public boolean connected;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Number of bufferd but unprocessed chunks.
+        //@copy-declaration  */
+        public long bufferedChunks;
+        //@copy-declaration /**
+        //@copy-declaration  * Number of processed chunks.
+        //@copy-declaration  */
+      public long processedChunks;
+        //@copy-declaration /**
+        //@copy-declaration  * Number of completed files.
+        //@copy-declaration  */
+      public long completedFiles;
+    };
+};
+
+#endif // rapid_FileQueueReceiverSample_idl

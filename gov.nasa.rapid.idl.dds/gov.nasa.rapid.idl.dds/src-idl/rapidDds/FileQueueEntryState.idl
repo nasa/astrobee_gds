@@ -1,0 +1,79 @@
+#ifndef rapid_FileQueueEntryState_idl
+#define rapid_FileQueueEntryState_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief See RAFT documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>RAPID_FILE_PREFETCH_PENDING:
+    //@copy-declaration  *   <li>RAPID_FILE_PREFETCHING:
+    //@copy-declaration  *   <li>RAPID_FILE_PENDING:
+    //@copy-declaration  *   <li>RAPID_FILE_ACTIVE:
+    //@copy-declaration  *   <li>RAPID_FILE_PAUSED:
+    //@copy-declaration  *   <li>RAPID_FILE_DONE:
+    //@copy-declaration  *   <li>RAPID_FILE_CANCELED:
+    //@copy-declaration  *   <li>RAPID_FILE_ERROR:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum FileTransferStatus {
+        RAPID_FILE_PREFETCH_PENDING,
+        RAPID_FILE_PREFETCHING,
+        RAPID_FILE_PENDING,
+        RAPID_FILE_ACTIVE,
+        RAPID_FILE_PAUSED,
+        RAPID_FILE_DONE,
+        RAPID_FILE_CANCELED,
+        RAPID_FILE_ERROR
+    };
+
+    //@copy-c-declaration class FileQueueEntryStateTypeSupport;
+    //@copy-c-declaration class FileQueueEntryStateDataWriter;
+    //@copy-c-declaration class FileQueueEntryStateDataReader;
+    //@copy-c-declaration struct FileQueueEntryStateSeq;
+
+    //@copy-declaration /** Holds information about a file that could be transferred to the ground from the robot. */
+    valuetype FileQueueEntryState : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FileQueueEntryStateTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FileQueueEntryStateDataWriter DataWriter;
+        //@copy-c-declaration typedef FileQueueEntryStateDataReader DataReader;
+        //@copy-c-declaration typedef FileQueueEntryStateSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FileQueueEntryState Type;
+
+        //@copy-declaration /** The unique identifier for this file. */
+        public String64 fileUuid; //@key
+
+        //@copy-declaration /** Status of file in queue. */
+        public FileTransferStatus status;
+
+        //@copy-declaration /** Number of chunks already sent. */
+        public long chunksSent;
+
+        //@copy-declaration /** Total number of chunks to transfer. */
+        public long numChunks;
+
+        public long long submissionTime;
+        public float priority;
+        public short channelId;
+    };
+};
+
+#endif // rapid_FileQueueEntryState_idl

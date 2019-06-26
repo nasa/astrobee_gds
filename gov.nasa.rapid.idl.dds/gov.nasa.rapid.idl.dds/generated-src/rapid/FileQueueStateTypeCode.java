@@ -1,0 +1,32 @@
+
+/*
+WARNING: THIS FILE IS AUTO-GENERATED. DO NOT MODIFY.
+
+This file was generated from .idl using "rtiddsgen".
+The rtiddsgen tool is part of the RTI Connext distribution.
+For more information, type 'rtiddsgen -help' at a command shell
+or consult the RTI Connext manual.
+*/
+
+package rapid;
+
+import com.rti.dds.typecode.*;
+
+public class  FileQueueStateTypeCode {
+    public static final TypeCode VALUE = getTypeCode();
+
+    private static TypeCode getTypeCode() {
+        TypeCode tc = null;
+        int __i=0;
+        ValueMember sm[]=new ValueMember[4];
+
+        sm[__i]=new  ValueMember("connected", false, (short)-1,  false,PUBLIC_MEMBER.VALUE,(TypeCode) TypeCode.TC_BOOLEAN,1 , false);__i++;
+        sm[__i]=new  ValueMember("bandwidth", false, (short)-1,  false,PUBLIC_MEMBER.VALUE,(TypeCode) TypeCode.TC_LONG,2 , false);__i++;
+        sm[__i]=new  ValueMember("prefetchBandwidth", false, (short)-1,  false,PUBLIC_MEMBER.VALUE,(TypeCode) TypeCode.TC_LONG,3 , false);__i++;
+        sm[__i]=new  ValueMember("channels", false, (short)-1,  false,PUBLIC_MEMBER.VALUE,(TypeCode) rapid.ChannelStateSequenceTypeCode.VALUE,4 , false);__i++;
+
+        tc = TypeCodeFactory.TheTypeCodeFactory.create_value_tc("rapid::FileQueueState",ExtensibilityKind.EXTENSIBLE_EXTENSIBILITY, VM_NONE.VALUE,rapid.MessageTypeCode.VALUE, sm);        
+        return tc;
+    }
+}
+

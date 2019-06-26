@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ardor3D Math
+Bundle-SymbolicName: com.ardor3d.math
+Bundle-Version: 0.9.17
+Bundle-Vendor: ArdorLabs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ClassPath: ardor3d-savable-0.9-20121205.154639-17.jar,
+ ardor3d-math-0.9-20121205.154847-17.jar
+Export-Package: com.ardor3d.math,
+ com.ardor3d.math.functions,
+ com.ardor3d.math.type,
+ com.ardor3d.util.export

@@ -1,0 +1,75 @@
+#ifndef rapid_MacroConfig_idl
+#define rapid_MacroConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+    
+    //@copy-declaration /**
+    //@copy-declaration  * Command is a message used to send directives to an Agent.
+    //@copy-declaration  */
+    struct MacroCommand {
+
+        //@copy-declaration /** Name of command being sent. Should get this from list of possible commands in CommandConfig. */
+        String64 cmdName;
+
+        //@copy-declaration /** Suffix to be appended to the cmdId of the loadMacro Command. 
+        //@copy-declaration  *  Each cmdIdSuffix within a macro MUST be unique. When the macro is loaded 
+        //@copy-declaration  *  into the Queue, the cmdId of each command in the Macro will be 
+        //@copy-declaration  *  <cmdId>-<cmdIdSuffix> where cmdId is the command id of the loadMacro command
+        //@copy-declaration  *  that loaded the Macro.
+        //@copy-declaration  */
+        String64 cmdIdSuffix;
+
+        //@copy-declaration /** Name of subsystem to which cmdName belongs. */
+        String32 subsysName;
+
+        //@copy-declaration /** Data type and value of the arguments for this particular command. */
+        ParameterSequence16 arguments;
+
+        //@copy-declaration /** Data type and value for any metaData fields contained in the MacroConfig. */
+        ParameterSequence16 metaData;
+    };
+
+    typedef sequence<MacroCommand, 128> MacroCommandSequence128;
+
+    //@copy-c-declaration class MacroConfigTypeSupport;
+    //@copy-c-declaration class MacroConfigDataWriter;
+    //@copy-c-declaration class MacroConfigDataReader;
+    //@copy-c-declaration struct MacroConfigSeq;
+    valuetype MacroConfig : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef MacroConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef MacroConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef MacroConfigDataReader DataReader;
+        //@copy-c-declaration typedef MacroConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef MacroConfig Type;
+
+        //@copy-declaration /** Name of this macro. */
+        public String64 name; //@key
+
+        //@copy-declaration /** The commands that are put onto the Queue when this macro is loaded. */
+        public MacroCommandSequence128 commands;
+
+        //@copy-declaration /** Metadata for the entire plan */
+        public KeyTypeValueSequence16 metaData;
+
+        //@copy-declaration /** Metadata fields found in each MacroCommnad */
+        public KeyTypeSequence16 commandMetaDataSpec;
+    };
+
+};
+
+#endif // rapid_MacroConfig_idl

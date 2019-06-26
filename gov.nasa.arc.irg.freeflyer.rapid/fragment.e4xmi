@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_VcZK0HG3EeSIPOm4JMwCiQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_gJw2wHTIEeSNCrR7KFY8uA" featurename="addons" parentElementId="gov.nasa.arc.ff.ocu.application">
+    <elements xsi:type="application:Addon" xmi:id="_CM2dMNcXEeS3Xo1jLJgj9Q" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.2" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.utils.AckListener"/>
+    <elements xsi:type="application:Addon" xmi:id="__lcvIPT8EeS2A-mK02H8UA" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.3" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.centralized.CentralizedCommandPublisher"/>
+    <elements xsi:type="application:Addon" xmi:id="_lu0Q8ApIEeWKR7txtFuuNg" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.1" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateManager"/>
+    <elements xsi:type="application:Addon" xmi:id="_fr3VAGS_EeaRII0imefDZA" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.0" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.GuestScienceStateManager"/>
+    <elements xsi:type="application:Addon" xmi:id="_0crIYHVQEea0KoWX881ABw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.4" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.frequent.ComponentStateHolder"/>
+    <elements xsi:type="application:Addon" xmi:id="_B5L-kHVWEea0KoWX881ABw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.5" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.frequent.CommStateHolder"/>
+    <elements xsi:type="application:Addon" xmi:id="_1FwA8HVYEea0KoWX881ABw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.6" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.frequent.DiskStateHolder"/>
+    <elements xsi:type="application:Addon" xmi:id="_X6ZtYHXiEea0KoWX881ABw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.7" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.frequent.EpsStateHolder"/>
+    <elements xsi:type="application:Addon" xmi:id="_HBYzUBKaEeejQft4UECfgw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.8" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.runningplan.RunningPlanInfo"/>
+    <elements xsi:type="application:Addon" xmi:id="_Nwg9wBKaEeejQft4UECfgw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.9" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.runningplan.GuestScienceRunningPlanInfoOne"/>
+    <elements xsi:type="application:Addon" xmi:id="_RPyhABKaEeejQft4UECfgw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.10" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.runningplan.GuestScienceRunningPlanInfoTwo"/>
+    <elements xsi:type="application:Addon" xmi:id="_TSxFYBKaEeejQft4UECfgw" elementId="gov.nasa.arc.irg.freeflyer.rapid.addon.11" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.runningplan.GuestScienceRunningPlanInfoThree"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_OhHAYHT8EeSNCrR7KFY8uA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.debug.uppermiddle">
+    <elements xsi:type="basic:Part" xmi:id="_SU-TkHT8EeSNCrR7KFY8uA" elementId="gov.nasa.arc.irg.freeflyer.rapid.part.configCommander" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.engineering.ConfigCommanderPart" label="Config Commander">
+      <tags>NoMove</tags>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

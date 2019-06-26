@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DDS
+Bundle-SymbolicName: gov.nasa.dds
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.dds.DdsActivator
+Bundle-Vendor: RISC
+Require-Bundle: org.eclipse.core.runtime,
+ gov.nasa.util
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.dds,
+ gov.nasa.dds.exception,
+ gov.nasa.dds.system,
+ gov.nasa.dds.util

@@ -1,0 +1,53 @@
+#ifndef rapid_ext_arc_GeometryConfig_idl
+#define rapid_ext_arc_GeometryConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief GeometryConfig
+ *
+ * \ingroup idlfiles
+ */
+module rapid
+{
+  module ext 
+  {
+    module arc
+    {  
+      //@copy-c-declaration class GeometryConfigTypeSupport;
+      //@copy-c-declaration class GeometryConfigDataWriter;
+      //@copy-c-declaration class GeometryConfigDataReader;
+      //@copy-c-declaration struct GeometryConfigSeq;
+      
+      //@copy-declaration /** GeometryConfig  */
+      valuetype GeometryConfig : Message
+      {  
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef GeometryConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef GeometryConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef GeometryConfigDataReader DataReader;
+        //@copy-c-declaration typedef GeometryConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef GeometryConfig Type;
+        
+        //@copy /** each distinct geometry must have a unique identifier */
+        public long      geometryId;   //@key
+        public String128 geometryName;
+        //@copy /** reference frame for geometry - must be a valid FrameStore */
+        public String32  refFrame;
+        public KeyTypeValueSequence16 metaData;
+        
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_GeometryConfig_idl

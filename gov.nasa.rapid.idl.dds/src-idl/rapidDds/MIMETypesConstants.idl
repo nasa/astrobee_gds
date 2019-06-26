@@ -1,0 +1,46 @@
+#ifndef rapid_MIMETypesConstants_idl
+#define rapid_MIMETypesConstants_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Defines constants for image data.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** MIME Types to use for ImageSensorSample, if appropriate. */
+    const String32 MIME_IMAGE_PNG        = "image/png";                 // png
+    const String32 MIME_IMAGE_BMP        = "image/bmp";                 // bmp
+    const String32 MIME_IMAGE_CIS_COD    = "image/cis-cod";             // cod
+    const String32 MIME_IMAGE_GIF        = "image/gif";                 // gif
+    const String32 MIME_IMAGE_IEF        = "image/ief";                 // ief
+    const String32 MIME_IMAGE_JPEG       = "image/jpeg";                // jpe, jpeg, jpg
+    const String32 MIME_IMAGE_PIPEG      = "image/pipeg";               // jfif
+    const String32 MIME_IMAGE_SVG_XML    = "image/svg+xml";             // svg
+    const String32 MIME_IMAGE_TIFF       = "image/tiff";                // tif, tiff
+    const String32 MIME_IMAGE_CMU_RASTER = "image/x-cmu-raster";        // ras
+    const String32 MIME_IMAGE_CMX        = "image/x-cmx";               // cmx
+    const String32 MIME_IMAGE_ICON       = "image/x-icon";              // ico
+    const String32 MIME_IMAGE_PNM        = "image/x-portable-anymap";   // pnm
+    const String32 MIME_IMAGE_PBM        = "image/x-portable-bitmap";   // pbm
+    const String32 MIME_IMAGE_PGM        = "image/x-portable-graymap";  // pgm
+    const String32 MIME_IMAGE_PPM        = "image/x-portable-pixmap";   // ppm
+    const String32 MIME_IMAGE_RGB        = "image/x-rgb";               // rgb
+    const String32 MIME_IMAGE_XBM        = "image/x-xbitmap";           // xbm
+    const String32 MIME_IMAGE_XPM        = "image/x-xpixmap";           // xpm
+    const String32 MIME_IMAGE_XWD        = "image/x-xwindowdump";       // xwd
+    const String32 MIME_IMAGE_EXR        = "image/x-exr";               // OpenEXR
+
+};
+
+#endif // rapid_MIMETypesConstants_idl

@@ -1,0 +1,45 @@
+{	
+	"type" : "GuestScienceConfigurationFile",
+	"guestScienceConfigs" : [ {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.Turbo",
+    	"shortName" : "Turbo",
+    	"primary" : true,
+    	"guestScienceCommands" : [ {
+    			"name" : "Mode Power and Duration",
+    			"command" : "Power and Duration Command",
+    			"power" : 100,
+    			"duration" : 20
+    		},
+    		{
+    			"name" : "Mode Power",
+    			"command" : "Power Command",
+    			"power" : 100
+    		},
+    		{
+    			"name" : "Mode Duration",
+    			"command" : "Duration Command",
+    			"duration" : 30
+    		}
+    		 ]
+  	}, {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.GrapplingHook",
+    	"shortName" : "Grappling Hook",
+    	"primary" : true,
+    	"power" : 12,
+    	"duration" : 19
+  	}, {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.battery_monitor",
+    	"shortName" : "Battery Display",
+    	"primary" : false,
+    	"power" : 11,
+    	"guestScienceCommands" : [ {
+    			"name" : "Show Home Screen",
+    			"command" : "{name=backUI}"
+    		} ,{
+    			"name" : "Show Battery",
+    			"command" : "{name=showUI}"
+    		} ]
+  	} 
+  ]
+}
+

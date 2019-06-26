@@ -1,0 +1,92 @@
+#ifndef rapid_CommandConfig_idl
+#define rapid_CommandConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief CommandConfig sends a list of commands that are supported by the sending Agent, which are encapsulated in a CommandDef struct.
+ *
+ * \details Command is sent by a remote application to command an Agent. CommandConstants holds parameter lists for common
+ * commands. The parameters listed for each of these common commands are guaranteed to be used by an Agent that lists the command
+ * in its CommandConfig.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** A command definition. Arguments will define name of argument as Key, type of argument as Type. */
+    struct CommandDef {
+
+        //@copy-declaration /** The name of the command, to be used as cmdName in Command. */
+        String64 name;
+
+        //@copy-declaration /** Describes whether or not this command can be aborted once begun. */
+        boolean abortable;
+        
+        //@copy-declaration /** Describes whether or not this command can be suspended once begun. */
+        boolean suspendable;
+
+        //@copy-declaration /**
+        //@copy-declaration  * The arguments needed to send this command: key is the name of the argument, type is the expected
+        //@copy-declaration  * data type of the argument.
+        //@copy-declaration  */
+        KeyTypeSequence16 parameters;
+    };
+
+    typedef sequence<CommandDef,100> CommandDefSequence;
+   
+    struct SubsystemType {
+
+        //@copy-declaration /** Name of subsystem type. */
+        String32 name;
+        
+        CommandDefSequence commands;
+    };
+   
+    struct Subsystem {
+
+        //@copy-declaration /** Name of subsystem instance. */
+        String32 name;
+        
+        //@copy-declaration /** Has to match a subsystem type name. */
+        String32 subsystemTypeName;
+    };
+   
+    typedef sequence<SubsystemType,64> SubsystemTypeSequence;
+    typedef sequence<Subsystem,128> SubsystemSequence;
+   
+    //@copy-c-declaration class CommandConfigTypeSupport;
+    //@copy-c-declaration class CommandConfigDataWriter;
+    //@copy-c-declaration class CommandConfigDataReader;
+    //@copy-c-declaration struct CommandConfigSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Message that sets up the possible commands an Agent can send and any arguments needed to perform said
+    //@copy-declaration  * command.
+    //@copy-declaration  */
+    valuetype CommandConfig : Message {
+    
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef CommandConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef CommandConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef CommandConfigDataReader DataReader;
+        //@copy-c-declaration typedef CommandConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef CommandConfig Type;
+
+        //@copy-declaration /** Lists CommandDefs of all commands that can be performed by said Agent. */
+        public SubsystemTypeSequence availableSubsystemTypes;
+        public SubsystemSequence availableSubsystems;
+       
+    };
+};
+
+#endif // rapid_CommandConfig_idl

@@ -1,0 +1,91 @@
+#ifndef rapid_JointSample_idl
+#define rapid_JointSample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief JointConfig describes the joints in an Agent and their relation to each other using the FrameStore.
+ * JointSample delivers telemetry about the joints of an Agent.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** Flag values for joint status sequence. */
+
+    //@copy-declaration /** Joint is enabled. */
+    const long JOINT_ENABLED        = 0x0000;
+
+    //@copy-declaration /** Joint is disabled. */
+    const long JOINT_DISABLED       = 0x0001;
+
+     //@copy-declaration /** Joint is unable to move. */
+    const long JOINT_FROZEN         = 0x0003;
+
+     //@copy-declaration /** Joint has been e-stopped. */
+    const long JOINT_ESTOP          = 0x0005;
+
+     //@copy-declaration /** Joint has had a failure. */
+    const long JOINT_FAILURE        = 0x0100;
+
+     //@copy-declaration /** Joint is drawing too much current. */
+    const long JOINT_OVER_CURRENT   = 0x0300;
+
+    //@copy-declaration /** Joint is exceeded position error limits. */
+    const long JOINT_POSITION_ERROR = 0x0500;
+
+    //@copy-c-declaration class JointSampleTypeSupport;
+    //@copy-c-declaration class JointSampleDataWriter;
+    //@copy-c-declaration class JointSampleDataReader;
+    //@copy-c-declaration struct JointSampleSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * JointSample delivers joint data at a high frequency. Use JointConfig to deciper the configuration of
+    //@copy-declaration  * joints.
+    //@copy-declaration  */
+    valuetype JointSample : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef JointSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef JointSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef JointSampleDataReader DataReader;
+        //@copy-c-declaration typedef JointSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef JointSample Type;
+
+        //@copy-declaration /** Angle position (in radians) of the joint. */
+        public FloatSequence64 anglePos;
+
+        //@copy-declaration /** Angle velocity (in radians/sec) of the joint. */
+        public FloatSequence64 angleVel;
+
+        //@copy-declaration /** Angle acceleration (in radians/sec^2) of the joint. */
+        public FloatSequence64 angleAcc;
+
+         //@copy-declaration /** Current draw of joint motor. */
+        public FloatSequence64 current;
+
+        //@copy-declaration /** Torque sensed at the joint (in N-m). */
+        public FloatSequence64 torque;
+
+        //@copy-declaration /** Temperature of the joint (in degrees Celsius). */
+        public FloatSequence64 temperature;
+
+        //@copy-declaration /** Bit field representing the state of the joint. */
+        public LongSequence64 status;
+
+        //@copy-declaration /** A list of sequences for any parameters not otherwise included. */
+        public NFSeqSequence16 auxFloat;
+    };
+
+};
+
+#endif // rapid_JointSample_idl

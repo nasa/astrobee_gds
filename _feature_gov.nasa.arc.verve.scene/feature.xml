@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="_feature_gov.nasa.arc.verve.scene"
+      label="VerveScene"
+      version="1.0.0.qualifier"
+      provider-name="NASA IRG">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <includes
+         id="_feature_com.ardor3d"
+         version="0.0.0"/>
+
+   <includes
+         id="_feature_gov.nasa.arc.verve.common"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.apache.log4j"/>
+      <import plugin="com.ardor3d"/>
+      <import plugin="gov.nasa.arc.irg.util.ui"/>
+      <import plugin="gov.nasa.ensemble.ui.databinding.e4"/>
+      <import plugin="gov.nasa.arc.irg.georef"/>
+      <import plugin="gov.nasa.arc.irg.georef.ui"/>
+      <import plugin="gov.nasa.arc.irg.util"/>
+      <import plugin="gov.nasa.arc.verve.ardor3d.scenegraph.shape" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="gov.nasa.arc.verve.ardor3d.effect"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.ardor3d.scenegraph"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.ardor3d.scenegraph.shape"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.common"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.common.scenario"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.ui3d"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.viz.scenegraph"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.io"
+         download-size="0"
+         install-size="0"
+         version="2.0.1"/>
+
+   <plugin
+         id="gov.nasa.arc.viz.io"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.lang"
+         download-size="0"
+         install-size="0"
+         version="2.5.0"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.common.ardor3d"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gov.nasa.arc.verve.ardor3d.extension.interact"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

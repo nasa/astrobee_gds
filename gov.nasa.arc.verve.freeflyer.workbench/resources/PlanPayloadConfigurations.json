@@ -1,0 +1,19 @@
+{
+	"type" : "PlanPayloadConfigurationFile",
+	"planPayloadConfigs" : [ {
+	  "name": "Laser Pointer",
+	  "power": 1.0
+	},
+	{
+	  "name": "Payload Top Aft",
+	  "power": 25
+	},
+	{
+	  "name": "Payload Bottom Aft"
+	},
+	{
+	  "name": "Payload Bottom Front",
+	  "power": 27
+	}
+	]
+}

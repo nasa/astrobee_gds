@@ -1,0 +1,34 @@
+{
+	"type" : "FaultConfigurationFile",
+	"subsystems" : ["Processor", "Mobility", "Localization" ],
+	"nodes" : [ "Node 1", "Node 2", "Node 3" ],
+
+	"faultInfos" : [ {
+	  "subsystem": 0,
+	  "node": 0,
+	  "faultId": 100,
+	  "warning": false,
+	  "faultDescription": "Processor overheated"
+	},
+	{
+	  "subsystem": 1,
+	  "node": 2,
+	  "faultId": 201,
+	  "warning": true,
+	  "faultDescription": "Arm Overcurrent"
+	},
+	{
+	  "subsystem": 0,
+	  "node": 1,
+	  "faultId": 120,
+	  "warning": false,
+	  "faultDescription": "SciCam is inoperable"
+	},
+	{
+	  "subsystem": 2,
+	  "node": 2,
+	  "faultId": 127,
+	  "warning": false,
+	  "faultDescription": "Fuse is broken"
+	} ]
+}

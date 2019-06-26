@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_yYnkIGFREeSZr4uXmar69A">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_zgvp0GFREeSZr4uXmar69A" featurename="addons" parentElementId="gov.nasa.arc.ff.ocu.application">
+    <elements xsi:type="application:Addon" xmi:id="_kvMKkGOBEeSZr4uXmar69A" elementId="gov.nasa.rapid.v2.ui.e4.addon.1" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.RapidV2UiPreferences"/>
+    <elements xsi:type="application:Addon" xmi:id="_2gLPYGFREeSZr4uXmar69A" elementId="gov.nasa.rapid.v2.ui.e4.addon.0" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.DdsInitializerBase"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_uWGaoGOmEeSRENn1Mms1sw" featurename="commands" parentElementId="gov.nasa.arc.ff.ocu.partstack.teleopMiddleRight">
+    <elements xsi:type="commands:Command" xmi:id="_3qCEIGOmEeSRENn1Mms1sw" elementId="gov.nasa.rapid.v2.ui.e4.command.topics" commandName="Topics"/>
+    <elements xsi:type="commands:Command" xmi:id="_6a9ToGOmEeSRENn1Mms1sw" elementId="gov.nasa.rapid.v2.ui.e4.command.refresh" commandName="Refresh"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_82BA0GOmEeSRENn1Mms1sw" featurename="handlers" parentElementId="gov.nasa.arc.ff.ocu.partstack.teleopMiddleRight">
+    <elements xsi:type="commands:Handler" xmi:id="_CA8NkGOnEeSRENn1Mms1sw" elementId="gov.nasa.rapid.v2.ui.e4.handler.0" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.handlers.DdsInfoTopicsHandler" command="_3qCEIGOmEeSRENn1Mms1sw"/>
+    <elements xsi:type="commands:Handler" xmi:id="_GJxrMGOnEeSRENn1Mms1sw" elementId="gov.nasa.rapid.v2.ui.e4.handler.1" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.handlers.DdsInfoRefreshHandler" command="_6a9ToGOmEeSRENn1Mms1sw"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_QZ-IoGOnEeSRENn1Mms1sw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.debug.lowerleft">
+    <elements xsi:type="basic:Part" xmi:id="_Uh188GOnEeSRENn1Mms1sw" elementId="gov.nasa.rapid.v2.ui.e4.part.discoveredDdsInfo" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.parts.DiscoveredDdsInfoPart" label="Discovered Dds Info" tooltip="tooltip for Discovered Dds Info">
+      <tags>NoMove</tags>
+      <toolbar xmi:id="_aLP1cGOnEeSRENn1Mms1sw" elementId="gov.nasa.rapid.v2.ui.e4.toolbar.0">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_duSX0GXrEeSQT7lxR1tNzg" elementId="gov.nasa.rapid.v2.ui.e4.directtoolitem.topics" label="Topics" type="Check" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.handlers.DdsInfoTopicsHandler"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_qsyjsGXtEeSQT7lxR1tNzg" elementId="gov.nasa.rapid.v2.ui.e4.directtoolitem.refresh" label="Refresh" contributionURI="bundleclass://gov.nasa.rapid.v2.ui.e4/gov.nasa.rapid.v2.ui.e4.handlers.DdsInfoRefreshHandler"/>
+      </toolbar>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

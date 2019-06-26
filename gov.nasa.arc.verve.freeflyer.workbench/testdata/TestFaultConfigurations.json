@@ -1,0 +1,27 @@
+{
+	"type" : "FaultConfigurationFile",
+	"subsystems" : [ "Subsystem A", "Subsystem B" ],
+	"nodes" : [ "Node 1", "Node 2", "Node 3" ],
+
+	"faultInfos" : [ {
+	  "subsystem": 0,
+	  "node": 0,
+	  "faultId": 100,
+	  "warning": false,
+	  "faultDescription": "Subsystem A, Node 1, is indisposed"
+	},
+	{
+	  "subsystem": 1,
+	  "node": 2,
+	  "faultId": 201,
+	  "warning": true,
+	  "faultDescription": "Subsystem B, Node 3, has the hiccups"
+	},
+	{
+	  "subsystem": 0,
+	  "node": 1,
+	  "faultId": 120,
+	  "warning": false,
+	  "faultDescription": "Subsystem A, Node 2, is inoperable"
+	} ]
+}

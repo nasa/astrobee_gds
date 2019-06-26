@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="gov.nasa.arc.verve.robot.rapid.RapidAvatarBuilder" name="RAPID Avatar Builder" schema="schema/gov.nasa.arc.verve.robot.rapid.RapidAvatarBuilder.exsd"/>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="gov.nasa.arc.verve.common.preferences.VervePreferencePage"
+            class="gov.nasa.arc.verve.robot.rapid.preferences.VerveRapidRobotPreferencePage"
+            id="gov.nasa.arc.verve.robot.rapid.preferences.VerveRapidRobotPreferencePage"
+            name="RAPID Robots">
+      </page>
+      <!-- page
+            category="gov.nasa.arc.verve.robot.rapid.preferences.VerveRapidRobotPreferencePage"
+            class="gov.nasa.arc.verve.robot.rapid.preferences.MultiPosePreferencePage"
+            id="gov.nasa.arc.verve.robot.rapid.preferences.MultiPosePreferencePage"
+            name="MultiPose History">
+      </page -->
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="gov.nasa.arc.verve.robot.rapid.preferences.VerveRapidRobotPreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

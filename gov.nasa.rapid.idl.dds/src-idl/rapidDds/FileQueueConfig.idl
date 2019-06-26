@@ -1,0 +1,59 @@
+#ifndef rapid_FileQueueConfig_idl
+#define rapid_FileQueueConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief See RAFT documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * The file queue channel configuration. The file queue can have multiple channels. Bandwidth is split up
+    //@copy-declaration  * between the channels through a token system.
+    //@copy-declaration  */
+    struct ChannelConfig {
+
+        //@copy-declaration /** Name of the channel. */
+        String32 name;
+
+        //@copy-declaration /** Number of tokens that channel has. */
+        short numTokens;
+    };
+
+    //@copy-declaration /** Sequence of channel specifications. */
+    typedef sequence<ChannelConfig, 8> ChannelConfigSequence;
+
+    //@copy-c-declaration class FileQueueConfigTypeSupport;
+    //@copy-c-declaration class FileQueueConfigDataWriter;
+    //@copy-c-declaration class FileQueueConfigDataReader;
+    //@copy-c-declaration struct FileQueueConfigSeq;
+
+    //@copy-declaration /** Holds information about a file that could be transferred to the ground from the robot. */
+    valuetype FileQueueConfig : Message {
+    
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FileQueueConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FileQueueConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef FileQueueConfigDataReader DataReader;
+        //@copy-c-declaration typedef FileQueueConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FileQueueConfig Type;
+
+        public ChannelConfigSequence channels;
+
+    };
+};
+
+#endif // rapid_FileQueueConfig_idl

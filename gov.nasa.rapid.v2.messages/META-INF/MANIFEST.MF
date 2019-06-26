@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Specialized Message Definitions
+Bundle-SymbolicName: gov.nasa.rapid.v2.messages
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.rapid.v2.messages.Activator
+Bundle-Vendor: RISC
+Require-Bundle: org.eclipse.core.runtime,
+ gov.nasa.rapid.v2.e4;visibility:=reexport,
+ gov.nasa.rapid.idl.ext.arc;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.rapid.v2.message.agent,
+ gov.nasa.rapid.v2.messages

@@ -1,0 +1,133 @@
+#ifndef rapid_ext_SystemInfoSample_idl
+#define rapid_ext_SystemInfoSample_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{ 
+  module ext
+  {
+    /** Battery status information acquired through /proc/acpi/battery/BAT# */
+    struct BatteryInfoSample
+    {
+      long acStatus;
+      long batteryStatus;
+      float percentage;
+    };
+    /** Typedef to accommodate multiple batteries. */
+    typedef sequence<BatteryInfoSample, 32> BatteryInfoSampleSequence;
+   
+    /** Cpu usage information acquired through /proc/stats.
+     * For K10, units are jiffies (1/100th sec), may vary with arch-type. */
+    struct CpuInfoSample
+    {
+      float busy;
+      float idle;
+      float nice;
+      float system;
+      float user;
+    };
+    /** Typedef to accommodate multiple cores. */
+    typedef sequence<CpuInfoSample, 32> CpuInfoSampleSequence;
+    
+    /** Filesystem usage information acquired through statfs.
+     * Capacity is reportet in block size. */
+    struct FilesystemInfoSample
+    {
+      long long used;
+      long long available;
+    };
+    /** Typedef to accommodate multiple cores. */
+    typedef sequence<FilesystemInfoSample, 32> FilesystemInfoSampleSequence;
+    
+    /** Memory usage information acquired through /proc/meminfo, Units are kBytes. */
+    struct MemoryInfoSample
+    {
+      long buffers;
+      long cached;
+      long free;
+      long swap;
+    };
+ 
+    /** Temperature information acquired through /proc/acpi/thermal_zone/... 
+     * Currently K10 brains only provide one /proc-type thermal zone. */
+    struct ThermalInfoSample
+    {
+      /** The location temperature zones is motherboard-vendor specific. */
+      float temperature;
+    };
+    /** Typedef to accommodate multiple thermal zones. */
+    typedef sequence<ThermalInfoSample, 32> ThermalInfoSampleSequence;
+    
+    /** Network device traffic information acquired through /proc/net/dev.
+     * Units are kbps for tx/rx, packets for total errors (tx errors + rx errors). */
+    struct NetTrafficInfoSample
+    {
+      long rx;
+      long tx;
+      long rxErrors;
+      long txErrors;
+    };
+    /** Typedef to accomodate multiple network interfaces. */
+    typedef sequence<NetTrafficInfoSample, 16> NetTrafficInfoSampleSequence;
+    
+    /** Wireless network status information returned by Linux ioctl() calls.  For more
+     * information, research SIOCGIWFREQ/SIOCGIWRATE and "/proc/net/wireless".
+     * 
+     * @author original: Trey Smith, updated: Hans Utz, Kyle Dunn
+     * @date 13-Mar-2009 */
+    struct WifiInfoSample
+    {
+      long linkQuality;
+      long signalLevel;
+      long noiseLevel;
+      
+      /** From ioctl(sockDescr, SIOCGIWFREQ).  Units are GHz 
+       * for the K10 system, but may vary on other platforms. */
+      float frequency;
+      
+      /** From ioctl(sockDescr, SIOCGIWRATE). Units are Mb/s 
+       * for the K10 system, but may vary on other platforms. */
+      float bitrate;
+    };
+    /** Typedef to accommodate multiple wireless interfaces. */
+    typedef sequence<WifiInfoSample, 8> WifiInfoSampleSequence;
+    
+    //@copy-c-declaration class SystemInfoSampleTypeSupport;
+    //@copy-c-declaration class SystemInfoSampleDataWriter;
+    //@copy-c-declaration class SystemInfoSampleDataReader;
+    //@copy-c-declaration struct SystemInfoSampleSeq;
+
+    /** Status information for various laptop components.
+     * 
+     * @author Hans Utz, Kyle Dunn
+     * @date 13-Mar-2009 */
+    valuetype SystemInfoSample : Message
+    {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef SystemInfoSampleTypeSupport TypeSupport;
+      //@copy-c-declaration typedef SystemInfoSampleDataWriter DataWriter;
+      //@copy-c-declaration typedef SystemInfoSampleDataReader DataReader;
+      //@copy-c-declaration typedef SystemInfoSampleSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef SystemInfoSample Type;
+            
+      public BatteryInfoSampleSequence batteries;
+      
+      public MemoryInfoSample memory;
+      
+      public CpuInfoSampleSequence cpus;
+
+      public FilesystemInfoSampleSequence filesystems;
+      
+      public ThermalInfoSampleSequence temperatures;
+      
+      public NetTrafficInfoSampleSequence netInterfaces;
+      
+      public WifiInfoSampleSequence wifiInterfaces;
+    };
+  };
+};
+
+#endif // rapid_ext_SystemInfoSample_idl

@@ -1,0 +1,31 @@
+#ifndef rapid_ext_arc_Trajectory3D_idl
+#define rapid_ext_arc_Trajectory3D_idl
+
+#include "BaseTypes.idl"
+
+module rapid {
+  module ext {
+    module arc {
+    
+      //@copy-declaration /**
+      //@copy-declaration  * pose rotation is assumed to be quaternion
+      //@copy-declaration  */
+      struct TrajPoint3D {
+        Transform3D pose;
+        //Transform3D velocity; 
+      };
+
+      typedef sequence<TrajPoint3D,64> TrajPoint3DSequence;
+      struct Trajectory3D {
+        float     weight;     // weight of trajectory, if applicable
+        String32  name;       // name of trajectory, if applicable
+        
+        long long t0;         // first sample time in microseconds
+        long long tsep;       // time separation of points, in microseconds
+        TrajPoint3DSequence points;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_Trajectory3D_idl

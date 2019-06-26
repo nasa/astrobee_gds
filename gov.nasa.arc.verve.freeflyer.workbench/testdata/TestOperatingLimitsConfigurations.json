@@ -1,0 +1,29 @@
+{	
+	"type" : "OperatingLimitsConfigurationFile",
+	"operatingLimitsConfigs" : [ {
+    	"profileName" : "Conservative",
+    	"flightMode" : "Flight Mode One",
+    	"targetLinearVelocity" : 0.1,
+    	"targetLinearAccel" : 0.03,
+    	"targetAngularVelocity" : 0.02,
+    	"targetAngularAccel" : 0.01,
+    	"collisionDistance" : 0.1
+  	}, {
+    	"profileName" : "Speedy",
+    	"flightMode" : "Flight Mode Two",
+    	"targetLinearVelocity" : 5.0,
+    	"targetLinearAccel" : 0.05,
+    	"targetAngularVelocity" : 0.1,
+    	"targetAngularAccel" : 0.1,
+    	"collisionDistance" : 0.01
+  	}, {
+		"profileName" : "IgnoreObstacles",
+		"flightMode" : "Flight Mode Three",
+		"targetLinearVelocity" : 0.1,
+    	"targetLinearAccel" : 0.03,
+    	"targetAngularVelocity" : 0.02,
+    	"targetAngularAccel" : 0.01,
+    	"collisionDistance" : 0.0
+ 	} ]
+}
+

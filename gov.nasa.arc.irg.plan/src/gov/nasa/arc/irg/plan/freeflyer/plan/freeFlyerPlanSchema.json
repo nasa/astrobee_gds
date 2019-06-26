@@ -1,0 +1,145 @@
+{
+  "xpjson": "0.2",
+  "type": "PlanSchema",
+  "name": "FreeFlyer Plan Schema",
+  "notes": "Define FreeFlyer plans",
+  "id": "http://example.com/freeFlyerPlanSchema.json",
+  "stationIdFormat": "{plan.site.id}{plan.platform.id}{plan.planNumber:03d}_{plan.planVersion}_STN{stationIndex}",
+  "segmentIdFormat": "{plan.site.id}{plan.platform.id}{plan.planNumber:03d}_{plan.planVersion}_SEG{stationIndex}",
+  "commandIdFormat": "{parent.id}_{commandIndex:01d}_{command.presetCode}",
+  "paramSpecs":[
+  { "type":"ParamSpec",
+    "id":"degrees",
+    "valueType":"number",
+    "minimum":-180,
+    "maximum":180
+  }
+  ],
+  "commandSpecs": [
+   {
+      "type": "CommandSpec",
+      "id": "FreeFlyerCommand",
+      "notes": "FreeFlyer specific command",
+      "parent": "Command",
+      "abstract":true
+    },
+    {
+      "type": "CommandSpec",
+      "id": "DownloadData",
+      "notes": "Download data to ISS Data Storage",
+      "parent": "FreeFlyerCommand"
+    },  
+    {
+      "type": "CommandSpec",
+      "id": "ClearData",
+      "notes": "Delete data on Astrobee",
+      "parent": "FreeFlyerCommand"
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Dock",
+      "notes": "Dock the Astrobee",
+      "parent": "FreeFlyerCommand"
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Undock",
+      "notes": "Undock the Astrobee",
+      "parent": "FreeFlyerCommand"
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Wait",
+      "notes": "Do nothing for specified time if docked/perched, otherwise Station Keep",
+      "parent": "FreeFlyerCommand",
+      "params": [
+        {
+          "type": "ParamSpec",
+          "id": "duration",
+          "valueType": "number",
+          "notes": "seconds to pause",
+          "minimum":0
+        }
+      ]
+    },
+    {
+      "type": "CommandSpec",
+      "id": "ConfigureSafeguards",
+      "notes": "Set limits on speed, obstacle distance, acceleration, velocity/acceleration targets",
+      "parent": "FreeFlyerCommand",
+      "params": [
+        {
+          "type": "ParamSpec",
+          "id": "flags",
+          "valueType": "number"
+        }
+      ]
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Pause plan",
+      "notes": "Pause the plan",
+      "parent": "FreeFlyerCommand"
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Start perch",
+      "notes": "Unstow arm and send structured light sensor data",
+      "parent": "FreeFlyerCommand"
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Unperch",
+      "notes": "Release gripper, move forward, stow arm",
+      "parent": "FreeFlyerCommand"
+    },
+    {
+      "type": "CommandSpec",
+      "id": "ArmPanAndTilt",
+      "notes": "Pan and tilt arm to adjust camera view while perched",
+      "parent": "FreeFlyerCommand",
+      "params": [
+        {
+          "type": "ParamSpec",
+          "id": "pan",
+          "valueType": "number",
+	        "minimum":-90,
+          "maximum":90
+        },
+        {
+          "type": "ParamSpec",
+          "id": "tilt",
+          "valueType": "number",
+          "minimum":-90,
+          "maximum":90
+        }
+      ]
+    },
+    {
+      "type": "CommandSpec",
+      "id": "Subsystem command",
+      "notes": "Release gripper, move forward, stow arm",
+      "parent": "FreeFlyerCommand",
+      "params": [
+        {
+          "type": "ParamSpec",
+          "id": "subsystem",
+          "valueType": "string",
+          "choices": [
+              ["fans", "fans"],
+              ["payload1", "payload1"],
+              ["payload2", "payload2"]
+          ],
+          "notes": "Name of subsystem"
+
+        },
+        {
+          "type": "ParamSpec",
+          "id": "command",
+          "valueType": "string",
+          "notes": "on, off, or custom command"
+        }
+      ]
+    }
+    ]
+}

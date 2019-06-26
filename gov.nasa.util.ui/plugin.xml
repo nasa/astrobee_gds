@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="gov.nasa.util.ui.category.internal"
+            name="internal">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:file?before=quit">
+         <separator
+               name="system.ext"
+               visible="true">
+         </separator>
+         <separator
+               name="system.end"
+               visible="true">
+         </separator>
+      </menuContribution>
+   </extension>
+
+</plugin>

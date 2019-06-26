@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RAPID Java Bindings v2
+Bundle-SymbolicName: gov.nasa.rapid.v2.e4
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.rapid.v2.e4.RapidV2Activator
+Require-Bundle: org.eclipse.core.runtime,
+ com.google.guava;visibility:=reexport,
+ gov.nasa.dds.rti;visibility:=reexport,
+ gov.nasa.rapid.idl.dds;visibility:=reexport,
+ gov.nasa.util;visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.rapid.v2.e4,
+ gov.nasa.rapid.v2.e4.agent,
+ gov.nasa.rapid.v2.e4.exception,
+ gov.nasa.rapid.v2.e4.message,
+ gov.nasa.rapid.v2.e4.message.cache,
+ gov.nasa.rapid.v2.e4.message.collector,
+ gov.nasa.rapid.v2.e4.message.command,
+ gov.nasa.rapid.v2.e4.message.helpers,
+ gov.nasa.rapid.v2.e4.message.holders,
+ gov.nasa.rapid.v2.e4.message.publisher,
+ gov.nasa.rapid.v2.e4.preferences,
+ gov.nasa.rapid.v2.e4.system,
+ gov.nasa.rapid.v2.e4.system.builtin,
+ gov.nasa.rapid.v2.e4.util

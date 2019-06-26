@@ -1,0 +1,153 @@
+{
+  "type" : "ModuleBayPlan",
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "operatingLimits" : {
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01,
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1
+  },
+  "site" : {
+    "type" : "Site",
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "visible" : true,
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "valid" : false,
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "libraryURLs" : [ ],
+  "dateCreated" : "2018-04-27T22:17:56Z",
+  "dateModified" : "2018-04-27T22:41:11Z",
+  "xpjson" : "0.1",
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 5.31,
+      "y" : 0.79,
+      "z" : 5.52,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 90.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "stopOnArrival" : false,
+    "tolerance" : 0.1,
+    "name" : "0",
+    "id" : "7346cba9-ebda-4887-bd7f-8749d0b611f8",
+    "sequence" : [ ]
+  }, {
+    "type" : "Segment",
+    "speed" : 0.1,
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "0-1",
+    "id" : "3bce5d6d-5265-4d0e-a7a1-dd1fa5547705",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 4.73,
+      "y" : 0.01,
+      "z" : 4.85,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : true,
+      "module" : "US Lab",
+      "bayNumberValid" : true,
+      "bayNumber" : "Between 1 and 2",
+      "centerOne" : true,
+      "wallOne" : "Deck",
+      "wallOneOffset" : 0.2,
+      "centerTwo" : true,
+      "wallTwo" : "Deck",
+      "wallTwoOffset" : 0.2,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "stopOnArrival" : false,
+    "tolerance" : 0.1,
+    "name" : "1",
+    "id" : "ed711d1e-af3e-49f2-bffc-e2bfc8efbee3",
+    "sequence" : [ ]
+  }, {
+    "type" : "Segment",
+    "speed" : 0.1,
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "1-2",
+    "id" : "6c2432ce-051c-45bf-b008-7db8dbc0376c",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 3.04,
+      "y" : -0.54,
+      "z" : 4.85,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : true,
+      "module" : "US Lab",
+      "bayNumberValid" : true,
+      "bayNumber" : "3",
+      "centerOne" : false,
+      "wallOne" : "Port",
+      "wallOneOffset" : 0.5,
+      "centerTwo" : true,
+      "wallTwo" : "Deck",
+      "wallTwoOffset" : 0.2,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "stopOnArrival" : false,
+    "tolerance" : 0.1,
+    "name" : "2",
+    "id" : "15306853-3c52-4cc1-9fb8-5e191d2b9b20",
+    "sequence" : [ ]
+  } ],
+  "name" : "InsertStationAndSetLocationPlan1",
+  "id" : "c46f9f9f-ba50-4dfb-aeca-ca499b50a3d6"
+}

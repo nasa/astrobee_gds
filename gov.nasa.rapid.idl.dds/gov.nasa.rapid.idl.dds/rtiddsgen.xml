@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="gov.nasa.rapid.dds" default="gen-java" basedir=".">
+
+	<!-- ant-contrib library must be in build server's $ANT_HOME/lib directory -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+	<property environment="env" />
+
+	<path id="idl-files">
+		<fileset dir="${basedir}">
+			<patternset>
+				<include name="src-idl/*.idl" />
+			</patternset>
+		</fileset>
+	</path>
+
+	<target name="gen-java" depends="clean" description="generate Java from IDL">
+		<for param="idl-file">
+			<path refid="idl-files" />
+			<sequential>
+				<java fork="true" jar="${env.NDDSHOME}/class/rtiddsgen.jar" dir="${basedir}">
+					<!-- <env key="XALANHOME" value="/Users/dmittman/Development/xalan-j_2_7_1" />
+					<env key="NDDSJREHOME" value="/Library/Java/Home" /> -->
+					<jvmarg value="-DNDDS_RESOURCE_DIR=${env.NDDSHOME}/resource" />
+					<!-- <arg value="-d" />
+					<arg file="generated-src" />
+					<arg value="-language" />
+					<arg value="Java" />
+					<arg value="-package" />
+					<arg value="gov.nasa.rapid.idl.dds" />
+					<arg value="-ppOption" />
+					<arg value="-I/Users/dmittman/Development/Eclipse_Workspaces/workspace-RAPID-RES/gov.nasa.rapid.dds/src-idl/" />
+					<arg value="-replace" /> -->
+					<arg file="@{idl-file}" />
+				</java>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="clean">
+		<delete>
+			<fileset dir="generated-src" includes="**/*.java" />
+		</delete>
+	</target>
+
+</project>

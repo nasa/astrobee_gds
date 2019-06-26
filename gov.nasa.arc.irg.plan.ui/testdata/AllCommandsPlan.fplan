@@ -1,0 +1,221 @@
+{
+  "type" : "ModuleBayPlan",
+  "operatingLimits" : {
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1,
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01
+  },
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "mass" : 5.0,
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ]
+  },
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "visible" : true,
+  "valid" : true,
+  "xpjson" : "0.1",
+  "dateCreated" : "2017-07-06T17:24:04Z",
+  "defaultTolerance" : 1.0,
+  "defaultSpeed" : 0.1,
+  "creator" : "ddwheele",
+  "site" : {
+    "type" : "Site",
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "dateModified" : "2017-07-06T17:57:17Z",
+  "libraryURLs" : [ ],
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 90.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "stopOnArrival" : false,
+    "tolerance" : 0.1,
+    "name" : "0",
+    "id" : "66cc68c3-aed4-44a2-8643-7de58dc4c921",
+    "sequence" : [ {
+      "type" : "armPanAndTilt",
+      "tilt" : 37.0,
+      "pan" : 21.0,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.0 ArmPanAndTilt",
+      "id" : "3e11aeee-7896-4ea9-94ff-bac41da20d93"
+    }, {
+      "type" : "pausePlan",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.1 PausePlan",
+      "id" : "44519e8b-0378-4a57-9097-c9448e70d38c"
+    }, {
+      "type" : "undock",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.2 Undock",
+      "id" : "56907cac-ff1e-4cd1-9ef6-619f5e99d6ce"
+    }, {
+      "type" : "perch",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.3 Perch",
+      "id" : "5cb1b4be-20cc-4b1d-8a9a-6c3df0bed02c"
+    }, {
+      "type" : "unperch",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.4 Unperch",
+      "id" : "6d151cbf-532c-4b7f-b4a5-9d6b39f2e49c"
+    }, {
+      "type" : "wait",
+      "duration" : 88,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.5 Wait",
+      "id" : "79c827ab-993f-44bc-b507-0d576665c520"
+    }, {
+      "type" : "idlePropulsion",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.6 IdlePropulsion",
+      "id" : "f61a6e8c-b871-44ec-b0b9-3f963ee15a94"
+    }, {
+      "type" : "downloadData",
+      "dataMethod" : "Immediate",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.7 DownloadData",
+      "id" : "e5c2d3fd-8169-491a-a4c4-bf056091f42a"
+    }, {
+      "type" : "clearData",
+      "dataMethod" : "Delayed",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.8 ClearData",
+      "id" : "95174b5c-c79c-4749-8b72-d86f30ad104a"
+    }, {
+      "type" : "dock",
+      "berth" : 1,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.9 Dock",
+      "id" : "7dfd762f-f8b1-4ce7-9e59-cfda7d26fc7e"
+    }, {
+      "type" : "dock",
+      "berth" : 2,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.10 Dock",
+      "id" : "20bdba8d-ebe6-47ff-9787-5c8689934bca"
+    }, {
+      "type" : "gripperControl",
+      "open" : false,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.11 GripperControl",
+      "id" : "e639e43a-4ff9-4b83-992d-6b5b95de52ad"
+    }, {
+      "type" : "gripperControl",
+      "open" : true,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.12 GripperControl",
+      "id" : "7e41ed54-76bd-4925-9f96-79a769b30cc5"
+    }, {
+      "type" : "setFlashlightBrightness",
+      "brightness" : 1.0,
+      "which" : "Front",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.13 SetFlashlightBrightness",
+      "id" : "86dfc14d-e5c4-435b-8110-35ab55cb6afe"
+    }, {
+      "type" : "setCameraRecording",
+      "record" : true,
+      "cameraName" : "Science",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.14 SetCameraRecording",
+      "id" : "8efeafbe-91df-47ed-a643-318a0c476a7c"
+    }, {
+      "type" : "setCameraRecording",
+      "record" : false,
+      "cameraName" : "Navigation",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.15 SetCameraRecording",
+      "id" : "2f003615-3b40-483f-8029-d63e1d593ffa"
+    }, {
+      "type" : "setCameraStreaming",
+      "stream" : true,
+      "cameraName" : "Hazard",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.16 SetCameraStreaming",
+      "id" : "eb09ae5b-083f-4266-903f-b0a0e6bea11c"
+    }, {
+      "type" : "setCameraStreaming",
+      "stream" : false,
+      "cameraName" : "Dock",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.17 SetCameraStreaming",
+      "id" : "b9362a07-91d6-4d3f-af70-e55afdf9e9e6"
+    }, {
+      "type" : "genericCommand",
+      "commandName" : "derelict",
+      "param" : "preconceptions",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.18 GenericCommand",
+      "id" : "8f61515e-1303-498f-9c52-2cdba909459d"
+    } ]
+  } ],
+  "name" : "AllCommandsPlan",
+  "id" : "0618317a-59bc-4340-8c75-660e9f6fe04e"
+}

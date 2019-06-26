@@ -1,0 +1,40 @@
+{	
+	"type" : "GuestScienceConfigurationFile",
+	"guestScienceConfigs" : [ {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceA",
+    	"shortName" : "Guest Science A",
+    	"primary" : true,
+    	"guestScienceCommands" : [ {
+    			"name" : "Command A 1",
+    			"command" : "command body for command A 1",
+    			"power" : 10,
+    			"duration" : 11    	
+    		},
+    		{
+    			"name" : "Command A 2",
+    			"command" : "command body for command A 2",
+    			"power" : 20 	
+    		},
+    		{
+    			"name" : "Command A 3",
+    			"command" : "command body for command A 3",
+    			"duration" : 31    	
+    		} ]
+  	}, {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceB",
+    	"shortName" : "Guest Science B",
+    	"primary" : true,
+    	"power" : 12,
+    	"duration" : 19    	
+  	},  {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.GuestScienceC",
+    	"shortName" : "Guest Science C",
+    	"primary" : false,
+    	"power" : 11,
+    	"guestScienceCommands" : [ {
+    			"name" : "Command C 1",
+    			"command" : "command body for command C 1"
+    		} ]
+  	} ]
+}
+

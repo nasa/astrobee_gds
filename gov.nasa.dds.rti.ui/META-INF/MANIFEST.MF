@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RTI DDS UI Components
+Bundle-SymbolicName: gov.nasa.dds.rti.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.dds.rti.ui.RtiDdsUiActivator
+Bundle-Vendor: RISC
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ gov.nasa.util.ui;visibility:=reexport,
+ gov.nasa.dds,
+ gov.nasa.dds.rti
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.dds.rti.ui,
+ gov.nasa.dds.rti.ui.handlers,
+ gov.nasa.dds.rti.ui.jface.action,
+ gov.nasa.dds.rti.ui.preferences

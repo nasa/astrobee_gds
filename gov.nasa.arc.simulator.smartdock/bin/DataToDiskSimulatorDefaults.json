@@ -1,0 +1,13 @@
+{
+  "type" : "DataConfigurationFile",
+  "sequence": [ 
+			[ "RosTopic0", "immediate", 5.0 ],
+			[ "RosTopic1", "immediate", 5.0 ],
+			[ "RosTopic2", "immediate", 5.0 ],
+			[ "RosTopic3", "delayed", 10.0 ],
+			[ "RosTopic4", "delayed", 25.0 ],
+			[ "RosTopic5", "delayed", 6.0 ],
+			[ "RosTopic6", "delayed", 12.0 ]
+			
+	]
+}

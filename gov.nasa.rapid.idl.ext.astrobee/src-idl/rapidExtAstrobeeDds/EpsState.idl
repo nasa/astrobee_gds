@@ -1,0 +1,78 @@
+/*
+ * Copyright 2015 (c) 2015 Intelligent Robotics Group, NASA ARC
+ */
+
+#include "Message.idl"
+
+module rapid {
+  module ext {
+    module astrobee {
+
+
+
+      //@copy-declaration /** The stats of a battery
+      //@copy-declaration   * - name: name of the battery. Probably just "battery 1"
+      //@copy-declaration   */
+      struct BatteryInfoConfig {
+        String32 name;
+      };
+
+      typedef sequence<BatteryInfoConfig, 8> BatteryInfoConfigSequence8;
+
+      //@copy-c-declaration class EpsConfigTypeSupport;
+      //@copy-c-declaration class EpsConfigDataWriter;
+      //@copy-c-declaration class EpsConfigDataReader;
+      //@copy-c-declaration struct EpsConfigSeq;
+
+      //@copy-declaration /**
+      //@copy-declaration   * The state of the data partitions on Astrobee
+      //@copy-declaration   */
+      valuetype EpsConfig : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef EpsConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef EpsConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef EpsConfigDataReader DataReader;
+        //@copy-c-declaration typedef EpsConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef EpsConfig Type;
+
+        public BatteryInfoConfigSequence8 batteries;
+      };
+
+      struct BatteryInfo {
+        boolean present;
+        float percentage;
+        float temperature;
+      };
+
+      typedef sequence<BatteryInfo, 8> BatteryInfoSequence8;
+
+      //@copy-c-declaration class EpsStateTypeSupport;
+      //@copy-c-declaration class EpsStateDataWriter;
+      //@copy-c-declaration class EpsStateDataReader;
+      //@copy-c-declaration struct EpsStateSeq;
+
+      //@copy-declaration /**
+      //@copy-declaration   * The state of the data partitions on Astrobee
+      //@copy-declaration   */
+      valuetype EpsState : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef EpsStateTypeSupport TypeSupport;
+        //@copy-c-declaration typedef EpsStateDataWriter DataWriter;
+        //@copy-c-declaration typedef EpsStateDataReader DataReader;
+        //@copy-c-declaration typedef EpsStateSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef EpsState Type;
+
+        public BatteryInfoSequence8 batteries;
+
+        public float batteryTotal;
+
+        public float voltage;
+        public float current;
+      };
+
+
+    };
+  };
+};

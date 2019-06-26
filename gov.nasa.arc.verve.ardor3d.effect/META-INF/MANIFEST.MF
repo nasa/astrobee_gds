@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Verve Ardor3D Effect Plug-In
+Bundle-SymbolicName: gov.nasa.arc.verve.ardor3d.effect
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.ardor3d.effect.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ gov.nasa.arc.verve.common,
+ org.apache.log4j
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.verve.ardor3d.effect,
+ gov.nasa.arc.verve.ardor3d.effect.shader,
+ gov.nasa.arc.verve.ardor3d.effect.shape,
+ gov.nasa.arc.verve.ardor3d.effect.texture
+Bundle-Vendor: NASA IRG

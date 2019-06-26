@@ -1,0 +1,60 @@
+#ifndef rapid_PositionConfig_idl
+#define rapid_PositionConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief PositionConfig defines the frame in which PositionSample is sent.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-c-declaration class PositionConfigTypeSupport;
+    //@copy-c-declaration class PositionConfigDataWriter;
+    //@copy-c-declaration class PositionConfigDataReader;
+    //@copy-c-declaration struct PositionConfigSeq;
+
+    //@copy-declaration /** PositionConfig message sets up configuration for PositionSample messages. */
+    valuetype PositionConfig : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef PositionConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef PositionConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef PositionConfigDataReader DataReader;
+        //@copy-c-declaration typedef PositionConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef PositionConfig Type;
+
+        //@copy-declaration /** Denotes the frame that position is given in. This frame should exist in the frame store. */
+        //public String128 referenceFrame;       
+        //@copy-declaration /** Denotes the frame of the position. This frame should exist in the frame store. */
+        public String128 frameName;
+        
+        //@copy-declaration /** 
+        //@copy-declaration  * Specifies the interpretation of the rotation field in PositionSample.pose 
+        //@copy-declaration  * @see RotationEncoding
+        //@copy-declaration  */
+        public RotationEncoding poseEncoding;
+        
+        //@copy-declaration /** 
+        //@copy-declaration  * Specifies the interpretation of the rotation field in PositionSample.velocity
+        //@copy-declaration  * @see RotationEncoding
+        //@copy-declaration  */
+        public RotationEncoding velocityEncoding;
+
+        //@copy-declaration /** Holds extra Agent-specific information about position samples. */
+        public KeyTypeValueSequence64 valueKeys;
+    };
+
+};
+
+#endif // rapid_PositionConfig_idl

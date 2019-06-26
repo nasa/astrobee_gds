@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="gov.nasa.dds.rti.ui.preferences.DdsPreferencePage"
+            class="gov.nasa.dds.rti.ui.preferences.ParticipantPreferencePage"
+            id="gov.nasa.dds.rti.ui.preferences.ParticipantPreferencePage"
+            name="Participant Configuration">
+      </page>
+      <page
+            class="gov.nasa.dds.rti.ui.preferences.DdsPreferencePage"
+            id="gov.nasa.dds.rti.ui.preferences.DdsPreferencePage"
+            name="DDS">
+      </page>
+      <page
+            category="gov.nasa.dds.rti.ui.preferences.DdsPreferencePage"
+            class="gov.nasa.dds.rti.ui.preferences.DenyListPreferencePage"
+            id="gov.nasa.dds.rti.ui.preferences.DenyListPreferencePage"
+            name="UDPv4 Interface Deny List">
+      </page>
+      <page
+            category="gov.nasa.dds.rti.ui.preferences.DdsPreferencePage"
+            class="gov.nasa.dds.rti.ui.preferences.PeersListPreferencePage"
+            id="gov.nasa.dds.rti.ui.preferences.PeersListPreferencePage"
+            name="Peers List">
+      </page>
+      <page
+            category="gov.nasa.dds.rti.ui.preferences.DdsPreferencePage"
+            class="gov.nasa.dds.rti.ui.preferences.QosLibraryPreferencePage"
+            id="gov.nasa.dds.rti.ui.preferences.QosLibraryPreferencePage"
+            name="Qos Profile Libraries">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="gov.nasa.dds.rti.ui.preferences.DdsPreferenceInitializer">
+      </initializer>
+   </extension>
+   <!-- extension point="org.eclipse.ui.handlers">
+      <handler
+            class="gov.nasa.dds.rti.ui.handlers.DdsRestartHandler"
+            commandId="gov.nasa.dds.rti.ui.commands.DdsRestart">
+      </handler>
+   </extension -->
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="gov.nasa.dds.rti.ui.handlers.DdsRestartHandler"
+            id="gov.nasa.dds.rti.ui.commands.DdsRestart"
+            name="Restart DDS">
+      </command>
+      <command
+            defaultHandler="gov.nasa.dds.rti.ui.handlers.QosExportHandler"
+            id="gov.nasa.dds.rti.ui.commands.QosExportHandler"
+            name="Export QoS Settings...">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:file?after=system.ext">
+         <command
+               commandId="gov.nasa.dds.rti.ui.commands.DdsRestart"
+               icon="icons/dds-16.png"
+               label="Restart DDS"
+               mnemonic="d"
+               style="push"
+               tooltip="restart the DDS subsystem using current preference values">
+         </command>
+         <command
+               commandId="gov.nasa.dds.rti.ui.commands.QosExportHandler"
+               icon="icons/dds-file-16.png"
+               label="Export DDS Qos Settings..."
+               style="push"
+               tooltip="Export current QoS settings">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="gov.nasa.dds.rti.ui.BlankPerspective"
+            id="gov.nasa.dds.rti.ui.BlankPerspective"
+            name="Blank">
+      </perspective>
+   </extension>
+
+</plugin>

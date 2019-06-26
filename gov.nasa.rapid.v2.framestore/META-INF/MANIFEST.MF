@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RAPID Framestore
+Bundle-SymbolicName: gov.nasa.rapid.v2.framestore
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.rapid.v2.framestore.FrameStoreActivator
+Bundle-Vendor: RISC
+Require-Bundle: org.eclipse.core.runtime,
+ com.ardor3d.math;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.rapid.v2.framestore,
+ gov.nasa.rapid.v2.framestore.test,
+ gov.nasa.rapid.v2.framestore.tree,
+ gov.nasa.rapid.v2.framestore.tree.updaters,
+ gov.nasa.rapid.v2.framestore.tree.visitors
+Import-Package: org.apache.log4j

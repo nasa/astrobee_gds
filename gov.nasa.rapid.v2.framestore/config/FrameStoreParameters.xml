@@ -1,0 +1,50 @@
+<!DOCTYPE xml SYSTEM "MiroParameterDescription.dtd">
+<config>
+  <config_global name="namespace" value="rapid" />
+  <config_global name="include" value="miro/ConfigParameters.h" />
+
+  <config_group name="FrameStore">
+    <config_item name="FrameRpy" parent="Miro::Config" final="true">
+      <config_parameter name="parent" type="string" default="/" />
+      <config_parameter name="x" type="double" default="0.0"/>
+      <config_parameter name="y" type="double" default="0.0"/>
+      <config_parameter name="z" type="double" default="0.0"/>
+      <config_parameter name="roll" type="angle" default="0.0" unit="deg" />
+      <config_parameter name="pitch" type="angle" default="0.0" unit="deg" />
+      <config_parameter name="yaw" type="angle" default="0.0" unit="deg" />
+    </config_item>
+    <config_item name="FrameM" parent="Miro::Config" final="true">
+      <config_parameter name="parent" type="string" default="roverFrame" />
+      <config_parameter name="x" type="double" default="0.0"/>
+      <config_parameter name="y" type="double" default="0.0"/>
+      <config_parameter name="z" type="double" default="0.0"/>
+      <config_parameter name="r11" type="double" default="1.0"/>
+      <config_parameter name="r12" type="double" default="0.0"/>
+      <config_parameter name="r13" type="double" default="0.0"/>
+      <config_parameter name="r21" type="double" default="0.0"/>
+      <config_parameter name="r22" type="double" default="1.0"/>
+      <config_parameter name="r23" type="double" default="0.0"/>
+      <config_parameter name="r31" type="double" default="0.0"/>
+      <config_parameter name="r32" type="double" default="0.0"/>
+      <config_parameter name="r33" type="double" default="1.0"/>
+    </config_item>
+    <config_item name="FrameQ" parent="Miro::Config" final="true">
+      <config_parameter name="parent" type="string" default="roverFrame" />
+      <config_parameter name="x" type="double" default="0.0"/>
+      <config_parameter name="y" type="double" default="0.0"/>
+      <config_parameter name="z" type="double" default="0.0"/>
+      <config_parameter name="roll" type="angle" default="0.0" unit="deg" />
+      <config_parameter name="pitch" type="angle" default="0.0" unit="deg" />
+      <config_parameter name="yaw" type="angle" default="0.0" unit="deg" />
+    </config_item>
+    <config_item name="FrameDh" parent="Miro::Config" final="true">
+      <config_parameter name="parent" type="string" default="roverFrame" />
+      <config_parameter name="x" type="double" default="0.0"/>
+      <config_parameter name="y" type="double" default="0.0"/>
+      <config_parameter name="z" type="double" default="0.0"/>
+      <config_parameter name="roll" type="angle" default="0.0" unit="deg" />
+      <config_parameter name="pitch" type="angle" default="0.0" unit="deg" />
+      <config_parameter name="yaw" type="angle" default="0.0" unit="deg" />
+    </config_item>
+  </config_group>
+</config>

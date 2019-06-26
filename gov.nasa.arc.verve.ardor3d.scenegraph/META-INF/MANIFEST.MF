@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ardor3D Scenegraph Plug-in
+Bundle-SymbolicName: gov.nasa.arc.verve.ardor3d.scenegraph
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.ardor3d.scenegraph.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.apache.log4j,
+ com.ardor3d;bundle-version="0.9.17";visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.verve.ardor3d.scenegraph,
+ gov.nasa.arc.verve.ardor3d.scenegraph.extension,
+ gov.nasa.arc.verve.ardor3d.scenegraph.util,
+ gov.nasa.arc.verve.ardor3d.scenegraph.visitor
+Bundle-Vendor: NASA IRG

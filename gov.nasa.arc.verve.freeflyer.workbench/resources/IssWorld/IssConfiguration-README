@@ -1,0 +1,31 @@
+The IssConfiguration.json file is set up as a JSON array such that each object describes a 
+single module. Distances are in meters and angles are in degrees. A single module consists of 
+the following fields:
+
+	- "name" - the name of the module, must match the value in the ModuleName enum found in 
+	gov.nasa.arc.irg.plan.model.modulebay.Module.
+	
+	- "file" - the name of the .dae file located in	gov.nasa.arc.verve.robot.freeflyer/models/
+	
+	- "offset" - the absolute location and orientation of the model formatted as:
+	[x offset, y offset, z offset, roll, pitch, yaw]. The origin of a model can be arbitrarily
+	defined if the following fields are correct relative to the defined origin.
+	
+	- "radii" - a 2D array containing the distance to each wall from the center of a given bay. The
+	row number corresponds to the bay number and by convention the wall is specified by the column 
+	number in accordance with the ordering of the Wall enum in 
+	gov.nasa.arc.irg.plan.model.modulebay.LocationMap. The order is as follows: 
+	[FWD, AFT, STBD, PORT, DECK, OVHD]. An entry containing all -1 represents a bay which does not
+	exist.
+	
+	- "dividers" - an array of relative 3D points specifying the bay dividers. That is, where the
+	midpoints of the lines separating two bays are. These are 3D points in order to represent 
+	orientation. For example, a module that has bays along the y-axis will have non-zero divider 
+	coordinates in the y component of the coordinate only, thus the endpoints of the lines can
+	be inferred from the radii. 
+	
+	- "keepin" - an array of "box arrays" in relative coordinates that signify the keepin zones of
+	the given module. The position in the array generally is ordered according to increasing bay
+	number, but this is not guaranteed or required. The format of a "box array" is:
+	[low x, low y, low z, high x, high y, high z]. The number of keepin boxes is in no way related 
+	to the number of bays.

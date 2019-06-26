@@ -1,0 +1,52 @@
+{
+	  "type" : "NoParamsTeleopCommand",
+	  "label": "Wipe HLP",
+	  "buttonText": "Send",
+	  "command": "wipeHlp",
+	  "subsystem": "Admin"
+	},{
+	  "type" : "NoParamsTeleopCommand",
+	  "label": "No-Op",
+	  "buttonText": "Send",
+	  "command": "noOp",
+	  "subsystem": "Admin"
+	},{
+	  "type" : "ToggleBooleanTeleopCommand",
+	  "label": "Enable Auto Return",
+	  "command": "setAutoReturnMode",
+	  "paramName": "enableAutoReturn",
+	  "buttonText": "Enable",
+	  "buttonPushedText": "Disable",
+	   "subsystem": "Settings"
+	}
+	,{
+	  "type" : "TwoFloatsTeleopCommand",
+	  "label": "Pan",
+	  "paramName1": "pan",
+	  "range1": [-20,90],
+	  "units1": "deg",
+	  "label2": "Tilt",
+	  "paramName2": "tilt",
+	  "range2": [0, 190],
+	  "units2": "deg",
+	  "increment": 10,
+	  "buttonText": "Pan and Tilt",
+	  "command": "panAndTilt",
+	  "subsystem": "Arm"
+	},{
+	  "type" : "StringListTeleopCommand",
+	  "label": "Clear Data",
+	  "command": "clearData",
+	  "paramName": "dataMethod",
+	  "buttonText": "Clear",
+	  "paramOptions": ["Immediate","Delayed"],
+	  "subsystem": "Data"
+	},{
+	  "type" : "StringListIntTeleopCommand",
+	  "label": "Manual Dock",
+	  "command": "dock",
+	  "paramName": "berthMethod",
+	  "buttonText": "Dock",
+	  "paramOptions": ["Berth 1","Berth 2"],
+	  "subsystem": "Mobility"
+	}

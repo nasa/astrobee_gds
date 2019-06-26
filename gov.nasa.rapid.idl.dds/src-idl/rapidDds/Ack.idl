@@ -1,0 +1,89 @@
+#ifndef rapid_Ack_idl
+#define rapid_Ack_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief Provides a method for sending acknowledgment messages. Constants are contained in Ack.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * Status of the command paired with this Ack.
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>ACK_QUEUED: Sent by Sequencer when queueing Tasks.
+    //@copy-declaration  *   <li>ACK_EXECUTING: Command has been started by the Bridge.
+    //@copy-declaration  *   <li>ACK_REQUEUED: Only sent when a command in the ActiveQueue and a PAUSE is sent; 
+    //@copy-declaration  *                     command is REQUEUED in the PendingQueue preempting the next command 
+    //@copy-declaration  *                     in the PendingQueue
+    //@copy-declaration  *   <li>ACK_COMPLETED: Sent when command is done.
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum AckStatus {
+        ACK_QUEUED,
+        ACK_EXECUTING,
+        ACK_REQUEUED,
+        ACK_COMPLETED
+    };
+
+    //@copy-declaration /**
+    //@copy-declaration  * This status is sent along when it has completed
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>ACK_COMPLETED_NOT: Task has not completed yet.
+    //@copy-declaration  *   <li>ACK_COMPLETED_OK: Successful completion.
+    //@copy-declaration  *   <li>ACK_COMPLETED_BAD_SYNTAX: Command not recognized, bad parameters, etc.
+    //@copy-declaration  *   <li>ACK_COMPLETED_EXEC_FAILED: Failed to complete.
+    //@copy-declaration  *   <li>ACK_COMPLETED_CANCELED: Canceled from queue.
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum AckCompletedStatus {
+        ACK_COMPLETED_NOT,
+        ACK_COMPLETED_OK,
+        ACK_COMPLETED_BAD_SYNTAX,
+        ACK_COMPLETED_EXEC_FAILED,
+        ACK_COMPLETED_CANCELED
+    };
+
+    //@copy-c-declaration class AckTypeSupport;
+    //@copy-c-declaration class AckDataWriter;
+    //@copy-c-declaration class AckDataReader;
+    //@copy-c-declaration struct AckSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Ack is a Message that sends an acknowledgement of commands received.
+    //@copy-declaration  */
+    valuetype Ack : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef AckTypeSupport TypeSupport;
+        //@copy-c-declaration typedef AckDataWriter DataWriter;
+        //@copy-c-declaration typedef AckDataReader DataReader;
+        //@copy-c-declaration typedef AckSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef Ack Type;
+
+        //@copy-declaration /** Command identifier of command being acknowledged. */
+        public String64 cmdId; //@key
+
+        //@copy-declaration /** @see AckStatus. */
+        public AckStatus status;
+
+        //@copy-declaration /** Details how the task completed. */
+        public AckCompletedStatus completedStatus;
+
+        //@copy-declaration /** Message details any exceptions made during Ack transition. Analogous to exception message string. */
+        public String128 message;
+    };
+};
+
+#endif // rapid_Ack_idl

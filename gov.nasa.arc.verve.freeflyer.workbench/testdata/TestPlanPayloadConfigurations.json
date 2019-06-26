@@ -1,0 +1,11 @@
+{
+	"type" : "PlanPayloadConfigurationFile",
+	"planPayloadConfigs" : [ {
+	  "name": "Payload A",
+	  "power": 25
+	},
+	{
+	  "name": "Payload B"
+	}
+	]
+}

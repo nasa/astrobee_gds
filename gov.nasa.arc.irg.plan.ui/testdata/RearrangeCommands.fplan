@@ -1,0 +1,173 @@
+{
+  "type" : "ModuleBayPlan",
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "operatingLimits" : {
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1,
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01
+  },
+  "dateCreated" : "2016-01-20T17:34:19Z",
+  "dateModified" : "2019-06-14T13:32:00Z",
+  "valid" : true,
+  "site" : {
+    "type" : "Site",
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "visible" : true,
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "xpjson" : "0.1",
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "libraryURLs" : [ ],
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 5.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "0",
+    "id" : "ModuleBayStation",
+    "sequence" : [ {
+      "type" : "wait",
+      "duration" : 4,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.0 Wait",
+      "id" : "Wait",
+      "displayName" : "0.0 Wait"
+    }, {
+      "type" : "wait",
+      "duration" : 2,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.1 Wait",
+      "id" : "Wait",
+      "displayName" : "0.1 Wait"
+    } ]
+  }, {
+    "type" : "Segment",
+    "waypoints" : [ [ 0.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.005773502562848416, 0.005773502562848417, -0.005773502562848417 ], [ 2.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.005773406338291128, 0.005773406338291129, -0.005773406338291129, 0.9999500004189004, 0.011547005125696832, 0.011547005125696832, -0.011547005125696832, 0.0, 0.0, 0.0 ], [ 104.71975746032874, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.49708829704030455, 0.49708829704030466, -0.49708829704030466, 0.5086351097168872, 0.011547005125696834, 0.01154700512569684, -0.011547005125696837, -0.005773502562848417, -0.00577350256284842, 0.005773502562848419 ], [ 106.71975746032874, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.49999999999999994, 0.5, -0.5, 0.5000000000000002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 106.71975746032874, 0.0, 0.0, 5.0, 0.0, 0.0, -0.0, 0.0, 0.0, -0.029999999329447746, 0.4999999999999999, 0.5, -0.5, 0.5000000000000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 110.05309091783842, 0.0, 0.0, 4.833333324640989, 0.0, 0.0, -0.10000000149011612, 0.0, 0.0, -0.0, 0.4999999999999999, 0.5, -0.5, 0.5000000000000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 111.71975738582293, 0.0, 0.0, 4.666666675359011, 0.0, 0.0, -0.10000000149011612, -0.0, -0.0, 0.029999999329447746, 0.4999999999999999, 0.5, -0.5, 0.5000000000000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 115.05309084333261, 0.0, 0.0, 4.5, 0.0, 0.0, -0.0, 0.0, 0.0, -0.0, 0.4999999999999999, 0.5, -0.5, 0.5000000000000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ] ],
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "speed" : 0.1,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "0-1",
+    "id" : "Segment",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 4.5,
+      "roll" : 90.0,
+      "pitch" : 0.0,
+      "yaw" : -90.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "1",
+    "id" : "ModuleBayStation",
+    "sequence" : [ {
+      "type" : "wait",
+      "duration" : 10,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "1.0 Wait",
+      "id" : "Wait",
+      "displayName" : "1.0 Wait"
+    }, {
+      "type" : "wait",
+      "duration" : 5,
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "1.1 Wait",
+      "id" : "Wait",
+      "displayName" : "1.1 Wait"
+    } ]
+  }, {
+    "type" : "Segment",
+    "waypoints" : [ [ 0.0, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, -0.5, 0.5, 0.0, 0.0, 0.0, 0.005773502562848417, -0.005773502562848416, -0.005773502562848417 ], [ 2.0, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4970882970403046, 0.4970882970403046, -0.5086351097168869, 0.4970882970403046, 0.011547005125696834, -0.011547005125696832, -0.011547005125696834, 0.0, 0.0, 0.0 ], [ 104.71975746032876, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0057734063382910705, 0.005773406338291043, -0.9999500004189004, 0.005773406338290987, 0.011547005125696832, -0.011547005125696832, -0.011547005125696834, -0.005773502562848416, 0.005773502562848416, 0.005773502562848417 ], [ 106.71975746032876, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -2.7755575615628914E-17, -8.326672684688674E-17, -0.9999999999999999, -1.942890293094024E-16, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 106.71975746032876, 0.0, 0.0, 4.5, -0.0, 0.0, 0.0, -0.029999999329447746, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 110.05309091783845, -0.16666667535901095, 0.0, 4.5, -0.10000000149011612, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 111.71975738582296, -0.3333333246409891, 0.0, 4.5, -0.10000000149011612, 0.0, 0.0, 0.029999999329447746, -0.0, -0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 115.05309084333264, -0.5, 0.0, 4.5, -0.0, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ] ],
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "speed" : 0.1,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "1-2",
+    "id" : "Segment",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : -0.5,
+      "y" : 0.0,
+      "z" : 4.5,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 180.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "2",
+    "id" : "ModuleBayStation",
+    "sequence" : [ ]
+  } ],
+  "name" : "RearrangeCommands",
+  "id" : "RearrangeCommands"
+}

@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RAPID Framestore DDS
+Bundle-SymbolicName: gov.nasa.rapid.v2.framestore.dds
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.rapid.v2.framestore.dds.FrameStoreDdsActivator
+Bundle-Vendor: RISC
+Require-Bundle: org.eclipse.core.runtime,
+ gov.nasa.rapid.v2.framestore,
+ gov.nasa.rapid.v2.e4
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.rapid.v2.framestore.dds,
+ gov.nasa.rapid.v2.framestore.dds.config.miroparams,
+ gov.nasa.rapid.v2.framestore.dds.publish,
+ gov.nasa.rapid.v2.framestore.dds.updaters

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/gov.nasa.arc.irg.georef/src"
+    editDirectory="/gov.nasa.arc.irg.georef.ui/src" editorDirectory="/gov.nasa.arc.irg.georef.ui/src"
+    modelPluginID="gov.nasa.arc.irg.georef" modelName="Coordinates" modelPluginClass=""
+    editPluginClass="gov.nasa.arc.irg.georef.ui.GeoRefUIPlugin" editorPluginClass="gov.nasa.arc.irg.georef.ui.GeoRefUIPlugin"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.FlatEObjectImpl" suppressEMFTypes="true"
+    suppressEMFMetaData="true" suppressEMFModelTags="true" suppressInterfaces="true"
+    featureMapWrapperInternalInterface="" featureMapWrapperClass="" testSuiteClass="gov.nasa.arc.irg.georef.tests.CoordinatesAllTests"
+    booleanFlagsField="flags" importerID="org.eclipse.xsd.ecore.importer" complianceLevel="6.0"
+    copyrightFields="false" publicConstructors="true" providerRootExtendsClass=""
+    editPluginID="gov.nasa.arc.irg.georef.ui" optimizedHasChildren="true" language=""
+    packedEnums="true">
+  <foreignModel>coordinates.xsd</foreignModel>
+  <genPackages prefix="Coordinates" basePackage="gov.nasa.arc.irg.georef" resource="XML"
+      disposableProviderFactory="true" loadInitialization="true" multipleEditorPages="false"
+      ecorePackage="coordinates.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="coordinates.ecore#//Letter">
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/C"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/D"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/E"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/F"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/G"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/H"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/J"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/K"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/L"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/M"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/N"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/P"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/Q"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/R"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/S"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/T"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/U"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/V"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/W"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/X"/>
+      <genEnumLiterals ecoreEnumLiteral="coordinates.ecore#//Letter/Z"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="coordinates.ecore#//LatitudeType"/>
+    <genDataTypes ecoreDataType="coordinates.ecore#//LatitudeTypeObject"/>
+    <genDataTypes ecoreDataType="coordinates.ecore#//LetterObject"/>
+    <genDataTypes ecoreDataType="coordinates.ecore#//LongitudeType"/>
+    <genDataTypes ecoreDataType="coordinates.ecore#//LongitudeTypeObject"/>
+    <genClasses ecoreClass="coordinates.ecore#//Ellipsoid">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//Ellipsoid/eccentricitySquared"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//Ellipsoid/equatorialRadius"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//Ellipsoid/name"/>
+    </genClasses>
+    <genClasses ecoreClass="coordinates.ecore#//LatLong">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//LatLong/latitude"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//LatLong/longitude"/>
+    </genClasses>
+    <genClasses ecoreClass="coordinates.ecore#//LetterMapping">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//LetterMapping/letter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//LetterMapping/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//LetterMapping/min"/>
+    </genClasses>
+    <genClasses ecoreClass="coordinates.ecore#//UTM">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//UTM/easting"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//UTM/letterDesignator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//UTM/northernHemisphere"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//UTM/northing"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute coordinates.ecore#//UTM/zone"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

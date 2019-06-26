@@ -1,0 +1,55 @@
+#ifndef rapid_ext_arc_EphemerisConfig_idl
+#define rapid_ext_arc_EphemerisConfig_idl
+
+// -*- idl -*-
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      struct EphemerisConfigEntry
+      {
+        string solutionName;
+        string referenceFrame;
+	string sourceBody;
+        string targetBody;
+	
+        long long timeOffset;
+	long long period;
+      };
+
+      typedef sequence<EphemerisConfigEntry, 32> EphemerisConfigVector32;
+
+      //@copy-c-declaration class EphemerisConfigTypeSupport;
+      //@copy-c-declaration class EphemerisConfigDataWriter;
+      //@copy-c-declaration class EphemerisConfigDataReader;
+      //@copy-c-declaration struct EphemerisConfigSeq;
+      
+      //@copy-declaration /** EphemerisConfig message sets up configuration for EphemerisSample messages. */
+      valuetype EphemerisConfig : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef EphemerisConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef EphemerisConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef EphemerisConfigDataReader DataReader;
+        //@copy-c-declaration typedef EphemerisConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef EphemerisConfig Type;
+
+        public EphemerisConfigVector32 entries;
+      };
+
+    };
+  };
+};
+
+#endif // rapid_ext_arc_EphemerisConfig_idl

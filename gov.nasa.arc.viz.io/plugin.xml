@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="gov.nasa.arc.viz.io.ModelImporterFactory" name="Model Importer" schema="schema/gov.nasa.arc.viz.io.ModelImporterFactory.exsd"/>
+
+</plugin>

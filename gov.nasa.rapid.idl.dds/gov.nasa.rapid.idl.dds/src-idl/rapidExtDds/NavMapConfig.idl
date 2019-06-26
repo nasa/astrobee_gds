@@ -1,0 +1,77 @@
+#ifndef rapid_ext_NavMapConfig_idl
+#define rapid_ext_NavMapConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief Defines how a navigation map is sent using NavMapSample.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    module ext {
+
+        const long NAVMAP_NUM_SHORT_LAYERS = 1;
+        const long NAVMAP_NUM_OCTET_LAYERS = 4;
+        typedef sequence<String32,NAVMAP_NUM_SHORT_LAYERS> ShortMapLayerNameSequence;
+        typedef sequence<String32,NAVMAP_NUM_OCTET_LAYERS> OctetMapLayerNameSequence;
+
+        //@copy-declaration /** Map layer of height fields (DEM). */
+        const String32 NAVMAP_HEIGHT    = "height";
+        //@copy-declaration /**
+        //@copy-declaration  * Map layer with traversability assessments. Goodness is derived value from roughness, slope &
+        //@copy-declaration  * vehicle parameters.
+        //@copy-declaration  */
+        const String32 NAVMAP_GOODNESS  = "goodness";
+        //@copy-declaration /** Roughness of terrain. */
+        const String32 NAVMAP_ROUGHNESS = "roughness";
+        //@copy-declaration /** Map layer with confidence values for the associated traversability asessment. */
+        const String32 NAVMAP_CERTAINTY = "certainty";
+        //@copy-declaration /** Map layer with cell normal vectors. Two or three entries per pixel, packed layout. */
+        const String32 NAVMAP_NORMALS   = "normals";
+
+        //@copy-c-declaration class NavMapConfigTypeSupport;
+        //@copy-c-declaration class NavMapConfigDataWriter;
+        //@copy-c-declaration class NavMapConfigDataReader;
+        //@copy-c-declaration struct NavMapConfigSeq;
+
+        //@copy-declaration /** Telemetry data structure for transfering maps */
+        valuetype NavMapConfig : Message {
+
+            //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+            //@copy-c-declaration typedef NavMapConfigTypeSupport TypeSupport;
+            //@copy-c-declaration typedef NavMapConfigDataWriter DataWriter;
+            //@copy-c-declaration typedef NavMapConfigDataReader DataReader;
+            //@copy-c-declaration typedef NavMapConfigSeq Seq;
+            //@copy-c-declaration #endif
+            //@copy-c-declaration typedef NavMapConfig Type;
+
+            //@copy-declaration /** Reference frame. */
+            public String128 referenceFrame;
+
+            //@copy-declaration /** Offset from the center of rotation to the lower left corner of the map. */
+            public float offset[2];
+
+            //@copy-declaration /** Size of a cell (in the reference frame coordinate system). */
+            public float cellSize[2];
+
+            //@copy-declaration /** Number of cells in x & y. */
+            public short numCells[2];
+
+            public ShortMapLayerNameSequence shortLayerNames;
+            public OctetMapLayerNameSequence octetLayerNames;
+
+        };
+    };
+};
+
+#endif // rapid_ext_NavMapConfig_idl

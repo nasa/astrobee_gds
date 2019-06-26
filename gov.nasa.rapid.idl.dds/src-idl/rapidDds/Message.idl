@@ -1,0 +1,29 @@
+#ifndef rapid_Message_idl
+#define rapid_Message_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Header.idl"
+
+/**
+ * \file
+ *
+ * \brief The original message upon which all others are based.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /** Definition of message, which is the foundation of all other message types. */
+    valuetype Message {
+
+        //@copy-declaration /** The header in a message is the key for filtering in DDS. */
+        public Header hdr; //@key
+    };
+};
+
+#endif // rapid_Message_idl

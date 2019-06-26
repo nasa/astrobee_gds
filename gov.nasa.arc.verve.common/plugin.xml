@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="gov.nasa.arc.verve.common.preferences.rcp.VervePreferencePage"
+            id="gov.nasa.arc.verve.common.preferences.VervePreferencePage"
+            name="VERVE">
+      </page>
+      <page
+            category="gov.nasa.arc.verve.common.preferences.VervePreferencePage"
+            class="gov.nasa.arc.verve.common.preferences.rcp.VerveTerrainPreferencePage"
+            id="gov.nasa.arc.verve.common.preferences.rcp.VerveTerrainPreferencePage"
+            name="Terrain">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="gov.nasa.arc.verve.common.preferences.rcp.VervePreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="gov.nasa.arc.verve.common.context"
+            name="VerveContext"
+            parentId="org.eclipse.ui.contexts.window">
+      </context>
+   </extension>
+
+</plugin>

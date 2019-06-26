@@ -1,0 +1,35 @@
+#ifndef rapid_ext_ProcessIoSample_idl
+#define rapid_ext_ProcessIoSample_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    enum ProcessIoStream { PROCESS_STDIN, PROCESS_STDOUT, PROCESS_STDERR };
+    
+    //@copy-c-declaration class ProcessIoSampleTypeSupport;
+    //@copy-c-declaration class ProcessIoSampleDataWriter;
+    //@copy-c-declaration class ProcessIoSampleDataReader;
+    //@copy-c-declaration struct ProcessIoSampleSeq;
+    valuetype ProcessIoSample : Message
+    {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef ProcessIoSampleTypeSupport TypeSupport;
+      //@copy-c-declaration typedef ProcessIoSampleDataWriter DataWriter;
+      //@copy-c-declaration typedef ProcessIoSampleDataReader DataReader;
+      //@copy-c-declaration typedef ProcessIoSampleSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef ProcessIoSample Type;
+      
+      public long processIdx; //@key
+      public ProcessIoStream stream; //@key
+      public long lineNumber;
+      public String1K line;
+    };
+  };
+};
+
+#endif // rapid_ext_ProcessIoSample_idl

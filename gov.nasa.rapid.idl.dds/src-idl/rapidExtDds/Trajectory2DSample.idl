@@ -1,0 +1,63 @@
+#ifndef rapid_ext_Trajectory2DSample_idl
+#define rapid_ext_Trajectory2DSample_idl
+
+/*
+ * Copyright (c) 2012 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+module rapid
+{
+  module ext
+  {
+    typedef sequence<ParameterUnion, 4> RTransMetaSequence;
+
+    const long TRAJ2D_META_GOOD = 0;
+    const long TRAJ2D_META_UNKOWN = 1;
+    const long TRAJ2D_META_OBSTACLE = 2;
+    const long TRAJ2D_META_STOP_UNKOWN = 3;
+    const long TRAJ2D_META_STOP_OBSTACLE = 4;
+    const long TRAJ2D_META_STOP_PATH_DEVIATION = 5;
+
+    /**
+     * Compact representation of a rigid 2d transform
+     * and an arbitrary meta information data sequence
+     */
+    struct RTrans2DMeta
+    {
+      float x;
+      float y;
+      float theta;
+      RTransMetaSequence meta;
+    };
+    typedef sequence<RTrans2DMeta, 512> RTrans2DSequence;
+
+    //@copy-c-declaration class Trajectory2DSampleTypeSupport;
+    //@copy-c-declaration class Trajectory2DSampleDataWriter;
+    //@copy-c-declaration class Trajectory2DSampleDataReader;
+    //@copy-c-declaration struct Trajectory2DSampleSeq;
+
+    valuetype Trajectory2DSample : Message
+    {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef Trajectory2DSampleTypeSupport TypeSupport;
+      //@copy-c-declaration typedef Trajectory2DSampleDataWriter DataWriter;
+      //@copy-c-declaration typedef Trajectory2DSampleDataReader DataReader;
+      //@copy-c-declaration typedef Trajectory2DSampleSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef Trajectory2DSample Type;
+
+      //@copy-declaration /** origin of the trajectory */
+      public Transform3D origin;
+
+      //@copy-declaration /** The trajectory of the robot relative to the provided pose, sampled at regular time steps, as specified by samplingInterval. */
+      public RTrans2DSequence trajectory;
+    };
+  };
+};
+
+#endif // rapid_ext_Trajectory2DSample_idl

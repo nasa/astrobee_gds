@@ -1,0 +1,64 @@
+#ifndef rapid_ext_arc_StateMachineConfig_idl
+#define rapid_ext_arc_StateMachineConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief StateMachineConfig defines the frame in which StateMachineSample is sent.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+  module ext {
+
+    module arc {
+
+      struct TransitionTriple
+      {
+        octet sourceState;
+        octet event;
+        octet targetState;
+      };
+
+      typedef sequence<TransitionTriple> TransitionSequence16K;
+
+      //@copy-c-declaration class StateMachineConfigTypeSupport;
+      //@copy-c-declaration class StateMachineConfigDataWriter;
+      //@copy-c-declaration class StateMachineConfigDataReader;
+      //@copy-c-declaration struct StateMachineConfigSeq;
+      
+      //@copy-declaration /** StateMachineConfig message sets up configuration for StateMachineSample messages. */
+      valuetype StateMachineConfig : Message {
+        
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef StateMachineConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef StateMachineConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef StateMachineConfigDataReader DataReader;
+        //@copy-c-declaration typedef StateMachineConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef StateMachineConfig Type;
+
+        public String32 subsystem; //@key
+        public String32 stateMachine; //@key
+        
+        public String32Sequence128 states;
+        public String32Sequence128 events;
+
+        // targetState = targetStates[state * events.length + event]
+        // -1 == illigal transition (not to occur)
+        public TransitionSequence16K transitions;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_StateMachineConfig_idl

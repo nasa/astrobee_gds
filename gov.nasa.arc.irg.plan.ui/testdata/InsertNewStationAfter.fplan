@@ -1,0 +1,155 @@
+{
+  "type" : "ModuleBayPlan",
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "operatingLimits" : {
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1,
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01
+  },
+  "dateCreated" : "2016-01-11T22:14:02Z",
+  "dateModified" : "2019-06-14T13:46:12Z",
+  "valid" : true,
+  "site" : {
+    "type" : "Site",
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "visible" : true,
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "xpjson" : "0.1",
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "libraryURLs" : [ ],
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 5.31,
+      "y" : 0.01,
+      "z" : 4.85,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : true,
+      "module" : "US Lab",
+      "bayNumberValid" : true,
+      "bayNumber" : "1",
+      "centerOne" : true,
+      "wallOne" : "Deck",
+      "wallOneOffset" : 0.2,
+      "centerTwo" : true,
+      "wallTwo" : "Deck",
+      "wallTwoOffset" : 0.2,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "0",
+    "id" : "ModuleBayStation",
+    "sequence" : [ ]
+  }, {
+    "type" : "Segment",
+    "waypoints" : [ [ 0.0, 5.309999942779541, 0.009999999776482582, 4.849999904632568, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.009999999776482582 ], [ 2.0, 5.309999942779541, 0.009999999776482582, 4.849999904632568, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.009999833110660423, 0.9999500004189004, 0.0, 0.0, 0.019999999552965164, 0.0, 0.0, 0.0 ], [ 157.07963619049312, 5.309999942779541, 0.009999999776482582, 4.849999904632568, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.9999500004189004, 0.009999833110660423, 0.0, 0.0, 0.019999999552965164, 0.0, 0.0, -0.009999999776482582 ], [ 159.07963619049312, 5.309999942779541, 0.009999999776482582, 4.849999904632568, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 159.07963619049312, 5.309999942779541, 0.009999999776482582, 4.849999904632568, -0.0, 0.0, 0.0, -0.029999999329447746, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 162.4129696480028, 5.14333326742053, 0.009999999776482582, 4.849999904632568, -0.10000000149011612, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 170.37963716651916, 4.346666503697634, 0.009999999776482582, 4.849999904632568, -0.10000000149011612, 0.0, 0.0, 0.029999999329447746, -0.0, -0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 173.71297062402886, 4.179999828338623, 0.009999999776482582, 4.849999904632568, -0.0, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ] ],
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "speed" : 0.1,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "0-1",
+    "id" : "3d967667-5c09-4a7e-b5aa-c8d2b6820661",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 4.18,
+      "y" : 0.01,
+      "z" : 4.85,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 180.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "1",
+    "id" : "409ee82a-5dfd-4f5b-b49c-48345a4382ba",
+    "sequence" : [ ]
+  }, {
+    "type" : "Segment",
+    "waypoints" : [ [ 0.0, 4.179999828338623, 0.009999999776482582, 4.849999904632568, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 0.0, 4.179999828338623, 0.009999999776482582, 4.849999904632568, -0.0, 0.0, 0.0, -0.029999999329447746, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 3.3333334575096796, 4.013333152979612, 0.009999999776482582, 4.849999904632568, -0.10000000149011612, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 11.399998494982743, 3.206666637212038, 0.009999999776482582, 4.849999904632568, -0.10000000149011612, 0.0, 0.0, 0.029999999329447746, -0.0, -0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 14.733331952492422, 3.0399999618530273, 0.009999999776482582, 4.849999904632568, -0.0, 0.0, 0.0, -0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ] ],
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "speed" : 0.1,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "1-2",
+    "id" : "7e3c7b60-dbda-4e9f-999b-54d67162831f",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 3.04,
+      "y" : 0.01,
+      "z" : 4.85,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 180.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : true,
+      "module" : "US Lab",
+      "bayNumberValid" : true,
+      "bayNumber" : "3",
+      "centerOne" : true,
+      "wallOne" : "Deck",
+      "wallOneOffset" : 0.2,
+      "centerTwo" : true,
+      "wallTwo" : "Deck",
+      "wallTwoOffset" : 0.2,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "2",
+    "id" : "ModuleBayStation",
+    "sequence" : [ ]
+  } ],
+  "name" : "InsertNewStationAfter",
+  "id" : "InsertNewStationAfter"
+}

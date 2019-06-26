@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:coordinates="http:///gov/nasa/arc/irg/georef/coordinates.ecore" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http:///gov/nasa/arc/irg/georef/coordinates.ecore">
+   <xsd:complexType name="LatLong">
+    <xsd:attribute name="latitude" >
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="-90"/>
+        <xsd:maxInclusive value="90"/>
+      </xsd:restriction>
+    </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="longitude" >
+    <xsd:simpleType>
+      <xsd:restriction base="xsd:double">
+        <xsd:minInclusive value="-180"/>
+        <xsd:maxInclusive value="360"/>
+      </xsd:restriction>
+    </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  
+  <xsd:complexType name="Ellipsoid">
+    <xsd:attribute name="name" type="xsd:string" />
+    <xsd:attribute name="equatorialRadius" type="xsd:double"/>
+    <xsd:attribute name="eccentricitySquared" type="xsd:double"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="LetterMapping">
+  	<xsd:attribute name="letter" type="xsd:string"/>
+  	<xsd:attribute name="min" type="xsd:int"/>
+  	<xsd:attribute name="max" type="xsd:int"/>
+  </xsd:complexType>
+  
+  <!--  
+  	<xsd:list name="LetterDesignators">
+  		<LetterMapping letter="C" min="-80" max="-72"/>
+  		<LetterMapping letter="D" min="-72" max="-64"/>
+  		<LetterMapping letter="E" min="-64" max="-56"/>
+  		<LetterMapping letter="F" min="-56" max="-48"/>
+  		<LetterMapping letter="G" min="-48" max="-40"/>
+  		<LetterMapping letter="H" min="-40" max="-32"/>
+  		<LetterMapping letter="J" min="-32" max="-24"/>
+  		<LetterMapping letter="K" min="-24" max="-16"/>
+  		<LetterMapping letter="L" min="-16" max="-8"/>
+  		<LetterMapping letter="M" min="-8" max="0"/>
+  		<LetterMapping letter="N" min="0" max="8"/>
+  		<LetterMapping letter="P" min="8" max="16"/>
+  		<LetterMapping letter="Q" min="16" max="24"/>
+  		<LetterMapping letter="R" min="24" max="32"/>
+  		<LetterMapping letter="S" min="32" max="40"/>
+  		<LetterMapping letter="T" min="40" max="48"/>
+  		<LetterMapping letter="U" min="48" max="56"/>
+  		<LetterMapping letter="V" min="56" max="64"/>
+  		<LetterMapping letter="W" min="64" max="72"/>
+  		<LetterMapping letter="X" min="72" max="80"/>
+  		<LetterMapping letter="Z" min="-100" max="-100"/>
+  </xsd:list>
+  -->
+  
+  <xsd:simpleType name="Letter">
+  	<xsd:restriction base="xsd:string">
+  		<xsd:enumeration value="C"/>
+  		<xsd:enumeration value="D"/>
+  		<xsd:enumeration value="E"/>
+  		<xsd:enumeration value="F"/>
+  		<xsd:enumeration value="G"/>
+  		<xsd:enumeration value="H"/>
+  		<xsd:enumeration value="J"/>
+  		<xsd:enumeration value="K"/>
+  		<xsd:enumeration value="L"/>
+  		<xsd:enumeration value="M"/>
+  		<xsd:enumeration value="N"/>
+  		<xsd:enumeration value="P"/>
+  		<xsd:enumeration value="Q"/>
+  		<xsd:enumeration value="R"/>
+  		<xsd:enumeration value="S"/>
+  		<xsd:enumeration value="T"/>
+  		<xsd:enumeration value="U"/>
+  		<xsd:enumeration value="V"/>
+  		<xsd:enumeration value="W"/>
+  		<xsd:enumeration value="X"/>
+  		<xsd:enumeration value="Z"/>
+  	</xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:complexType name="UTM">
+    <xsd:attribute name="letterDesignator" type="coordinates:Letter"/>
+    <xsd:attribute name="easting" type="xsd:double"/>
+    <xsd:attribute name="northing" type="xsd:double"/>
+    <xsd:attribute name="zone" type="xsd:int"/>
+    <xsd:attribute name="northernHemisphere" type="xsd:boolean"/>
+  </xsd:complexType>
+
+</xsd:schema>
+

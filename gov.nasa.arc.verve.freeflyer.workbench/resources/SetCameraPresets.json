@@ -1,0 +1,36 @@
+{
+  "type" : "CameraPresets",
+  "optionsForOneCamera": [ 
+  	{
+  	"cameraName": "Dock",
+  	"preset": [ {
+		"presetName": "High Def",
+		"resolution" : "1024_768",
+		"frameRate" : 5,
+		"bandwidth" : 640
+  		},
+  		{
+		"presetName": "Low Def",
+		"resolution" : "640_480",
+		"frameRate" : 4,
+		"bandwidth" : 92
+  		} 
+  	]
+  	},{
+  	"cameraName": "Navigation",
+  	"preset": [ {
+		"presetName": "High Def",
+		"resolution" : "1920_1080",
+		"frameRate" : 5,
+		"bandwidth" : 100
+  		},
+  		{
+		"presetName": "Low Def",
+		"resolution" : "640_480",
+		"frameRate" : 25,
+		"bandwidth" : 300
+  		} 
+  	]
+  	}
+  	]
+}

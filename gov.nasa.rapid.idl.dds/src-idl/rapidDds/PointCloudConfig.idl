@@ -1,0 +1,92 @@
+#ifndef rapid_PointCloudConfig_idl
+#define rapid_PointCloudConfig_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief PointCloudConfig defines the way data should be read from a PointCloudSample message.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * PointSampleXyzMode denotes whether the values represent:
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>PS_XYZ: x, y, z
+    //@copy-declaration  *   <li>PS_XYt: x, y, theta
+    //@copy-declaration  *   <li>PD_Rae: range, azimuth, elevation
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum PointSampleXyzMode {
+        PS_XYZ,
+        PS_XYt,
+        PS_Rae
+    };
+
+    //@copy-declaration /**
+    //@copy-declaration  * PointSampleAttributeMode denotes the type of data contained in the attribute bytes.
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>PS_UNUSED
+    //@copy-declaration  *   <li>PS_INTENSITY: intensity of return. unsigned byte (0-255)
+    //@copy-declaration  *   <li>PS_LAYER: for multi-layer scanners. unsigned byte (0-255)
+    //@copy-declaration  *   <li>PS_ECHO: echo # for multiple returns. unsigned byte (0-255)
+    //@copy-declaration  *   <li>PS_LAYER4_ECHO4: first 4 bits are layer (0-15), second 4 bits are echo (0-15)
+    //@copy-declaration  *   <li>PS_PULSE: pulse index. unsigned byte (0-255)
+    //@copy-declaration  *   <li>PS_RGB332: RGB packed into single byte 
+    //@copy-declaration  *   <li>PS_RGB565: Assumes both attribute bytes are used for 16 bit color. 
+    //@copy-declaration  *                  1st byte: upper 3 bits are first 3 bits of green, lower 5 bits are red
+    //@copy-declaration  *                  2nd byte: upper 3 bits are second 3 bits of green, lower 5 bits are blue
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum PointSampleAttributeMode {
+        PS_UNUSED,
+        PS_INTENSITY,
+        PS_LAYER,
+        PS_ECHO,
+        PS_LAYER4_ECHO4,
+        PS_PULSE,
+        PS_RGB332,
+        PS_RGB565
+    };
+
+    //@copy-c-declaration class PointCloudConfigTypeSupport;
+    //@copy-c-declaration class PointCloudConfigDataWriter;
+    //@copy-c-declaration class PointCloudConfigDataReader;
+    //@copy-c-declaration struct PointCloudConfigSeq;
+
+    //@copy-declaration /** PointCloudConfig message sets up the configuration of a PointCloudSample message for a specific Agent. */
+    valuetype PointCloudConfig : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef PointCloudConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef PointCloudConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef PointCloudConfigDataReader DataReader;
+        //@copy-c-declaration typedef PointCloudConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef PointCloudConfig Type;
+
+        //@copy-declaration /** Reference frame of the point cloud. Should exist in FrameStore. */
+        public String128 referenceFrame;
+
+        //@copy-declaration /** Interpretation of xyz array. */
+        public PointSampleXyzMode xyzMode;
+
+        //@copy-declaration /** Interpretation of each attribute. */
+        public PointSampleAttributeMode attributesMode[2];
+
+        //@copy-declaration /** Additional attributes. */
+        public KeyTypeValueSequence16 attributes;
+
+    };
+};
+
+#endif // rapid_PointCloudConfig_idl

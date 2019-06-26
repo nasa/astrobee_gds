@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="gov.nasa.arc.verve.common.preferences.rcp.VerveTerrainPreferencePage"
+            class="gov.nasa.arc.verve.common.scenario.preferences.FlatGridPreferencePage"
+            id="gov.nasa.arc.verve.common.scenario.preferences.FlatGridPreferencePage"
+            name="Flat Grids">
+      </page>
+           <page
+                 category="gov.nasa.arc.verve.common.preferences.VervePreferencePage"
+                 class="gov.nasa.arc.verve.common.scenario.preferences.SiteFramePreferencePage"
+                 id="gov.nasa.arc.verve.common.scenario.preferences.SiteFramePreferencePage"
+                 name="Site Frame Location">
+      </page>  
+    </extension>
+    <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="gov.nasa.arc.verve.common.scenario.preferences.ScenarioPreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

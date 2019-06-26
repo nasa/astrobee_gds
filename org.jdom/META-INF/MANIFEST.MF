@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JDOM Plug-in
+Bundle-SymbolicName: org.jdom;singleton:=true
+Bundle-Version: 1.0.1
+Bundle-ClassPath: jdom-1.0.jar,
+ jaxen-core.jar,
+ jaxen-jdom.jar,
+ saxpath.jar
+Bundle-Vendor: NASA Ensemble
+Export-Package: .,
+ com.werken.saxpath,
+ org.jaxen,
+ org.jaxen.expr,
+ org.jaxen.expr.iter,
+ org.jaxen.function,
+ org.jaxen.function.ext,
+ org.jaxen.jdom,
+ org.jaxen.pattern,
+ org.jaxen.util,
+ org.jdom,
+ org.jdom.adapters,
+ org.jdom.filter,
+ org.jdom.input,
+ org.jdom.output,
+ org.jdom.transform,
+ org.jdom.xpath,
+ org.saxpath,
+ org.saxpath.conformance,
+ org.saxpath.helpers
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

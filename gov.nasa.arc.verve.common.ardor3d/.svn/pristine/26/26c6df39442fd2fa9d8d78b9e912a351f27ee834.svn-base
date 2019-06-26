@@ -1,0 +1,184 @@
+package gov.nasa.arc.verve.common.ardor3d.interact;
+
+import gov.nasa.arc.verve.ardor3d.extension.interact.widget.InteractMatrix;
+import gov.nasa.arc.verve.ardor3d.extension.interact.widget.MovePlanarWidget.MovePlane;
+import gov.nasa.arc.verve.common.ardor3d.interact.filter.BaseMapHeightFilter;
+import gov.nasa.arc.verve.common.ardor3d.interact.filter.YawNotchFilter;
+
+import com.ardor3d.image.Texture;
+import com.ardor3d.image.Texture.MagnificationFilter;
+import com.ardor3d.image.Texture.MinificationFilter;
+import com.ardor3d.image.Texture.WrapMode;
+import com.ardor3d.image.Texture2D;
+import com.ardor3d.math.ColorRGBA;
+import com.ardor3d.util.TextureManager;
+import com.ardor3d.util.resource.URLResourceSource;
+
+public class VerveInteractWidgets {
+    private static Texture2D s_rotHandleTex = getTex("RotationHandle.png");
+
+    public static final String MoveXYRotZTerrainFollow = "MoveXYRotZTerrainFollow";
+    public static final String MoveXYZRotXYZ           = "MoveXYZRotXYZ";
+    public static final String MoveXYZTerrainFollow    = "MoveXYZTerrainFollow";
+    public static final String MoveXYTerrainFollow     = "MoveXYTerrainFollow";
+    public static final String MoveXYZ                 = "MoveXYZ";
+    public static final String MultiPlanar             = "MultiPlanar";
+    public static final String Waypoint                = "Waypoint";
+    
+    /**
+     * widget to and rotate in any direction
+     * @return
+     */
+    public static VerveCompoundInteractWidget newMoveXYZRotXYZWidget() {
+        final float l = 0.4f;
+        final float h = 0.8f;
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(MoveXYZRotXYZ)
+        .withMoveXAxis(new ColorRGBA(h, l, l, .65f), 1.5, .15, .5, .3)
+        .withMoveYAxis(new ColorRGBA(l, h, l, .65f), 1.5, .15, .5, .3) 
+        .withMoveZAxis(new ColorRGBA(l, l, h, .65f), 1.5, .15, .5, .3) 
+        .withRotateXAxis(new ColorRGBA(h, l, l, 0.5f), 1.5f, 0.3f) 
+        .withRotateYAxis(new ColorRGBA(l, h, l, 0.5f), 1.5f, 0.3f) 
+        .withRotateZAxis(new ColorRGBA(l, l, h, 0.5f), 1.5f, 0.3f) 
+        .withRingTexture(s_rotHandleTex)
+        ;
+        widget.setInteractMatrix(InteractMatrix.Local);
+        //widget.setInteractMatrix(InteractMatrix.World);
+        
+        // XXX EXPERIMENTAL XXX
+        //widget.addFilter(new GridSnapFilter());
+
+        return widget;
+    }
+
+    /**
+     * widget to and rotate in any direction
+     * @return
+     */
+    public static VerveCompoundInteractWidget newMultiPlanarWidget() {
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(MultiPlanar)
+        .withMultiPlanarHandle(0.8)
+        ;
+        //widget.setInteractMatrix(InteractMatrix.Local);
+        widget.setInteractMatrix(InteractMatrix.World);
+        
+        return widget;
+    }
+
+    /**
+     * widget to move in XY plane while following terrain profile
+     * @return
+     */
+    public static VerveCompoundInteractWidget newMoveXYRotZTerrainFollowWidget() {
+        final float l = 0.4f;
+        final float h = 0.9f;
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(MoveXYRotZTerrainFollow)
+        .withMoveXAxis(new ColorRGBA(h, l, l, .65f), 1.5, .15, .5, .3)
+        .withMoveYAxis(new ColorRGBA(l, h, l, .65f), 1.5, .15, .5, .3) 
+        .withRotateZAxis(new ColorRGBA(l, l, h, 0.5f), 1.5f, 0.4f) //
+        .withPlanarHandle(MovePlane.XY, new ColorRGBA(h, h, l, .65f), true)
+        .withRingTexture(s_rotHandleTex);
+
+        widget.setInteractMatrix(InteractMatrix.Local);
+        //widget.setInteractMatrix(InteractMatrix.World);
+        
+        widget.addFilter(new BaseMapHeightFilter());
+        //widget.addFilter(new YawNotchFilter());
+        return widget;
+    }
+
+    public static VerveCompoundInteractWidget newWaypointWidget() {
+        final float l = 0.4f;
+        final float h = 0.9f;
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(Waypoint)
+        .withMoveXAxis(new ColorRGBA(h, l, l, .7f), 1.5, .15, .5, .3)
+        .withRotateZAxis(new ColorRGBA(l, l, h, 0.8f), 1.3f, 0.6f) //
+        .withPlanarHandle(MovePlane.XY, new ColorRGBA(h, h, l, .7f), true)
+        .withRingTexture(s_rotHandleTex);
+
+        widget.setInteractMatrix(InteractMatrix.Local);
+        //widget.setInteractMatrix(InteractMatrix.World);
+        
+        widget.addFilter(new BaseMapHeightFilter());
+        return widget;
+    }
+
+
+    /**
+     * widget to move in XYZ while following terrain profile
+     * @return
+     */
+    public static VerveCompoundInteractWidget newMoveXYZTerrainFollowWidget() {
+        final float l = 0.4f;
+        final float h = 0.9f;
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(MoveXYZTerrainFollow)
+        .withMoveXAxis(new ColorRGBA(h, l, l, .65f), 1.5, .15, .5, .3)
+        .withMoveYAxis(new ColorRGBA(l, h, l, .65f), 1.5, .15, .5, .3) 
+        //.withMoveZAxis(new ColorRGBA(l, l, h, .65f), 1.5, .15, .5, .3) 
+        .withPlanarHandle(MovePlane.XY, new ColorRGBA(h, h, l, .65f));
+
+        widget.setInteractMatrix(InteractMatrix.Local);
+        //widget.setInteractMatrix(InteractMatrix.World);
+        
+        widget.addFilter(new BaseMapHeightFilter());
+        return widget;
+    }
+
+    /**
+     * widget to move in XY while following terrain profile
+     * @return
+     */
+    public static VerveCompoundInteractWidget newMoveXYTerrainFollowWidget() {
+        final float l = 0.6f;
+        final float h = 0.99f;
+        final float la = 0.3f;
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(MoveXYTerrainFollow)
+        .withMoveXAxis(new ColorRGBA(h, l, l, la), 1.5, .12, .5, .3)
+        .withMoveYAxis(new ColorRGBA(l, h, l, la), 1.5, .12, .5, .3) 
+        .withPlanarHandle(MovePlane.XY, new ColorRGBA(h, h, l, .65f));
+
+        widget.setInteractMatrix(InteractMatrix.Local);
+        //widget.setInteractMatrix(InteractMatrix.World);
+        
+        widget.addFilter(new BaseMapHeightFilter());
+        //widget.addFilter(new GridSnapFilter());
+        return widget;
+    }
+
+    /**
+     * widget to move in XYZ while following terrain profile
+     * @return
+     */
+    public static VerveCompoundInteractWidget newMoveXYZWidget() {
+        final float l = 0.4f;
+        final float h = 0.9f;
+        final VerveCompoundInteractWidget widget = new VerveCompoundInteractWidget(MoveXYZ)
+        .withMoveXAxis(new ColorRGBA(h, l, l, .65f), 1.5, .15, .5, .3)
+        .withMoveYAxis(new ColorRGBA(l, h, l, .65f), 1.5, .15, .5, .3) 
+        .withMoveZAxis(new ColorRGBA(l, l, h, .65f), 1.5, .15, .5, .3) 
+        .withMultiPlanarHandle(0.35);
+
+        widget.setInteractMatrix(InteractMatrix.Local);
+
+        return widget;
+    }
+
+    static Texture2D getTex(String imageName) {
+        return getTex(imageName, WrapMode.Repeat, MinificationFilter.Trilinear, MagnificationFilter.Bilinear, 0);
+    }
+
+    static Texture2D getTex(String imageName,
+                            Texture.WrapMode wrapMode, 
+                            Texture.MinificationFilter minFilter, 
+                            Texture.MagnificationFilter magFilter, 
+                            float anisotropy) {
+        Texture2D texture = null;
+        URLResourceSource rs = null;
+        rs = new URLResourceSource(VerveInteractWidgets.class.getResource(imageName));
+        texture = (Texture2D)TextureManager.load(rs, minFilter, false);
+        texture.setMagnificationFilter(magFilter);
+        texture.setWrap(wrapMode);
+        texture.setAnisotropicFilterPercent(anisotropy);
+        return texture;
+    }
+
+}

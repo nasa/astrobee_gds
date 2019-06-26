@@ -1,0 +1,11 @@
+;; NDDS_DISCOVERY_PEERS - Default Discovery Configuration File
+;;Multicast builtin.udpv4://239.255.0.1 ; default discovery multicast addr
+
+;; Shared Memory
+shmem://                ; All 'shmem' transport plugin(s)
+builtin.shmem://        ; The builtin builtin 'shmem' transport plugin
+                        ;  at network address FCC0::0
+;; Unicast
+localhost               ; A comma can be used a separator
+127.0.0.1               ;
+

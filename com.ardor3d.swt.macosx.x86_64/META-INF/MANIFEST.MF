@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mac OS X Fragment
+Bundle-SymbolicName: com.ardor3d.swt.macosx.x86_64
+Bundle-Version: 0.9.17
+Bundle-Vendor: Ardor3D
+Fragment-Host: com.ardor3d
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-PlatformFilter: (& (osgi.os=macosx) (osgi.arch=x86_64))
+Bundle-ClassPath: swt_cocoa.jar,
+ .

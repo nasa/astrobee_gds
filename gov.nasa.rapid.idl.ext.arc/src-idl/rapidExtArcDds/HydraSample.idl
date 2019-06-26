@@ -1,0 +1,73 @@
+#ifndef rapid_ext_arc_HydraSample_idl
+#define rapid_ext_arc_HydraSample_idl
+
+// idl 
+
+#include "Message.idl"
+
+module rapid 
+{
+    module ext
+    {
+        module arc
+        {
+            //@copy-c-declaration class HydraSampleTypeSupport;
+            //@copy-c-declaration class HydraSampleDataWriter;
+            //@copy-c-declaration class HydraSampleDataReader;
+            //@copy-c-declaration struct HydraSampleSeq;
+
+            valuetype HydraSample : Message 
+            {
+                //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+                //@copy-c-declaration typedef HydraSampleTypeSupport TypeSupport;
+                //@copy-c-declaration typedef HydraSampleDataWriter DataWriter;
+                //@copy-c-declaration typedef HydraSampleDataReader DataReader;
+                //@copy-c-declaration typedef HydraSampleSeq Seq;
+                //@copy-c-declaration #endif
+                //@copy-c-declaration typedef HydraSample Type;
+
+                /**
+                 * State of health
+                 */
+                public unsigned short soh;
+
+                /**
+                 * Scalar value for SN sensor
+                 */
+                public unsigned short sns;
+
+                /**
+                 * Scalar value for CD sensor
+                 */
+                public unsigned short cds;
+
+                /**
+                 * Command register
+                 */
+                public unsigned short cmr;
+
+                /**
+                 * Stainless Steel Channels
+                 */
+                public sequence <unsigned short, 32> sn;
+
+                /**
+                 * Cadmium Channels
+                 */
+                public sequence <unsigned short, 32> cd;
+
+                /**
+                 * The reading from HYDRA/NSS
+                 */
+                public sequence <unsigned short, 89> reading;
+
+                /**
+                 * Specifies any additional metaData
+                 */
+                public ValueSequence32 values;
+            };
+        };
+    };
+};
+
+#endif // rapid_ext_arc_HydraSample_idl

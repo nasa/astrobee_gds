@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Verve Robot Plug-in
+Bundle-SymbolicName: gov.nasa.arc.verve.robot
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.robot.RobotActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ gov.nasa.arc.verve.common.ardor3d;visibility:=reexport,
+ gov.nasa.arc.verve.common.scenario;visibility:=reexport,
+ gov.nasa.arc.verve.ardor3d.scenegraph,
+ gov.nasa.arc.verve.ardor3d.scenegraph.shape,
+ org.apache.commons.io
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.verve.robot,
+ gov.nasa.arc.verve.robot.exception,
+ gov.nasa.arc.verve.robot.parts,
+ gov.nasa.arc.verve.robot.parts.concepts,
+ gov.nasa.arc.verve.robot.parts.concepts.plan,
+ gov.nasa.arc.verve.robot.parts.tools,
+ gov.nasa.arc.verve.robot.persist,
+ gov.nasa.arc.verve.robot.scenegraph,
+ gov.nasa.arc.verve.robot.scenegraph.plan,
+ gov.nasa.arc.verve.robot.scenegraph.shape.concepts,
+ gov.nasa.arc.verve.robot.scenegraph.shape.sensors,
+ gov.nasa.arc.verve.robot.scenegraph.task,
+ gov.nasa.arc.verve.robot.scenegraph.visitors,
+ gov.nasa.arc.verve.robot.tasks
+Bundle-Vendor: NASA IRG

@@ -1,0 +1,41 @@
+{
+  "type" : "DataConfigurationFile",
+  "name" : "TestDataToDiskSettings",
+  "topicSettings": [ 
+    {
+	  "topicName" : "RosTopic0",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 10.3
+    },
+   {
+	  "topicName" : "RosTopic1",
+	  "downlinkOption" : "immediate",
+	  "frequency" : 1.5
+    },
+     {
+	  "topicName" : "RosTopic2",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 0.1
+    },
+     {
+	  "topicName" : "RosTopic3",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 3.2
+    },
+     {
+	  "topicName" : "RosTopic4",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 6.67
+    },
+   {
+	  "topicName" : "RosTopic5",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 12
+    },
+     {
+	  "topicName" : "RosTopic6",
+	  "downlinkOption" : "immediate",
+	  "frequency" : 79
+    }
+    ]
+}

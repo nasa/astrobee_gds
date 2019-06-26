@@ -1,0 +1,50 @@
+#ifndef rapid_ext_arc_Float32Sample_idl
+#define rapid_ext_arc_Float32Sample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief Float32Config defines the frame in which Float32Sample is sent.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+  module ext {
+
+    module arc {
+
+    //@copy-c-declaration class Float32SampleTypeSupport;
+    //@copy-c-declaration class Float32SampleDataWriter;
+    //@copy-c-declaration class Float32SampleDataReader;
+    //@copy-c-declaration struct Float32SampleSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Float32Sample message delivers the position of the Agent. Corresponding Float32Config sets up the
+    //@copy-declaration  * coordinate frame and specifies how the Transform3D.rot field is to be interpreted for pose and velocity.
+    //@copy-declaration  */
+    valuetype Float32Sample : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef Float32SampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef Float32SampleDataWriter DataWriter;
+        //@copy-c-declaration typedef Float32SampleDataReader DataReader;
+        //@copy-c-declaration typedef Float32SampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef Float32Sample Type;
+
+        public FloatSequence32 data;
+     };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_Float32Sample_idl

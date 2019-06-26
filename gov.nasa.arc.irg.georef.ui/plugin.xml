@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <!-- extension point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="gov.nasa.arc.irg.coordinates.ui.actionSet1"
+            label="Test"
+            visible="true">
+         <action
+               class="gov.nasa.arc.irg.georef.ui.dialogs.LaunchLatLongUtmDialogAction"
+               id="gov.nasa.arc.irg.coordinates.ui.showDialog"
+               label="Convert Lat/Long - UTM"
+               menubarPath="window/start?after=gov.nasa.arc.irg.util.actions.NewSimpleBrowserAction"
+               style="push">
+         </action>
+      </actionSet>
+   </extension -->
+   
+<!--   <extension
+         point="gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.georef.coordinates.LatLong"
+            widget="gov.nasa.arc.irg.georef.ui.widgets.LatLongWidget">
+      </binding>
+      <binding
+            class="gov.nasa.arc.irg.georef.ui.widgets.LatLongSpinnerWidget"
+            name="spinner"
+            widget="gov.nasa.arc.irg.georef.ui.widgets.LatLongSpinnerWidget">
+      </binding>
+      <binding
+            class="gov.nasa.arc.irg.georef.coordinates.UTM"
+            widget="gov.nasa.arc.irg.georef.ui.widgets.UTMWidget">
+      </binding>
+   </extension> -->
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="gov.nasa.arc.irg.georef"
+            class="gov.nasa.arc.irg.georef.ui.views.LatLongUtmView"
+            icon="icons/georef-icon.png"
+            id="gov.nasa.arc.irg.georef.ui.views.LatLongUtmView"
+            name="Lat Long - UTM"
+            restorable="true">
+      </view>
+      <category
+            id="gov.nasa.arc.irg.georef"
+            name="GeoRef">
+      </category>
+   </extension>
+
+</plugin>

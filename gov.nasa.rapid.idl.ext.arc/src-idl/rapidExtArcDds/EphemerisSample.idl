@@ -1,0 +1,47 @@
+#ifndef rapid_ext_arc_EphemerisSample_idl
+#define rapid_ext_arc_EphemerisSample_idl
+
+// -*- idl -*-
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      //@copy-c-declaration class EphemerisSampleTypeSupport;
+      //@copy-c-declaration class EphemerisSampleDataWriter;
+      //@copy-c-declaration class EphemerisSampleDataReader;
+      //@copy-c-declaration struct EphemerisSampleSeq;
+      
+      valuetype EphemerisSample : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef EphemerisSampleTypeSupport TypeSupport;
+
+        //@copy-c-declaration typedef EphemerisSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef EphemerisSampleDataReader DataReader;
+        //@copy-c-declaration typedef EphemerisSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef EphemerisSample Type;
+
+        public long configIdx; //@key
+        
+        public long long solutionTime;
+
+        public double lat;
+        public double lon;
+
+        public Vec3f vec;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_EphemerisSample_idl

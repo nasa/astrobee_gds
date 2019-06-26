@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ARC RAPID Extensions
+Bundle-SymbolicName: gov.nasa.rapid.idl.ext.arc
+Bundle-Version: 5.1.0.qualifier
+Bundle-Vendor: RISC
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: gov.nasa.rapid.v2.e4,
+ com.google.guava
+Export-Package: gov.nasa.rapid.v2.message,
+ gov.nasa.rapid.v2.message.cache,
+ gov.nasa.rapid.v2.message.command,
+ gov.nasa.rapid.v2.util,
+ rapid.ext.arc

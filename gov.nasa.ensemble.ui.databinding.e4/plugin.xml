@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <extension-point id="gov.nasa.ensemble.ui.databinding.widget.BoundWidget" name="BoundWidget" schema="schema/gov.nasa.ensemble.ui.databinding.widget.BoundWidget.exsd"/>
+   <extension-point id="gov.nasa.ensemble.ui.databinding.widget.GenericWidget" name="GenericWidget" schema="schema/gov.nasa.ensemble.ui.databinding.widget.GenericWidget.exsd"/>
+   <extension-point id="gov.nasa.ensemble.ui.databinding.widget.FieldWidget" name="FieldWidget" schema="schema/gov.nasa.ensemble.ui.databinding.widget.FieldWidget.exsd"/>
+   <extension-point id="gov.nasa.ensemble.ui.databinding.widget.Customization" name="Customization" schema="schema/gov.nasa.ensemble.ui.databinding.widget.Customization.exsd"/>
+
+   <extension
+         id="gov.nasa.ensemble.ui.databinding.e4.fragment"
+         point="org.eclipse.e4.workbench.model">
+      <fragment
+            apply="always"
+            uri="fragment.e4xmi">
+      </fragment>
+   </extension>
+
+</plugin>

@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: IRG UI Utilities Plug-in
+Bundle-SymbolicName: gov.nasa.arc.irg.util.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.irg.util.ui.UtilUIActivator
+DynamicImport-Package: *
+Require-Bundle: gov.nasa.util,
+ gov.nasa.util.ui;visibility:=reexport,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ gov.nasa.arc.irg.util;visibility:=reexport,
+ org.apache.log4j,
+ org.eclipse.core.resources
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: 
+ gov.nasa.arc.irg.util.ui,
+ gov.nasa.arc.irg.util.ui.browser,
+ gov.nasa.arc.irg.util.ui.jface.action,
+ gov.nasa.arc.irg.util.ui.job,
+ gov.nasa.arc.irg.util.ui.log,
+ gov.nasa.arc.irg.util.ui.monitor,
+ gov.nasa.arc.irg.util.ui.status,
+ gov.nasa.arc.irg.util.ui.swt.events,
+ gov.nasa.arc.irg.util.ui.table,
+ gov.nasa.arc.irg.util.ui.text,
+ gov.nasa.arc.irg.util.ui.workspace
+Bundle-Vendor: NASA IRG
+Eclipse-RegisterBuddy: org.apache.log4j

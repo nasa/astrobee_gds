@@ -1,0 +1,7 @@
+/**
+ * \package gov.nasa.rapid.util
+ *
+ * \brief Provides utility classes, including thread, reflection, logging and math.
+ *
+ * \details 
+ */ 

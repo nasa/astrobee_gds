@@ -1,0 +1,102 @@
+{
+  "type" : "ModuleBayPlan",
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "operatingLimits" : {
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1,
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01
+  },
+  "dateCreated" : "2016-01-20T18:12:59Z",
+  "dateModified" : "2019-06-14T13:23:22Z",
+  "valid" : true,
+  "site" : {
+    "type" : "Site",
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "visible" : true,
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "xpjson" : "0.1",
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "libraryURLs" : [ ],
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 5.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "0",
+    "id" : "ModuleBayStation",
+    "sequence" : [ ]
+  }, {
+    "type" : "Segment",
+    "waypoints" : [ [ 0.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -0.003826834238114485, 2.343260150287202E-19, 0.0092387951186097 ], [ 2.0, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0038267704578656032, 2.343221096148381E-19, 0.009238641139467839, 0.9999500004189004, -0.007653668476228969, 4.878841145974764E-19, 0.018477590237219396, 0.0, 0.0, 0.0 ], [ 157.07963619049312, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.38266429835377774, 2.3431430406346086E-17, 0.9238333389216746, 0.009999833110660423, -0.007653668476228968, 4.734754484702615E-19, 0.018477590237219396, 0.003826834238114484, -2.3673772423513076E-19, -0.009238795118609698 ], [ 159.07963619049312, 0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.3826834323650898, 2.3432602026631493E-17, 0.9238795325112867, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 159.07963619049312, 0.0, 0.0, 5.0, -0.0, 0.0, -0.0, -0.02121320296144438, 0.0, -0.02121320296144438, -0.3826834323650898, 2.3432602026631493E-17, 0.9238795325112867, 5.657130561438501E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 162.4129696480028, -0.11785113634417349, 0.0, 4.882148863655827, -0.07071067917232596, 0.0, -0.07071067917232596, -0.0, 0.0, -0.0, -0.3826834323650898, 2.3432602026631493E-17, 0.9238795325112867, 5.657130561438501E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 166.15070389699147, -0.3821488636558265, 0.0, 4.617851136344173, -0.07071067917232596, 0.0, -0.07071067917232596, 0.02121320296144438, -0.0, 0.02121320296144438, -0.3826834323650898, 2.3432602026631493E-17, 0.9238795325112867, 5.657130561438501E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], [ 169.48403735450114, -0.5, 0.0, 4.5, -0.0, 0.0, -0.0, -0.0, 0.0, -0.0, -0.3826834323650898, 2.3432602026631493E-17, 0.9238795325112867, 5.657130561438501E-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ] ],
+    "waypointType" : "PoseVelAccel",
+    "tolerance" : 0.0,
+    "speed" : 0.1,
+    "useCustomSpeed" : false,
+    "maxAVel" : -1.0,
+    "maxAccel" : -1.0,
+    "maxAAccel" : -1.0,
+    "stopAtEnd" : true,
+    "faceForward" : true,
+    "name" : "0-1",
+    "id" : "Segment",
+    "sequence" : [ ]
+  }, {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : -0.5,
+      "y" : 0.0,
+      "z" : 4.5,
+      "roll" : 0.0,
+      "pitch" : -45.0,
+      "yaw" : 180.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "1",
+    "id" : "ModuleBayStation",
+    "sequence" : [ ]
+  } ],
+  "name" : "StationDeletion",
+  "id" : "StationDeletion"
+}

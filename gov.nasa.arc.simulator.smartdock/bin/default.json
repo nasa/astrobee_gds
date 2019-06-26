@@ -1,0 +1,41 @@
+{
+  "type" : "DataConfigurationFile",
+  "name" : "default",
+   "topicSettings": [ 
+    {
+	  "topicName" : "RosTopic0",
+	  "downlinkOption" : "immediate",
+	  "frequency" : 5.0
+    },
+   {
+	  "topicName" : "RosTopic1",
+	  "downlinkOption" : "immediate",
+	  "frequency" : 5.0
+    },
+     {
+	  "topicName" : "RosTopic2",
+	  "downlinkOption" : "immediate",
+	  "frequency" : 5.0
+    },
+     {
+	  "topicName" : "RosTopic3",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 10
+    },
+     {
+	  "topicName" : "RosTopic4",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 25
+    },
+   {
+	  "topicName" : "RosTopic5",
+	  "downlinkOption" : "delayed",
+	  "frequency" : 6
+    },
+     {
+	  "topicName" : "RosTopic6",
+	  "downlinkOption" : "immediate",
+	  "frequency" : 12
+    }
+    ]
+}

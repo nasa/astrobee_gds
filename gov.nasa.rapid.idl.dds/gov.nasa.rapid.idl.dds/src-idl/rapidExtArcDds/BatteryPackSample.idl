@@ -1,0 +1,128 @@
+#ifndef rapid_ext_arc_BatteryPackSample_idl
+#define rapid_ext_arc_BatteryPackSample_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      
+      /**
+       * This data represents some of the battery status available
+       * for a single battery.  More information is available at the
+       * following web site:
+       * 
+       * http://www.inspired-energy.com/Standard_Products/NL2024/NL2024A22%20Rev%202.6.pdf
+       *
+       * @author Xavier Bouyssounouse
+       * @updated 17-Nov-2006 1:30:02 PM
+       */
+      struct Battery
+      {
+       /** The unique serial number for this specific battery. */
+        long serialNumber;
+
+       /** 
+         * The rolling average of the battery current, based on the last
+         * 64 samples, measured in amps.
+         */
+        float voltage;
+        
+        /** 
+         * The rolling average of the battery current, based on the last
+         * 64 samples, measured in amps.
+         */
+        float averageCurrent;
+        
+        /* The internal temperature of the battery, in degrees centigrade. */
+        float temperature;
+        
+        /** 
+         * The predicted remaining battery capacity expressed as a
+         * percentage of the full charge capacity.
+         */
+        float relativeState;
+        
+        /** 
+         * The predicted remaining battery capacity expressed as a
+         * percentage of the design capacity.
+         */
+        float absoluteState;
+        
+        /** The predicted remaining capacity of the battery. */
+        float remainingCapacity;
+        
+        /** The predicted battery capacity when fully charged. */
+        float fullChargeCapacity;
+        
+        /** The predicted battery life at the current rate of discharge. */
+        long long remainingTime;
+        
+        /**
+         *  The rolling average of the predicted remaining battery
+         * life. (Possibly based on the last 64 samples, but manual does
+         * not specify.)
+         */
+        long long averageRemainingTime;
+        
+        /**
+         * The rolling average of the predicted remaining time until the
+         * battery reaches full charge. (Possibly based on the last 64
+         * samples, but manual does not specify.)
+
+         */
+        long long averageRemainingChargeTime;
+        
+        /* The number of charge/discharge cycles the bttery has experienced. */ 
+        long numberOfChargeCycles;
+      };
+
+      struct BatterySlot
+      {
+        boolean present;
+        boolean charging;
+        boolean supplyingPower;
+        boolean chargePowerPresent;
+        boolean powerNoGood;
+        boolean chargeInhibited;
+      };
+
+      struct BatteryController
+      {
+        BatterySlot batterySlots[8];
+        Battery     batteries[8];
+      };
+
+      typedef sequence<BatteryController, 16> BatteryControllerSequence16;
+      
+      //@copy-c-declaration class BatteryPackSampleTypeSupport;
+      //@copy-c-declaration class BatteryPackSampleDataWriter;
+      //@copy-c-declaration class BatteryPackSampleDataReader;
+      //@copy-c-declaration struct BatteryPackSampleSeq;
+      
+      valuetype BatteryPackSample : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef BatteryPackSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef BatteryPackSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef BatteryPackSampleDataReader DataReader;
+        //@copy-c-declaration typedef BatteryPackSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef BatteryPackSample Type;
+
+        public BatteryControllerSequence16 controllers;
+
+        // Summary information
+        public String128 message;
+        public short minutesToEmpty;
+        public short overallCharge; // octet would be good enough, but it's printed hex by default
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_BatteryPackSample_idl

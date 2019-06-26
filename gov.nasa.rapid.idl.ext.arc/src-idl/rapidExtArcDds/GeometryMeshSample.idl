@@ -1,0 +1,88 @@
+#ifndef rapid_ext_arc_GeometryMeshSample_idl
+#define rapid_ext_arc_GeometryMeshSample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief GeometryConfig
+ *
+ * \ingroup idlfiles
+ */
+module rapid
+{
+  module ext 
+  {
+    module arc
+    {
+      enum GeometryIndexMode {
+        GIM_TRIANGLES,
+        GIM_TRISTRIP,
+        GIM_TRIFAN,
+        GIM_QUADS,
+        GIM_LINES,
+        GIM_LINE_STRIP,
+        GIM_LINE_LOOP,
+        GIM_POINTS
+      };
+      typedef sequence<GeometryIndexMode,32> GeometryIndexModeSequence32;
+      
+      /**
+       * unsigned shorts are used to reduce wire size. Note that unsigned values are
+       * not Java friendly, and will have to be converted to Integer (int foo = bar & 0xffff)
+       */
+      typedef sequence<unsigned short, 262144> IndexSequence256K;
+      
+      /**
+       * color buffer, rgba
+       */
+      typedef sequence<octet, 174760> OctetSequence170K;
+
+      
+      //@copy-c-declaration class GeometryMeshSampleTypeSupport;
+      //@copy-c-declaration class GeometryMeshSampleDataWriter;
+      //@copy-c-declaration class GeometryMeshSampleDataReader;
+      //@copy-c-declaration struct GeometryMeshSampleSeq;
+      
+      //@copy-declaration /** 
+      //@copy-declaration  * Telemetry data structure for transfering meshes.
+      //@copy-declaration  */
+      valuetype GeometryMeshSample : Message 
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef GeometryMeshSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef GeometryMeshSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef GeometryMeshSampleDataReader DataReader;
+        //@copy-c-declaration typedef GeometryMeshSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef GeometryMeshSample Type;
+        
+        //@copy-declaration /** Mesh identifier that can be used to identify multiple mesh instances. */
+        public long                        geometryId; //@key
+        
+        
+        public GeometryIndexModeSequence32 indexModes;
+        public LongSequence32              indexLengths;
+        public IndexSequence256K           indexData;
+        
+        public float                       vertexScale; 
+        public ShortSequence128K           vertexData;
+        public float                       normalScale;
+        public OctetSequence128K           normalData;
+        public float                       colorScale;
+        public OctetSequence170K           colorData;    
+        public float                       texCoord0Scale;
+        public ShortSequence96K            texCoord0Data;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_GeometryMeshSample_idl

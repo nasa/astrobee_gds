@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: VIZ I/O Plug-in
+Bundle-SymbolicName: gov.nasa.arc.viz.io;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.viz.io.VizIOActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.ardor3d;bundle-version="0.9.17";visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.viz.io,
+ gov.nasa.arc.viz.io.exception,
+ gov.nasa.arc.viz.io.extensionPoint,
+ gov.nasa.arc.viz.io.image,
+ gov.nasa.arc.viz.io.importer
+Bundle-Vendor: NASA Mercator

@@ -1,0 +1,12 @@
+*.class
+*.swp
+*.DS_Store
+gov.nasa.arc.verve.freeflyer.workbench/bin/*
+.e4css
+.metadata/
+.recommenders/
+*.idea
+gov.nasa.arc.verve.freeflyer.workbench/bin/placeholder
+
+gov.nasa.arc.simulator.freeflyer/bin
+gov.nasa.arc.irg.plan/bin

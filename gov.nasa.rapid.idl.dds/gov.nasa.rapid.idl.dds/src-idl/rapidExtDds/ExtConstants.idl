@@ -1,0 +1,46 @@
+#ifndef rapid_ext_ExtConstants_idl
+#define rapid_ext_ExtConstants_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Currently holds names of commonly used topics for the ext namespace
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+  module ext {
+
+    //@copy-declaration /**
+    //@copy-declaration  * A list of commonly used topic names. If an Agent has multiple of the same message type, the topics
+    //@copy-declaration  * should be named accordingly and listed in the AgentConfig topics. Custom topic names should
+    //@copy-declaration  * have the standard name as the root, separated from the specialization by the "-" character, e.g.
+    //@copy-declaration  * <code>rapid_position_sample-relative<code>
+    //@copy-declaration  */
+    const String64 NAVMAP_CONFIG_TOPIC          = "rapid_navmap_config";
+    const String64 NAVMAP_SAMPLE_TOPIC          = "rapid_navmap_sample";
+    const String64 RANGESCAN_CONFIG_TOPIC       = "rapid_rangescan_config";
+    const String64 RANGESCAN_SAMPLE_TOPIC       = "rapid_rangescan_sample";
+    const String64 PROCESSMANAGER_CONFIG_TOPIC  = "rapid_processmanager_config";
+    const String64 PROCESSMANAGER_STATE_TOPIC   = "rapid_processmanager_state";
+    const String64 PROCESSIO_SAMPLE_TOPIC       = "rapid_processio_sample";
+    const String64 SYSTEMINFO_CONFIG_TOPIC      = "rapid_systeminfo_config";
+    const String64 SYSTEMINFO_SAMPLE_TOPIC      = "rapid_systeminfo_sample";
+    const String64 TRAJECTORY_CONFIG_TOPIC      = "rapid_trajectory_config";
+    const String64 TRAJECTORY_SAMPLE_TOPIC      = "rapid_trajectory_sample";
+    const String64 TRAJECTORY2D_CONFIG_TOPIC    = "rapid_trajectory2d_config";
+    const String64 TRAJECTORY2D_SAMPLE_TOPIC    = "rapid_trajectory2d_sample";
+    const String64 VESTOP_CONFIG_TOPIC          = "rapid_vestop_config";
+    const String64 VESTOP_STATE_TOPIC           = "rapid_vestop_state";
+  };    
+};
+
+#endif // rapid_ext_ExtConstants_idl

@@ -1,0 +1,67 @@
+{
+  "bookmarks" : [ {
+    "name" : "Origin",
+    "location" : {
+      "type" : "Point6Dof",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "yaw" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "name" : "Point6Dof",
+      "id" : "Point6Dof",
+      "notes" : null
+    }
+  }, {
+    "name" : "In center",
+    "location" : {
+      "type" : "ModuleBayPoint",
+      "x" : 7.85184,
+      "y" : 4.84361,
+      "z" : -0.03903,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : true,
+      "module" : "Columbus",
+      "bayNumberValid" : true,
+      "bayNumber" : "Between 2 and 3",
+      "centerOne" : true,
+      "wallOne" : "Deck",
+      "wallOneOffset" : 0.0,
+      "centerTwo" : true,
+      "wallTwo" : "Deck",
+      "wallTwoOffset" : 0.0,
+      "customOrientation" : false,
+      "orientationWall" : "Forward",
+      "bookmark" : null
+    }
+  }, {
+    "name" : "Not in center",
+    "location" : {
+      "type" : "ModuleBayPoint",
+      "x" : 8.30546,
+      "y" : -3.32963,
+      "z" : 0.99153,
+      "roll" : 0.0,
+      "pitch" : -90.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : true,
+      "module" : "JPM",
+      "bayNumberValid" : true,
+      "bayNumber" : "1",
+      "centerOne" : false,
+      "wallOne" : "Forward",
+      "wallOneOffset" : 0.57,
+      "centerTwo" : false,
+      "wallTwo" : "Deck",
+      "wallTwoOffset" : 0.105,
+      "customOrientation" : false,
+      "orientationWall" : "Deck",
+      "bookmark" : null
+    }
+  } ]
+}

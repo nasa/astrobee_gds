@@ -1,0 +1,210 @@
+/**
+
+\page src-idl Generating Source from IDL
+
+The core RAPID messages specifications and APIs are written in IDL, an interface definition language, and follow the CORBA IDL
+format. To generate language-specific source code for RAPID, follow the instructions on this page. Currently Java and C++ are
+supported.
+<ul>
+<li>Establish the required environment 
+<li>Perform the command
+</ul>
+
+\par For a Single IDL File
+
+\par
+These commands will translate an IDL file into a Generated Source File, replacing any file with the same name that already exists
+in that location.
+
+\par
+For Java: <kbd>rtiddsgen -d ../generated-src -replace -language java <var>filename</var>.idl</kbd>
+
+\par
+For C++: <kbd>rtiddsgen -d ../generated_src -replace -namespace -language C++ <var>filename</var>.idl</kbd>
+
+\par For All IDL Files
+
+\par
+Because of the number of IDL files, it is usually more convenient to generate the source code using a batch file that process all
+the IDL files at once.
+
+\par
+For Windows: <kbd>for %%X in (*.idl) do rtiddsgen -d ../generated_src -replace -namespace -language C++ %%X</kbd>
+
+\par
+For Mac OS X and Linux
+
+\par
+\verbatim
+#!/bin/tcsh
+
+# Generate code from IDL files
+
+setenv NDDSHOME /opt/rti/ndds.4.5d
+setenv XALANHOME /Users/dmittman/Development/xalan-j_2_7_1
+setenv NDDSJREHOME /Library/Java/Home
+
+pushd src-idl
+foreach file (`ls *.idl`)
+  $NDDSHOME/scripts/rtiddsgen -d ../generated-src -language Java -package gov.nasa.rapid.idl.dds -replace $file
+end
+popd
+
+# End
+\endverbatim
+
+\page doc-idl Documenting RAPID IDL Source
+
+The purpose of the IDL Source Documentation is to describe the Modules, Constants, and Data Types defined by the RAPID system.
+A number of different documentation styles and directives are used to control where and how documentation is presented. In general,
+the RAPID team uses three different styles of documentation mark-up and two different directives to control the Doxygen
+documentation and source code generation processes. The following table describes the files RAPID generates with Doxygen:
+
+<dl>
+	<dt>Descriptive Page</dt>
+    	<dd>This page contains descriptive information about RAPID. For example, the page you're reading now is a Descriptive
+			Page.</dd>
+	<dt>Source Page</dt>
+		<dd>An HTML page containing a representation of the source code file, cross-referenced to definitions in other Source Files.
+			Follow this link, \ref AccessControlState.idl, then follow the Go to the source code of this file link.</dd>
+	<dt>Generated Source File</dt>
+		<dd>The RAPID IDL sources files are used to generate language-specific source code in Java and C++.</dd>
+</dl>
+
+A table of styles and directives is shown below, with additional explanation of these items in the following sections.
+
+<div align="center">
+<table>
+	<tr>
+		<th align="center">Style or Directive</th>
+		<th align="center">Example</th>
+		<th colspan="3"><center>Appears In</center></th>
+	</tr>
+	<tr align=center>
+		<th colspan=2></th>
+		<th>Descriptive Page</th>
+		<th>Source Page</th>
+		<th>Generated Source File</th></tr>
+	<tr>
+		<td>Special documentation block</td>
+		<td>/** … <span>*</span>/</td>
+		<td align=center>Yes</td>
+		<td align=center>No</td>
+		<td align=center>No<sup>1</sup></td>
+	</tr>
+	<tr>
+		<td>C-style documentation blocks</td>
+		<td>/* … <span>*</span>/</td>
+		<td align=center>No</td>
+		<td align=center>Yes</td>
+		<td align=center>No<sup>1</sup></td>
+	</tr>
+	<tr>
+		<td>C++-style documentation blocks</td>
+		<td>// …</td>
+		<td align=center>No</td>
+		<td align=center>Yes</td>
+		<td align=center>No<sup>1</sup></td>
+	</tr>
+	<tr>
+		<td>Copy declaration directive</td>
+		<td>//\@<span></span>copy-declaration …</td>
+		<td align="center">No</td>
+		<td align="center">No</td>
+		<td align="center">Yes</td>
+	</tr>
+	<tr>
+		<td>Copy C declaration directive</td>
+		<td>//\@<span></span>copy-c-declaration …</td>
+		<td align=center>No</td>
+		<td align=center>No</td>
+		<td align=center>Yes</td>
+	</tr>
+</table>
+<b>Notes</b>: <sup>1</sup>The documentation block will be copied into a Generated Source File if and only if a copy directive is used.
+</div>
+
+\par Documenting IDL Source for a Descriptive Page
+
+\par
+JavaDoc-style documentation blocks (also known as "Special documentation blocks" in Doxygen) are processed by Doxygen into a
+Descriptive Page for browser-based viewing. Special documentation blocks are not copied into a Source Page, nor are they copied
+into a Generated Source File unless accompanied by a copy directive.
+
+\par
+\verbatim
+/**
+ * \defgroup idlfiles IDL Files
+ *
+ * \brief The RAPID specification for messages and methods is defined in IDL files.
+ */
+\endverbatim
+<b>Example</b>: A Special documentation block containing Doxygen directives for a Descriptive Page.
+
+\par Documenting IDL Source for a Source Page
+
+\par
+When creating a Source Page, Doxygen will remove Special documentation blocks—which contain either directives for a Descriptive
+Page or for IDE-accessible documentation like JavaDoc—while including C- and C++-style comments. C- and C++-style comments will 
+not be placed in a Generated Source File unless preceded by a copy directive.
+
+\par
+\verbatim
+/*
+ * Copyright  2009 United States Government as represented by the 
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+\endverbatim
+<b>Example</b>: This C-style documentation block will only appear appear in a Source Page.
+
+\par
+C- and C++-style comments are carried into the the Source Page, and will be placed a Generated Source File if preceded by a copy
+directive. This style of comment is not usually accompanied by a copy directive because these comments are not made available to
+the programmer through references in their IDE.
+
+\par
+\verbatim
+/* C-style comment */
+// C++-style comment
+\endverbatim 
+<b>Example</b>: These C- and C++-style documentation blocks will only appear in a Source Page.
+
+\par Documenting IDL Source for a Generated Source File
+
+\par
+The <i>rtiddsgen</i> program requires special directives to copy documentation into a Generated Source File in a way that is useful
+to a programmer working in a IDE such as Eclipse that provides interactive documentation for references. The
+//\@<span></span>copy-declaration directive copies the text into the file where the type is declared (\<type\>.h for C and C++, or
+\<type\>.java for Java). The //\@<span></span>copy-c-declaration directive is identical to //\@<span></span>copy-declaration, except
+that it applies only to generated C and C++ code.
+
+\par
+In RAPID IDL files, detailed documentation is written in a JavaDoc-style documentation block that will not appear in a Source Page,
+but will appear in a Descriptive Page alongside the element it describes. The documentation will also appear in a Generated Source
+File because of the presence of the copy directives.
+
+\par
+\verbatim
+//@copy-declaration /**
+//@copy-declaration  * AccessControlState is a recurring message type that provides information
+//@copy-declaration  * about who has control of a specified asset and who has requested control
+//@copy-declaration  * of that asset.
+//@copy-declaration  */
+\endverbatim
+
+\par
+In RAPID IDL source files, brief member documentation is written before the member using this format:
+
+\par
+\verbatim
+//@copy-declaration /** Specifies agentId that currently controls the asset. */
+public String32 controller;
+\endverbatim
+
+\par
+Doxygen then copies the documentation into a Generated Source File in a way that is compatible with both Java and C++. The
+documentation in a JavaDoc-style documentation block will not appear in any Descriptive Page unless you copy it manually
+into a Special documentation block.
+
+*/

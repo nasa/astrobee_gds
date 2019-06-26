@@ -1,0 +1,84 @@
+#ifndef rapid_FileQueueState_idl
+#define rapid_FileQueueState_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief See RAFT documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * ChannelStatus is used to indicate whether a RAPID File Queue (part of the RAPID File Transfer Service)
+    //@copy-declaration  * is currently capable of transferring files (Active) or is temporarily refraining from transferring files
+    //@copy-declaration  * (Paused).
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>FILE_QUEUE_CHANNEL_ACTIVE: Capable of transferring files.
+    //@copy-declaration  *   <li>FILE_QUEUE_CHANNEL_PAUSED: Temporarily refraining from transferring files.
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum ChannelStatus {
+        FILE_QUEUE_CHANNEL_ACTIVE,
+        FILE_QUEUE_CHANNEL_PAUSED
+        };
+
+    struct ChannelState {
+
+        //@copy-declaration /** Status of file in queue. */
+        ChannelStatus status;
+
+        //@copy-declaration /** Size of queued data volume. */
+        long long queuedDataVolume;
+
+        //@copy-declaration /** Number of queued files */
+        short queuedFiles;
+    };
+
+    typedef sequence<ChannelState> ChannelStateSequence;
+
+    //@copy-c-declaration class FileQueueStateTypeSupport;
+    //@copy-c-declaration class FileQueueStateDataWriter;
+    //@copy-c-declaration class FileQueueStateDataReader;
+    //@copy-c-declaration struct FileQueueStateSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Holds information about a file that could be transferred to the ground from the robot.
+    //@copy-declaration  */
+    valuetype FileQueueState : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FileQueueStateTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FileQueueStateDataWriter DataWriter;
+        //@copy-c-declaration typedef FileQueueStateDataReader DataReader;
+        //@copy-c-declaration typedef FileQueueStateSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FileQueueState Type;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Connection status of the file queue. The queue will not send data as long as there is no reader
+        //@copy-declaration  * connected.
+        //@copy-declaration  */
+        public boolean connected;
+
+      /** Bandwidth in bytes per second. */
+      public long bandwidth;
+      /** Prefetching bandwidth in bytes per second. */
+      public long prefetchBandwidth;
+
+        //@copy-declaration /** The state of the individual channels. */
+        public ChannelStateSequence channels;
+    };
+};
+
+#endif // rapid_FileQueueState_idl

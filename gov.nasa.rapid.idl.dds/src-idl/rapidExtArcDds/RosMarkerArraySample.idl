@@ -1,0 +1,113 @@
+#ifndef rapid_ext_arc_RosMarkerArraySample_idl
+#define rapid_ext_arc_RosMarkerArraySample_idl
+
+/*
+ * Copyright (c) 2015 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+module rapid {
+  module ext {
+    module arc {
+
+        enum ShapeType {
+            ARROW               = 0,
+            CUBE                = 1,
+            SPHERE              = 2,
+            CYLINDER            = 3,
+            LINE_STRIP          = 4,
+            LINE_LIST           = 5,
+            CUBE_LIST           = 6,
+            SPHERE_LIST         = 7,
+            POINTS              = 8,
+            TEXT_VIEW_FACING    = 9,
+            MESH_RESOURCE       = 10,
+            TRIANGLE_LIST       = 11
+        };
+        enum Action {
+            ADD                 = 0,
+            //MODIFY            = 0, // (sic)
+            DELETE              = 2,
+            DELETEALL           = 3
+        };
+
+        typedef sequence<Vec3f,1024> PointSequence1K;
+        typedef sequence<Color4f,1024> ColorSequence1K;
+
+        //@copy-declaration  /** Direct copy of ROS type */
+        struct Marker {
+            //@copy /** Namespace to place this object in... used in conjunction with id to create a unique name for the object */
+            String32 ns;
+
+            //@copy /** object ID useful in conjunction with the namespace for manipulating and deleting the object later */
+            long id;
+
+            //@copy /** Type of object */
+            ShapeType type;
+
+            //@copy /** 0 add/modify an object, 1 (deprecated), 2 deletes an object, 3 deletes all objects */
+            Action action;
+
+            //@copy /** Pose of the object */
+            Transform3D pose;
+
+            //@copy /** Scale of the object 1,1,1 means default (usually 1 meter square) */
+            Vec3f scale;
+
+            //@copy /** RGBA color [0.0-1.0] */
+            Color4f color;
+
+            //@copy /** NS How long (in nanoseconds) the object should last before being automatically deleted.  0 means forever */
+            long long lifetime;
+
+            //@copy /** If this marker should be frame-locked, i.e. retransformed into its frame every timestep */
+            boolean frame_locked;
+
+            //@copy /** Only used if the type specified has some use for them (eg. POINTS, LINE_STRIP, ...) */
+            PointSequence1K points;
+
+            //@copy
+                    /** Only used if the type specified has some use for them (eg. POINTS, LINE_STRIP, ...)
+                        number of colors must either be 0 or equal to the number of points
+                        NOTE: alpha is not yet used */
+            ColorSequence1K colors;
+
+            //@copy /**  NOTE: only used for text markers */
+            String32 text;
+
+            //@copy /**  NOTE: only used for MESH_RESOURCE markers */
+            String32 mesh_resource;
+            boolean mesh_use_embedded_materials;
+        };
+
+        typedef sequence<Marker,8> MarkerArraySequence8;
+
+        //@copy-c-declaration class  RosMarkerArraySampleTypeSupport;
+        //@copy-c-declaration class  RosMarkerArraySampleDataWriter;
+        //@copy-c-declaration class  RosMarkerArraySampleDataReader;
+        //@copy-c-declaration struct RosMarkerArraySampleSeq;
+
+        //@copy-declaration /**
+        //@copy-declaration  * MarkerArraySample 
+        //@copy-declaration  */
+        valuetype RosMarkerArraySample : Message {
+
+            //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+            //@copy-c-declaration typedef RosMarkerArraySampleTypeSupport TypeSupport;
+            //@copy-c-declaration typedef RosMarkerArraySampleDataWriter DataWriter;
+            //@copy-c-declaration typedef RosMarkerArraySampleDataReader DataReader;
+            //@copy-c-declaration typedef RosMarkerArraySampleSeq Seq;
+            //@copy-c-declaration #endif
+            //@copy-c-declaration typedef RosMarkerArraySample Type;
+
+            public MarkerArraySequence8 marker_array;
+        };
+    };
+  };
+};
+
+
+#endif // rapid_ext_arc_RosMarkerArraySample_idl

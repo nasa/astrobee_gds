@@ -1,0 +1,1006 @@
+<html>
+<header><title>Help File</title></header>
+
+<body>
+<h1> Astrobee Crew Control Station Help </h1>
+
+<h2> Table of Contents </h2>
+<ol type="A">
+<li> <a href="#Overview"> <b> Overview </b> </a> </li> 
+	<ol>
+  		<li><a href="#ConditionsForControl"> Conditions Necessary For Control of Astrobee </a> </li>
+	</ol>
+
+<li> <a href="#CommonItems">  <b> Items Common to Multiple Tabs</b>  </a> </li> 
+	<ol>
+		<li><a href="#TabPanel"> Tab Panel  </a> </li>
+		<li><a href="#LiveMap"> Live Map </a> </li>
+		<li><a href="#TopBar"> Top Bar  </a> </li>
+		<li><a href="#GrabControl"> Grab Control and Hibernate Buttons  </a> </li>
+		<li><a href="#HealthAndStatus"> Health  </a> </li>
+		<li><a href="#LiveImages"> Live Images  </a> </li>
+		<li><a href="#LiveVideo"> Live Video  </a> </li>
+		<li><a href="#StatusBar">Status Bar </a> </li>
+	</ol>
+
+<li> <a href="#OverviewTab">  <b> Overview Tab</b>  </a> </li> 
+	<ol>
+		<li><a href="#AstrobeeStatus"> Bee Status </a> </li>
+		<li><a href="#DockingStationStatus"> Docking Station Status and Commanding </a> </li>
+	</ol>
+<li> <a href="#GuestScienceTab">  <b> Guest Science Tab </b> </a> </li>
+	<ol>
+		<li><a href="#AstrobeeSelection"> Bee Selection and Status  </a> </li>
+		<li><a href="#CommandingFor">Commanding For (Selected Astrobees) </a> </li>
+ 	</ol>
+<li> <a href="#RunPlanTab">  <b> Run Plan Tab </b> </a> </li> 
+	<ol>
+		<li><a href="#RunRobotCommanding"> Bee Commanding  </a> </li>
+		<li><a href="#LivePlan"> Live Plan  </a> </li>
+	</ol>
+<li> <a href="#TeleoperateTab">  <b> Teleoperate Tab </b>  </a> </li> 
+	<ol>
+		<li><a href="#TeleoperateRobotCommanding"> Bee Commanding </a> </li>
+		<li><a href="#PerchingArm"> Perching Arm </a> </li>
+		<li><a href="#Docking"> Docking </a> </li>
+		<li><a href="#InteractiveMap"> Interactive Map </a> </li>
+		<li><a href="#MiscCommands"> Miscellaneous Commands </a> </li>
+	</ol>
+	<li> <a href="#PlanEditorTab"> <b> Plan Editor Tab </b> </a> </li> 
+	<ol>
+  		<li><a href="#CreateAPlan"> Create A Plan </a> </li>
+		<li><a href="#AddStations"> Add Stations </a> </li>
+		<li><a href="#EditPlanElements"> Edit Plan Elements </a> </li>
+		<li><a href="#ManageBookmarks"> Manage Bookmarks </a> </li>
+	</ol>
+	<li> <a href="#Terminology"> <b> Terminology </b> </a> </li> 
+	<li> <a href="#Symbols"> <b> Symbols </b> </a> </li> 
+	<li> <a href="#HotKeys"> <b> Hot Keys </b> </a> </li> 
+</ol>
+
+<figure>
+	<img src="Figure1.png" width="900px">
+	<figcaption> Figure 1. Overview Tab </figcaption>
+</figure>
+
+
+<h2 id="Overview"> Overview </h2>
+<p>
+The <b>Astrobee Crew Control Station</b> supports commanding and monitoring of the 
+Astrobee free-flyers. Astrobees that are awake are commanded via prewritten 
+ <b>Plans</b>, or manually via single commands in <b>Teleoperate</b> mode.  Plans consist 
+ of locations called Stations, tasks done at each Station, and Segments that connect the Stations.
+  The Crew Control Station also commands the Astrobee Docking Station
+to wake up Astrobees that are hibernating.
+</p>
+
+<p>
+The <b>Overview</b> tab summarizes the states of known Astrobees, and sends wake, grab control, and hibernate
+commands.
+The <b>Guest Science</b> tab sends Plans and some teleoperate commands to as many as three Astrobees 
+simultaneously. The <b>Run Plan</b> and <b>Teleoperate</b> tabs allow detailed control and monitoring 
+of a single Astrobee.
+</p>
+
+<h3 id="ConditionsForControl"> Conditions Necessary for Control of Astrobee </h3>
+<p>
+An Astrobee must be awake and have Wi-Fi connectivity in order to connect to the Crew Control Station.
+</p>
+
+<p style="border:3px; border-style:solid; text-align:center; padding: 1em;">
+NOTE<br>
+An Astrobee that is hibernating must be docked on the Docking Station in order for the Crew Control 
+Station to wake it up.
+</p>
+
+
+ <h4>Access Control</h4>
+ <p> 
+Control Stations require access control on an Astrobee to send commands to that Astrobee.
+An Astrobee that is awake rejects commands sent by Control Stations that do not have access
+ control on it.   When an Astrobee first wakes up, nobody has access control on it.
+ </p>
+ 
+ <p style="border:3px; border-style:solid; text-align:center; padding: 1em;">
+NOTE <br>
+1. Only one Control Station at a time can have access control on an Astrobee. <br><br>
+2. The Crew Control
+ Station must "grab control" of an Astrobee before sending any commands.
+</p>
+ 
+ <p>
+ During an activity,
+ the ground support team may need to grab control of the Astrobee in order to fix a problem. In that
+ case, the Crew Control Station must grab control again before resuming sending commands.
+</p>
+ <p>
+Astrobee executes Grab Control and Stop commands regardless of whether the 
+sender has access control. The Docking Station does not track access control, so you do not
+need access control to send a Wake command.
+</p>
+</p>
+
+<h2 id="CommonItems"> Items Common to Multiple Tabs </h2>
+
+<h3 id="TabPanel"> Tab Panel </h3>
+
+<figure>
+	<img src="TabPanel.png" width="300px">
+	<figcaption> Figure 2. Tab Panel</figcaption>
+</figure>
+
+<p>
+The <b> Tab Panel </b> near the top of the Workbench allows you to switch tabs
+to move between various tasks.  The Tab Panel includes four tabs:
+</p>
+<ul>
+<li> The <b>Overview tab</b> displays the state of each Astrobee and the state of the Docking Station, 
+and it sends wake, grab control, and hibernate commands.</li> 
+<li> The <b>Guest Science tab </b> controls and monitors the execution of Plans on up to three Astrobees,
+and it sends specific payload commands. </li>
+<li> The <b>Run Plan tab</b> controls and monitors the execution of Plans on one Astrobee.</li> 
+<li> The <b>Teleoperate tab </b> commands one Astrobee manually, outside of Plan execution. </li> 
+</ul>
+
+<h3 id="LiveMap"> Live Map </h3>
+
+<figure>
+	<img src="Figure3.png" width="600px">
+	<figcaption> Figure 3. Live Map </figcaption>
+</figure>
+
+<p>
+The <b>Live Map subtab</b> displays a 3D model of the position of the selected Astrobee 
+in the USOS, according to the latest telemetry.  The Live Map subtab includes:
+</p>
+
+<ul>
+<li> A <b>model of the USOS</b>, with all rack locations labeled. </li> 
+<li> <b>Astrobee models</b> at their currently reported locations. Each model has set of red,
+green, and blue axes designating the X, Y, and Z directions, respectively, of the Astrobee itself.
+Red, or X, designates the front of the Astrobee, and blue, or Z, designates the bottom of the Astrobee.
+The Live Map shows a model of each Astrobee that is awake.</li> 
+<li> <b> X, Y, and Z coordinate axes </b> designating the orientation of the ISS-fixed 
+coordinate system that the Astrobees use. The Astrobees use the Space Station Analysis coordinate frame,
+which has its origin at the truss segment S0.</li>
+</ul>
+The Live Map subtab may also display:
+<ul>
+<li> Gray <b>keepout zones </b> designating areas Astrobees are not allowed to enter </li>
+<li> Blue <b>handrail </b> models</li> 
+<li> A model of the Astrobee <b>Docking Station </b>  </li>
+<li> A pastel <b>trace</b> showing the previous path of the Astrobee </li>
+</ul>
+When a Plan is loaded on the selected Astrobee, the Live Map subtab displays:
+<ul>
+<li> Round <b>Station markers</b>.</li>
+<li> <b>Station numbers </b> above each Station. Stations are numbered 0, 1, 2, etc. </li>
+<li> Station color codes:
+<ul>
+<li> <b>Black</b>: pending </li>
+<li> <b>Bright green</b>: active </li>
+<li> <b>Gray</b>: completed </li>
+<li> <b>Blue</b>: skipped </li>
+</ul>
+<li> Lines representing <b>Segments</b> connect the Stations. An arrow along the line
+points in the direction of motion. When the Segment is executing, the ID of the
+Segment is displayed.  Segment IDs list the Stations they connect, for example, Segment 1-2
+ connects Station 1 to Station 2. </li> 
+</ul>
+
+<p>
+A <b>Camera Controls</b> box floats above the Live Map subtab. If the Crew
+Control Station window is moved or resized, you must click on another Control Station
+subtab and click again on the Live Map subtab to position the Camera Controls box correctly.
+</p>
+
+<ul>
+<li>The <b>arrow buttons</b> in the Camera Controls box and on the keyboard 
+move the camera in the Live Map view.
+
+</li>
+ <li> The <b>magnifying glass buttons</b> zoom in and out. </li> 
+<li> <b>Reset View </b> returns to the view of the JPM.</li> 
+<li> <b>Zoom to Bee</b> centers the map on the selected Astrobee. </li>
+ </ul> 
+
+ Leave the cursor over the Camera Controls box
+ to use the keyboard. During camera movement, the camera stays pointed at the center
+ of the Live Map view. You can also move the camera by clicking and dragging inside
+ the Live Map view.  To change the center of the view, click and drag using the right
+ tackpad button.
+
+
+<h3 id="TopBar"> Top Bar </h3>
+
+<figure>
+	<img src="TopBar.png" width="900px">
+	<figcaption> Figure 4. Top Bar </figcaption>
+</figure>
+
+<p>
+On the Run Plan and Teleoperation tabs, the <b>Top Bar</b> under the Tab Panel allows the user to select 
+an Astrobee to monitor and control. The Top Bar also displays summary information.
+</p>
+<ul>
+<li> The <b>Select Astrobee combo</b> displays the names of Astrobees that are awake. Select a name to
+connect the Crew Control Station to that Astrobee.</li>
+<li> The <b>Comm light</b> is green if the selected Astrobee has communication with the Crew Control Station.
+Otherwise the light is cyan, indicating that no telemetry is being received and no commands can be sent. </li> 
+<li> <b>Est Batt</b> displays the approximate number of minutes that the selected Astrobee
+can operate before needing to recharge. If more than one hour is left, the time is displayed as hours and minutes.</li>
+<li> <b>Control</b> displays the ID of the Control Station that currently has access control
+on the selected robot. When an Astrobee first wakes up, nobody has control on it. If the Control field does not match the
+ id of the user of the Crew Control Station, only Grab Control and Stop commands can be sent from the Crew Control Station 
+ to that Astrobee. </li>
+
+<li> The <b>Docking Station light</b> is green if the Docking Station is powered and connected.
+It is cyan otherwise.</li>
+<li> <b>GPS </b> displays the date and time. </li>
+</ul>
+
+<h3 id="GrabControl"> Grab Control Button </h3>
+
+All tabs have a <b> Grab Control button</b> that grabs access control on the selected Astrobee(s) if the Crew Control
+Station does not already have access control.
+
+<h3 id="HealthAndStatus"> Health  </h3>
+<figure>
+	<img src="Figure5.png" width="300px">
+	<figcaption> Figure 5. Health subtab. </figcaption>
+</figure>
+
+<p>
+The <b>Health subtab</b>, on the Run Plan and Teleoperate tabs, displays status information
+ about the Astrobee selected in the Top Bar.  The status information may include the following:
+</p>
+<ul>
+<li> A row, highlighted in orange, indicating if a particular subsystem is <b>disabled</b>. Each system that is unable to function is listed
+on a separate row. </li> 
+<li> The <b>Operating State</b> of the Astrobee may be Ready, Plan Execution, Teleoperation,
+Auto Return, or Fault. In some Operating States, some commands are not available. </li>
+<li> The <b>Mobility State </b> of the Astrobee may be Drifting (propulsion off), Stopping, Stopped (station keeping),
+Flying, Docking, Docked, Undocking, Perching, Perched, or Unperching. Docking, Undocking, Perching, and Unperching states include 
+a number to indicate the progress of the Astrobee through the process. In some Mobility States, some commands are not available.</li>
+<li> <b>Plan Name</b> is the name of the Plan currently loaded on the selected Astrobee. Each Astrobee can load
+one Plan at a time. </li>
+<li> <b> Plan Status </b> may be Idle, Executing, Paused, or Error. When a Plan is initially loaded, the Plan
+Status is Paused. When the Plan finishes executing, the Plan Status is Idle and a new Plan must be loaded.</li>
+</ul>
+
+<h3 id="LiveImages"> Live Images </h3>
+<p>
+The <b>Live Images subtab</b> displays a succession of images from the selected Astrobee's Dock camera or
+Navigation camera. Cameras can be commanded to stream images via Plan or via Teleoperate commands.
+
+The info label on the Live Images subtab displays the sequence number of the image currently displayed. An icon
+at the left of the subtab indicates whether the chosen camera points forward (Navigation camera)
+or backward (Dock camera). On the Guest Science tab, the Live Images subtab includes a dropdown menu to select
+an Astrobee from which to view images.
+</p>
+
+<figure>
+	<img src="Figure6.png" width="600px">
+	<figcaption> Figure 6. Live Images subtab, as it appears on the Guest Science tab. </figcaption>
+</figure>
+
+<h3 id="LiveVideo"> Live Video </h3>
+The <b>Live Video subtab</b> streams video from the Science camera
+on the selected Astrobee.  The Science camera can be commanded to stream images via a Plan or via
+ Teleoperate commands.  On the Guest Science tab, the Live Video subtab includes a dropdown menu to select
+an Astrobee from which to view images.
+</p>
+
+<figure>
+	<img src="Figure7.png" width="600px">
+	<figcaption> Figure 7. Live Video subtab, as it appears on the Guest Science tab. </figcaption>
+</figure>
+
+<h3 id="StatusBar"> Status Bar </h3>
+
+<p>
+The <b>Status Bar</b> at the bottom of the Crew Control Station displays the latest message
+sent or received from any Astrobee or the Docking Station.
+</p>
+
+
+
+
+
+
+
+<h2 id="OverviewTab"> Overview Tab </h2>
+
+<figure>
+	<img src="Figure1.png" width="900px">
+	<figcaption> Figure 8. Overview Tab </figcaption>
+</figure>
+
+
+<p>
+The <b>Overview Tab</b> summarizes the states of known Astrobees, and sends wake commands to the Docking Station.
+It includes the following unique subtabs:
+</p>
+
+<h3 id="AstrobeeStatus"> Bee Status </h3>
+<p>
+The <b>Bee Status subtab </b> displays a status summary
+for each connected Astrobee.  Each row has the following items:
+</p>
+<ul>
+<li>  <b> Name</b> is the name of the Astrobee described by the row.</li> 
+<li> The <b> Comm light</b> is green if that Astrobee is connected and cyan otherwise.</li> 
+<li> The <b>Health light</b> is green if all Astrobee systems are functional and orange
+if any subsystems are disabled. The health light is cyan if the Astrobee is not connected.</li>
+<li> <b>Est Batt</b> displays the approximate number of minutes left 
+that the Astrobee can operate before needing to recharge. 
+If more than one hour is left, time is displayed as hours and minutes.</li>
+<li> <b>Control</b> shows the ID of the Control Station that has access control on the Astrobee.
+An Astrobee
+rejects most commands from Control Stations that do not have access control on it.
+ Only one Control Station can have control of each Astrobee at one time. </li> 
+
+</ul>
+
+<h3 id="DockingStationStatus"> Docking Station Status and Commanding </h3>
+
+<p>
+The <b>Docking Station Status and Commanding subtab </b> displays the status of 
+any Astrobees on the Docking Station, and it sends wake commands to Astrobees hibernating
+on the Docking Station.
+</p>
+
+<p>
+The Docking Station has two berths. Each berth accommodates one
+Astrobee, and that Astrobee may be awake, hibernating, or unpowered. The <b>Berth One and Berth Two subpanels</b> 
+display the name of the Occupant of that berth (or "Vacant") and the Status of the occupant if the berth is occupied.
+ If the Astrobee on a berth is powered off, the Docking Station 
+reports the Occupant of that berth as "Unknown", with Status "Unpowered". An unpowered Astrobee cannot be woken
+ up by the Control Station.
+</p>
+
+<p>
+The <b>Wake Commanding section</b>  lists the Astrobees that are hibernating on the Docking Station,
+and lets the user select one to wake.
+</p>
+
+<p>
+The <b>Hibernate Commanding section</b> lists the Astrobees that are awake on the Docking Station,
+and lets the user grab control of or hibernate the selected Astrobee. The <b> Hibernate button </b>
+ puts the selected Astrobee into a powered down state in which it can accept only 
+the Wake command. 
+</p>
+
+<p style="border:3px; border-style:solid; text-align:center; padding: 1em;">
+NOTE<br>
+If an Astrobee is hibernated while it is not docked at the Docking Station, it will not be 
+able to be awakened via the Crew Control Station. It will need to be awakened via the hardware Wake button,
+ or docked manually.
+</p>
+
+
+
+
+
+<h2 id="GuestScienceTab"> Guest Science Tab </h2>
+
+<figure>
+	<img src="GuestScienceTab-annotated.png" width="900px">
+	<figcaption> Figure 9. Guest Science Tab </figcaption>
+</figure>
+
+
+The <b>Guest Science Tab</b> controls up to three Astrobees simultaneously.
+It is used for Guest Science experiments, and unlike the rest of the Crew
+Control Station, it is not intended to be operated 
+without a procedure.  It has the following unique subtabs:
+
+<h3 id="AstrobeeSelection"> Bee Selection and Status </h3>
+<p>
+The <b>Bee Selection and Status subtab </b> displays a status summary
+for each connected Astrobee.  Each row has the following fields:
+</p>
+
+<ul>
+<li> <b> Name</b> shows the name of the Astrobee described by the row. Check the 
+<b>checkbox</b> to the left of the name to send commands to that Astrobee. </li> 
+<li> <b>Est Batt</b> displays the approximate number of minutes remaining 
+that the Astrobee can operate before needing to recharge. 
+If more than one hour is left, the time is displayed as hours and minutes.</li>
+<li> <b>Control</b> shows the ID of the Control Station that has access control on that Astrobee.
+ Astrobees reject commands other than Grab Control and Stop from entities who
+do not have control. Only one entity can have control of each Astrobee at
+one time. </li>
+<li> The <b>Health light</b> is green if all the Astrobee's systems are functional and orange
+if any subsystems are disabled. The health light is cyan if the Astrobee is not connected.</li>
+<li>  The<b> Summary </b> field displays messages from Guest Science
+Applications that are running on the Astrobee. If Guest Science has not
+sent a message, and the Astrobee is running a Plan, the Summary field displays
+the title of the current step in the Plan. If no Plan is running and no message has been sent, the field is blank. </li>
+<li> <b>Plan</b> shows the name of the Plan currently loaded on the 
+Astrobee. Each Astrobee can load one Plan at a time. </li>
+<li> <b> Plan Status </b> may be Idle, Executing, Paused, or Error. When a Plan is initially loaded, the Plan
+Status is Paused. When the Plan finishes executing, the Plan Status is Idle and a new Plan must be loaded.</li>
+
+</ul>
+The <b>Health Details button</b> opens a dialog that displays a Health 
+listing for each of the selected Astrobees.
+
+<h3 id="CommandingFor"> Commanding for (Selected Astrobees) </h3>
+<p>
+The <b>Commanding for (Selected Astrobees) subtab </b> sends commands to the 
+Astrobees that are selected in the Bee Selection and Status subtab. The
+names of the Astrobees it will send commands to are listed in the title. The
+following commands are available:
+</p>
+
+<ul>
+<li> <b>Grab Control</b> grabs control of the selected Astrobees. If the Crew Control Station 
+does not have access control on all the selected Astrobees, only the Grab Control
+button is enabled.  </li> 
+<li> <b>Select and Load Plans ...</b> opens a dialog box from which to select Plan files from the
+file system, to load onto the selected Astrobees.  </li>
+<li> <b>Run</b> starts execution of the Plans that are loaded on the selected Astrobees. If not
+all selected Astrobees have Plans that are currently Paused, this command is not
+available. </li>
+<li> <b>Station Keep Bee(s)</b> commands the selected Astrobees to cancel any movement commands
+and station keep at their current positions.  An awake Astrobee always executes a command to station keep
+even if the command comes from a Crew Control Station that does not have access control. </li>
+<li> The <b>Guest Science Application dropdown</b>  selects an application that is
+loaded on the selected Astrobee.</li>
+<li> The <b>Command dropdown</b> selects a Command to send to the selected
+Guest Science application.</li>
+<li> <b>Send Command</b> sends the selected command to the selected Guest Science
+application on the selected Astrobees.</li>
+</ul>
+
+
+
+
+
+
+
+
+<h2 id="RunPlanTab"> Run Plan Tab </h2>
+
+<figure>
+	<img src="Figure10.png" width="900px">
+	<figcaption> Figure 10. Run Plan Tab </figcaption>
+</figure>
+
+<p>
+The <b>Run Plan Tab</b> controls and monitors the execution of Plans on one Astrobee, which is selected from the 
+dropdown in the upper left. The Run Plan Tab has the following unique subtabs:
+</p>
+
+<h3 id="RunRobotCommanding"> Bee Commanding </h3>
+<p>
+The <b>Bee Commanding subtab</b> has the following items:
+</p>
+
+<ul>
+<li>  <b> Select Plan ...  </b> opens a file dialog from which to choose a 
+ Plan file to load to the selected Astrobee. </li> 
+<li> When a valid Plan is selected,  <b>Load  </b> uploads the Plan file to the selected
+Astrobee. Once a Plan is loaded, the Load button disables and the Live Plan subtab populates with 
+a list of the steps in the Plan. </li> 
+<li>   <b> Run  </b> starts or resumes execution of the loaded Plan on the selected Astrobee when the
+ Plan Status is Paused. When a Plan is first loaded to the Astrobee, its Plan Status is Paused.</li>
+<li> <b> Pause   </b> pauses execution of the Plan on the selected Astrobee.</li>
+<li>  <b> Skip Step  </b> skips a step in the Plan when the Plan Status is Paused. Selecting
+Skip Step multiple times skips multiple steps in the Plan.  When you click <b>Run</b>, execution
+resumes at the step you have skipped to. </li>
+<li> The <b> Description box </b> displays a short summary of the selected Plan. </li>
+
+</ul>
+
+
+<h3 id="LivePlan"> Live Plan </h3>
+<p>
+The <b>Live Plan subtab</b> displays details of the Plan that the selected Astrobee is executing. 
+The <b>Plan Name</b> field shows the name of the plan that is currently loaded on the Astrobee. 
+The <b>Plan Status</b> field shows the current status of the plan on the Astrobee. If no Plan is loaded,
+the Plan Status is Idle.
+The <b>Total Elapsed Time</b> field counts the hours, minutes, and seconds that the Plan
+has been executing.
+
+The <b>Plan Table</b> displays the contents of the Plan currently loaded on the selected Astrobee.
+The Duration column lists the hours, minutes, and seconds each step took to complete.  If the 
+step was momentary, for instance turning on a camera, no duration is listed. The Success
+column lists Complete, Failed, or Skipped for each step in the Plan as the Plan is executed.
+</p>
+
+
+
+
+
+
+<h2 id="TeleoperateTab"> Teleoperate Tab </h2>
+
+<p>
+The <b> Teleoperation Tab </b> sends single commands to the selected Astrobee. It contains the
+following unique subtabs:
+</p>
+
+<figure>
+	<img src="Figure11.png" width="900px">
+	<figcaption> Figure 11. Teleoperate Tab </figcaption>
+</figure>
+
+<h3 id="TeleoperateRobotCommanding"> Bee Commanding</h3>
+
+<p>
+The <b>Bee Commanding subtab</b> sends commands that move the position and
+orientation of the selected Astrobee.  It has the following sections:
+</p>
+
+<h4> Initialization </h4>
+
+The <b> Initialization section</b> in the Bee Commanding subtab
+includes the Grab Control button discussed above.
+
+<h4> Locations </h4>
+The <b> Locations section</b> includes a <b>locations dropdown</b>, from which 
+to select a named location (coordinate and orientation) in the ISS. When you select a location,
+the Manual Move Inputs fields automatically populate with the coordinates and orientation
+of the bookmark, eg. x = 1.3 m, y = 0.2 m, z = 0.8, roll = 0 degrees, 
+pitch = 0 degrees, yaw = 90 degrees. 
+
+<h4>Manual Move Inputs</h4>
+<p>
+The <b>Manual Move Inputs section</b> in the Bee Commanding subtab contains text fields to enter coordinates 
+of where to send Astrobee when the Move button is clicked.  The Aft-Forward, Port-Starboard, and 
+Overhead-Deck coordinates align with the ISS axes. The Roll, Pitch, and Yaw inputs also use the ISS coordinate
+ system. The Astrobees use the Space Station Analysis coordinate system, the origin of which is at truss segment S0.
+ Use the arrow buttons on either side of each text box to make small changes to the position. Linear
+  measurements are incremented by 0.05 meters and angles are incremented by 15 degrees. 
+To enter a large number, type the number of meters into the box and adjust the tenths of meters using 
+the arrow buttons.
+</p>
+
+<h4>Options</h4>
+The <b>Options section</b> in the Bee Commanding subtab sets the list of options to send to the
+ Astrobee when the
+Apply Options button is clicked. If the checkbox to the left of the option is 
+checked, the Apply Options button will send a command to turn on that option.
+If there is a green checkmark to the right of the option, the Astrobee already has
+that option turned on.  Options include:
+
+<ul>
+<li>  <b> Face Forward </b>  requires the Astrobee to face the direction of motion.
+Unchecking this option allows the Astrobee to fly sideways or backwards, which may be
+desirable to collect specific video or science data. However, the Astrobee does not 
+have cameras pointing in all directions, so it must be monitored closely when
+flying with Face Forward off so that it does not collide with an obstacle.</li> 
+
+<li>  <b>Check Obstacles</b> requires the Astrobee to stop moving and station keep if
+it detects an object in its planned flight path. It may be necessary to turn off
+this option if the Astrobee detects a ghost obstacle and gets stuck.</li> 
+
+<li>  <b>Check Keepouts</b> requires the Astrobee to stop before entering 
+any keepout zone (keepout zones are designated with gray boxes in the Live Map subtab).
+  It may be necessary to turn this option off if the Astrobee accidentally gets
+knocked into a keepout zone. </li> 
+</ul>
+
+<b>Apply Options </b> commands the Astrobee to turn on the options that 
+are checked in the Options section and turn off the options that are not checked in
+the Options section. 
+
+<p style="border:3px; border-style:solid; text-align:center; padding: 1em;">
+NOTE<br>
+The Face Forward, Check Obstacles, and Check Keepouts options should usually be turned on.
+</p>
+
+
+<h4>Commands</h4>
+
+The <b> Commands section</b> in the Bee Commanding subtab has buttons to send commands to the selected Astrobee.
+It includes these buttons:
+
+<ul>
+<li>  <b>Station Keep Bee </b> commands the Astrobee to cancel any movement commands and
+station keep at its current position.</li>
+
+<li>  <b> Move </b> commands the Astrobee to go to the position specified 
+in the Manual Move Inputs section. </li> 
+</ul>
+
+<h3 id="PerchingArm"> Perching Arm</h3>
+
+<figure>
+	<img src="Figure12.png" width="600px">
+	<figcaption> Figure 12. Perching Arm subtab </figcaption>
+</figure>
+
+<p>
+The <b>Perching Arm subtab</b> sends commands related to the Astrobee's Perching 
+Arm. The Perching Arm is designed to grasp a handrail
+and secure the Astrobee while it conserves power by turning off its propulsion 
+system. The Perching Arm subtab includes:
+</p>
+
+<h4>Initialization</h4>
+The <b> Initialization section</b> in the Perching Arm subtab
+includes the Grab Control button discussed above.
+
+<h4>Manual Inputs</h4>
+<p>
+The <b>Manual Inputs section</b> in the Perching Arm subtab contains <b>text fields</b>
+to enter angles for the pan and tilt joints of the arm. 
+The <b>Pan and Tilt button</b>  commands the Astrobee perching arm to move to the 
+angles specified. The Pan
+and Tilt command is intended to be sent only when the Astrobee is perched on a
+handrail and providing video.  The input may be moved in 10 degree increments by
+the arrows on either side of the text field, or the desired angle may be typed into the text field
+directly.  When pan and tilt are both zero, the arm is fully extended.
+</p>
+
+<h4>Options</h4>
+The <b>Options section</b> in the Perching Arm subtab includes the <b>Reacquire Position button</b>.
+If the Astrobee is accidentally knocked off its perch on a handrail, it may lose its
+internal location state. In that case, the Reacquire Position command tells the
+Astrobee to recalculate its location from scratch.
+
+<h4>Commands</h4>
+
+The <b> Commands section</b> in the Perching Arm subtab has buttons to send commands to the selected Astrobee.
+It includes:
+
+<ul>
+<li>  <b>Station Keep Bee</b>  commands the Astrobee to cancel any movement commands and
+station keep at its current position.</li>
+<li>  <b> Perch </b>  commands the Astrobee to deploy its perching arm and
+grasp a handrail that is directly in front of it.  The command
+will fail if the Astrobee is not lined up correctly with the handrail.</li> 
+</ul>
+
+<h3 id="Docking"> Docking</h3>
+
+<figure>
+	<img src="Figure13.png" width="600px">
+	<figcaption> Figure 13. Docking subtab </figcaption>
+</figure>
+
+<p>
+The <b>Docking subtab</b> sends commands related to Docking. It includes these sections: 
+</p>
+
+
+<h4>Initialization</h4>
+The <b> Initialization section</b> in the Docking subtab
+includes the Grab Control button discussed above.
+
+
+<h4>Options</h4>
+The <b>Options section</b> in the Docking subtab includes the <b>Automatically Return to Docking
+Station when Battery Low checkbox</b>.
+This option causes Astrobee to automatically return to the Docking Station when the following
+ conditions are met: the Astrobee is out of contact with a Control Station, it
+is not perched, and it is running low on power. Disable this behavior by unchecking Automatically
+ Return to Docking Station when Battery Low
+ and clicking the <b>Apply Option button</b>.  If the Astrobee has the option turned on, 
+there is a green checkmark to the right of the option title.
+
+<h4>Commands</h4>
+
+The <b> Commands section</b> in the Docking subtab has buttons to send commands to the selected Astrobee.
+It includes:
+
+<ul>
+<li> The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
+station keep at its current position.</li>
+<li> The <b> Send Bee to Docking Station </b> button commands the Astrobee to immediately return
+to the Docking Station and dock itself.  The Astrobee can execute the Dock Automatically command from
+anywhere in the USOS.  The Astrobee automatically chooses an unoccupied berth
+on the Docking Station.  The Astrobee plans a trajectory assuming the
+modules are unobstructed.  If it detects an obstacle in its planned path, it will
+stop and wait for the obstacle to move. </li> 
+
+</ul>
+
+<h3 id="InteractiveMap"> Interactive Map</h3>
+
+<p>
+The <b>Interactive Map subtab</b>, like the Live Map subtab on other tabs,
+ displays a 3D model of the selected Astrobee in the USOS.  
+ The Interactive Map also includes a white Preview model with 
+draggable arrows.  The Preview shows the pose that is indicated by the Manual Move Inputs section
+of the Bee Commanding subtab; i.e., the Preview shows where the Move button will send the Astrobee.
+If the Preview intersects a keepout or a wall, and the Check Keepouts 
+option is checked, the Preview turns orange to indicate a potential collision.
+</p>
+
+<p>
+ The Preview has color coded arrows and rings that can be dragged to move it to
+the desired position.  Red indicates Astrobee's forward direction and blue indicates Astrobee's
+down direction. The Manual Move Inputs fields will update automatically
+when the Preview is dragged by its arrows.
+</p>
+
+<figure>
+	<img src="Figure14.png" width="600px">
+	<figcaption> Figure 14. Interactive Map </figcaption>
+</figure>
+
+
+The <b>Camera Controls</b> box in the Interactive Map has these additional buttons:
+
+<ul>
+<li> <b>Show</b> or <b>Hide Preview</b> displays or hides the white Preview model</li>
+<li> <b>Zoom to Preview</b> centers the map on the Preview model. </li>
+<li> <b>Snap Preview to Bee</b> moves the Preview to the current position of the selected Astrobee.
+The coordinates in the Manual Move Inputs section will update accordingly.
+ </ul>
+
+
+<h3 id="MiscCommands"> Miscellaneous Commands</h3>
+
+<figure>
+	<img src="MiscellaneousCommandsSubtab.png" width="300px">
+	<figcaption> Figure 15. Miscellaneous Commands Subtab </figcaption>
+</figure>
+
+<p>
+The <b>Miscellaneous Commands subtab</b> may have different command options, depending
+on the activity. The default commands control the camera. Select
+the name of the camera (Dock, Navigation, or Science) in the first
+dropdown, the desired option in the second dropdown, and send
+the command by clicking the Send button at the right of the
+row.
+</p>
+
+<h2 id="PlanEditorTab">Plan Editor Tab</h2>
+
+<figure>
+	<img src="PlanEditorTab.png" width="900px">
+	<figcaption> Figure 16. Plan Editor Tab </figcaption>
+</figure>
+
+<h3 id = "CreateAPlan">Create A Plan</h3>
+<ul>
+<li>From the Plan Editor Tab, go to File -> New Plan
+	<ul>
+		<li>Known bug: If you are on a Mac and the top menu bar does not say "FreeFlyer OCU", click on another window (for instance a Finder window) and then select the Workbench again and the menu will appear correctly.
+	</ul>
+</li>
+<li>Enter a name for the plan and click Save
+	<ul>
+		<li>Known bug: error about SWT key 13 when you hit enter instead of clicking Save. Ignore the error and continue.</li>
+	</ul>
+</li>
+<li>Set inertia and operating limits configuration files for the plan by clicking on the plan name in the table and then selecting from the drop-down menus in the lower left corner.</li>
+<li>Add plan elements (see below)</li>
+<li>When you have finished making the plan, click the Validate button
+	<ul>
+		<li>The workbench will create trapezoidal waypoints for each segment</li>
+		<li>The workbench will check that the plan obeys keep-out and keep-in zones.</li>
+	</ul>
+</li>
+<li>When the plan has been validated, go to File -> Save Plan. Saving the plan will also validate it, if it is not already validated.</li>
+
+</ul>
+
+<h3 id = "AddStations">Add Stations</h3>
+<ul>
+<li>Click the "Add" button. A new Station will be created.
+	<ul>
+		<li>If a Station is selected, the new Station will be between the selected Station and the next Station</li>
+		<li>If a Segment is selected, the new Station will be created in the middle of the Segment</li>
+		<li>If the Plan is selected or the last Station is selected, the new Station will be created at the position of the last Station in the plan.</li>
+	</ul>
+</li>
+<li>Right-click on an item in the Plan Editor
+	<ul>
+		<li>When the Plan is selected, you can "Append Station" to the end of the plan</li>
+		<li>When a Station is selected, you can "Append Station" to the end of the plan or "Insert Station" before this Station</li>
+		<li>When a Segment is selected, you can "Insert Station" in this Segment</li>
+	</ul>
+</li>
+<li>Click "Add via 3d View" button. A translucent plane will show in the 3d view.
+	<ul>
+		<li>Click on the plane to add Stations where you click. New Stations are appended to the end of the Plan.</li>
+		<li>Change the height of the plane using the "Plane Adjustment: Z" text box.</li>
+		<li>When you are done adding Stations, click "Exit Add via 3d View" button.</li>
+	</ul>
+</li>
+<br>
+<li>Segments are created automatically when you add Stations.</li>
+</ul>
+
+<h3 id = "EditPlanElements">Edit Plan Elements</h3>
+
+<h4 id = "Plan">Plan</h3>
+<ul>
+<li>Select the Plan itself by clicking the plan name in the Plan Editor table.
+	<ul>
+		<li>When the Plan is selected, you can change the inertia and operating limits configurations</li>
+	</ul>
+</li>
+</ul>
+<h4 id = "Stations">Stations</h3>
+<ul>
+<li>Select a Station by clicking on the box in the 3D view or on the row in the table in the Plan Editor</li>
+<li>When a Station is selected, you can do the following:
+	<ul>
+	<li>Move the station
+		<ul>
+			<li>"Location Based" tab: Set position according to ISS location coding.</li>
+			<li>"Coordinate Based" tab: use up and down arrows to adjust x, y, z, roll, pitch, yaw, or type numbers directly into the text boxes</li>
+			<li>"Coordinate Based" tab: select Drag to Translate or Drag to Rotate checkbox to display draggable arrows on the selected station.</li>
+			<li>"Bookmarks" tab: select the name of a bookmark from the dropdown menu and the Station will jump to the location of the Bookmark.</li>
+		</ul>
+	</li>
+	<li>Add commands to the station
+		<ul>
+			<li>Click on "Commands" tab.</li>
+			<li>Select a command from the "Select command" dropdown. The selected command will be added to the plan.</li>
+			<li>You can delete commands with the "Delete" button, and you can reorder or delete them by right-clicking on them in the table.</li>
+		</ul>
+	</li>
+	<li>Delete the Station
+		<ul>
+			<li>Click the "Delete" button</li>
+			<li>Right click on the row in the Plan Editor, and choose "Delete"</li>
+		</ul>
+	</li>
+	<li>Reorder the station (if the plan has multiple stations)
+		<ul>
+			<li>Right click on the row in the Plan Editor, and choose "Reorder Down" or "Reorder Up"</li>
+		</ul>
+	</li>
+	<li>Insert a Station halfway between the selected and the previous station
+		<ul>
+			<li>Right click on the row in the Plan Editor and choose "Insert Station"</li>
+		</ul>
+	</li>
+	<li>Insert a Station halfway between the selected and the next station
+		<ul>
+			<li>Select the Station and click the "Add" button</li>
+		</ul>
+	</li>
+	</ul>
+</li>
+</ul>
+<h4 id = "Segments">Segments</h3>
+<ul>
+<li>Select a Segment by clicking on the cone in the 3D view or on the row in the table in the Plan Editor</li>
+<li>When a Segment is selected, you can do the following:
+	<ul>
+		<li>Change the maximum speed of the segment in the Plan Editor</li>
+		<li>Uncheck Face Forward to tell the robot it doesn't need to face the direction of motion during this Segment</li>
+		<li>If you run with -engineering, you can also change acceleration, and angular velocity and acceleration limits.</li>
+	</ul>
+</li>
+</ul>
+<h4 id = "Commands">Commands</h3>
+<ul>
+<li>Select a command by clicking on the line in the table in the Plan Editor</li>
+</ul>
+<h4 id = "Undo">Undo</h3>
+<ul>
+<li>Some actions can be reversed by going to Edit -> Undo
+	<ul>
+		<li>Adding a station and deleting a station can be undone</li>
+		<li>Moving a station via the Coordinate Based tab can be undone.</li>
+	</ul>
+</li>
+</ul>
+
+<h3 id = "ManageBookmarks">Manage Bookmarks</h3>
+<ul>
+<li>Under View menu, select Open Bookmark Manager</li>
+<li>To delete a bookmark:
+	<ul>
+		<li>Select the bookmark from the drop-down labeled Delete Bookmark</li>
+		<li>Click Delete.</li>
+	</ul>
+</li>
+<li>To create a new Bookmark:
+	<ul>
+		<li>Open a plan and select a Station in the plan.</li>
+		<li>Adjust the position of the current station using the Location Based or Coordinate Based tabs</li>
+		<li>Click on the Bookmarks tab and click "Make Bookmark..."</li>
+		<li>Enter a name for the new bookmark and click OK.</li>
+	</ul>
+</li>
+</ul>
+
+<h2 id="Terminology"> Terminology </h2>
+<ul>
+<li><b>Access Control </b>- Control Stations require access control on an Astrobee to send commands to that Astrobee</li>
+<li><b>Astrobee </b>- One of three free-flying robots</li>
+<li><b>Awake </b>- Astrobee is powered and ready to accept commands</li>
+<li><b>Docking Station </b>- Where Astrobees are recharged </li>
+<li><b>Drifting </b>- Mobility State where Astrobee's propulsion system is turned off</li>
+<li><b>Face Forward </b>- Option that requires Astrobee to face its direction of motion</li>
+<li><b>Guest Science Application </b>- Additional software running on Astrobee for a particular investigation</li>
+<li><b>Keepouts </b>- Areas of the ISS which Astrobee must not enter</li>
+<li><b>Hibernate </b>- Astrobee is powered on but will only respond to the Wake command</li>
+<li><b>Images </b>- Still pictures that are sent from the Navigation and Dock cameras on Astrobee</li>
+<li><b>Location </b>- Preset coordinates with associated orientations to send Astrobee to</li>
+<li><b>Mobility State </b>- Describes whether Astrobee is flying, drifting, station keeping, docking, or perching </li>
+<li><b>Obstacles </b>- Obstructions that Astrobee detects in its path as it is moving. Not displayed in the Crew Control Station.</li>
+<li><b>Operating State </b>- Indicates whether Astrobee is executing a Plan, executing a teleoperate command, or ready to accept commands</li>
+<li><b>Payload </b>- Hardware attached to Astrobee for a specific experiment</li>
+<li><b>Perching Arm </b>- Astrobee's original arm, designed to grasp a handrail</li>
+<li><b>Plan </b>- Sequence of Stations, Segments, and Commands to complete at the Stations</li>
+<li><b>Plan State </b>- Describes the currently loaded Plan, and can be paused, executing, or idle</li>
+<li><b>Preview </b>- Element in the 3D view that shows where the Move command would send the Astrobee</li>
+<li><b>Streaming Video </b>- Video sent from the Science camera on Astrobee</li>
+</ul>
+
+<h2 id="Symbols"> Symbols </h2>
+
+<h3>Astrobees</h3>
+<div style = "border:2px solid black; width:670px; height: 200px; margin:15 auto; padding:0;">
+<img src="Bumble.png"  height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "Honey.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src= "Queen.png"  height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<p style = "position: relative; left:90px; top: -25px;">Bumble</p>
+<p style = "position: relative; left:310px; top: -60px;">Honey</p>
+<p style = "position: relative; left:545px; top: -95px;">Queen</p>
+</div>
+
+<h3>Teleoperate Preview</h3>
+<div style = "border:2px solid black; width:450px; height: 200px; margin:15 auto; padding:0;">
+<img src = "TeleOpPreviewWhite.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "TeleOpPreviewOrange.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<p style = "position: relative; left:70px; top: -25px;">No Collision</p>
+<p style = "position: relative; left:275px; top: -60px;">Potential Collision</p>
+</div>
+
+<h3>Plan Stations</h3>
+<div style = "border:2px solid black; width:670px; height: 210px; margin:15 auto; padding:0;">
+<img src = "BlackStation.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "BlueStation.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "GrayStation.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<p style = "position: relative; left:90px; top: -25px;">Pending</p>
+<p style = "position: relative; left:310px; top: -60px;">Skipped</p>
+<p style = "position: relative; left:510px; top: -95px;">Completed</p>
+</div>
+
+<h3>Plan Segments</h3>
+<div style = "border:2px solid black; width:940px; height: 210px; margin:15 auto; padding:0;">
+<img src = "BlackSegment.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "GreenSegment.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "BlueSegment.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "GraySegment.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<p style = "position: relative; left:90px; top: -25px;">Pending</p>
+<p style = "position: relative; left:310px; top: -60px;">Running</p>
+<p style = "position: relative; left:535px; top: -92px;">Skipped</p>
+<p style = "position: relative; left:762px; top: -127px;">Completed</p>
+</div>
+
+<h3>Other Objects</h3>
+<div style = "border:2px solid black; margin:15 auto; width: 670px; padding:0;">
+<div style = "width:670px; height: 200px; margin:0 auto; padding:0;">
+<img src = "Dock.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "KeepoutZone.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<img src = "HandRail.png" height = "160px" width = "180px" hspace = "20" vspace = "10"/>
+<p style = "position: relative; left:95px; top: -25px;">Dock</p>
+<p style = "position: relative; left:305px; top: -60px;">Keepout Zone</p>
+<p style = "position: relative; left:535px; top: -92px;">Handrail</p>
+</div>
+<div style = "width:180px; height: 200px; margin:0 auto; padding:0;">
+<img src = "CoordinateAxes.png" height = "160px" width = "180px" hspace = "20"/>
+<p style = "position: relative; left:60px; top: -25px; margin-top: 2em;">Coordinate Axes</p>
+</div>
+</div>
+
+<div style = "margin:5px;">
+<h2 id="HotKeys"> Hot Keys </h2>
+<p>
+F1 - Open Help Document<br>
+Ctrl Q - Quit<br>
+Ctrl E - Open Overview Tab<br>
+Ctrl G - Open Guest Science Tab<br>
+Ctrl P - Open Run Plan Tab<br>
+Ctrl T - Open Teleoperate Tab<br>
+</p>
+</div>
+<br><br>
+
+</body>
+</html>
+

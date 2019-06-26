@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.e4.ui.workbench.swt.E4Application"
+            name="Free Flyer OCU">
+         <property
+               name="applicationXMI"
+               value="platform:/plugin/gov.nasa.arc.ff.ocu/Application.e4xmi">
+         </property>
+         <property
+               name="appName"
+               value="Free Flyer OCU">
+         </property>
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/gov.nasa.arc.ff.ocu/css/default.css ">
+         </property>
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://gov.nasa.arc.ff.ocu/gov.nasa.arc.ff.ocu.LifeCycleManager">
+         </property>
+         <property
+               name="startupForegroundColor"
+               value="000000">
+         </property>
+         <property
+               name="startupMessageRect"
+               value="7,252,445,20">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

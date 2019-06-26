@@ -1,0 +1,36 @@
+#ifndef rapid_ImageSensorState_idl
+#define rapid_ImageSensorState_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "ImageMetadata.idl"
+
+/**
+ * \file
+ *
+ * \brief Send image data.
+ *
+ * \details ImageSensorState is used in systems that want to individual grabs of image data. ImageSensorSample is for periodic
+ * image data.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy /**
+    //@copy  * Holds status information for an image sensor - typically a camera, but could be a laser scanner, gpr, or any
+    //@copy  * sensor that can pack a data sample into a 2D array
+    //@copy  */
+    valuetype ImageSensorState : Message {
+
+        public ImageMetadata meta;
+
+    };
+};
+
+#endif // rapid_ImageSensorState_idl

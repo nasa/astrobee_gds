@@ -1,0 +1,66 @@
+#ifndef rapid_TextMessage_idl
+#define rapid_TextMessage_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief Allows for text messages to be sent between applications; mostly used for debugging type activities.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-declaration /**
+    //@copy-declaration  * Importance level of the message.
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>MSG_DEBUG:
+    //@copy-declaration  *   <li>MSG_INFO:
+    //@copy-declaration  *   <li>MSG_ATTENTION: Important, but not in a bad way.
+    //@copy-declaration  *   <li>MSG_WARN: Something potentially bad happened.
+    //@copy-declaration  *   <li>MSG_ERROR: Something bad definitely happened.
+    //@copy-declaration  *   <li>MSG_CRITICAL: Something really bad happened.
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum MessageLevel {
+        MSG_DEBUG,
+        MSG_INFO,
+        MSG_ATTENTION,
+        MSG_WARN,
+        MSG_ERROR,
+        MSG_CRITICAL
+    };
+
+    //@copy-declaration /**
+    //@copy-declaration  * TextMessage is a message that allows RAPID application users to chat with each other or for logging-style
+    //@copy-declaration  * activities.
+    //@copy-declaration  */
+    valuetype TextMessage : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef TextMessageTypeSupport TypeSupport;
+        //@copy-c-declaration typedef TextMessageDataWriter DataWriter;
+        //@copy-c-declaration typedef TextMessageDataReader DataReader;
+        //@copy-c-declaration typedef TextMessageSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef TextMessage Type;
+
+        //@copy-declaration /** Importance level of message. */
+        public MessageLevel level;
+
+        //@copy-declaration /** What message is pertaining to. */
+        public String64 category;
+
+        //@copy-declaration /** Actual text message. */
+        public String2K message;
+    };
+};
+
+#endif // rapid_TextMessage_idl

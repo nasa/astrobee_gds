@@ -1,0 +1,94 @@
+#ifndef rapid_PointCloudSample_idl
+#define rapid_PointCloudSample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \file
+ *
+ * \brief PointCloudConfig defines the way data should be read from a PointCloudSample message.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    const long POINTCLOUD_SAMPLE_MAX_POINTS = 16384;
+
+    //@copy-declaration /**
+    //@copy-declaration  * PointSample describes the position and attributes of a point in the cloud. Note: Attributes are included
+    //@copy-declaration  * in this struct because we get them for free on the wire due to word alignment.
+    //@copy-declaration  */
+    struct PointSample {
+
+        //@copy-declaration /**
+        //@copy-declaration  * Position relative to the cloud origin, in arbitrary point units. Reference PointSampleConfig
+        //@copy-declaration  * to determine the meaning of the elements in this vector. These are signed short values so
+        //@copy-declaration  * in order to exploit the full 16 bits of resolution, data should be scaled to
+        //@copy-declaration  * a range of -32768 to 32767. If 15 bits of resolution is adequate, data can be scaled to a
+        //@copy-declaration  * range of 0 to 32767 for computational efficiency on the sending side.
+        //@copy-declaration  * @see PointSampleXyzMode
+        //@copy-declaration  */
+        short xyz[3];
+
+        //@copy-declaration /**
+        //@copy-declaration  * Particle attributes (e.g., intensity).
+        //@copy-declaration  * @see PointSampleAttributeMode
+        //@copy-declaration  */
+        octet attributes[2];
+    };
+    typedef sequence<PointSample,POINTCLOUD_SAMPLE_MAX_POINTS> PointSampleSequence;
+
+    //@copy-c-declaration class PointCloudSampleTypeSupport;
+    //@copy-c-declaration class PointCloudSampleDataWriter;
+    //@copy-c-declaration class PointCloudSampleDataReader;
+    //@copy-c-declaration struct PointCloudSampleSeq;
+
+    //@copy-declaration /** PointCloudSample message sends data in point cloud format. */
+    valuetype PointCloudSample : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef PointCloudSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef PointCloudSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef PointCloudSampleDataReader DataReader;
+        //@copy-c-declaration typedef PointCloudSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef PointCloudSample Type;
+
+        //@copy-declaration /** Origin of points (i.e., offset from frame 0,0,0 in meters). */
+        public Vec3d origin;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Per-element scale factor to convert point units to a meaningful value. Following conversion,
+        //@copy-declaration  * spatial coordinates should be in METERS and angular values should be in RADIANS.
+        //@copy-declaration  */
+        public Vec3d xyzScale;
+
+        //@copy-declaration /** Sequence of points. */
+        public PointSampleSequence points;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Descriptions of rows from the same scan-line. If all points belong to the same point cloud,
+        //@copy-declaration  *
+        //@copy-declaration  * <code>
+        //@copy-declaration  * rowLengths.length() == 0 (or rowLengths.length()==1 && rowLengths[0] == samples.length() )
+        //@copy-declaration  * </code>
+        //@copy-declaration  *
+        //@copy-declaration  * Otherwise,
+        //@copy-declaration  *
+        //@copy-declaration  * <code>
+        //@copy-declaration  * SUM(rowLengths) == samples.length().
+        //@copy-declaration  * </code>
+        //@copy-declaration  */
+        public ShortSequence128 rowLengths;
+
+    };
+
+};
+
+#endif // rapid_PointCloudSample_idl

@@ -1,0 +1,54 @@
+#ifndef rapid_ext_arc_ExtArcConstants_idl
+#define rapid_ext_arc_ExtArcConstants_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Currently holds names of commonly used topics.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+  module ext {
+    module arc {
+      //@copy-declaration /**
+      //@copy-declaration  * A list of commonly used topic names. If an Agent has multiple of the same message type, the topics
+      //@copy-declaration  * should be named accordingly and listed in the AgentConfig topics. Custom topic names should
+      //@copy-declaration  * have the standard name as the root, separated from the specialization by the "-" character, e.g.
+      //@copy-declaration  * <code>rapid_position_sample-relative<code>
+      //@copy-declaration  */
+      const String64 BATTERYPACK_CONFIG_TOPIC   = "rapid_batterypack_config";
+      const String64 BATTERYPACK_SAMPLE_TOPIC   = "rapid_batterypack_sample";
+      const String64 DLP_CONFIG_TOPIC           = "rapid_dlp_config";
+      const String64 DLP_SAMPLE_TOPIC           = "rapid_dlp_sample";
+      const String64 EPHEMERIS_CONFIG_TOPIC     = "rapid_ephemeris_config";
+      const String64 EPHEMERIS_SAMPLE_TOPIC     = "rapid_ephemeris_sample";
+      const String64 FLOAT32_CONFIG_TOPIC       = "rapid_float32_config";
+      const String64 FLOAT32_SAMPLE_TOPIC       = "rapid_float32_sample";
+      const String64 GEOMETRY_CONFIG_TOPIC      = "rapid_geometry_config";
+      const String64 GEOMETRYMESH_SAMPLE_TOPIC  = "rapid_geometrymesh_sample";
+      const String64 GPS_CONFIG_TOPIC           = "rapid_gps_config";
+      const String64 GPS_SAMPLE_TOPIC           = "rapid_gps_sample";
+      const String64 HYDRA_CONFIG_TOPIC         = "rapid_hydra_config";
+      const String64 HYDRA_SAMPLE_TOPIC         = "rapid_hydra_sample";
+      const String64 MOBILITY_SAMPLE_TOPIC      = "rapid_mobility_sample";
+      const String64 SPECTRUM_CONFIG_TOPIC      = "rapid_spectrum_config";
+      const String64 SPECTRUM_SAMPLE_TOPIC      = "rapid_spectrum_sample";
+      const String64 STATEMACHINE_CONFIG_TOPIC  = "rapid_statemachine_config";
+      const String64 STATEMACHINE_STATE_TOPIC   = "rapid_statemachine_state";
+      const String64 WHEELGROUP_SAMPLE_TOPIC    = "rapid_wheelgroup_sample";
+
+      const String64 ROSMARKERARRAY_SAMPLE_TOPIC        = "rapid_rosmarkerarray_sample";
+    };
+  };
+};
+
+#endif // rapid_ext_arc_ExtArcConstants_idl

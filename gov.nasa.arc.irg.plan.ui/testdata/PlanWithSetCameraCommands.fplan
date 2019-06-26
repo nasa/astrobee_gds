@@ -1,0 +1,121 @@
+{
+  "type" : "ModuleBayPlan",
+  "operatingLimits" : {
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1,
+    "profileName" : "Conservative",
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01
+  },
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "visible" : true,
+  "site" : {
+    "type" : "Site",
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "valid" : true,
+  "defaultTolerance" : 1.0,
+  "defaultSpeed" : 0.1,
+  "xpjson" : "0.1",
+  "dateCreated" : "2017-02-17T20:26:47Z",
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "dateModified" : "2017-02-17T22:20:47Z",
+  "libraryURLs" : [ ],
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "stopOnArrival" : false,
+    "tolerance" : 0.1,
+    "name" : "0",
+    "id" : "ff9a6f85-d947-42f7-a8d4-27ad7d5b25af",
+    "sequence" : [ {
+      "type" : "setCamera",
+      "options" : {
+        "preset" : [ {
+          "resolution" : "1920_1080",
+          "frameRate" : 5.0,
+          "bandwidth" : 100.0,
+          "presetName" : "High Def"
+        }, {
+          "resolution" : "640_480",
+          "frameRate" : 25.0,
+          "bandwidth" : 300.0,
+          "presetName" : "Low Def"
+        } ],
+        "cameraName" : "Navigation"
+      },
+      "resolution" : "1920_1080",
+      "frameRate" : 5.0,
+      "bandwidth" : 100.0,
+      "presetName" : "High Def",
+      "cameraName" : "Navigation",
+      "presetIndex" : "0",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.0 SetCamera",
+      "id" : "6a77d49c-0ba5-47a1-9893-b86328df4efe"
+    }, {
+      "type" : "setCamera",
+      "options" : {
+        "preset" : [ {
+          "resolution" : "1024_768",
+          "frameRate" : 5.0,
+          "bandwidth" : 640.0,
+          "presetName" : "High Def"
+        }, {
+          "resolution" : "640_480",
+          "frameRate" : 4.0,
+          "bandwidth" : 92.0,
+          "presetName" : "Low Def"
+        } ],
+        "cameraName" : "Dock"
+      },
+      "resolution" : "640_480",
+      "frameRate" : 4.0,
+      "bandwidth" : 92.0,
+      "presetName" : "Low Def",
+      "cameraName" : "Dock",
+      "presetIndex" : "1",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.1 SetCamera",
+      "id" : "1277cadd-beef-4932-9bb9-caf3608dd4b4"
+    } ]
+  } ],
+  "name" : "PlanWithSetCameraCommands",
+  "id" : "61828590-7297-4d94-abbb-d8719006719a"
+}

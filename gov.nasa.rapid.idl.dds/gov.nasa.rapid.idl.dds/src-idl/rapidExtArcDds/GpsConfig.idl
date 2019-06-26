@@ -1,0 +1,51 @@
+#ifndef rapid_ext_arc_GpsConfig_idl
+#define rapid_ext_arc_GpsConfig_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+
+    //@copy-c-declaration class GpsConfigTypeSupport;
+    //@copy-c-declaration class GpsConfigDataWriter;
+    //@copy-c-declaration class GpsConfigDataReader;
+    //@copy-c-declaration struct GpsConfigSeq;
+
+      /**
+       * The status of a GPS sensor.
+       * 
+       * This is probably a bit over-specialized for the one that we have.
+       *
+       * @author Hans Utz
+       * @updated 21-May-2006 8:23:53 PM
+       * @updated 01-Aug-2014 added datum and undulationDatum fields.
+       */
+      valuetype GpsConfig : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef GpsConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef GpsConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef GpsConfigDataReader DataReader;
+        //@copy-c-declaration typedef GpsConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef GpsConfig Type;
+
+        public String32 sensorFrame;
+        public String32 referenceFrame;
+        
+        //@copy-c-declaration /** datum used for coordinates, e.g. WGS-84. Name must match reference ellipsoids in irgUtmll for dimension lookup*/
+        public String16 datum;
+
+        //@copy-c-declaration /** datum used to calculate Mean Sea Level, e.g. EGM-96, NAVD-88 */
+        public String16 undulationDatum;
+      };
+    };
+  };
+};
+
+#endif // rapid_ext_arc_GpsConfig_idl

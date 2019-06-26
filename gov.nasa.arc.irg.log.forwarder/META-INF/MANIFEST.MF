@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Log Forwarder
+Bundle-SymbolicName: gov.nasa.arc.irg.log.forwarder
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.arc.nasa.irg.log.forwarder.Activator
+Bundle-Vendor: NASA Ames
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.osgi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.apache.log4j;version="1.2.15"

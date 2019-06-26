@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="gov.nasa.arc.irg.util.ui.browser.LocationListener" name="Browser LocationListener" schema="schema/gov.nasa.arc.irg.util.ui.browser.LocationListener.exsd"/>
+	<extension point="org.eclipse.ui.views">
+		<view
+        allowMultiple="true"
+        category="gov.nasa.arc.irg.util.category"
+        class="gov.nasa.arc.irg.util.ui.browser.SimpleBrowser"
+        icon="icons/browse_icon2.png"
+        id="gov.nasa.arc.irg.util.ui.browser.SimpleBrowser"
+        name="SimpleBrowser"
+        restorable="true">
+		</view>
+		<category
+			id="gov.nasa.arc.irg.util.category"
+			name="Util"/>
+  <view
+        allowMultiple="false"
+        category="gov.nasa.arc.irg.util.category"
+        class="gov.nasa.arc.irg.util.ui.IrgLogMonitor"
+        icon="icons/warning_16.png"
+        id="gov.nasa.arc.irg.util.ui.IrgLogMonitor"
+        name="Log Monitor"
+        restorable="true">
+  </view>
+	</extension>
+	 <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="gov.nasa.arc.irg.util.ui.jface.action.OpenNewViewActionHandler"
+            id="gov.nasa.arc.irg.knrover.ui.newSimpleBrowser"
+            name="New Simple Browser">
+         <commandParameter
+      			id="gov.nasa.arc.irg.util.ui.browser.SimpleBrowser"
+      			name="viewID"
+      			values="gov.nasa.arc.irg.util.ui.browser.SimpleBrowser" />
+      </command>
+      </extension>
+      <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI=" menu:newView">
+         <command
+               commandId="gov.nasa.arc.irg.knrover.ui.newSimpleBrowser"
+               icon="icons/browse_icon2.png"
+               style="push">
+         </command>
+         </menuContribution>
+        </extension>
+ <!-- extension point="org.eclipse.ui.actionSets">
+    <actionSet
+          id="gov.nasa.arc.irg.util.actions"
+          label="IrgUtilActions"
+          visible="false">
+       <action
+             class="gov.nasa.arc.irg.util.ui.browser.NewSimpleBrowserAction"
+             id="gov.nasa.arc.irg.util.actions.NewSimpleBrowserAction"
+             label="New Web Browser"
+             menubarPath="window/start"
+             style="push">
+       </action>
+    </actionSet>
+ </extension -->
+ <extension
+       point="org.eclipse.ui.preferencePages">
+    <page
+          class="gov.nasa.arc.irg.util.ui.browser.SimpleBrowserPreferencePage"
+          id="gov.nasa.arc.irg.util.ui.preferences.SimpleBrowserPreferencePage"
+          name="Web Browser">
+    </page>
+ </extension>
+ <extension
+       point="org.eclipse.core.runtime.preferences">
+    <initializer
+          class="gov.nasa.arc.irg.util.ui.browser.SimpleBrowserPreferenceInitializer">
+    </initializer>
+ </extension>
+  <extension point="org.eclipse.ui.themes">
+	<themeElementCategory
+		id="gov.nasa.arc.irg.util.ui.themeCategory" label="Telemetry Table">
+		<description>
+			Font / color control for table contents.
+		</description>
+	</themeElementCategory>
+
+	<colorDefinition
+		categoryId="gov.nasa.arc.irg.util.ui.themeCategory"
+		id="gov.nasa.arc.irg.util.ui.tableFontColor" label="Table Contents Font Color"
+		value="COLOR_BLACK">
+		<description>
+			Color for the fonts in the tables
+        </description>
+	</colorDefinition>
+
+	<fontDefinition
+		categoryId="gov.nasa.arc.irg.util.ui.themeCategory"
+		id="gov.nasa.arc.irg.util.ui.tableFont" label="Table Contents Font"
+		value="Arial-regular-10">
+		<description>
+			Font for inside of telemetry tables.
+        </description>
+	</fontDefinition>
+ <colorDefinition
+       categoryId="gov.nasa.arc.irg.util.ui.themeCategory"
+       id="gov.nasa.arc.irg.util.ui.titleFontColor"
+       label="Title Font Color"
+       value="COLOR_BLACK">
+    <description>
+       Color for the fonts in the tables
+    </description>
+ </colorDefinition>
+ <fontDefinition
+       categoryId="gov.nasa.arc.irg.util.ui.themeCategory"
+       id="gov.nasa.arc.irg.util.ui.titleFont"
+       label="Title Font"
+       value="Arial-bold-10">
+    <description>
+       Font for inside of telemetry tables.
+    </description>
+ </fontDefinition>
+	</extension>
+
+<!-- 
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true"
+            class="gov.nasa.arc.irg.util.ui.BasicImageView"
+            id="gov.nasa.arc.irg.util.ui.BasicImageView"
+            name="BasicImageView"/>
+   </extension>
+-->
+
+</plugin>

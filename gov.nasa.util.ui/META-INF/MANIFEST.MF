@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: NASA Util Ui
+Bundle-SymbolicName: gov.nasa.util.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.util.ui.NasaUtilUiActivator
+Bundle-Vendor: NASA
+Require-Bundle: gov.nasa.util;visibility:=reexport,
+ org.eclipse.core.runtime,
+ org.eclipse.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.util.ui,
+ gov.nasa.util.ui.jface.action,
+ gov.nasa.util.ui.jface.preference,
+ gov.nasa.util.ui.widget

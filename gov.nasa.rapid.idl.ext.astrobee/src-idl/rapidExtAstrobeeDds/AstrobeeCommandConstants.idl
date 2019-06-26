@@ -1,0 +1,274 @@
+/*
+ * Copyright (c) 2015 United States Government as represented by the 
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief CommandConstants holds parameter lists for common commands.
+ *
+ * \details Command is sent by a remote application to command an Agent.
+ * CommandConfig sends a list of commands that are supported by the sending
+ * Agent, which are encapsulated in a CommandDef struct. The parameters
+ * listed for each of these common commands are guaranteed to be used by an
+ * Agent that lists the command in its CommandConfig.
+ *
+ * Access Control parameters provide a method of transferring control between
+ * remote operators. AccessControlState is used to send the current controller
+ * and list of requestors. AccessControlConstants provides static values used
+ * in the state.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+  module ext {
+    module astrobee {
+
+      //@copy-declaration /**
+      //@copy-declaration  * The commands in the Admin Command Group provide
+      //@copy-declaration  * commands to control Astrobee.
+      //@copy-declaration  *
+      //@copy-declaration  * The Admin Command Group contains the following
+      //@copy-declaration  * commands:
+      //@copy-declaration  * <ul>
+      //@copy-declaration  *   <li>wake - awaken the beast
+      //@copy-declaration  *   <li>clearFault - clear an enabled fault within Astrobee
+      //@copy-declaration  *   <li>wipeHlp - clear all data on the HLP
+      //@copy-declaration  * </ul>
+      //@copy-declaration  *
+      //@copy-declaration  * Note that this group also contains the following commands
+      //@copy-declaration  * from RAPID's Admin command group:
+      //@copy-declaration  * <ul>
+      //@copy-declaration  *   <li>noOp - simple ping/echo-like functionality
+      //@copy-declaration  *   <li>shutdown - shutdown the beast
+      //@copy-declaration  * </ul>
+      //@copy-declaration  */
+
+      const rapid::String32 ADMIN_METHOD_WAKE = "wake";
+
+      const rapid::String32 ADMIN_METHOD_CLEAR_FAULT = "clearFault";
+
+      const rapid::String32 ADMIN_METHOD_CLEAR_FAULT_PARAM_CODE = "code";
+      const rapid::DataType ADMIN_METHOD_CLEAR_FAULT_DTYPE_CODE = rapid::RAPID_INT;
+
+      const rapid::String32 ADMIN_METHOD_WIPE_HLP = "wipeHlp";
+
+      const rapid::String32 ADMIN_METHOD_ENABLE_FAULT = "enableFault";
+      const rapid::String32 ADMIN_METHOD_ENABLE_FAULT_PARAM_ENABLE = "enable";
+      const rapid::DataType ADMIN_METHOD_ENABLE_FAULT_DTYPE_ENABLE = rapid::RAPID_BOOL;
+      const rapid::String32 ADMIN_METHOD_ENABLE_FAULT_PARAM_CODE = "code";
+      const rapid::DataType ADMIN_METHOD_ENABLE_FAULT_DTYPE_CODE = rapid::RAPID_INT;
+
+      //@copy-declaration /**
+      //@copy-declaration  * The commands in the Access Control group allow
+      //@copy-declaration  * different stations to grab control of Astrobee
+      //@copy-declaration  *
+      //@copy-declaration  * The Access Control Group contains the following
+      //@copy-declaration  * commands:
+      //@copy-declaration  * <ul>
+      //@copy-declaration  *   <li>grabControl - grab control of Astrobee
+      //@copy-declaration  * </ul>
+      //@copy-declaration  *
+      //@copy-declaration  * Note that this group also contains the following commands
+      //@copy-declaration  * from RAPID's Access Control group:
+      //@copy-declaration  * <ul>
+      //@copy-declaration  *   <li>requestControl - request control of Astrobee
+      //@copy-declaration  * </ul>
+      //@copy-declaration  */
+
+      //@copy-declaration /** AccessControl method type for grabbing control of an Agent. */
+      const rapid::String32 ACCESSCONTROL_METHOD_GRABCONTROL = "grabControl";
+
+      const rapid::String32 ACCESSCONTROL_METHOD_GRABCONTROL_PARAM_COOKIE = "cookie";
+      const rapid::DataType ACCESSCONTROL_METHOD_GRABCONTROL_DTYPE_COOKIE = rapid::RAPID_STRING;
+
+      //@copy-declaration /**
+      //@copy-declaration  * The commands in the Astrobee Command Group provide
+      //@copy-declaration  * commands to control Astrobee functionality.
+      //@copy-declaration  * 
+      //@copy-declaration  * The Astrobee Command Group contains the following
+      //@copy-declaration  * commands:
+      //@copy-declaration  * <ul>
+      //@copy-declaration  *   <li>terminate - virtual e-stop (enter safe terminate)
+      //@copy-declaration  *   <li>unterminate - come out of terminate (to safe stop)
+      //@copy-declaration  *   <li>wait - wait for the specified duration
+      //@copy-declaration  *   <li>stopDownload - stop whatever is downloading
+      //@copy-declaration  *   <li>clearData - clear any data off Astrobee
+      //@copy-declaration  *   <li>dock - Dock astrobee. Must be pointing at and near the dock.
+      //@copy-declaration  *   <li>undock - Undock astrobee.
+      //@copy-declaration  *   <li>runPlan - run the previously loaded plan
+      //@copy-declaration  *   <li>pausePlan - pause a currently running plan
+      //@copy-declaration  *   <li>seekPlan - jump to a specified step in the plan
+      //@copy-declaration  *   <li>powerOnItem - power on an item within Astrobee
+      //@copy-declaration  *   <li>powerOffItem - power off an item within Astrobee
+      //@copy-declaration  *   <li>setInertia - set mass and inertia matrix used for Astrobee control
+      //@copy-declaration  *   <li>perch - deploy arm and grasp handrail
+      //@copy-declaration  *   <li>unperch - release handrail and stow arm
+      //@copy-declaration  *   <li>panAndTilt - move arm while perched in order to control camera angle 
+      //@copy-declaration  *   <li>setTelemetryRate - change the frequency a type of telemetry is sent to GDS 
+      //@copy-declaration  *   <li>setCamera - change the settings for camera telemetry sent to GDS
+      //@copy-declaration  *   <li>setSafeguard - change the value of an Astrobee operating limit
+      //@copy-declaration  * </ul>
+      //@copy-declaration  */
+
+      const rapid::String32 ASTROBEE = "Astrobee";
+
+      //@copy-declaration /**  Commands related to Mobility */
+
+      //@copy-declaration /**  Virtual e-stop command (enter safe terminate) */
+      const rapid::String32 ASTROBEE_METHOD_TERMINATE = "terminate";
+
+      //@copy-declaration /**  Virtual un-e-stop command */
+      const rapid::String32 ASTROBEE_METHOD_UNTERMINATE = "unterminate";
+
+      //@copy-declaration /**  Commands related to Telemetry */
+
+      //@copy-declaration /**  Start downloading data */
+      const rapid::String32 ASTROBEE_METHOD_START_DOWNLOAD = "startDownload";
+
+      //@copy-declaration /**  Stop downloading */
+      const rapid::String32 ASTROBEE_METHOD_STOP_DOWNLOAD = "stopDownload";
+
+      //@copy-declaration /**  Clear data */
+      const rapid::String32 ASTROBEE_METHOD_CLEAR_DATA = "clearData";
+
+      //@copy-declaration /**  Commands related to Docking */
+
+      //@copy-declaration /**  Dock Astrobee. Must be pointed at the dock. */
+      const rapid::String32 ASTROBEE_METHOD_DOCK = "dock";
+
+      //@copy-declaration /**  Undock Astrobee from the... dock */
+      const rapid::String32 ASTROBEE_METHOD_UNDOCK = "undock";
+
+      //@copy-declaration /**  Commands related to Plans */
+
+      //@copy-declaration /**  Run the loaded command */
+      const rapid::String32 ASTROBEE_METHOD_RUN_PLAN = "runPlan";
+
+      //@copy-declaration /**  Pause the running plan */
+      const rapid::String32 ASTROBEE_METHOD_PAUSE_PLAN = "pausePlan";
+
+      //@copy-declaration /**  Jump to a certain step in the plan */
+      const rapid::String32 ASTROBEE_METHOD_SEEK_PLAN = "seekPlan";
+
+      //@copy-declaration /** Parameters for seeking in plans. */
+      const rapid::String32 ASTROBEE_METHOD_SEEK_PLAN_PARAM_POINT = "point";
+      const rapid::DataType ASTROBEE_METHOD_SEEK_PLAN_DTYPE_POINT = rapid::RAPID_INT;
+      const rapid::String32 ASTROBEE_METHOD_SEEK_PLAN_PARAM_COMMAND = "command";
+      const rapid::DataType ASTROBEE_METHOD_SEEK_PLAN_DTYPE_COMMAND = rapid::RAPID_INT;
+
+      //@copy-declaration /** Commands related to payloads */
+
+      //@copy-declaration /** Power on an item within astrobee */
+      const rapid::String32 ASTROBEE_METHOD_POWER_ON_ITEM = "powerOnItem";
+
+      //@copy-declaration /** Parameters for powering on items. */
+      const rapid::String32 ASTROBEE_METHOD_POWER_ON_ITEM_PARAM_WHICH = "which";
+      const rapid::DataType ASTROBEE_METHOD_POWER_ON_ITEM_DTYPE_WHICH = rapid::RAPID_INT;
+
+      //@copy-declaration /** Power off an item within astrobee */
+      const rapid::String32 ASTROBEE_METHOD_POWER_OFF_ITEM = "powerOffItem";
+
+      //@copy-declaration /** Parameters for powering off items. */
+      const rapid::String32 ASTROBEE_METHOD_POWER_OFF_ITEM_PARAM_WHICH = "which";
+      const rapid::DataType ASTROBEE_METHOD_POWER_OFF_ITEM_DTYPE_WHICH = rapid::RAPID_INT;
+
+      //@copy-declaration /** Set mass and inertia matrix for Astrobee control */
+      const rapid::String32 ASTROBEE_METHOD_SET_INERTIA = "setInertia";
+
+      //@copy-declaration /** Parameters for setting inertial properties. */
+      const rapid::String32 ASTROBEE_METHOD_SET_INERTIA_PARAM_NAME = "name";
+      const rapid::DataType ASTROBEE_METHOD_SET_INERTIA_DTYPE_NAME = rapid::RAPID_STRING;
+      const rapid::String32 ASTROBEE_METHOD_SET_INERTIA_PARAM_MASS = "mass";
+      const rapid::DataType ASTROBEE_METHOD_SET_INERTIA_DTYPE_MASS = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_INERTIA_PARAM_MATRIX = "matrix";
+      const rapid::DataType ASTROBEE_METHOD_SET_INERTIA_DTYPE_MATRIX = rapid::RAPID_MAT33f;
+
+      //@copy-declaration /** Deploy arm and grasp handrail */
+      const rapid::String32 ASTROBEE_METHOD_PERCH = "perch";
+
+      //@copy-declaration /** Release handrail and stow arm */
+      const rapid::String32 ASTROBEE_METHOD_UNPERCH = "unperch";
+      
+      //@copy-declaration /**  Move arm while perched in order to control camera angle */
+      const rapid::String32 ASTROBEE_METHOD_PAN_AND_TILT = "panAndTilt";
+
+      //@copy-declaration /** Parameters for setting pan and tilt properties. */
+      const rapid::String32 ASTROBEE_METHOD_PAN_AND_TILT_PARAM_PAN = "pan";
+      const rapid::DataType ASTROBEE_METHOD_PAN_AND_TILT_DTYPE_PAN = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_PAN_AND_TILT_PARAM_TILT = "tilt";
+      const rapid::DataType ASTROBEE_METHOD_PAN_AND_TILT_DTYPE_TILT = rapid::RAPID_FLOAT;
+
+      //@copy-declaration /** Change the frequency at which one type of telemetry is sent to GDS */
+      const rapid::String32 ASTROBEE_METHOD_SET_TELEMETRY_RATE = "setTelemetryRate";
+
+      //@copy-declaration /** Parameters for setting telemetry rate properties.  Rate is in Hz.  */
+      const rapid::String32 ASTROBEE_METHOD_SET_TELEMETRY_RATE_PARAM_NAME = "name";
+      const rapid::DataType ASTROBEE_METHOD_SET_TELEMETRY_RATE_DTYPE_NAME = rapid::RAPID_STRING;
+      const rapid::String32 ASTROBEE_METHOD_SET_TELEMETRY_RATE_PARAM_RATE = "rate";
+      const rapid::DataType ASTROBEE_METHOD_SET_TELEMETRY_RATE_DTYPE_RATE = rapid::RAPID_INT;
+
+      //@copy-declaration /** Telemetry names */
+      const rapid::String32 ASTROBEE_TELEMETRY_TYPE_POSITION = "position";
+      const rapid::String32 ASTROBEE_TELEMETRY_TYPE_STATE_VECTOR = "stateVector";
+      const rapid::String32 ASTROBEE_TELEMETRY_TYPE_COMM_STATUS = "commStatus";
+      const rapid::String32 ASTROBEE_TELEMETRY_TYPE_DISK_STATE = "diskState";
+      
+      //@copy-declaration /** Change the settings for camera telemetry being sent to GDS */
+      const rapid::String32 ASTROBEE_METHOD_SET_CAMERA = "setCamera";
+      
+      //@copy-declaration /** Parameters for setting camera telemetry rates. */
+      const rapid::String32 ASTROBEE_METHOD_SET_CAMERA_PARAM_NAME = "name";
+      const rapid::DataType ASTROBEE_METHOD_SET_CAMERA_DTYPE_NAME = rapid::RAPID_STRING;
+      const rapid::String32 ASTROBEE_METHOD_SET_CAMERA_PARAM_STREAM = "stream";
+      const rapid::DataType ASTROBEE_METHOD_SET_CAMERA_DTYPE_STREAM = rapid::RAPID_BOOL;
+      const rapid::String32 ASTROBEE_METHOD_SET_CAMERA_PARAM_RESOLUTION = "resolution";
+      const rapid::DataType ASTROBEE_METHOD_SET_CAMERA_DTYPE_RESOLUTION = rapid::RAPID_STRING;
+      const rapid::String32 ASTROBEE_METHOD_SET_CAMERA_PARAM_FRAME_RATE = "frameRate";
+      const rapid::DataType ASTROBEE_METHOD_SET_CAMERA_DTYPE_FRAME_RATE = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_CAMERA_PARAM_BANDWIDTH = "bandwidth";
+      const rapid::DataType ASTROBEE_METHOD_SET_CAMERA_DTYPE_BANDWIDTH = rapid::RAPID_FLOAT;
+
+      //@copy-declaration /** Camera names */
+      const rapid::String32 ASTROBEE_CAMERA_NAME_SCI = "science";
+      const rapid::String32 ASTROBEE_CAMERA_NAME_NAV = "navigation";
+      const rapid::String32 ASTROBEE_CAMERA_NAME_HAZ = "hazard";
+      const rapid::String32 ASTROBEE_CAMERA_NAME_DOCK = "dock";
+      const rapid::String32 ASTROBEE_CAMERA_NAME_PERCH = "perch";
+    
+      //@copy-declaration /** Camera resolutions */
+      const rapid::String32 ASTROBEE_CAMERA_RESOLUTION_640_480 = "640_480";
+      const rapid::String32 ASTROBEE_CAMERA_RESOLUTION_1024_768 = "1024_768";
+      const rapid::String32 ASTROBEE_CAMERA_RESOLUTION_1280_720 = "1280_720";
+      const rapid::String32 ASTROBEE_CAMERA_RESOLUTION_1920_1080 = "1920_1080";
+
+      //@copy-declaration /** Change the value of an Astrobee operating limit*/
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS = "setOperatingLimits";
+
+      //@copy-declaration /** Parameters for setting safeguard properties. */
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_NAME = "name";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_NAME = rapid::RAPID_STRING;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_MAX_VELOCITY = "maxVelocity";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_MAX_VELOCITY = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_MAX_ACCELRATION = "maxAccel";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_MAX_ACCELRATION = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_MAX_A_VELOCITY = "maxAVelocity";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_MAX_A_VELOCITY = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_MAX_A_ACCELRATION = "maxAAccel";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_MAX_A_ACCELRATION = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_OBSTACLE_DISTANCE = "obstacleDistance";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_OBSTACLE_DISTANCE = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_ALLOW_BLIND_FLYING = "allowBlindFlying";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_ALLOW_BLIND_FLYING = rapid::RAPID_BOOL;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_KEEPOUT_MARGIN = "keepoutMargin";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_KEEPOUT_MARGIN = rapid::RAPID_FLOAT;
+      const rapid::String32 ASTROBEE_METHOD_SET_OPERATING_LIMITS_PARAM_CHECK_KEEPOUTS = "checkKeepouts";
+      const rapid::DataType ASTROBEE_METHOD_SET_OPERATING_LIMITS_DTYPE_CHECK_KEEPOUTS = rapid::RAPID_BOOL;
+    };
+  };
+};
+

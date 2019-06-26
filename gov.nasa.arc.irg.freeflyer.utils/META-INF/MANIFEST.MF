@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Utils
+Bundle-SymbolicName: gov.nasa.arc.irg.freeflyer.utils
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.codehaus.jackson.json;bundle-version="1.8.5",
+ org.eclipse.swt,
+ org.junit;bundle-version="4.11.0",
+ org.apache.log4j;bundle-version="1.2.15",
+ org.eclipse.core.databinding;bundle-version="1.4.2",
+ gov.nasa.arc.irg.plan;bundle-version="1.0.0"
+Export-Package: gov.nasa.arc.irg.freeflyer.utils,
+ gov.nasa.arc.irg.freeflyer.utils.converters
+Import-Package: org.eclipse.core.runtime

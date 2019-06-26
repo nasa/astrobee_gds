@@ -1,0 +1,60 @@
+#ifndef rapid_ext_ProcessManagerConfig_idl
+#define rapid_ext_ProcessManagerConfig_idl
+
+#include "BaseTypes.idl"
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    //@copy /**
+    //@copy  * ProcessConfig
+    //@copy  */
+    struct ProcessConfig 
+    {
+      String64  name;
+      String64  comment;
+      String256Sequence64 environment;
+      String256 workingDirectory;
+      String32  binaryName;
+      String256 commandLineParams;
+      
+      boolean   selfTerminating;
+      boolean   startOnInit;
+      boolean   waitOnInit;
+      long      startupTimeout;
+      String256 runningMatch;
+      String32  aliveInterface;
+      
+      //@copy /** Number of times of automatic restart on unexpected shutdown */
+      long restartsOnFailure; 
+    };
+    
+    typedef sequence<ProcessConfig,32> ProcessConfigSequence;
+    
+    //@copy-c-declaration class ProcessManagerConfigTypeSupport;
+    //@copy-c-declaration class ProcessManagerConfigDataWriter;
+    //@copy-c-declaration class ProcessManagerConfigDataReader;
+    //@copy-c-declaration struct ProcessManagerConfigSeq;
+    
+    //@copy /**
+    //@copy  * ProcessManagerConfig
+    //@copy  */
+    valuetype ProcessManagerConfig : Message
+    {
+      //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+      //@copy-c-declaration typedef ProcessManagerConfigTypeSupport TypeSupport;
+      //@copy-c-declaration typedef ProcessManagerConfigDataWriter DataWriter;
+      //@copy-c-declaration typedef ProcessManagerConfigDataReader DataReader;
+      //@copy-c-declaration typedef ProcessManagerConfigSeq Seq;
+      //@copy-c-declaration #endif
+      //@copy-c-declaration typedef ProcessManagerConfig Type;
+
+      public String64 configName;
+      public ProcessConfigSequence processes;
+    };
+  };
+};
+
+#endif // rapid_ext_ProcessManagerConfig_idl

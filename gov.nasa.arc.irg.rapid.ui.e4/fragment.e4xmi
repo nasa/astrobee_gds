@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_FujLwGrOEeSquqe3H3rpAQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_IqztoHT3EeSNCrR7KFY8uA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.debug.lowerleft">
+    <elements xsi:type="basic:Part" xmi:id="_NSZj0HT3EeSNCrR7KFY8uA" elementId="gov.nasa.arc.irg.rapid.ui.e4.part.pose1" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.parts.PosePart" label="Pose1">
+      <tags>NoMove</tags>
+    </elements>
+    <elements xsi:type="basic:Part" xmi:id="_QU7gsHT3EeSNCrR7KFY8uA" elementId="gov.nasa.arc.irg.rapid.ui.e4.part.pose2" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.parts.PosePart" label="Pose2">
+      <tags>NoMove</tags>
+    </elements>
+    <elements xsi:type="basic:Part" xmi:id="_T800cHT3EeSNCrR7KFY8uA" elementId="gov.nasa.arc.irg.rapid.ui.e4.part.pose3" contributionURI="bundleclass://gov.nasa.arc.irg.freeflyer.rapid/gov.nasa.arc.irg.freeflyer.rapid.parts.PosePart" label="Pose3">
+      <tags>NoMove</tags>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

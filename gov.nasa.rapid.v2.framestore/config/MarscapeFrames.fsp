@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<section name="Frames">
+   <FrameRpy name="utmGrid10S">
+   		<parent value="/earth"/>
+    </FrameRpy>
+   <FrameRpy name="marscapeSiteFrame">
+   		<parent value="utmGrid10S"/>
+   		<x>582670.0</x>
+	    <y>4141480.0</y>
+    </FrameRpy>
+   <FrameRpy name="marscapeSiteFrameZDown">
+      <parent value="utmGrid10S"/>
+      <roll>180.0</roll>
+      <yaw>-90.0</yaw>
+    </FrameRpy>
+   <FrameRpy name="w0">
+      <parent value="utmGrid10S"/>
+      <x>582693.6</x>
+      <y>4141481.2</y>
+    </FrameRpy>
+   <FrameRpy name="w1">
+      <parent value="utmGrid10S"/>
+      <x>582681.5</x>
+      <y>4141479.0</y>
+    </FrameRpy>
+   <FrameRpy name="w2">
+      <parent value="utmGrid10S"/>
+      <x>582682.0</x>
+      <y>4141470.0</y>
+    </FrameRpy>
+   <FrameRpy name="w3">
+      <parent value="utmGrid10S"/>
+      <x>582687.5</x>
+      <y>4141467.8</y>
+    </FrameRpy>
+   <FrameRpy name="w4">
+      <parent value="utmGrid10S"/>
+      <x>582685.4</x>
+      <y>4141483.5</y>
+    </FrameRpy>
+   <FrameRpy name="w5">
+      <parent value="utmGrid10S"/>
+      <x>582673.3</x>
+      <y>4141481.2</y>
+    </FrameRpy>
+   <FrameRpy name="w6">
+      <parent value="utmGrid10S"/>
+      <x>582681.4</x>
+      <y>4141477.5</y>
+    </FrameRpy>
+   <FrameRpy name="w7">
+      <parent value="utmGrid10S"/>
+      <x>582700.2</x>
+      <y>4141470.5</y>
+    </FrameRpy>
+   <FrameRpy name="w">
+      <parent value="utmGrid10S"/>
+      <x>582707.1</x>
+      <y>4141464.5</y>
+    </FrameRpy>
+   <FrameRpy name="gate">
+      <parent value="utmGrid10S"/>
+      <x>582696.9</x>
+      <y>4141490.0</y>
+    </FrameRpy>
+   <FrameRpy name="field">
+      <parent value="utmGrid10S"/>
+      <x>582700.8</x>
+      <y>4141499.0</y>
+    </FrameRpy>
+   <FrameRpy name="shed">
+      <parent value="utmGrid10S"/>
+      <x>582690.38</x>
+      <y>4141491.77</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_00">
+      <parent value="utmGrid10S"/>
+      <x>582697.04</x>
+      <y>4141475.38</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_01">
+      <parent value="utmGrid10S"/>
+      <x>582715.13</x>
+      <y>4141460.47</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_02">
+      <parent value="utmGrid10S"/>
+      <x>582685.99</x>
+      <y>4141480.32</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_03">
+      <parent value="utmGrid10S"/>
+      <x>582689.95</x>
+      <y>4141477.42</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_04">
+      <parent value="utmGrid10S"/>
+      <x>582693.48</x>
+      <y>4141474.81</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_05">
+      <parent value="utmGrid10S"/>
+      <x>582697.31</x>
+      <y>4141472.04</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_06">
+      <parent value="utmGrid10S"/>
+      <x>582700.96</x>
+      <y>4141469.47</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_07">
+      <parent value="utmGrid10S"/>
+      <x>582704.83</x>
+      <y>4141466.67</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_08">
+      <parent value="utmGrid10S"/>
+      <x>582702.68</x>
+      <y>4141462.97</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_09">
+      <parent value="utmGrid10S"/>
+      <x>582698.88</x>
+      <y>4141465.95</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_10">
+      <parent value="utmGrid10S"/>
+      <x>582694.96</x>
+      <y>4141468.63</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_11">
+      <parent value="utmGrid10S"/>
+      <x>582691.01</x>
+      <y>4141471.46</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_12">
+      <parent value="utmGrid10S"/>
+      <x>582687.41</x>
+      <y>4141473.99</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_13">
+      <parent value="utmGrid10S"/>
+      <x>582683.52</x>
+      <y>4141476.81</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_14">
+      <parent value="utmGrid10S"/>
+      <x>582707.69</x>
+      <y>4141463.11</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_15">
+      <parent value="utmGrid10S"/>
+      <x>582710.77</x>
+      <y>4141459.84</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_16">
+      <parent value="utmGrid10S"/>
+      <x>582705.39</x>
+      <y>4141458.57</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_17">
+      <parent value="utmGrid10S"/>
+      <x>582700.34</x>
+      <y>4141459.42</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_18">
+      <parent value="utmGrid10S"/>
+      <x>582696.46</x>
+      <y>4141462.07</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_19">
+      <parent value="utmGrid10S"/>
+      <x>582680.55</x>
+      <y>4141472.66</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_20">
+      <parent value="utmGrid10S"/>
+      <x>582677.80</x>
+      <y>4141469.13</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_21">
+      <parent value="utmGrid10S"/>
+      <x>582681.38</x>
+      <y>4141465.85</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_22">
+      <parent value="utmGrid10S"/>
+      <x>582684.84</x>
+      <y>4141462.19</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_23">
+      <parent value="utmGrid10S"/>
+      <x>582688.21</x>
+      <y>4141459.25</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_24">
+      <parent value="utmGrid10S"/>
+      <x>582684.97</x>
+      <y>4141456.31</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_25">
+      <parent value="utmGrid10S"/>
+      <x>582688.69</x>
+      <y>4141452.88</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_26">
+      <parent value="utmGrid10S"/>
+      <x>582692.14</x>
+      <y>4141449.58</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_27">
+      <parent value="utmGrid10S"/>
+      <x>582695.72</x>
+      <y>4141446.11</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_28">
+      <parent value="utmGrid10S"/>
+      <x>582698.80</x>
+      <y>4141449.26</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_29">
+      <parent value="utmGrid10S"/>
+      <x>582689.00</x>
+      <y>4141465.03</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_30">
+      <parent value="utmGrid10S"/>
+      <x>582684.52</x>
+      <y>4141469.01</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_31">
+      <parent value="utmGrid10S"/>
+      <x>582681.29</x>
+      <y>4141459.19</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_32">
+      <parent value="utmGrid10S"/>
+      <x>582678.55</x>
+      <y>4141456.06</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_33">
+      <parent value="utmGrid10S"/>
+      <x>582681.95</x>
+      <y>4141452.80</y>
+    </FrameRpy>
+   <FrameRpy name="wpt_34">
+      <parent value="utmGrid10S"/>
+      <x>582685.66</x>
+      <y>4141449.50</y>
+    </FrameRpy>
+  </section>
+</config>

@@ -1,0 +1,40 @@
+#ifndef rapid_ext_arc_SpectrumSample_idl
+#define rapid_ext_arc_SpectrumSample_idl
+
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      //@copy-c-declaration class SpectrumSampleTypeSupport;
+      //@copy-c-declaration class SpectrumSampleDataWriter;
+      //@copy-c-declaration class SpectrumSampleDataReader;
+      //@copy-c-declaration struct SpectrumSampleSeq;
+
+      valuetype SpectrumSample : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef SpectrumSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef SpectrumSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef SpectrumSampleDataReader DataReader;
+        //@copy-c-declaration typedef SpectrumSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef SpectrumSample Type;
+
+        //@copy-declaration /** Spectrum Data, specify name and index range in SpectrumConfig.spectrumNameRange use each element as the bin */
+        public LongSequence1K spectrumData;
+
+        //@copy-declaration /** Specifies any spectrum instrument specific information */
+        public ValueSequence64 values;
+
+      };
+    };
+  };
+};
+
+
+
+#endif // rapid_ext_arc_SpectrumSample_idl

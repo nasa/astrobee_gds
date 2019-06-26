@@ -1,0 +1,94 @@
+{
+  "type" : "ModuleBayPlan",
+  "operatingLimits" : {
+    "targetLinearVelocity" : 0.1,
+    "targetLinearAccel" : 0.03,
+    "targetAngularVelocity" : 0.02,
+    "targetAngularAccel" : 0.01,
+    "profileName" : "Conservative",
+    "flightMode" : "Flight Mode One",
+    "collisionDistance" : 0.1
+  },
+  "inertiaConfiguration" : {
+    "name" : "UnloadedAstrobee",
+    "matrix" : [ 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 ],
+    "mass" : 5.0
+  },
+  "site" : {
+    "type" : "Site",
+    "bbox" : [ -0.7, -0.5, -0.65, 0.7, 0.5, 0.65 ],
+    "crs" : {
+      "properties" : {
+        "name" : "ISS Module"
+      }
+    },
+    "name" : "ISS Analysis Frame",
+    "id" : "iss"
+  },
+  "platform" : {
+    "type" : "Platform",
+    "name" : "FreeFlyer",
+    "id" : "FreeFlyer"
+  },
+  "valid" : true,
+  "dateModified" : "2017-02-11T00:00:52Z",
+  "libraryURLs" : [ ],
+  "creator" : "ddwheele",
+  "schemaUrl" : "http://www.example.com/freeFlyerPlanSchema.json",
+  "planNumber" : 0,
+  "visible" : true,
+  "xpjson" : "0.1",
+  "defaultSpeed" : 0.1,
+  "defaultTolerance" : 1.0,
+  "dateCreated" : "2017-02-10T23:33:54Z",
+  "sequence" : [ {
+    "type" : "ModuleBayStation",
+    "coordinate" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : true,
+      "moduleBayValid" : false,
+      "bookmark" : null,
+      "bookmarkValid" : false
+    },
+    "tolerance" : 0.1,
+    "stopOnArrival" : false,
+    "name" : "0",
+    "id" : "11e7a7a8-654a-4b09-8967-9418a8351269",
+    "sequence" : [ {
+      "type" : "powerOnItem",
+      "power" : 0.0,
+      "displayName" : "0.0 PowerOnItem Payload A",
+      "planPayloadConfig" : {
+        "name" : "Payload A",
+        "power" : 25.0
+      },
+      "which" : "Payload A",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.0 PowerOnItem",
+      "id" : "b4a0884c-16ee-44d2-982d-3ffd1f38444c"
+    }, {
+      "type" : "powerOffItem",
+      "displayName" : "0.1 PowerOffItem Payload B",
+      "planPayloadConfig" : {
+        "name" : "Payload B",
+        "power" : 0.0
+      },
+      "which" : "Payload B",
+      "blocking" : true,
+      "color" : "#555555",
+      "scopeTerminate" : true,
+      "name" : "0.1 PowerOffItem",
+      "id" : "a16a61df-cb46-4b3f-8749-b14ac9f99624"
+    } ]
+  } ],
+  "name" : "PlanWithPayloadCommands",
+  "id" : "1a28337c-5d2b-4ad0-bc16-f2b374838841"
+}

@@ -1,0 +1,10 @@
+source.. = src/,\
+           resrc/
+output.. = bin/
+bin.includes = META-INF/,\
+               .,\
+               images/,\
+               plugin.xml,\
+               ardorSettings.properties
+src.includes = images/,\
+               ardorSettings.properties

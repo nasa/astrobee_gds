@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ISS UI Plugin
+Bundle-SymbolicName: gov.nasa.arc.irg.iss.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.irg.iss.ui.IssUiActivator
+Bundle-Vendor: NASA Ames IRG
+Export-Package: gov.nasa.arc.irg.iss.ui,
+ gov.nasa.arc.irg.iss.ui.application,
+ gov.nasa.arc.irg.iss.ui.command,
+ gov.nasa.arc.irg.iss.ui.control,
+ gov.nasa.arc.irg.iss.ui.dialog,
+ gov.nasa.arc.irg.iss.ui.perspective,
+ gov.nasa.arc.irg.iss.ui.util,
+ gov.nasa.arc.irg.iss.ui.view.log,
+ gov.nasa.arc.irg.iss.ui.view.log.util,
+ gov.nasa.arc.irg.iss.ui.widget
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.e4.core.contexts,
+ org.eclipse.core.runtime,
+ gov.nasa.arc.irg.util.ui,
+ org.eclipse.e4.ui.workbench,
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.core.di,
+ gov.nasa.rapid.v2.e4,
+ gov.nasa.rapid.idl.ext.astrobee,
+ gov.nasa.dds
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: gov.nasa.arc.irg.freeflyer.rapid.connection,
+ gov.nasa.arc.irg.freeflyer.utils

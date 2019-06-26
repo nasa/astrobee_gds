@@ -1,0 +1,59 @@
+{
+  "bookmarks" : [ {
+    "name" : "Origin",
+    "location" : {
+      "type" : "ModuleBayPoint",
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : false,
+      "bookmark" : null
+    }
+  }, {
+    "name" : "Dock Approach Point",
+    "location" : {
+      "type" : "ModuleBayPoint",
+      "x" : 6.23,
+      "y" : -0.72,
+      "z" : 0.7,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : 90.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : false,
+      "bookmark" : null
+    }
+  }, {
+    "name" : "Survey Start",
+    "location" : {
+      "type" : "ModuleBayPoint",
+      "x" : 7.41,
+      "y" : -5.51,
+      "z" : 0.3,
+      "roll" : 179.0,
+      "pitch" : 179.0,
+      "yaw" : 0.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : false,
+      "bookmark" : null
+    }
+  }, {
+    "name" : "US Lab Starboard Perch",
+    "location" : {
+      "type" : "ModuleBayPoint",
+      "x" : 2.25,
+      "y" : 0.7,
+      "z" : 0.01,
+      "roll" : 0.0,
+      "pitch" : 0.0,
+      "yaw" : -90.0,
+      "ignoreOrientation" : false,
+      "moduleBayValid" : false,
+      "bookmark" : null
+    }
+  } ]
+}

@@ -1,0 +1,58 @@
+#ifndef rapid_FileQueueSample_idl
+#define rapid_FileQueueSample_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief See RAFT documentation.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-c-declaration class FileQueueSampleTypeSupport;
+    //@copy-c-declaration class FileQueueSampleDataWriter;
+    //@copy-c-declaration class FileQueueSampleDataReader;
+    //@copy-c-declaration struct FileQueueSampleSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * Holds information about a file that could be transferred to the ground from the robot.
+    //@copy-declaration  */
+    valuetype FileQueueSample : Message {
+    
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef FileQueueSampleTypeSupport TypeSupport;
+        //@copy-c-declaration typedef FileQueueSampleDataWriter DataWriter;
+        //@copy-c-declaration typedef FileQueueSampleDataReader DataReader;
+        //@copy-c-declaration typedef FileQueueSampleSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef FileQueueSample Type;
+
+        //@copy-declaration /** The unique identifier for this file. */
+        public String64 fileUuid;
+
+        //@copy-declaration /** Bucket number of sliced file. */
+        public long chunkId;
+
+        //@copy-declaration /** Total number of chunks to transfer. */
+        public long numChunks;
+
+        //@copy-declaration /**
+        //@copy-declaration  * Bit bucket with the binary data chunk. Max size of the bucket is 128KByte. For samples with
+        //@copy-declaration  * chunkId < numChunks - 1, chunkData.length() == 131072.
+        //@copy-declaration  */
+        public OctetSequence1K chunkData;
+
+    };
+};
+
+#endif // rapid_FileQueueSample_idl

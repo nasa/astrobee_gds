@@ -1,0 +1,8 @@
+{
+  "sequence" : [ [ -8, 4, 7, 2, 5, 9 ], [ 3, 6, -1, 4, 12, 18 ] ],
+  "dateCreated" : "1456251730865",
+  "notes" : "Don't go here.",
+  "author" : "DW",
+  "name" : "TestKeepouts",
+  "safe" : false
+}

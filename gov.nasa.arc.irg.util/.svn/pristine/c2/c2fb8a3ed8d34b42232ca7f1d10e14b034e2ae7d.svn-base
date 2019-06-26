@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: IRG Util Plug-in
+Bundle-SymbolicName: gov.nasa.arc.irg.util
+Bundle-Version: 1.0.0.qualifier
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.arc.irg.util,
+ gov.nasa.arc.irg.util.bean,
+ gov.nasa.arc.irg.util.connection,
+ gov.nasa.arc.irg.util.exception,
+ gov.nasa.arc.irg.util.image,
+ gov.nasa.arc.irg.util.log,
+ gov.nasa.arc.irg.util.time,
+ gov.nasa.arc.irg.util.ui,
+ gov.nasa.arc.irg.util.undo
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6, JavaSE-1.7
+Bundle-Vendor: NASA IRG
+Require-Bundle: org.apache.log4j;visibility:=reexport,
+ org.apache.commons.io;visibility:=reexport

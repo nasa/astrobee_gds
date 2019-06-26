@@ -1,0 +1,58 @@
+#ifndef rapid_AccessControlState_idl
+#define rapid_AccessControlState_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Message.idl"
+
+/**
+ * \defgroup idlfiles IDL Files
+ *
+ * \brief The RAPID specification for messages and methods is defined in IDL files.
+ */
+
+/**
+ * \file
+ *
+ * \brief Allows for method of transferring control between remote operators.
+ *
+ * \details AccessControlState is used to send the current controller and list of requestors. AccessControlConstants provides
+ * static values used in the state.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    //@copy-c-declaration class AccessControlStateTypeSupport;
+    //@copy-c-declaration class AccessControlStateDataWriter;
+    //@copy-c-declaration class AccessControlStateDataReader;
+    //@copy-c-declaration struct AccessControlStateSeq;
+   
+    //@copy-declaration /**
+    //@copy-declaration  * AccessControlState is a recurring message type that provides information
+    //@copy-declaration  * about who has control of a specified Agent and who has requested control
+    //@copy-declaration  * of that Agent.
+    //@copy-declaration  */
+    valuetype AccessControlState : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef AccessControlStateTypeSupport TypeSupport;
+        //@copy-c-declaration typedef AccessControlStateDataWriter DataWriter;
+        //@copy-c-declaration typedef AccessControlStateDataReader DataReader;
+        //@copy-c-declaration typedef AccessControlStateSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef AccessControlState Type;
+
+        //@copy-declaration /** Specifies agentId that currently controls the Agent. */
+        public String32 controller;
+
+        //@copy-declaration /** Specifies agentIds that have requested control of the Agent. */
+        public String32Sequence16 requestors;
+    };
+};
+
+#endif // rapid_AccessControlState_idl

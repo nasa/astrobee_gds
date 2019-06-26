@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Scene Plug-in
+Bundle-SymbolicName: gov.nasa.arc.verve.common.scenario;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.common.scenario.ScenarioActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ gov.nasa.arc.verve.common;visibility:=reexport,
+ org.apache.log4j,
+ gov.nasa.arc.irg.georef;visibility:=reexport,
+ gov.nasa.arc.irg.georef.ui;visibility:=reexport,
+ gov.nasa.arc.irg.util;visibility:=reexport,
+ gov.nasa.arc.irg.util.ui;visibility:=reexport,
+ gov.nasa.arc.verve.common.ardor3d;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: gov.nasa.arc.verve.common.scenario,
+ gov.nasa.arc.verve.common.scenario.ground,
+ gov.nasa.arc.verve.common.scenario.preferences
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: NASA IRG

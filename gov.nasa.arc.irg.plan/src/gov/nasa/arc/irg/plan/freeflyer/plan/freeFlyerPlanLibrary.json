@@ -1,0 +1,49 @@
+{
+  "xpjson": "0.1",
+  "type": "PlanLibrary",
+
+  "name": "FreeFlyer Command Library",
+  "notes": "Reusable elements for FreeFlyer plans",
+  "id": "http://example.com/freeFlyerPlanLibrary.json",
+  "schemaUrl": "http://example.com/freeFlyerPlanSchema.json",
+
+  "sites": [
+    {
+      "type": "Site",
+      "id": "iss",
+      "name": "ISS Analysis Frame",
+      "crs":{
+        	"type":"name",
+        	"properties":{
+        		"name": "ISS Module"
+        	}
+      },
+      "bbox": [-0.7, -0.5, -0.65, 0.7, 0.5, 0.65]
+    }
+  ],
+
+  "platforms": [
+    {
+      "type": "Platform",
+      "id": "FreeFlyer",
+      "name": "FreeFlyer"
+    }
+  ],
+  "commands": [
+    	{
+	"type":"Wait",
+	"id":"Wait5sec",
+	"name":"Wait5sec",
+	"duration":5000
+	},
+	{
+	"type":"Wait",
+	"id":"Wait10sec",
+	"name":"Wait10sec",
+	"duration":10000
+	}
+  ]
+}
+
+
+

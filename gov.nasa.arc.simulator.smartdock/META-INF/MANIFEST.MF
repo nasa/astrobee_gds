@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SmartDock
+Bundle-SymbolicName: gov.nasa.arc.simulator.smartdock
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: gov.nasa.dds.rti,
+ gov.nasa.rapid.v2.e4,
+ gov.nasa.rapid.idl.ext.astrobee,
+ gov.nasa.arc.simulator.freeflyer
+Import-Package: gov.nasa.rapid.v2.util
+Export-Package: gov.nasa.arc.simulator.smartdock

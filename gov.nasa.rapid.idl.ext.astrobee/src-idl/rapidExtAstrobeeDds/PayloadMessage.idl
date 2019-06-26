@@ -1,0 +1,85 @@
+/*
+ * Copyright 2015 (c) 2015 Intelligent Robotics Group, NASA ARC
+ */
+
+#include "Message.idl"
+
+module rapid {
+  module ext {
+    module astrobee {
+
+      //@copy-c-declaration class PayloadMessageOctetTypeSupport;
+      //@copy-c-declaration class PayloadMessageOctetDataWriter;
+      //@copy-c-declaration class PayloadMessageOctetDataReader;
+      //@copy-c-declaration struct PayloadMessageOctetSeq;
+
+      //@copy-declaration /**
+      //@copy-declaration   * Pure binary, for somebody to write a protocol over
+      //@copy-declaration   */
+      valuetype PayloadMessageOctet : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef PayloadMessageOctetTypeSupport TypeSupport;
+        //@copy-c-declaration typedef PayloadMessageOctetDataWriter DataWriter;
+        //@copy-c-declaration typedef PayloadMessageOctetDataReader DataReader;
+        //@copy-c-declaration typedef PayloadMessageOctetSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef PayloadMessageOctet Type;
+
+	//@copy-declaration /** Name of payload originating the message */
+        public String32 source;
+
+	//@copy-declaration /** Binary blob of data */
+        public OctetSequence128K data;
+      };
+
+    //@copy-c-declaration class PayloadMessageIntTypeSupport;
+      //@copy-c-declaration class PayloadMessageIntDataWriter;
+      //@copy-c-declaration class PayloadMessageIntDataReader;
+      //@copy-c-declaration struct PayloadMessagIntSeq;
+
+      //@copy-declaration /**
+      //@copy-declaration   * Sequence of ints, for arbitrary data
+      //@copy-declaration   */
+      valuetype PayloadMessageInt : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef PayloadMessageIntTypeSupport TypeSupport;
+        //@copy-c-declaration typedef PayloadMessageIntDataWriter DataWriter;
+        //@copy-c-declaration typedef PayloadMessageIntDataReader DataReader;
+        //@copy-c-declaration typedef PayloadMessageIntSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef PayloadMessageInt Type;
+
+	//@copy-declaration /** Name of payload originating the message */
+        public String32 source;
+
+	//@copy-declaration /** Arbitrary data, as sequence of longs */
+        public LongSequence32 data;
+      };
+
+  //@copy-c-declaration class PayloadMessageFloatTypeSupport;
+      //@copy-c-declaration class PayloadMessageFloatDataWriter;
+      //@copy-c-declaration class PayloadMessageFloatDataReader;
+      //@copy-c-declaration struct PayloadMessageFloatSeq;
+
+      //@copy-declaration /**
+      //@copy-declaration   * Sequence of floats, for arbitrary data
+      //@copy-declaration   */
+      valuetype PayloadMessageFloat : Message {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef PayloadMessageFloatTypeSupport TypeSupport;
+        //@copy-c-declaration typedef PayloadMessageFloaDataWriter DataWriter;
+        //@copy-c-declaration typedef PayloadMessageFloatDataReader DataReader;
+        //@copy-c-declaration typedef PayloadMessageFloatSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef PayloadMessageFloat Type;
+
+	//@copy-declaration /** Name of payload originating the message */
+        public String32 source;
+
+	//@copy-declaration /** Arbitrary data, as sequence of floats */
+        public FloatSequence32 data;
+      };
+
+    };
+  };
+};

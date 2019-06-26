@@ -1,0 +1,60 @@
+#ifndef rapid_ImageMetadata_idl
+#define rapid_ImageMetadata_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "BaseTypes.idl"
+
+/**
+ * \file
+ *
+ * \brief Defines image data to be used with ImageSensorSample.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    const String32 IMG_V_FOV_KEY = "IMG_V_FOV";
+    const String32 IMG_H_FOV_KEY = "IMG_H_FOV";
+
+    //@copy-declaration /**
+    //@copy-declaration  * Holds status information for an image sensor - typically a camera, but could be a laser scanner, gpr, or
+    //@copy-declaration  * any sensor that can pack a data sample into a 2D array.
+    //@copy-declaration  */
+    struct ImageMetadata {
+
+        //@copy-declaration /** Unique identifier for sensor. */
+        String32 sensorName;
+
+        //@copy-declaration /** Sensor type, e.g. Camera, LaserScanner. */
+        String32 sensorType;
+
+        //@copy-declaration /**
+        //@copy-declaration  * 3D transform which defines the zero position of the sensor with respect to the Agent's origin.
+        //@copy-declaration  * May be deprecated in future because the framestore service should handle this.
+        //@copy-declaration  */
+        Transform3D offset;
+
+        //@copy-declaration /** Native width (columns) of data sample. */
+        long width;
+
+        //@copy-declaration /** Native height (rows) of data sample. */
+        long height;
+
+        NamedFloatRangeValueSequence16 rangeSettings;
+
+        //@copy-declaration /** One of the values here is the MIME type if available. */
+        NamedOptionSetValueSequence16 optionSettings;
+
+        //@copy-declaration /** Extra sequence for native or Agent-specific information. */
+        KeyTypeValueSequence16 extras;
+
+    };
+
+};
+
+#endif // rapid_ImageMetadata_idl

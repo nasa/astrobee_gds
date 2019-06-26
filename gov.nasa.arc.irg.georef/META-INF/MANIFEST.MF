@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: IRG Georef Plug-In
+Bundle-SymbolicName: gov.nasa.arc.irg.georef;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: NASA IRG
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.irg.georef.coordinates,
+ gov.nasa.arc.irg.georef.coordinates.util
+Require-Bundle: gov.nasa.arc.irg.util;visibility:=reexport,
+ gov.nasa.util;visibility:=reexport
+Bundle-ActivationPolicy: lazy

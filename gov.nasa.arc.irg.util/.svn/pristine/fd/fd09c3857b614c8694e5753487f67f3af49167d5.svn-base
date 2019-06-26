@@ -1,0 +1,12 @@
+package gov.nasa.arc.irg.util.undo;
+
+/**
+ * A simple listener for the undoable history manager, so you can hook your undo handling to undo events.
+ * 
+ * @author tecohen
+ *
+ */
+public interface IUndoableHistoryListener {
+	void undoableAdded(IUndoable undoable);
+	void undoableRemoved(IUndoable undoable);
+}

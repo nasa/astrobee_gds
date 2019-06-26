@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RAPID Util
+Bundle-SymbolicName: gov.nasa.rapid.util
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.rapid.util.RapidUtilActivator
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.log4j;visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.rapid.util,
+ gov.nasa.rapid.util.log,
+ gov.nasa.rapid.util.math

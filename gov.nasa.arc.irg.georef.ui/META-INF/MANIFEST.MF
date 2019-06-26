@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GeoRef User Interface Plug-in
+Bundle-SymbolicName: gov.nasa.arc.irg.georef.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: gov.nasa.arc.irg.georef.ui.GeoRefUIPlugin
+Bundle-Vendor: NASA IRG
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: 
+ gov.nasa.arc.irg.georef.ui,
+ gov.nasa.arc.irg.georef.ui.dialogs,
+ gov.nasa.arc.irg.georef.ui.widgets
+Require-Bundle: gov.nasa.arc.irg.georef;visibility:=reexport,
+ gov.nasa.ensemble.ui.databinding.e4
+Bundle-ActivationPolicy: lazy

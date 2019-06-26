@@ -1,0 +1,72 @@
+{	
+	"type" : "GuestScienceConfigurationFile",
+	"guestScienceConfigs" : [ {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.air_sampler",
+    	"shortName" : "Air Sampler",
+    	"primary" : false,
+    	"guestScienceCommands" : [ {
+    			"name" : "Turn On Reader",
+    			"command" : "{name=On}"
+    		},
+    		{
+    			"name" : "Turn Off Reader",
+    			"command" : "{name=Off}"
+    		},
+    		{
+    			"name" : "Take Readings",
+    			"command" : "{name=Take, num=5, time_between=10}"
+    		}
+    		 ]
+  	},{
+    	"apkName" : "gov.nasa.arc.irg.astrobee.battery_monitor",
+    	"shortName" : "Battery Display",
+    	"primary" : false,
+    	"guestScienceCommands" : [ {
+    			"name" : "Show Home Screen",
+    			"command" : "{name=backUI}"
+    		},
+    		{
+    			"name" : "Show Battery",
+    			"command" : "{name=showUI}"
+    		}
+    		 ]
+  	},{
+    	"apkName" : "gov.nasa.arc.irg.astrobee.Turbo",
+    	"shortName" : "Turbo",
+    	"primary" : true,
+    	"guestScienceCommands" : [ {
+    			"name" : "Mode Power and Duration",
+    			"command" : "Power and Duration Command",
+    			"power" : 100,
+    			"duration" : 20
+    		},
+    		{
+    			"name" : "Mode Power",
+    			"command" : "Power Command",
+    			"power" : 100
+    		},
+    		{
+    			"name" : "Mode Duration",
+    			"command" : "Duration Command",
+    			"duration" : 30
+    		}
+    		 ]
+  	}, {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.GrapplingHook",
+    	"shortName" : "Grappling Hook",
+    	"primary" : true,
+    	"power" : 12,
+    	"duration" : 19
+  	},  {
+    	"apkName" : "gov.nasa.arc.irg.astrobee.GeigerCounter",
+    	"shortName" : "Geiger Counter",
+    	"primary" : false,
+    	"power" : 11,
+    	"guestScienceCommands" : [ {
+    			"name" : "Run Test",
+    			"command" : "Run Test Command"
+    		} ]
+  	} 
+  ]
+}
+

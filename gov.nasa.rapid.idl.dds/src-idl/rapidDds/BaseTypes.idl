@@ -1,0 +1,257 @@
+#ifndef rapid_BaseTypes_idl
+#define rapid_BaseTypes_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+/**
+ * \file
+ *
+ * \brief Defines common types used throughout other IDLs.
+ *
+ * \ingroup idlfiles
+ */
+module rapid {
+
+    typedef sequence<octet,1024>     OctetSequence1K;
+    typedef sequence<octet,2048>     OctetSequence2K;
+    typedef sequence<octet,4096>     OctetSequence4K;
+    typedef sequence<octet,16384>    OctetSequence16K;
+    typedef sequence<octet,32768>    OctetSequence32K;
+    typedef sequence<octet,65536>    OctetSequence64K;
+    typedef sequence<octet,131072>   OctetSequence128K;
+   
+    typedef sequence<short,32>       ShortSequence32;
+    typedef sequence<short,64>       ShortSequence64;
+    typedef sequence<short,128>      ShortSequence128;
+    typedef sequence<short,1024>     ShortSequence1K;
+    typedef sequence<short,2048>     ShortSequence2K;
+    typedef sequence<short,4096>     ShortSequence4K;
+    typedef sequence<short,32768>    ShortSequence32K;
+    typedef sequence<short,65536>    ShortSequence64K;
+    typedef sequence<short,98304>    ShortSequence96K;
+    typedef sequence<short,131072>   ShortSequence128K;
+
+    typedef sequence<long,32>        LongSequence32;
+    typedef sequence<long,64>        LongSequence64;
+    typedef sequence<long,128>       LongSequence128;
+    typedef sequence<long,256>       LongSequence256;
+    typedef sequence<long,512>       LongSequence512;
+    typedef sequence<long,1024>      LongSequence1K;
+    typedef sequence<long,2048>      LongSequence2K;
+    
+    typedef sequence<long long,32>   LongLongSequence32;
+    typedef sequence<long long,64>   LongLongSequence64;
+    typedef sequence<long long,128>  LongLongSequence128;
+    
+    typedef sequence<float,32>       FloatSequence32;
+    typedef sequence<float,64>       FloatSequence64;
+    typedef sequence<float,128>      FloatSequence128;
+    typedef sequence<float,256>      FloatSequence256;
+    typedef sequence<float,512>      FloatSequence512;
+    typedef sequence<float,1024>     FloatSequence1K;
+    
+    typedef sequence<double,32>      DoubleSequence32;
+    typedef sequence<double,64>      DoubleSequence64;
+    typedef sequence<double,128>     DoubleSequence128;
+    typedef sequence<double,256>     DoubleSequence256;
+    typedef sequence<double,512>     DoubleSequence512;
+    typedef sequence<double,1024>    DoubleSequence1K;
+
+    typedef string<16>               String16;
+    typedef string<32>               String32;
+    typedef string<64>               String64;
+    typedef string<128>              String128;
+    typedef string<256>              String256;
+    typedef string<1024>             String1K;
+    typedef string<2048>             String2K;
+
+    typedef sequence<String16,16>    String16Sequence16;
+    typedef sequence<String32,16>    String32Sequence16;
+    typedef sequence<String128,16>   String128Sequence16;
+    typedef sequence<String16,32>    String16Sequence32;
+    typedef sequence<String32,32>    String32Sequence32;
+    typedef sequence<String128,32>   String128Sequence32;
+    typedef sequence<String128,64>   String128Sequence64;
+    typedef sequence<String256,64>   String256Sequence64;
+    typedef sequence<String32, 128>  String32Sequence128;
+
+    typedef double Vec2d[2];
+    typedef double Vec3d[3];
+
+    typedef float Vec2f[2];
+    typedef float Vec3f[3];
+
+    //@copy-declaration /** A 3x3 rotation matrix in order: R11, R12, R13, R21, R22, R23, R31, R32, R33. */
+    typedef float Mat33f[9];
+    
+    //@copy-declaration /** RGBA color */
+    typedef float Color4f[4]; 
+    //@copy-declaration /** RGB color */
+    typedef float Color3f[3]; 
+   
+    //@copy-declaration /**
+    //@copy-declaration  * RotationEncoding specifies alternate rotation encodings for a Mat33f.
+    //@copy-declaration  * The default interpretation of Mat33f is a 3x3 rotation matrix, and that is
+    //@copy-declaration  * the preferred representation for rotations in RAPID. However, alternate 
+    //@copy-declaration  * encodings are available for simplicity, compactness, or to indicate
+    //@copy-declaration  * whether the rotation matrix is invalid (i.e. RAPID_ROT_NONE). 
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>RAPID_ROT_NONE: matrix is invalid or uninitialized
+    //@copy-declaration  *   <li>RAPID_ROT_M33: A 3x3 rotation matrix in order: R11, R12, R13, R21, R22, R23, R31, R32, R33
+    //@copy-declaration  *   <li>RAPID_ROT_QUAT: quaternion, first 4 elements of Mat33 are X, Y, Z, W
+    //@copy-declaration  *   <li>RAPID_ROT_XYZ: euler angles, first 3 elements of Mat33 are a rotation around X in radians, followed by rotation around Y, followed by rotation around Z
+    //@copy-declaration  *   <li>RAPID_ROT_ZYX: euler angles, first 3 elements of Mat33 are a rotation around Z in radians, followed by rotation around Y, followed by rotation around X
+    //@copy-declaration  *   <li>RAPID_ROT_ZYZ: euler angles, first 3 elements of Mat33 are a rotation around Z in radians, followed by rotation around Y, followed by rotation around Z
+    //@copy-declaration  *   <li>RAPID_ROT_VEL: angular velocity, first 3 elements of Mat33 is the instantaneous axis of rotation
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum RotationEncoding {
+        RAPID_ROT_NONE,
+        RAPID_ROT_M33,
+        RAPID_ROT_QUAT,
+        RAPID_ROT_XYZ,
+        RAPID_ROT_ZYX,
+        RAPID_ROT_ZYZ,
+        RAPID_ROT_VEL
+    };
+    
+   
+    //@copy-declaration /**
+    //@copy-declaration  * DataType is used in KeyTypeValue triples to describe the type of data contained in the string value.
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>RAPID_BOOL:
+    //@copy-declaration  *   <li>RAPID_DOUBLE:
+    //@copy-declaration  *   <li>RAPID_FLOAT:
+    //@copy-declaration  *   <li>RAPID_INT:
+    //@copy-declaration  *   <li>RAPID_LONGLONG:
+    //@copy-declaration  *   <li>RAPID_STRING:
+    //@copy-declaration  *   <li>RAPID_VEC3d:
+    //@copy-declaration  *   <li>RAPID_MAT33f:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum DataType {
+        RAPID_BOOL,
+        RAPID_DOUBLE,
+        RAPID_FLOAT,
+        RAPID_INT,
+        RAPID_LONGLONG,
+        RAPID_STRING,
+        RAPID_VEC3d,
+        RAPID_MAT33f
+    };
+    
+    //@copy-declaration /** Arguments for commands will be specified with these types. */
+    union ParameterUnion switch(DataType) {
+        case RAPID_BOOL:
+            boolean b;
+        case RAPID_DOUBLE:
+            double d;
+        case RAPID_FLOAT:
+            float f;
+        case RAPID_INT:
+            long i;
+        case RAPID_LONGLONG:
+            long long ll;
+        case RAPID_STRING:
+            String128 s;
+        case RAPID_VEC3d:
+            Vec3d vec3d;
+        case RAPID_MAT33f:
+            Mat33f mat33f;
+    };
+    typedef sequence<ParameterUnion,16> ParameterSequence16;
+    typedef sequence<ParameterUnion,64> ParameterSequence64;
+    
+    //@copy-declaration /** KeyTypePair defines a key with data type only. */
+    struct KeyTypePair {
+        String32 key;
+        DataType type;
+    };
+
+    typedef sequence<KeyTypePair,  4> KeyTypeSequence4;
+    typedef sequence<KeyTypePair, 16> KeyTypeSequence16;
+    typedef sequence<KeyTypePair, 64> KeyTypeSequence64;
+    
+    //@copy-declaration /** KeyTypeValueTriple defines a key, its data type and its value. */
+    struct KeyTypeValueTriple {
+        String32 key;
+        //@copy /** Place-holder to keep binary layout of the struct backward compatible. Data type should be set in ParameterUnion */
+        long padding; 
+        ParameterUnion value;
+    };
+   
+    //@copy-declaration /** Hash table interchange data structure with type information. */
+    typedef sequence<KeyTypeValueTriple,  8> KeyTypeValueSequence8;
+    typedef sequence<KeyTypeValueTriple, 16> KeyTypeValueSequence16;
+    typedef sequence<KeyTypeValueTriple, 32> KeyTypeValueSequence32;
+    typedef sequence<KeyTypeValueTriple, 64> KeyTypeValueSequence64;
+    typedef sequence<KeyTypeValueTriple,128> KeyTypeValueSequence128;
+    
+    typedef sequence<ParameterUnion,  8> ValueSequence8;
+    typedef sequence<ParameterUnion, 16> ValueSequence16;
+    typedef sequence<ParameterUnion, 32> ValueSequence32;
+    typedef sequence<ParameterUnion, 64> ValueSequence64;
+    typedef sequence<ParameterUnion,128> ValueSequence128;
+  
+    //@copy-declaration /** Transform3D defines an x,y,z cartesian location with a rotation. */
+    struct Transform3D {
+        Vec3d xyz;
+        
+        //@copy-declaration /** By default, a 3x3 rotation matrix in order: R11, R12, R13, R21, R22, R23, R31, R32, R33. 
+        //@copy-declaration  * However, some messages may supply a RotationEncoding to specify alternate rotation representations.
+        //@copy-declaration  * @see RotationEncoding
+        //@copy-declaration  */
+        Mat33f rot;
+    };
+
+    //@copy-declaration /** Sequence of floats with an identifier. */
+    struct NamedFloatSequence {
+        String16 name;
+        FloatSequence64 values;
+    };
+    typedef sequence<NamedFloatSequence,16> NFSeqSequence16;
+    typedef sequence<NamedFloatSequence,32> NFSeqSequence32;
+
+    //@copy-declaration /** Two foating point numbers defining a range with minimum and maximum values. */
+    struct FloatRange {
+        //@copy-declaration /** Lower bound of the range. */
+        float min;
+        //@copy-declaration /** Upper bound of the range. */
+        float max;
+    };
+
+    //@copy-declaration /** A min, max range plus current value. */
+    struct FloatRangeValue {
+        float min;
+        float max;
+        float value;
+    };
+
+    //@copy-declaration /** A set of options plus the index of the current value. */
+    struct OptionSetValue {
+        long index;
+        String32Sequence16 options;
+    };
+
+    //@copy-declaration /** A named range value (min,max and current value). */
+    struct NamedFloatRangeValue {
+        String16 name;
+        FloatRangeValue range;
+    };
+    typedef sequence<NamedFloatRangeValue,16> NamedFloatRangeValueSequence16;
+    typedef sequence<NamedFloatRangeValue,32> NamedFloatRangeValueSequence32;
+
+    //@copy-declaration /** A named option set (sequence of options and current option). */
+    struct NamedOptionSetValue {
+        String16 name;
+        OptionSetValue option;
+    };
+    typedef sequence<NamedOptionSetValue,16> NamedOptionSetValueSequence16;
+    typedef sequence<NamedOptionSetValue,32> NamedOptionSetValueSequence32;
+};
+
+#endif // rapid_BaseTypes_idl

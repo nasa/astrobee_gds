@@ -1,0 +1,25 @@
+package gov.nasa.arc.irg.util.undo;
+
+/**
+ * Simple status for undo operation results
+ * @author tecohen
+ *
+ */
+public enum UndoStatus {
+	OK(0),
+	INFO(0x01),
+	WARNING(0x02),
+	ERROR(0x04),
+	CANCEL(0x08);
+	
+    private final int m_severity; 
+    
+	UndoStatus(int severity) {
+        m_severity = severity;
+    }
+	
+	public int getSeverity() {
+		return m_severity;
+	}
+
+}

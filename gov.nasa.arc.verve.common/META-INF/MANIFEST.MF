@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Plug-in
+Bundle-SymbolicName: gov.nasa.arc.verve.common;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.nasa.arc.verve.common.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.ardor3d;visibility:=reexport,
+ gov.nasa.arc.irg.util.ui;visibility:=reexport,
+ gov.nasa.arc.verve.ardor3d.scenegraph.shape,
+ gov.nasa.arc.viz.io;visibility:=reexport,
+ gov.nasa.arc.viz.scenegraph;visibility:=reexport,
+ org.apache.commons.io,
+ gov.nasa.arc.verve.ardor3d.extension.interact;visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: gov.nasa.arc.verve.common,
+ gov.nasa.arc.verve.common.beans,
+ gov.nasa.arc.verve.common.interact,
+ gov.nasa.arc.verve.common.interest,
+ gov.nasa.arc.verve.common.node,
+ gov.nasa.arc.verve.common.notify,
+ gov.nasa.arc.verve.common.preferences,
+ gov.nasa.arc.verve.common.preferences.rcp,
+ gov.nasa.arc.verve.common.util
+Bundle-Vendor: NASA IRG

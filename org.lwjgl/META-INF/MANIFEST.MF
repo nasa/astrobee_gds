@@ -1,0 +1,47 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LWJGL Plug-in
+Bundle-SymbolicName: org.lwjgl
+Bundle-Version: 2.7.1
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: NASA Ensemble
+Export-Package: 
+ LZMA,
+ net.java.games.input,
+ net.java.games.util,
+ net.java.games.util.plugins,
+ net.java.games.util.plugins.test,
+ org.lwjgl,
+ org.lwjgl.input,
+ org.lwjgl.openal,
+ org.lwjgl.opencl,
+ org.lwjgl.opencl.api,
+ org.lwjgl.opengl,
+ org.lwjgl.util,
+ org.lwjgl.util.glu,
+ org.lwjgl.util.glu.tessellation,
+ org.lwjgl.util.input,
+ org.lwjgl.util.jinput,
+ org.lwjgl.util.vector
+Bundle-ClassPath: .,
+ jinput.jar,
+ lwjgl_util.jar,
+ lwjgl.jar,
+ lzma.jar
+Bundle-NativeCode: libjinput-linux.so; osname=linux; processor=x86,
+  liblwjgl.so; osname=linux; processor=x86,
+  libopenal.so; osname=linux; processor=x86,
+  libjinput-linux64.so; osname=linux; processor=x86_64,
+  liblwjgl64.so; osname=linux; processor=x86_64,
+  libopenal64.so; osname=linux; processor=x86_64,
+  libjinput-osx.jnilib; osname=macosx,
+  liblwjgl.jnilib; osname=macosx,
+  openal.dylib; osname=macosx,
+  jinput-dx8.dll; osname=win32; processor=x86,
+  jinput-raw.dll; osname=win32; processor=x86,
+  lwjgl.dll; osname=win32; processor=x86,
+  OpenAL32.dll; osname=win32; processor=x86,
+  jinput-dx8_64.dll; osname=win32; processor=x86_64,
+  jinput-raw_64.dll; osname=win32; processor=x86_64,
+  lwjgl64.dll; osname=win32; processor=x86_64,
+  OpenAL64.dll; osname=win32; processor=x86_64

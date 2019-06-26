@@ -1,0 +1,109 @@
+#ifndef rapid_QueueState_idl
+#define rapid_QueueState_idl
+
+/*
+ * Copyright (c) 2009 United States Government as represented by the
+ * Administrator of the National Aeronautics and Space Administration.
+ * All Rights Reserved.
+ */
+
+#include "Command.idl"
+
+/**
+ * \file
+ *
+ * \brief Sends information about command queuing on the Agent; is meant to be used with the RAPID Sequencer.
+ *
+ * \ingroup idlfiles
+ */
+module rapid{
+
+    //@copy-declaration /**
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>Q_STATUS_INIT:
+    //@copy-declaration  *   <li>Q_STATUS_OUTBOUND: SENT
+    //@copy-declaration  *   <li>Q_STATUS_LOST: SENT
+    //@copy-declaration  *   <li>Q_STATUS_INLINE: PENDING
+    //@copy-declaration  *   <li>Q_STATUS_PREEMPTED: PENDING
+    //@copy-declaration  *   <li>Q_STATUS_INPROCESS: ACTIVE
+    //@copy-declaration  *   <li>Q_STATUS_PAUSED: ACTIVE
+    //@copy-declaration  *   <li>Q_STATUS_CANCELED: COMPLETED
+    //@copy-declaration  *   <li>Q_STATUS_SUCCEEDED: COMPLETED
+    //@copy-declaration  *   <li>Q_STATUS_FAILED: COMPLETED
+    //@copy-declaration  *   <li>Q_STATUS_ALIEN_PENDING:
+    //@copy-declaration  *   <li>Q_STATUS_ALIEN_ACTIVE:
+    //@copy-declaration  *   <li>Q_STATUS_ALIEN_COMPLETED:
+    //@copy-declaration  *   <li>Q_STATUS_FORGOTTEN_BY_ROBOT:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum StatusType {
+        Q_STATUS_INIT,
+        Q_STATUS_OUTBOUND,
+        Q_STATUS_LOST,
+        Q_STATUS_INLINE,
+        Q_STATUS_PREEMPTED,
+        Q_STATUS_INPROCESS,
+        Q_STATUS_PAUSED,
+        Q_STATUS_CANCELED,
+        Q_STATUS_SUCCEEDED,
+        Q_STATUS_FAILED,
+        Q_STATUS_ALIEN_PENDING,
+        Q_STATUS_ALIEN_ACTIVE,
+        Q_STATUS_ALIEN_COMPLETED,
+        Q_STATUS_FORGOTTEN_BY_ROBOT
+    };
+
+    //@copy-declaration /**
+    //@copy-declaration  * ResultType describes the result of a command on the completed queue.
+    //@copy-declaration  * <ul>
+    //@copy-declaration  *   <li>Q_RESULT_INIT:
+    //@copy-declaration  *   <li>Q_RESULT_SUCCEEDED:
+    //@copy-declaration  *   <li>Q_RESULT_FAILED:
+    //@copy-declaration  * </ul>
+    //@copy-declaration  */
+    enum ResultType {
+        Q_RESULT_INIT,
+        Q_RESULT_SUCCEEDED,
+        Q_RESULT_FAILED
+    };
+
+    //@copy-declaration /** CommandRecord holds a command, its status and its result. */
+    valuetype CommandRecord {
+        public Command cmd;
+        public ResultType trResult;
+        public StatusType trStatus;
+    };
+
+    //@copy-declaration /** SingleQueue holds a sequence of CommandRecords. Maximum length for a SingleQueue is 64. */
+    struct SingleQueue {
+        sequence<CommandRecord,64> queue;
+    };
+
+    //@copy-c-declaration class QueueStateTypeSupport;
+    //@copy-c-declaration class QueueStateDataWriter;
+    //@copy-c-declaration class QueueStateDataReader;
+    //@copy-c-declaration struct QueueStateSeq;
+
+    //@copy-declaration /**
+    //@copy-declaration  * QueueState is a message that holds single queues of pending, active, completed and sent commands. This
+    //@copy-declaration  * is primarily used with a Sequencer that handles the queueing of commands.
+    //@copy-declaration  */
+    valuetype QueueState : Message {
+
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef QueueStateTypeSupport TypeSupport;
+        //@copy-c-declaration typedef QueueStateDataWriter DataWriter;
+        //@copy-c-declaration typedef QueueStateDataReader DataReader;
+        //@copy-c-declaration typedef QueueStateSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef QueueState Type;
+
+        // TODO: Make this one big queue, it'll save a lot of memory. The status already covers all different queues.
+        public SingleQueue pending;
+        public SingleQueue active;
+        public SingleQueue completed;
+        public SingleQueue sent;
+    };
+};
+
+#endif // rapid_QueueState_idl

@@ -1,0 +1,49 @@
+#ifndef rapid_ext_arc_SpectrumConfig_idl
+#define rapid_ext_arc_SpectrumConfig_idl
+
+#include "Message.idl"
+
+module rapid
+{
+  module ext
+  {
+    module arc
+    {
+      //@copy-c-declaration class SpectrumConfigTypeSupport;
+      //@copy-c-declaration class SpectrumConfigDataWriter;
+      //@copy-c-declaration class SpectrumConfigDataReader;
+      //@copy-c-declaration struct SpectrumConfigSeq;
+
+      struct NamedIndexRange
+      {
+        String32 name;
+        short    start;
+        short    end;
+      };
+      typedef sequence<NamedIndexRange, 16> NamedIndexRangeSequence16;
+
+      valuetype SpectrumConfig : Message
+      {
+        //@copy-c-declaration #if RTI_DDS_VERSION_MAJOR < 4 || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR < 5) || (RTI_DDS_VERSION_MAJOR == 4  && RTI_DDS_VERSION_MINOR  == 5 && RTI_DDS_VERSION_RELEASE != 'f' )
+        //@copy-c-declaration typedef SpectrumConfigTypeSupport TypeSupport;
+        //@copy-c-declaration typedef SpectrumConfigDataWriter DataWriter;
+        //@copy-c-declaration typedef SpectrumConfigDataReader DataReader;
+        //@copy-c-declaration typedef SpectrumConfigSeq Seq;
+        //@copy-c-declaration #endif
+        //@copy-c-declaration typedef SpectrumConfig Type;
+
+        //@copy-declaration /** name of instrument */
+        public String32 name;
+
+        //@copy-declaration /** Specifies index range information about spectrum samples */
+        public NamedIndexRangeSequence16 indexRanges;
+
+        //@copy-declaration /** Specifies any spectrum instrument specific information */
+        public KeyTypeValueSequence64 valueKeys;
+      };
+    };
+  };
+};
+
+
+#endif // rapid_ext_arc_SpectrumConfig_idl
