@@ -31,6 +31,17 @@ import org.eclipse.swt.widgets.Composite;
  * Command must be specified in TeleopCommandConfigurations.json.
  * Sends true on click, false on unclick.
  * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
+ * {
+	  "type" : "ToggleBooleanTeleopCommand",
+	  "label": "Gripper",
+	  "command": "gripperControl",
+	  "paramName": "open",
+	  "buttonText": "Open",
+	  "buttonPushedText": "Close",
+	  "subsystem": "Arm"
+	}
+ * 
  * @author ddwheele
  *
  */

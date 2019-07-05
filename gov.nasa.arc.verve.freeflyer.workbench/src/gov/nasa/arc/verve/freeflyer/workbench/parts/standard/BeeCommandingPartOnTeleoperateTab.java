@@ -321,8 +321,6 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		bindings.clear();
 	}
 
-
-
 	protected boolean bind(String feature, final IncrementableText widget, final Object model) {
 		if (widget == null){
 			return false;

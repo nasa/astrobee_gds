@@ -176,8 +176,7 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 
 		createStopButton(innerComposite);
 		createMoveButton(innerComposite);
-		
-		
+
 		beeCommandingPartOnTeleoperateTab.moveDisabledExplanationLabel = new Label(innerComposite, SWT.None); // spacer
 		beeCommandingPartOnTeleoperateTab.moveDisabledExplanationLabel.setText(beeCommandingPartOnTeleoperateTab.LONG_BLANK_STRING);
 		beeCommandingPartOnTeleoperateTab.moveDisabledExplanationLabel.setForeground(colorOrange);

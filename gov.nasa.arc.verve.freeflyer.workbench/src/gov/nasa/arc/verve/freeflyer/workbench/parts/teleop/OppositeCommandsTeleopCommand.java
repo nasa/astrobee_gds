@@ -31,6 +31,18 @@ import org.eclipse.swt.widgets.Composite;
  * Widget for a pair of commands that take the same String parameter and are opposites
  * (i.e. Power On and Power Off)
  * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
+ * {
+	  "type" : "OppositeCommandsTeleopCommand",
+	  "label": "Laser Pointer",
+	  "command": "powerOnItem",
+	  "oppositeCommand": "powerOffItem",
+	  "paramValue":"Laser Pointer",
+	  "paramName": "which",
+	  "buttonText": "Power On",
+	  "buttonPushedText": "Power Off"
+	}
+ *
  * @author ddwheele
  *
  */

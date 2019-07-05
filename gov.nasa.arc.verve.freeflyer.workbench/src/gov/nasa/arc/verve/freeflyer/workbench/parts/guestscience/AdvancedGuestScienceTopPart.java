@@ -68,7 +68,6 @@ public class AdvancedGuestScienceTopPart implements IActiveAgentSetListener {
 	protected final String NAME_TOOLTIP = "Astrobee Name";
 	protected final String HEALTH_TOOLTIP = "Status of Astrobee Subsystems";
 	protected final String DETAILS_BUTTON_TOOLTIP = "View Health and Status Data for Selected Astrobee(s)";
-
 	
 	@Inject 
 	public AdvancedGuestScienceTopPart(Composite parent, MApplication application) {

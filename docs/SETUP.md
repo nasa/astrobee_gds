@@ -44,20 +44,38 @@
     the words “workspace_loc”, do not substitute)
   * On Windows, the variable should be called `PATH` with value `${workspace_loc:/com.rti.dds.target/os/win32/x86}`.  Or substitue x86_64 if you have 64-bit Windows.
   * On Linux, set `LD_LIBRARY_PATH` to  `${workspace_loc:/com.rti.dds.target/os/linux/x86}` 
-  or substitute "x86_64" for "x86" if you have 64-bit.
+  or substitute `x86_64` for `x86` if you have 64-bit.
 * Click the 'Run' button and the Control Station should start.
 * If you have errors when starting the Control Station, often they can be solved by going to the “Run Configurations”->Plug-ins Tab and clicking the “Add Required Plug-ins” button that is all the way on the right (sometime the button is hidden if the window is too small).  Also try clicking “Validate Plug-ins” and that will usually tell you what plug-ins need to be included that aren’t included.
 
 ## Using the GDS Simulator ##
 
-The GDS simulator is a standalone Eclipse application that sends and receives (some) 
+The GDS Astrobee simulator is a standalone Eclipse application that sends and receives (some) 
+
 messages as the Astrobee would and can be used for very basic debugging. It does not do 
 any kind of physics simulation of robot motion or simulate realistic camera views.  
 If you need a software simulator which does run the same code that runs on the robot, one 
 is included in the Astrobee Robot Software available [here](https://github.com/nasa/astrobee)
 
-To run the GDS Simulator:
-* Go to the plugin gov.nasa.arc.simulator.freeflyer.  In the src folder, right click on FreeFlyer.java and run as a Java Application.
-  * In Run Configurations Environment tab, add DYLD_LIBRARY_PATH or PATH as described above.
-  * In Run Configurations Arguments tab, add "-agent Honey" or whatever name you want the simulator to have.
-  * Run the Control Station with `-peer <ip of simulator>`
+To run the GDS Astrobee Simulator:
+* Go to the plugin `gov.nasa.arc.simulator.freeflyer`.  In the `src` folder, right click on `FreeFlyer.java` and run as a 
+Java Application.
+  * In Run Configurations Environment tab, add `DYLD_LIBRARY_PATH` or `PATH` as described above.
+  * In Run Configurations Arguments tab, add `-agent Honey` or whatever name you want the simulator to have.
+  * If simulator is on a different computer from the Control Station, run the Control Station with 
+  `-peer <ip of simulator>`
+  
+There is also a GDS Dock Simulator. It sends Dock messages to the Control Station, and it can spawn a GDS Astrobee
+simulator.
+
+To run the GDS Dock Simulator:
+- Go to the plugin `gov.nasa.arc.simulator.smartdock`. In the `src` folder, right click on `SmartDock.java` and run as a 
+Java Application. 
+  * In Run Configurations Environment tab, add `DYLD_LIBRARY_PATH` or `PATH` as described above.
+  * In Run Configurations Arguments tab, add `-berth1 Honey` or whatever name you want the simulator to have. Alternatively,
+  you can run with `-berth2 <robot>`. If nothing is specified for a berth, it will be reported as Vacant. You can 
+  start a GDS Astrobee simulator by sending the Dock simulator a wake command for an occupied berth, but the Dock
+  simulator cannot spawn two  Astrobee simulators.
+  * If simulator is on a different computer from the Control Station, run the Control Station with 
+  `-peer <ip of simulator>`
+ 

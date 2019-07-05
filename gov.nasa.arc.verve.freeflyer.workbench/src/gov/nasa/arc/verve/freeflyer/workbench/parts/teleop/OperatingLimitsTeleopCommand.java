@@ -29,6 +29,20 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * Specify set of operating limits (from list in `OperatingLimitsConfigurations.json`)
+ * and send as parameters to `SETTINGS_METHOD_SET_OPERATING_LIMITS` command
+ *  
+ *  Example teleopCommandConfig in TeleopCommandsConfiguration.json: 
+ *  {
+	  "type" : "OperatingLimitsTeleopCommand",
+	  "label": "Operating Limits",
+	  "buttonText": "Set"
+	}
+ *
+ * @author ddwheele
+ *
+ */
 public class OperatingLimitsTeleopCommand extends AbstractTeleopCommandConfig {
 	protected Combo firstCombo;
 	private OperatingLimitsConfigList operatingLimitsConfigList;

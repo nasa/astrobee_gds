@@ -32,6 +32,19 @@ import org.eclipse.swt.widgets.Label;
  * Creates a widget for a command that takes a String and a boolean as arguments.
  * The boolean does not depend on the string.
  * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
+ * {
+	 "type" : "StringBooleanTeleopCommand",
+	  "label": "Camera to Stream",
+	  "secondColumnLabel": "Streaming",
+	  "command": "setCameraStreaming",
+	  "stringParamName": "cameraName",
+	  "stringOptions": ["Dock", "Navigation", "Science"],
+	  "boolParamName": "stream",
+	  "buttonText": "Send",
+	  "subsystem": "Camera"
+	}
+ * 
  * @author ddwheele
  *
  */

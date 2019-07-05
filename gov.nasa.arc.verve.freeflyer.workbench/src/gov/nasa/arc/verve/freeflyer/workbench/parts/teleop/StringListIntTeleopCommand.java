@@ -27,10 +27,21 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Widget that lets you pick from strings in a dropdown, then sends an int based on which string you picked
+ * Widget that lets you pick from strings in a dropdown, then sends an int of the (first) numeral in the string you picked
  * Designed for the Berth parameter in the Dock command
  * 
  * Class should extend StringListTeleopCommand, but JSON won't deserialize a subtype of a subtype.  Lame.
+ * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
+ * {
+	  "type" : "StringListIntTeleopCommand",
+	  "label": "Manual Dock",
+	  "command": "dock",
+	  "paramName": "berthMethod",
+	  "buttonText": "Dock",
+	  "paramOptions": ["Berth 1","Berth 2"],
+	  "subsystem": "Mobility"
+	}
  * 
  * @author ddwheele
  *

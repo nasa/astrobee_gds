@@ -1,4 +1,15 @@
 # Plan Editor tab #
+
+The Plan Editor tab  allows you to create or edit a .fplan file to send to Astrobee. In the upper left the Plan
+Editor shows a table view of the Plan you are editing (`gov.nasa.arc.verve.freeflyer.workbench.parts.planeditor.PlanEditorPart`).
+On the right is a 3d view (`gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView.PlanEditor3dView`). The
+section in the lower left shows a widget that corresponds to the Plan element that is selected in the Plan Editor.
+All the widgets are subclasses of `gov.nasa.ensemble.ui.databinding.widgets.AbstractDatabindingWidget`.
+When the Plan name is selected, the `gov.nasa.arc.verve.freeflyer.workbench.widget.FreeFlyerPlanWidget` shows. When 
+you select a Station, `StationAndPointWidget` shows, and when you select a Segment, 
+`gov.nasa.arc.irg.plan.ui.widget.SegmentWidget` shows. The other widgets, which are for commands, are all in the 
+`gov.nasa.arc.verve.freeflyer.workbench.widget` package.
+
 ## Create a Plan ##
 * From the Plan Editor Tab, go to File -> New Plan
   * Known bug: If you are on a Mac and the top menu bar does not say "FreeFlyer OCU", click on another 
@@ -6,11 +17,15 @@
   correctly. This happens when the Control Station is first started.
 * Enter a name for the plan and click Save
   - Known bug: error about SWT key 13 when you hit enter instead of clicking Save.  Ignore the error and continue.
-* Set inertia and operating limits configuration files for the plan by clicking on the plan name in the table and then selecting from the drop-down menus in the lower left corner.
+* Set inertia and operating limits configuration files for the plan by clicking on the plan name in the 
+table and then selecting from the drop-down menus in the `FreeFlyerPlanWidget` in the lower left corner.
+ These menus are populated by `InertiaConfigurations.json` and `OperatingLimitsConfigurations.json` (See 
+ [Config Files](docs/config_files.md) for information about the json files.)
 * Add plan elements (see below)
 * When you have finished making the plan, click the Validate button
-  * The Control Station will check that the plan obeys keep-out and keep-in zones.
-  * For each Segment, the Control Station will compute "waypoints" that the robot's control system needs to
+  * This button calls `compilePlan()` in `gov.nasa.arc.irg.plan.ui.plancompiler.PlanCompiler`.
+  * `compilePlan()` checks that the plan obeys keep-out and keep-in zones.
+  * For each Segment, `compilePlan()` computes "waypoints" that the robot's control system needs to
   in order to execute the trajectory of the Segment
 * When the plan has been validated, go to File -> Save Plan.  Saving the plan will also validate it, if it is not already validated.
 
@@ -74,7 +89,9 @@
   * Moving a Station via the Coordinate Based tab can be undone.
 
 ## Manage Bookmarks ##
-* Under View menu, select Open Bookmark Manager
+
+* Under View menu, select Open Bookmark Manager. This opens 
+`gov.nasa.arc.verve.freeflyer.workbench.dialog.BookmarkManagerDialog.java`
 * To delete a bookmark:
    * Select the bookmark from the drop-down labeled Delete Bookmark
    * Click Delete.

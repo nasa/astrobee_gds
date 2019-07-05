@@ -32,6 +32,52 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+/**
+ * Lets user select a camera and a preset configuration for that camera.
+ * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json: 
+ * {
+	 "type" : "CameraPresetTeleopCommand",
+	  "label": "Camera to Configure",
+	  "secondColumnLabel": "Configuration",
+	  "buttonText": "Set",
+	  "optionsForOneCamera": [ 
+	  	{
+	  	"cameraName": "Dock",
+	  	"preset": [ {
+			"presetName": "High Definition",
+			"resolution" : "1024_768",
+			"frameRate" : 5,
+			"bandwidth" : 640
+	  		},
+	  		{
+			"presetName": "Low Definition",
+			"resolution" : "640_480",
+			"frameRate" : 4,
+			"bandwidth" : 92
+	  		} 
+	  	]
+	  	},{
+	  	"cameraName": "Navigation",
+	  	"preset": [ {
+			"presetName": "High Definition",
+			"resolution" : "1920_1080",
+			"frameRate" : 5,
+			"bandwidth" : 100
+	  		},
+	  		{
+			"presetName": "Low Definition",
+			"resolution" : "640_480",
+			"frameRate" : 25,
+			"bandwidth" : 300
+	  		} 
+	  	]
+	  	}
+	  	],
+	  "subsystem": "Camera"
+	}
+ */
+
 public class CameraPresetTeleopCommand extends AbstractTeleopCommandConfig {
 	protected String secondColumnLabel;
 

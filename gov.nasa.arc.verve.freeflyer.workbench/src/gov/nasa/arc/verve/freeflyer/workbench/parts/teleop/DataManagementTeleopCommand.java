@@ -34,6 +34,18 @@ import org.eclipse.swt.widgets.Label;
  * Strings in the second combo are the command name.
  * Any command can take any parameter.
  * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
+ * {
+	  "type" : "DataManagementTeleopCommand",
+	  "label": "Data Type",
+	  "secondColumnLabel": "Action",
+	  "buttonText": "Send",
+	  "paramName": "dataMethod",
+	  "names":["Immediate", "Delayed"],
+	  "actionNames":["Download", "Stop Download", "Clear"],
+	  "actionCommands":["downloadData", "stopDownload", "clearData"],
+	  "subsystem": "Data"
+    }
  * @author ddwheele
  *
  */

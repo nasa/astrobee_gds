@@ -43,6 +43,6 @@ a graphical interface to create a Plan for one Astrobee. The **Advanced Guest Sc
   of repetitive plans with known coordinates. The **Debugging** tab displays engineering data 
   helpful for debugging DDS communication with the robot.
 
-Install instructions are [here](docs/SETUP.md)
+[Install instructions](docs/SETUP.md)
 
-Usage instructions are [here](docs/USAGE.md)
+[Usage instructions and documentation](docs/USAGE.md)

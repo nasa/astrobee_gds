@@ -21,6 +21,19 @@ import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
 
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * Draws a line across Miscellaneous Commands subtab to keep
+ * it neat
+ * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json: 
+ * {
+	  "type" : "HorizontalSeparatorTeleopCommand"
+	}
+ * 
+ * @author ddwheele
+ *
+ */
+
 public class HorizontalSeparatorTeleopCommand extends
 		AbstractTeleopCommandConfig {
 

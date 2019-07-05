@@ -27,6 +27,27 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+/**
+ * Specifies front or back flashlight, and provides presets for various 
+ * brightness levels
+ * 
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json: 
+ * {
+	  "type" : "FlashlightTeleopCommand",
+	  "label": "Flashlight",
+	  "secondColumnLabel": "Brightness",
+	  "command": "setFlashlightBrightness",
+	  "buttonText": "Set",
+	  "names":["Front", "Back"],
+	  "brightnessNames":["High", "Medium", "Low", "Off"],
+	  "brightnessValues":[1.0, 0.6, 0.3, 0.0],
+	   "subsystem": "Settings"
+    }
+ *  
+ * @author ddwheele
+ *
+ */
+
 public class FlashlightTeleopCommand extends AbstractTeleopCommandConfig {
 	protected String secondColumnLabel;
 	protected String[] names;

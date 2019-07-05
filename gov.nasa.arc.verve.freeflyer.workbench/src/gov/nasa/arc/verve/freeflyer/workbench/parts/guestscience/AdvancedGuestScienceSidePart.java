@@ -103,7 +103,7 @@ public class AdvancedGuestScienceSidePart implements AstrobeeStateListener, Gues
 	protected final String SINGLE_LOAD_BUTTON_LABEL = "Select and Load Plan...";
 	
 	protected final String MULTI_RUN_BUTTON_LABEL =	"Run Plans";
-	protected final String SINGLE_RUN_BUTTON_LABEL =	"Run Plan";
+	protected final String SINGLE_RUN_BUTTON_LABEL = "Run Plan";
 
 	protected final String MUTLI_STOP_BUTTON_LABEL = "Station Keep Bees";
 	
