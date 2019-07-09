@@ -10,6 +10,7 @@ following unique subtabs:
 
 
 ## Bee Commanding ##
+
 The <b>Bee Commanding subtab</b> (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.BeeCommandingPartOnTeleoperateTab.java`)
  sends commands that move the position and orientation of the selected Astrobee. Widgets
   in this subtab are created in `BeeCommandingPartOnTeleoperateTabCreator.java`.
@@ -53,12 +54,12 @@ Apply Options button is clicked. If the checkbox to the left of the option is
 checked, the Apply Options button will send a command to turn on that option.
 If there is a green checkmark to the right of the option, the Astrobee already has
 that option turned on.  Options include:
-* **Face Forward** (`SETTINGS_METHOD_SET_HOLONOMIC_MODE`) requires the Astrobee to face the direction of
- motion. Unchecking this option allows the Astrobee to fly sideways or backwards, which may be desirable to
-  collect specific video or science data. However, the Astrobee does not have cameras pointing in all directions,
-   so it must be monitored closely when flying with Face Forward off so that it does not collide with an obstacle.
-* <b>Check Obstacles</b> (`SETTINGS_METHOD_SET_CHECK_OBSTACLES`) requires the Astrobee to stop moving and station 
-keep if
+* <b> Face Forward </b> (`SETTINGS_METHOD_SET_HOLONOMIC_MODE`) requires the Astrobee to face the direction of motion.
+Unchecking this option allows the Astrobee to fly sideways or backwards, which may be
+desirable to collect specific video or science data. However, the Astrobee does not 
+have cameras pointing in all directions, so it must be monitored closely when
+flying with Face Forward off so that it does not collide with an obstacle.
+* <b>Check Obstacles</b> (`SETTINGS_METHOD_SET_CHECK_OBSTACLES`) requires the Astrobee to stop moving and station keep if
 it detects an object in its planned flight path. It may be necessary to turn off
 this option if the Astrobee detects a ghost obstacle and gets stuck.
 *  <b>Check Keepouts</b> (`SETTINGS_METHOD_SET_CHECK_ZONES`) requires the Astrobee to stop before entering 
@@ -97,6 +98,7 @@ sends commands related to the Astrobee's Perching
 Arm. The widgets on this subtab are created in `PerchingArmPartCreator.java`. The Perching Arm is designed to grasp a handrail
 and secure the Astrobee while it conserves power by turning off its propulsion 
 system. The Perching Arm subtab includes the following sections:
+
 
 ### Initialization
 The <b> Initialization section</b> in the Perching Arm subtab
@@ -173,6 +175,7 @@ stop and wait for the obstacle to move. (NB: As of July 2019, this command is no
  Robot Software and there is no scheduled implementation date. To command Astrobee to dock, please use the manual
  Dock command on the Miscellaneous Commands tab, or on the Debugging tab.)
 
+
 ## Relative Commanding
 
 The <b>Relative Commanding</b> subtab 
@@ -194,12 +197,14 @@ current position.
 
 The <b> Commands section</b> in the Docking subtab has buttons to send commands to the selected Astrobee.
 It includes:
+
 *The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
 station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`)
 <li> The <b> Move </b> button commands the Astrobee to move to the position specified in the 
 Input textbox. (`MOBILITY_METHOD_SIMPLEMOVE6DOF` with frame set to "body")
 
 ## Interactive Map
+
 The <b>Interactive Map subtab</b> 
 (`gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView.Teleop3dView`), like the 
 Live Map subtab on other tabs,
@@ -233,7 +238,7 @@ The coordinates in the Manual Move Inputs section will update accordingly.
 
 ## Miscellaneous Commands
 
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/MiscellaneousCommmandsSubtab.png 
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/MiscellaneousCommandsSubtab.png 
 "Miscellaneous Commands subtab")
 
 The <b>Miscellaneous Commands subtab</b> 

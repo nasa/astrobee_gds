@@ -20,7 +20,7 @@ you select a Station, `StationAndPointWidget` shows, and when you select a Segme
 * Set inertia and operating limits configuration files for the plan by clicking on the plan name in the 
 table and then selecting from the drop-down menus in the `FreeFlyerPlanWidget` in the lower left corner.
  These menus are populated by `InertiaConfigurations.json` and `OperatingLimitsConfigurations.json` (See 
- [Config Files](docs/config_files.md) for information about the json files.)
+ [Config Files](config_files.md) for information about the json files.)
 * Add plan elements (see below)
 * When you have finished making the plan, click the Validate button
   * This button calls `compilePlan()` in `gov.nasa.arc.irg.plan.ui.plancompiler.PlanCompiler`.

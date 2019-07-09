@@ -1,3 +1,8 @@
+bamboo/
+com.rti.dds.target/
+*/NDDS_DISCOVERY_PEERS
+*/global.properties
+
 *.class
 *.swp
 *.DS_Store

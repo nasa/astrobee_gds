@@ -13,6 +13,7 @@ The <b>Bee Status subtab </b> displays a status summary
 for each connected Astrobee. Code is in `OverviewTopPart.java` and `OverviewAstrobeeRow`
  (`gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience`)
   Each row has the following items:
+
 *  <b> Name</b> is the name of the Astrobee described by the row.
 * The <b> Comm light</b> is green if that Astrobee is connected and cyan otherwise.
 * The <b>Health light</b> is green if all Astrobee systems are functional and orange
@@ -27,6 +28,7 @@ rejects most commands from Control Stations that do not have access control on i
 
 
 ### Docking Station Status and Commanding </h3>
+
 
 The <b>Docking Station Status and Commanding subtab </b> 
 (`gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.DockingStationStatusAndCommandingPart.java`) 
@@ -48,6 +50,7 @@ The <b>Hibernate Commanding section</b> lists the Astrobees that are awake on th
 and lets the user grab control of or hibernate the selected Astrobee. The <b> Hibernate button </b> sends the command
 `ADMIN_METHOD_SHUTDOWN`, which puts the selected Astrobee into a powered down state in which it can accept only 
 the Wake command. 
+
 
 NOTE<br>
 > If an Astrobee is hibernated while it is not docked at the Docking Station, it will not be 

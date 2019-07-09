@@ -28,8 +28,8 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * Widget to send a command with no parameters.
  * Command must be specified in TeleopCommandConfigurations.json.
- * 
- * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
+ *
+ * Example teleopCommandConfig in TeleopCommandsConfiguration.json: 
  * {
 	  "type" : "NoParamsTeleopCommand",
 	  "label": "Idle Propulsion",

@@ -1,5 +1,4 @@
 # Guest Science Tab and Advanced Guest Science Tab 
-
 ![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/GuestScienceTab-annotated.png 
 "Guest Science Tab")
 
@@ -23,6 +22,7 @@ for each connected Astrobee. On the Advanced Guest Science tab the class is
  and on the Advanced Guest Science tab it is `SimplifiedGuestScienceTopPart`.
  
  Each row (`AdvancedAstrobeeRow` or `SimplifiedAstrobeeRow`, which ) has the following fields:
+
 * <b> Name</b> shows the name of the Astrobee described by the row. Check the 
 <b>checkbox</b> to the left of the name to send commands to that Astrobee.
 * The <b>Comm light</b> is green if the Control Station has a DDS connection to that Astrobee.

@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Label;
  * Strings in the first combo are the parameter.
  * Strings in the second combo are the command name.
  * Any command can take any parameter.
- * 
+ *
  * Example teleopCommandConfig in TeleopCommandsConfiguration.json:
  * {
 	  "type" : "DataManagementTeleopCommand",

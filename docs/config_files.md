@@ -27,7 +27,7 @@ different keepouts).
 
 * `BookmarksList.json` *(inside `{world}` folder)*
   * List of bookmarks available in the Plan Editor and the Teleop Tab.
-  * Don't edit by hand, use the Bookmarks Manager (explained on [this](docs/plan_editor_tab.md) page)
+  * Don't edit by hand, use the Bookmarks Manager (explained on [this](plan_editor_tab.md) page)
 
 * `CameraConfiguration.json`
   * **For camera resolutions, etc, use `SetCameraPresets.json`**
@@ -157,7 +157,7 @@ Queen.vlc.stream.url=rtsp://127.0.0.1:1234/ch0
 * Handrail Config *(inside `{world}` folder)*
   * File to control positions of handrail models in the 3D view
   * File at `ControlStationConfig/{world}/HandrailConfig.json`
-  * Instructions for editing are [this](docs/modeling_tab.md) page
+  * Instructions for editing are [this](modeling_tab.md) page
 
 * `HealthAndStatusConfig.txt`
   * List the name of the telemetry data you want to appear in the Health and Status view, with one name per line.
@@ -243,7 +243,7 @@ Arm Gripper
   * Edit the arrays inside "sequence".  Each array denotes the corners of an axis-aligned box in global coordinates
   `[low x, low y, low z, high x, high y, high z]`
   * Units are meters
-  * The Modeling tab has a GUI to adjust keepouts.  Go [here](docs/modeling_tab.md)  for instructions.
+  * The Modeling tab has a GUI to adjust keepouts.  Go [here](modeling_tab.md)  for instructions.
   * If you have the workbench source code, at `gov.nasa.arc.verve.freeflyer.workbench.locations` there is a
    `KeepinGenerator.java` that parses the `IssConfiguration.json` and generates a corresponding keepin file.
   * Keepins and keepouts are sent to the Astrobee by clicking the "Send Zones" buttons on the Standard Controls section

@@ -179,6 +179,7 @@ on the selected robot. When an Astrobee first wakes up, nobody has control on it
 It is cyan otherwise.</li>
 * <b>GPS </b> displays the date and time. </li>
 
+
 ## Grab Control Button ##
 
 All tabs have a <b> Grab Control button</b> that grabs access control on the selected Astrobee(s) if the Crew Control
@@ -193,6 +194,7 @@ is mediated by the `GrabControlManager` in `gov.nasa.arc.irg.freeflyer.rapid.sta
 ## Health  ##
 ![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure5.PNG 
 "Health subtab")
+
 The <b>Health subtab</b>, on the Run Plan and Teleoperate tabs, displays status information
  about the Astrobee selected in the Top Bar. The information comes from the 
  `AgentState`, `PlanStatus`, `ArmState`, and `FaultState`
@@ -200,6 +202,7 @@ The <b>Health subtab</b>, on the Run Plan and Teleoperate tabs, displays status 
  The code for the Health subtab is at `gov.nasa.arc.verve.freeflyer.workbench.parts.standard.HealthPart.java`.
   
   Which status information is included is defined in `HealthAndStatusConfig.txt`. It may include the following:
+
 * The <b>Operating State</b> of the Astrobee may be Ready, Plan Execution, Teleoperation,
 Auto Return, or Fault. In some Operating States, some commands are not available.
 * The <b>Mobility State </b> of the Astrobee may be Drifting (propulsion off), Stopping, Stopped (station keeping),
@@ -212,6 +215,7 @@ Status is Paused. When the Plan finishes executing, the Plan Status is Idle and 
 * Any fault reported in the FaultState that has an associated subsystem and is not a warning is displayed as a
  row, highlighted in orange, indicating if a particular subsystem is <b>disabled</b>. Each system that is unable to function is listed
 on a separate row. Fault rows do not have to be specified in `HealthAndStatusConfig.txt`, they are always included. 
+
 
 ## Live Images ##
 <p>

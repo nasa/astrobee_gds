@@ -106,7 +106,7 @@ robot can log (from the DataTopicsList message), and which topics it is logging 
 
 
 To change which rostopics the Astrobee is logging, select a configuration file from the dropdown. The dropdown is
-populated with the names of the files in the DataToDisk folder (see [Config Files](docs/config_files.md)). When you
+populated with the names of the files in the DataToDisk folder (see [Config Files](config_files.md)). When you
 click Configure Data, the CompressedFilePublisher compresses and sends the selected json file on topic
 `astrobee_compressed_file-data_to_disk`. When the DataToDiskPart receives the CompressedFileAck, it sends 
 `DATA_METHOD_SET_DATA_TO_DISK`.
