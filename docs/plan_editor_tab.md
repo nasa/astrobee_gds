@@ -89,7 +89,6 @@ table and then selecting from the drop-down menus in the `FreeFlyerPlanWidget` i
   * Moving a Station via the Coordinate Based tab can be undone.
 
 ## Manage Bookmarks ##
-
 * Under View menu, select Open Bookmark Manager. This opens 
 `gov.nasa.arc.verve.freeflyer.workbench.dialog.BookmarkManagerDialog.java`
 * To delete a bookmark:

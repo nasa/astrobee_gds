@@ -69,15 +69,15 @@ The Control Station has nine tabs that are represented in the Application model 
 a Part Stack. Here is a list of tabs.  The Crew Control Station that is loaded on an ELC on the ISS for use
 by crew, has only the first four tabs (not the Advanced Guest Science tab).
 
-[Overview Tab](docs/overview_tab.md) <br>
-[Run Plan Tab](docs/run_plan_tab.md) <br>
-[Teleoperate Tab](docs/teleoperate_tab.md) <br>
-[Guest Science/Advanced Guest Science Tabs](docs/guest_science_tab.md) <br>
-[Debugging Tab](docs/debugging_tab.md) <br>
-[Video Tab](docs/video tab.md) <br>
-[Plan Editor Tab](docs/plan_editor_tab.md) <br>
-[Modeling Tab](docs/modeling_tab.md) <br>
-[Config Files](docs/config_files.md) <br>
+[Overview Tab](overview_tab.md) <br>
+[Run Plan Tab](run_plan_tab.md) <br>
+[Teleoperate Tab](teleoperate_tab.md) <br>
+[Guest Science/Advanced Guest Science Tabs](guest_science_tab.md) <br>
+[Debugging Tab](debugging_tab.md) <br>
+[Video Tab](video tab.md) <br>
+[Plan Editor Tab](plan_editor_tab.md) <br>
+[Modeling Tab](modeling_tab.md) <br>
+[Config Files](config_files.md) <br>
 
 
 # Items Common to Multiple Tabs #
@@ -151,41 +151,38 @@ Click on the Camera Controls box and leave the cursor over it
  mouse button.
 
 ## TopBar ##
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/TopBar.png  "Top Bar")
 
-<p>
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/TopBar.png 
+"Top Bar")
+
+
 On the Run Plan and Teleoperation tabs, the <b>Top Bar</b> under the Tab Panel allows the user to select 
 an Astrobee to monitor and control. The Top Bar also displays summary information. Code is at
  `gov.nasa.arc.irg.freeflyer.workbench.parts.standard.TopBar.java`.
-</p>
-<ul>
-<li> The <b>Select Astrobee combo</b> displays the names of Astrobees that are awake. Select a name to
+
+* The <b>Select Astrobee combo</b> displays the names of Astrobees that are awake. Select a name to
 connect the Crew Control Station to that Astrobee. This dropdown depends on 
-`gov.nasa.rapid.v2.e4.agent.ActiveAgentSet.java`</li>
-<li> The <b>Comm light</b> is green if the selected Astrobee has communication with the Crew Control Station.
+`gov.nasa.rapid.v2.e4.agent.ActiveAgentSet.java`
+* The <b>Comm light</b> is green if the selected Astrobee has communication with the Crew Control Station.
 Otherwise the light is cyan, indicating that no telemetry is being received and no commands can be sent.
 This light is governed by `gov.nasa.arc.verve.freeflyer.workbench.helpers.SelectedAgentConnectedRegistry.java`, which
 depends on the `ActiveAgentSet`. Connection is determined by settings in `gov.nasa.rapid.v2.ui.e4.RAPID_QOS_PROFILES.xml`. 
 Relevant settings include `participant_liveliness_assert_period` (on the robot), `participant_liveliness_lease_duration`,
 and `max_liveliness_loss_detection_period`.
- </li> 
-<li> <b>Est Batt</b> displays the approximate number of minutes that the selected Astrobee
+* <b>Est Batt</b> displays the approximate number of minutes that the selected Astrobee
 can operate before needing to recharge. If more than one hour is left, the time is displayed as hours and minutes.</li>
-<li> <b>Control</b> displays the ID of the Control Station that currently has access control
+* <b>Control</b> displays the ID of the Control Station that currently has access control
 on the selected robot. When an Astrobee first wakes up, nobody has control on it. If the Control field does not match the
  id of the user of the Control Station, only Grab Control and Stop commands can be sent from the Control Station 
- to that Astrobee. </li>
-
-<li> The <b>Docking Station light</b> is green if the Docking Station is powered and connected.
+ to that Astrobee.
+* The <b>Docking Station light</b> is green if the Docking Station is powered and connected.
 It is cyan otherwise.</li>
-<li> <b>GPS </b> displays the date and time. </li>
-</ul>
+* <b>GPS </b> displays the date and time. </li>
 
 ## Grab Control Button ##
 
 All tabs have a <b> Grab Control button</b> that grabs access control on the selected Astrobee(s) if the Crew Control
 Station does not already have access control.
-
 
 When the Grab Control button is clicked, the Control Station sends an `ACCESSCONTROL_METHOD_REQUESTCONTROL`
 message to the Astrobee.  The Astrobee sends back a `ACCESSCONTROL_STATE` message with a cookie, and
@@ -194,31 +191,27 @@ does not match the last cookie the Astrobee sent, the GrabControl command will f
 is mediated by the `GrabControlManager` in `gov.nasa.arc.irg.freeflyer.rapid.state` on the Control Station.
  
 ## Health  ##
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure5.png  "Health subtab")
-
-<p>
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure5.PNG 
+"Health subtab")
 The <b>Health subtab</b>, on the Run Plan and Teleoperate tabs, displays status information
- about the Astrobee selected in the Top Bar. The information comes from the `AgentState`, `PlanStatus`, `ArmState`, and `FaultState`
+ about the Astrobee selected in the Top Bar. The information comes from the 
+ `AgentState`, `PlanStatus`, `ArmState`, and `FaultState`
   parts, as governed by the `AstrobeeStateAdapter` in the `AstrobeeStateManager` (`gov.nasa.arc.irg.freeflyer.rapid.state`).
  The code for the Health subtab is at `gov.nasa.arc.verve.freeflyer.workbench.parts.standard.HealthPart.java`.
   
   Which status information is included is defined in `HealthAndStatusConfig.txt`. It may include the following:
-</p>
-<ul>
-
-<li> The <b>Operating State</b> of the Astrobee may be Ready, Plan Execution, Teleoperation,
-Auto Return, or Fault. In some Operating States, some commands are not available. </li>
-<li> The <b>Mobility State </b> of the Astrobee may be Drifting (propulsion off), Stopping, Stopped (station keeping),
+* The <b>Operating State</b> of the Astrobee may be Ready, Plan Execution, Teleoperation,
+Auto Return, or Fault. In some Operating States, some commands are not available.
+* The <b>Mobility State </b> of the Astrobee may be Drifting (propulsion off), Stopping, Stopped (station keeping),
 Flying, Docking, Docked, Undocking, Perching, Perched, or Unperching. Docking, Undocking, Perching, and Unperching states include 
-a number to indicate the progress of the Astrobee through the process. In some Mobility States, some commands are not available.</li>
-<li> <b>Plan Name</b> is the name of the Plan currently loaded on the selected Astrobee. Each Astrobee can load
-one Plan at a time. </li>
-<li> <b> Plan Status </b> may be Idle, Executing, Paused, or Error. When a Plan is initially loaded, the Plan
-Status is Paused. When the Plan finishes executing, the Plan Status is Idle and a new Plan must be loaded.</li>
-<li> Any fault reported in the FaultState that has an associated subsystem and is not a warning is displayed as a
+a number to indicate the progress of the Astrobee through the process. In some Mobility States, some commands are not available.
+* <b>Plan Name</b> is the name of the Plan currently loaded on the selected Astrobee. Each Astrobee can load
+one Plan at a time.
+* <b> Plan Status </b> may be Idle, Executing, Paused, or Error. When a Plan is initially loaded, the Plan
+Status is Paused. When the Plan finishes executing, the Plan Status is Idle and a new Plan must be loaded.
+* Any fault reported in the FaultState that has an associated subsystem and is not a warning is displayed as a
  row, highlighted in orange, indicating if a particular subsystem is <b>disabled</b>. Each system that is unable to function is listed
-on a separate row. Fault rows do not have to be specified in `HealthAndStatusConfig.txt`, they are always included. </li> 
-</ul>
+on a separate row. Fault rows do not have to be specified in `HealthAndStatusConfig.txt`, they are always included. 
 
 ## Live Images ##
 <p>
@@ -233,7 +226,7 @@ an Astrobee from which to view images. Code is at
 (for Run Plan, Teleoperate, and Video tabs), or `LiveImagesSelectAstrobeePart.java` (for GuestScience Tab).
 </p>
 
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure6.png 
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure6.PNG 
 "Live Images subtab")
 
 
@@ -245,16 +238,15 @@ an Astrobee from which to view images. Code is in subclasses of
  `gov.nasa.arc.verve.freeflyer.workbench.parts.engineering.LiveVideoPart.java` and `LiveVideoComboPart.java`.
 </p>
 
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure7.png  
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure7.PNG 
 "Live Video subtab")
 
 ## Status Bar ##
 
-<p>
 The <b>Status Bar</b> at the bottom of the Crew Control Station displays the latest message
 sent or received from any Astrobee or the Docking Station. Code is at 
 `gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar.java`.
-</p>
+
 
 
 

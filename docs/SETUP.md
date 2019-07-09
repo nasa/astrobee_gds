@@ -51,7 +51,6 @@
 ## Using the GDS Simulator ##
 
 The GDS Astrobee simulator is a standalone Eclipse application that sends and receives (some) 
-
 messages as the Astrobee would and can be used for very basic debugging. It does not do 
 any kind of physics simulation of robot motion or simulate realistic camera views.  
 If you need a software simulator which does run the same code that runs on the robot, one 
@@ -78,4 +77,3 @@ Java Application.
   simulator cannot spawn two  Astrobee simulators.
   * If simulator is on a different computer from the Control Station, run the Control Station with 
   `-peer <ip of simulator>`
- 

@@ -18,4 +18,3 @@ streaming.  The <b>Camera 2</b> and <b> Camera 3 subtabs</b> are the same as the
  (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LiveImagesPart.java`) on the Run Plan and
 Teleoperate tabs. You can select the Dock or the Navigation camera from the dropdown and it will show the images
  from those cameras when they are streaming.
-

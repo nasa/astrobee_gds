@@ -1,6 +1,6 @@
 # Teleoperate Tab #
 
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure11.png 
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure11.PNG 
 "Teleoperate Tab")
 
 <p>
@@ -10,13 +10,10 @@ following unique subtabs:
 
 
 ## Bee Commanding ##
-
-<p>
 The <b>Bee Commanding subtab</b> (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.BeeCommandingPartOnTeleoperateTab.java`)
  sends commands that move the position and orientation of the selected Astrobee. Widgets
   in this subtab are created in `BeeCommandingPartOnTeleoperateTabCreator.java`.
   It has the following sections:
-</p>
 
 ### Initialization
 
@@ -30,8 +27,9 @@ to select a named location (coordinate and orientation) in the ISS. (Locations a
   (`gov.nasa.arc.verve.robot.freeflyer.parts.RobotPartDraggablePreview.java`) in the Interactive Map subtab to that
    location. The Manual Move Inputs update from the position of the Preview.
 
+
 ### Manual Move Inputs
-<p>
+
 The <b>Manual Move Inputs section</b> in the Bee Commanding subtab contains text fields to enter coordinates 
 of where to send Astrobee when the Move button is clicked. Aft-Forward, Port-Starboard, and 
 Overhead-Deck are fixed to the ISS directions. The Roll, Pitch, and Yaw inputs also use the ISS coordinate
@@ -46,7 +44,7 @@ The Manual Move Inputs fields (`translationInput` and `rotationInput` arrays in
    moves, the input fields are automatically populated with the coordinates and orientation of the preview. 
 
 When the Move button is clicked, the values in the Manual Move Inputs fields are used to construct the move command.
-</p>
+
 
 ### Options 
 The <b>Options section</b> in the Bee Commanding subtab sets the list of options to send to the
@@ -55,23 +53,18 @@ Apply Options button is clicked. If the checkbox to the left of the option is
 checked, the Apply Options button will send a command to turn on that option.
 If there is a green checkmark to the right of the option, the Astrobee already has
 that option turned on.  Options include:
-
-<ul>
-<li>  <b> Face Forward </b> (`SETTINGS_METHOD_SET_HOLONOMIC_MODE`) requires the Astrobee to face the direction of motion.
-Unchecking this option allows the Astrobee to fly sideways or backwards, which may be
-desirable to collect specific video or science data. However, the Astrobee does not 
-have cameras pointing in all directions, so it must be monitored closely when
-flying with Face Forward off so that it does not collide with an obstacle.</li> 
-
-<li>  <b>Check Obstacles</b> (`SETTINGS_METHOD_SET_CHECK_OBSTACLES`) requires the Astrobee to stop moving and station keep if
+* **Face Forward** (`SETTINGS_METHOD_SET_HOLONOMIC_MODE`) requires the Astrobee to face the direction of
+ motion. Unchecking this option allows the Astrobee to fly sideways or backwards, which may be desirable to
+  collect specific video or science data. However, the Astrobee does not have cameras pointing in all directions,
+   so it must be monitored closely when flying with Face Forward off so that it does not collide with an obstacle.
+* <b>Check Obstacles</b> (`SETTINGS_METHOD_SET_CHECK_OBSTACLES`) requires the Astrobee to stop moving and station 
+keep if
 it detects an object in its planned flight path. It may be necessary to turn off
-this option if the Astrobee detects a ghost obstacle and gets stuck.</li> 
-
-<li>  <b>Check Keepouts</b> (`SETTINGS_METHOD_SET_CHECK_ZONES`) requires the Astrobee to stop before entering 
+this option if the Astrobee detects a ghost obstacle and gets stuck.
+*  <b>Check Keepouts</b> (`SETTINGS_METHOD_SET_CHECK_ZONES`) requires the Astrobee to stop before entering 
 any keepout zone (keepout zones are designated with gray boxes in the Live Map subtab).
   It may be necessary to turn this option off if the Astrobee accidentally gets
-knocked into a keepout zone. </li> 
-</ul>
+knocked into a keepout zone.
 
 <b>Apply Options </b> commands the Astrobee to turn on the options that 
 are checked in the Options section and turn off the options that are not checked in
@@ -86,34 +79,30 @@ the Options section. This is done by sending the associated commands with the ap
 The <b> Commands section</b> in the Bee Commanding subtab has buttons to send commands to the selected Astrobee.
 It includes these buttons:
 
-<ul>
-<li>  <b>Station Keep Bee </b> commands the Astrobee to cancel any movement commands and
-station keep at its current position by sending the `MOBILITY_METHOD_STOPALLMOTION` command.</li>
+* <b>Station Keep Bee </b> commands the Astrobee to cancel any movement commands and
+station keep at its current position by sending the `MOBILITY_METHOD_STOPALLMOTION` command.
 
-<li>  <b> Move </b> commands the Astrobee to go to the position specified 
-in the Manual Move Inputs section by sending the `MOBILITY_METHOD_SIMPLEMOVE6DOF` command </li> 
-</ul>
+* <b> Move </b> commands the Astrobee to go to the position specified 
+in the Manual Move Inputs section by sending the `MOBILITY_METHOD_SIMPLEMOVE6DOF` command.
 
 ## Perching Arm
 
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure12.png 
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure12.PNG 
 "Perching Arm subtab")
 
-<p>
+
 The <b>Perching Arm subtab</b> 
 (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.PerchingArmPart.java`)
 sends commands related to the Astrobee's Perching 
 Arm. The widgets on this subtab are created in `PerchingArmPartCreator.java`. The Perching Arm is designed to grasp a handrail
 and secure the Astrobee while it conserves power by turning off its propulsion 
 system. The Perching Arm subtab includes the following sections:
-</p>
 
 ### Initialization
 The <b> Initialization section</b> in the Perching Arm subtab
 includes the Grab Control button discussed above.
 
 ### Pan and Tilt
-<p>
 The <b>Pan and Tilt section</b> in the Perching Arm subtab contains <b>text fields</b>
 to enter angles for the pan and tilt joints of the arm. 
 The <b>Pan and Tilt button</b> commands the Astrobee perching arm to move to the 
@@ -122,7 +111,6 @@ angles specified. The Pan and Tilt command (`ARM_METHOD_ARM_PAN_AND_TILT`) is in
 handrail and providing video.  The input may be moved in 10 degree increments by
 the arrows on either side of the text field, or the desired angle may be typed into the text field
 directly.  When pan and tilt are both zero, the arm is fully extended.
-</p>
 
 ### Options
 The <b>Options section</b> in the Perching Arm subtab includes the <b>Reacquire 
@@ -146,15 +134,12 @@ will fail if the Astrobee is not lined up correctly with the handrail.</li>
 
 ## Docking
 
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure13.png 
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure13.PNG 
 "Docking subtab")
 
-<p>
 The <b>Docking subtab</b> (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.DockingPart.java`)
 sends commands related to Docking. Widgets on this subtab are created in `DockingPartCreator.java`.
 It includes these sections: 
-</p>
-
 
 ### Initialization
 The <b> Initialization section</b> in the Docking subtab
@@ -176,10 +161,9 @@ there is a green checkmark to the right of the option title.
 The <b> Commands section</b> in the Docking subtab has buttons to send commands to the selected Astrobee.
 It includes:
 
-<ul>
-<li> The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
-station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`) </li>
-<li> The <b> Send Bee to Docking Station </b> button commands the Astrobee to immediately return
+* The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
+station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`)
+* The <b> Send Bee to Docking Station </b> button commands the Astrobee to immediately return
 to the Docking Station and dock itself (`SETTINGS_METHOD_SET_ENABLE_AUTO_RETURN`). 
  The Astrobee will be able to execute the Dock Automatically command from
 anywhere in the US section of the ISS.  The Astrobee will automatically choose an unoccupied berth
@@ -187,8 +171,7 @@ on the Docking Station.  The Astrobee plans a trajectory assuming the
 modules are unobstructed.  If it detects an obstacle in its planned path, it will
 stop and wait for the obstacle to move. (NB: As of July 2019, this command is not implemented in Astrobee
  Robot Software and there is no scheduled implementation date. To command Astrobee to dock, please use the manual
- Dock command on the Miscellaneous Commands tab, or on the Debugging tab.)</li> 
-</ul>
+ Dock command on the Miscellaneous Commands tab, or on the Debugging tab.)
 
 ## Relative Commanding
 
@@ -211,17 +194,12 @@ current position.
 
 The <b> Commands section</b> in the Docking subtab has buttons to send commands to the selected Astrobee.
 It includes:
-
-<ul>
-<li> The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
-station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`) </li>
+*The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
+station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`)
 <li> The <b> Move </b> button commands the Astrobee to move to the position specified in the 
-Input textbox. (`MOBILITY_METHOD_SIMPLEMOVE6DOF` with frame set to "body")</li> 
-</ul>
+Input textbox. (`MOBILITY_METHOD_SIMPLEMOVE6DOF` with frame set to "body")
 
 ## Interactive Map
-
-<p>
 The <b>Interactive Map subtab</b> 
 (`gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView.Teleop3dView`), like the 
 Live Map subtab on other tabs,
@@ -234,16 +212,13 @@ If the Preview intersects a keepout or a wall, and the Check Keepouts
 option is checked, the Preview turns orange to indicate a potential collision. Checking is done by
 `gov.nasa.arc.verve.robot.freeflyer.parts.LiveTeleopVerifier`, which knows what to check by having
  `ContextNames.TELEOP_TRANSLATION`, `TELEOP_ROTATION_RADIANS`, and `CHECK_KEEPOUTS_ENABLED` injected.
-</p>
 
-<p>
  The Preview has color coded arrows and rings that can be dragged to move it to
 the desired position.  Red indicates Astrobee's forward direction and blue indicates Astrobee's
 down direction. Interaction is done by creating a `VerveInteractable` and calling `VerveUserData` 
 and `VerveInteractManager`. The Manual Move Inputs fields update automatically
 when the Preview is dragged by its arrows, by the BeeCommandingPartOnTeleoperateTab having 
 `ContextNames.TELEOP_TRANSLATION` and `TELEOP_ROTATION_RADIANS` enabled.
-</p>
 
 ![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure14.png 
 "Interactive Map")
@@ -251,20 +226,16 @@ when the Preview is dragged by its arrows, by the BeeCommandingPartOnTeleoperate
 The <b>Camera Controls</b> box in the Interactive Map (`ArrowsDialogWithPreviewButton` class inside
  `Teleop3dView`) has these additional buttons:
 
-<ul>
-<li> <b>Show</b> or <b>Hide Preview</b> displays or hides the white Preview model</li>
-<li> <b>Zoom to Preview</b> centers the map on the Preview model. </li>
-<li> <b>Snap Preview to Bee</b> moves the Preview to the current position of the selected Astrobee.
+* <b>Show</b> or <b>Hide Preview</b> displays or hides the white Preview model</li>
+* <b>Zoom to Preview</b> centers the map on the Preview model. </li>
+* <b>Snap Preview to Bee</b> moves the Preview to the current position of the selected Astrobee.
 The coordinates in the Manual Move Inputs section will update accordingly.
- </ul>
 
+## Miscellaneous Commands
 
-<h3 id="MiscCommands"> Miscellaneous Commands</h3>
-
-![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure15.png 
+![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/MiscellaneousCommmandsSubtab.png 
 "Miscellaneous Commands subtab")
 
-<p>
 The <b>Miscellaneous Commands subtab</b> 
 (`gov.nasa.arc.verve.freeflyer.workbench.parts.teleop.MiscellaneousCommandsPart`) 
 may have different command options, depending
@@ -284,6 +255,5 @@ holds the information to create one type of widget, including
 - button text
 - parameters for the command, if needed
 - options for parameters, if needed
-See [this](docs/config_files.md) page under TeleopCommandsConfiguration.json
+See [this](config_files.md) page under TeleopCommandsConfiguration.json
  for examples of items in the json file.
-</p>
