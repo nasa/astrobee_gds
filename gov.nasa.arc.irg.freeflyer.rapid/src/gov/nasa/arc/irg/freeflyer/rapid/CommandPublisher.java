@@ -266,10 +266,11 @@ public class CommandPublisher {
 	}
 
 	public void sendSetCameraParamsCommand(String name, String resolution,
-			float frameRate, float bandwidth) {
+			String cameraMode, float frameRate, float bandwidth) {
 		Command cmd = buildCommand(SETTINGS_METHOD_SET_CAMERA.VALUE, SETTINGS.VALUE);
 
 		setCameraParamsParams.set(SETTINGS_METHOD_SET_CAMERA_PARAM_CAMERA_NAME.VALUE, name);
+		setCameraParamsParams.set(SETTINGS_METHOD_SET_CAMERA_PARAM_CAMERA_MODE.VALUE, cameraMode);
 		setCameraParamsParams.set(SETTINGS_METHOD_SET_CAMERA_PARAM_RESOLUTION.VALUE, resolution);
 		setCameraParamsParams.set(SETTINGS_METHOD_SET_CAMERA_PARAM_FRAME_RATE.VALUE, frameRate);
 		setCameraParamsParams.set(SETTINGS_METHOD_SET_CAMERA_PARAM_BANDWIDTH.VALUE, bandwidth);
@@ -432,6 +433,31 @@ public class CommandPublisher {
 		LogPoster.postToLog(LogEntry.COMMAND, cmd, freeFlyerAgent.name());
 	}
 
+	/** Takes xyz displacement in body coordinates (m) 
+	 * and body relative rotation in RADIANS */
+	public void sendTranslateRotateCommandInRelativeCoordinates(double x, double y, double z, double rollRad, double pitchRad, double yawRad) {
+		Command cmd = buildCommand(MOBILITY_METHOD_SIMPLEMOVE6DOF.VALUE, MOBILITY.VALUE);
+		Vec3d xyz = new Vec3d();
+		xyz.userData[0] = x;
+		xyz.userData[1] = y;
+		xyz.userData[2] = z;
+		paramsRelativeMove6dof.set(MOBILITY_METHOD_SIMPLEMOVE6DOF_PARAM_END_LOCATION.VALUE, xyz);
+		
+		Quaternion change = toQuaternion(yawRad, pitchRad, rollRad);
+
+		Mat33f mat = new Mat33f();
+		mat.userData[0] = change.getXf();
+		mat.userData[1] = change.getYf();
+		mat.userData[2] = change.getZf();
+		mat.userData[3] = change.getWf();
+
+		paramsRelativeMove6dof.set(MOBILITY_METHOD_SIMPLEMOVE6DOF_PARAM_ROT.VALUE, mat);
+		paramsRelativeMove6dof.assign(cmd.arguments.userData);
+
+		sendCommand(cmd);
+		LogPoster.postToLog(LogEntry.COMMAND, cmd, freeFlyerAgent.name());
+	}
+
 
 	/** Takes xyz displacement in axis aligned world coordinates (m) 
 	 * and absolute rotation in RADIANS */
@@ -525,6 +551,7 @@ public class CommandPublisher {
 
 		setCameraParamsParams = new ParameterList();
 		setCameraParamsParams.add(SETTINGS_METHOD_SET_CAMERA_PARAM_CAMERA_NAME.VALUE, SETTINGS_METHOD_SET_CAMERA_DTYPE_CAMERA_NAME.VALUE);
+		setCameraParamsParams.add(SETTINGS_METHOD_SET_CAMERA_PARAM_CAMERA_MODE.VALUE, SETTINGS_METHOD_SET_CAMERA_DTYPE_CAMERA_MODE.VALUE);
 		setCameraParamsParams.add(SETTINGS_METHOD_SET_CAMERA_PARAM_RESOLUTION.VALUE, SETTINGS_METHOD_SET_CAMERA_DTYPE_RESOLUTION.VALUE);
 		setCameraParamsParams.add(SETTINGS_METHOD_SET_CAMERA_PARAM_FRAME_RATE.VALUE, SETTINGS_METHOD_SET_CAMERA_DTYPE_FRAME_RATE.VALUE);
 		setCameraParamsParams.add(SETTINGS_METHOD_SET_CAMERA_PARAM_BANDWIDTH.VALUE, SETTINGS_METHOD_SET_CAMERA_DTYPE_BANDWIDTH.VALUE);

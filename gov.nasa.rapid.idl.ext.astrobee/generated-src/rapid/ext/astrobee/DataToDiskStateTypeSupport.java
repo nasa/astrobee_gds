@@ -152,6 +152,7 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
         currentAlignment += rapid.MessageTypeSupport.get_instance().get_serialized_sample_max_size(endpoint_data,false,encapsulation_id,currentAlignment);
 
         currentAlignment += CdrPrimitiveType.getStringMaxSizeSerialized(currentAlignment, (32)+1);
+        currentAlignment += CdrPrimitiveType.BOOLEAN.getMaxSizeSerialized(currentAlignment );
         currentAlignment += rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().get_serialized_sample_max_size(endpoint_data,false, encapsulation_id,currentAlignment);
         if (include_encapsulation) {
             currentAlignment += encapsulation_size;
@@ -179,6 +180,7 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
 
         currentAlignment += rapid.MessageTypeSupport.get_instance().get_serialized_sample_min_size(endpoint_data,false,encapsulation_id,currentAlignment);
         currentAlignment += CdrPrimitiveType.getStringMaxSizeSerialized(currentAlignment, 1);
+        currentAlignment += CdrPrimitiveType.BOOLEAN.getMaxSizeSerialized(currentAlignment );
         currentAlignment += rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().get_serialized_sample_min_size(endpoint_data,false, encapsulation_id,currentAlignment);
 
         if (include_encapsulation) {
@@ -214,6 +216,7 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
             endpoint_data,false,encapsulation_id,currentAlignment,sample);
 
         currentAlignment  +=  CdrPrimitiveType.getStringSerializedSize(currentAlignment , typedSrc.name );
+        currentAlignment  +=  CdrPrimitiveType.BOOLEAN.getMaxSizeSerialized(currentAlignment);
         currentAlignment += rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().get_serialized_sample_size(
             endpoint_data,false,encapsulation_id,currentAlignment,typedSrc.topicSaveSettings);
 
@@ -273,6 +276,8 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
             rapid.MessageTypeSupport.get_instance().serialize(endpoint_data,src,dst,false,encapsulation_id,serialize_sample,endpoint_plugin_qos);
 
             dst.writeString(typedSrc.name,32);
+
+            dst.writeBoolean(typedSrc.recording);
 
             rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().serialize(endpoint_data, typedSrc.topicSaveSettings, dst, false, encapsulation_id,true,endpoint_plugin_qos);
         }
@@ -343,6 +348,7 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
 
             try{
                 typedDst.name = src.readString(32);
+                typedDst.recording = src.readBoolean();
                 typedDst.topicSaveSettings = (rapid.ext.astrobee.SaveSettingSequence64)rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().deserialize_sample(endpoint_data, typedDst.topicSaveSettings, src, false, true, endpoint_plugin_qos);     
             } catch (IllegalCdrStateException stateEx) {
                 if (src.available() >= CdrEncapsulation.CDR_ENCAPSULATION_PARAMETER_ID_ALIGNMENT) {
@@ -419,6 +425,8 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
             rapid.MessageTypeSupport.get_instance().skip(endpoint_data, src, false, true, endpoint_plugin_qos);
             src.skipString();
 
+            src.skipBoolean();
+
             rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().skip(endpoint_data, src, false, true, endpoint_plugin_qos);
 
         }
@@ -454,6 +462,8 @@ public class DataToDiskStateTypeSupport extends TypeSupportImpl {
             endpoint_plugin_qos);
 
             src.skipString();
+
+            src.skipBoolean();
 
             rapid.ext.astrobee.SaveSettingSequence64TypeSupport.get_instance().skip(endpoint_data, src, false, true, endpoint_plugin_qos);
 

@@ -22,8 +22,9 @@ import com.ardor3d.scenegraph.hint.CullHint;
 public class RapidFreeFlyerRobot extends RapidRobot {
 	private static final Logger 	logger = Logger.getLogger(RapidFreeFlyerRobot.class);
 
-	public static final String DRAGGABLE_PREVIEW		  = "DragPreview";
-	
+	public static final String ABSOLUTE_DRAGGABLE_PREVIEW		  = "DragPreview";
+	public static final String RELATIVE_DRAGGABLE_PREVIEW	  = "LocalDragPreview";
+
 	private Node m_model;
 	private Node camerasNode = new Node("FOVCamerasNode");
 	private List<FOVCameraModel> cameras;
@@ -39,7 +40,8 @@ public class RapidFreeFlyerRobot extends RapidRobot {
 		m_partInfo.put(AXES,            new PartInfo(true));
 		m_partInfo.put(POSE_HISTORY,    new PartInfo(true));
 		m_partInfo.put(JOINTS, 			new PartInfo(true));
-		m_partInfo.put(DRAGGABLE_PREVIEW,	new PartInfo(false));
+		m_partInfo.put(ABSOLUTE_DRAGGABLE_PREVIEW,	new PartInfo(false));
+		m_partInfo.put(RELATIVE_DRAGGABLE_PREVIEW,	new PartInfo(false));
 	}
 
 	@Override

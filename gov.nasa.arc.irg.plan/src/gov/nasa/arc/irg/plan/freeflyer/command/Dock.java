@@ -43,7 +43,7 @@ public class Dock extends FreeFlyerCommand {
 	}
 	
 	public int getCalculatedDuration() {
-		return 10;
+		return 60;
 	}
 	
 	@JsonIgnore

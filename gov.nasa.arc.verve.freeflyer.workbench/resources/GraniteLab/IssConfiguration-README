@@ -1,4 +1,12 @@
-The IssConfiguration.json file is set up as a JSON array such that each object describes a 
+DO NOT DELETE THIS FILE FROM THE GRANITE LAB FOLDER!!
+
+If you do, you will get an error if:
+	1) you create a Plan using an ISS version of the Control Station that specifies a Station using 
+		Module and Bay instead of Cartesian coordinates.
+	2) you attempt to open the Plan using the GraniteLab version of the Control Station.
+(For instance, if you created a Plan with one Station just to set up settings).
+
+The IssConfiguration.json file is set up as a JSON array such that each object describes a
 single module. Distances are in meters and angles are in degrees. A single module consists of 
 the following fields:
 

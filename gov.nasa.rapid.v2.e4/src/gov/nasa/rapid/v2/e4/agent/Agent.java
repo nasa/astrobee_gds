@@ -123,8 +123,8 @@ public class Agent implements Comparable<Agent> {
     public static final Agent Bumble		 = new Agent("Bumble",		 Tag.ASTROBEE, Tag.FREE_FLYER);
     public static final Agent Honey			 = new Agent("Honey",		 Tag.ASTROBEE, Tag.FREE_FLYER);
     public static final Agent Queen			 = new Agent("Queen",		 Tag.ASTROBEE, Tag.FREE_FLYER);
-    public static final Agent BSharp		 = new Agent("BSharp",		 Tag.ASTROBEE, Tag.FREE_FLYER);
-    public static final Agent BSharp2		 = new Agent("Bsharp",		 Tag.ASTROBEE, Tag.FREE_FLYER);
+    public static final Agent BSharp		 = new Agent("Bsharp",		 Tag.ASTROBEE, Tag.FREE_FLYER);
+    public static final Agent BSharp2		 = new Agent("BSharp",		 Tag.ASTROBEE, Tag.FREE_FLYER);
     public static final Agent Melissa		 = new Agent("Melissa",		 Tag.ASTROBEE, Tag.FREE_FLYER);
     public static final Agent Killer	     = new Agent("Killer",		 Tag.ASTROBEE, Tag.FREE_FLYER);
     public static final Agent Killer2	     = new Agent("killer",		 Tag.ASTROBEE, Tag.FREE_FLYER);

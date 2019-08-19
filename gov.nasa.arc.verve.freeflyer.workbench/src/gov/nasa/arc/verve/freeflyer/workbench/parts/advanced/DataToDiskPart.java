@@ -20,16 +20,14 @@ package gov.nasa.arc.verve.freeflyer.workbench.parts.advanced;
 import gov.nasa.arc.irg.freeflyer.rapid.CommandPublisher;
 import gov.nasa.arc.irg.freeflyer.rapid.CompressedFilePublisher;
 import gov.nasa.arc.irg.freeflyer.rapid.FreeFlyerStrings;
-import gov.nasa.arc.irg.freeflyer.rapid.frequent.DiskStateHolder;
-import gov.nasa.arc.irg.freeflyer.rapid.frequent.FrequentTelemetryListener;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AggregateAstrobeeState;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateGds;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateListener;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateManager;
-import gov.nasa.arc.irg.freeflyer.rapid.state.DiskInfoGds;
 import gov.nasa.arc.irg.freeflyer.rapid.state.RosTopicsList;
 import gov.nasa.arc.irg.freeflyer.rapid.state.RosTopicsList.ARosTopic;
 import gov.nasa.arc.irg.plan.ui.io.ConfigFileWrangler;
+import gov.nasa.arc.irg.util.ui.ColorProvider;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.CommandButton;
 import gov.nasa.dds.system.DdsTask;
@@ -44,89 +42,92 @@ import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Vector;
 
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.log4j.Logger;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.ScrollBar;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
 import rapid.ext.astrobee.CompressedFileAck;
 import rapid.ext.astrobee.DATA;
-import rapid.ext.astrobee.DATA_METHOD_CLEAR_DATA;
-import rapid.ext.astrobee.DATA_METHOD_DOWNLOAD_DATA;
 import rapid.ext.astrobee.DATA_METHOD_SET_DATA_TO_DISK;
-import rapid.ext.astrobee.DATA_METHOD_STOP_DOWNLOAD;
+import rapid.ext.astrobee.DATA_METHOD_START_RECORDING;
+import rapid.ext.astrobee.DATA_METHOD_START_RECORDING_PARAM_DESCRIPTION;
+import rapid.ext.astrobee.DATA_METHOD_STOP_RECORDING;
 
-public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryListener, IRapidMessageListener {
-	private static final Logger logger = Logger.getLogger(DataToDiskPart.class);
-	private CommandButton downloadButton, stopDownloadButton, clearDataButton;
+public class DataToDiskPart implements AstrobeeStateListener, IRapidMessageListener {
+//	private static final Logger logger = Logger.getLogger(DataToDiskPart.class);
 	private CommandPublisher commandPublisher;
-	private boolean agentValid = false;
 	private String titleString = "Data to Disk";
 	private final String DATA_TO_DISK_LOG_STRING = "Upload Data to Disk Configuration";
 	protected Agent agent;
 	protected MessageType[] sampleType;
 	private Label agentNameLabel;
 	private int entireWidth = 3;
-	private int[] dataSizeTreeWidths = {150, 150, 150};
-	private int[] dataToDiskSettingsTreeWidths = {150, 150, 40};
-	private int[] topicsTreeWidths = {250};
-	private Combo configureCombo;
-	private CommandButton configureButton;
+	private int[] dataToDiskSettingsTreeWidths = {300, 150, 40};
+	private int[] topicsTreeWidths = {300};
+	private final int NUM_FAVORITES = 3;
+	private Combo[] configureCombo = new Combo[NUM_FAVORITES];
+	private CommandButton[] configureButton = new CommandButton[NUM_FAVORITES];
+	private CommandButton startRecordButton, stopRecordButton;
+	private final String START_RECORD_STRING = "Start Recording Data";
+	private final String STOP_RECORD_STRING = "Stop Recording Data";
 	private String[] configureFilesNames;
 	private File[] configureFiles;
-	private DiskStateHolder diskStateHolder;
 	protected String participantId = Rapid.PrimaryParticipant;
 	protected boolean waitingToSendSetCommand = false;
-	
 	@Inject
 	IEclipseContext context;
+	protected Text startRecordDescriptionText;
 
 	protected AstrobeeStateManager astrobeeStateManager;
-	private String[] diskNameLabel, dataSizeLabel, diskSizeLabel;
-	private int maxNumDisks;
 	protected String myId;
 
-	private Tree dataSizeTree;
-	private TreeViewer dataSizeViewer;
 	private DecimalFormat formatter = new DecimalFormat("#.######");
+	int graylevel = 220;
+	protected final Color gray1 = ColorProvider.get(graylevel,graylevel,graylevel);
 
-	protected Tree dataToDiskSettingsTree;
-	protected TreeViewer dataToDiskSettingsTreeViewer;
-	protected Tree topicsTree;
-	protected TreeViewer topicsTreeViewer;
+	protected Table allTopicsTable;
+	protected Table topicSettingsTable;
+	protected String[] topicSettingsHeaders = {
+			"Topic                                    ",
+			"Downlink       ", 
+			"Freq (Hz)"};
 	protected Display savedDisplay;
-
-	@Inject 
+	protected Label recordingNameLabel;
+	protected String notRecordingString = "Not recording ";
+	protected String recordingString = "Recording ";
+	
+	@Inject
 	public DataToDiskPart(Composite parent) {
 		savedDisplay = Display.getDefault();
 		formatter.setRoundingMode(RoundingMode.HALF_UP);
@@ -135,94 +136,62 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 
 		GridData gdThreeWide = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gdThreeWide.horizontalSpan = 3;
-		gdThreeWide.verticalSpan = 6;
 		parent.setLayoutData(gdThreeWide);
 		myId = Agent.getEgoAgent().name();
 
 		GuiUtils.makeHorizontalSeparator(parent);
 		createAgentNameLabel(parent);
+		recordingNameLabel = new Label(parent, SWT.None);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		recordingNameLabel.setLayoutData(data);
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<16;i++) {
+			sb.append("\t");
+		}
+		recordingNameLabel.setText(sb.toString());
 
-		makeDataDownloadButtons(parent);
-//		makeConfigureDataSection(parent);
-		
-		GuiUtils.makeHorizontalSeparator(parent);
+		makeConfigureDataSection(parent);
 
-		createTopicsTreeSection(parent);
-		createDataToDiskSettingsTreeSection(parent);
-		GuiUtils.makeHorizontalSeparator(parent);
-
-		makeDiskDataDisplay(parent);
-		GuiUtils.makeHorizontalSeparator(parent);
+		createAllTopicsTableSection(parent);
+		createTopicSettingsTableSection(parent);
 
 		sampleType = new MessageType[] {
 				MessageTypeExtAstro.COMPRESSED_FILE_ACK_TYPE,
 		};
 	}
-	
-	public void createTopicsTreeSection(Composite parent) {
+
+	public void createAllTopicsTableSection(Composite parent) {
 		Composite c = setupNarrowTreeSectionComposite(parent, 1);
 
-		topicsTree = new Tree(c, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
-		topicsTree.setHeaderVisible(true);
+		allTopicsTable = new Table(c, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
+		allTopicsTable.setLinesVisible(true);
+		allTopicsTable.setHeaderVisible(true);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-		topicsTree.setLayoutData(gd);
+		allTopicsTable.setLayoutData(gd);
 
-		topicsTreeViewer = new TreeViewer(topicsTree);
-
-		TreeColumn col1 = new TreeColumn(topicsTree, SWT.LEFT);
-		topicsTree.setLinesVisible(true);
-		col1.setText("Published Topics");
+		TableColumn col1 = new TableColumn(allTopicsTable, SWT.LEFT);
+		col1.setText("Published Topics              ");
 		col1.setWidth(topicsTreeWidths[0]);
-
-		topicsTree.addControlListener(new ControlAdapter() {
-			@Override
-			public void controlResized(ControlEvent e) {
-				fillColumn(topicsTree);
-			}
-		});
-
-		topicsTreeViewer.setContentProvider( new RosTopicTreeContentProvider());
-		topicsTreeViewer.setLabelProvider(new RosTopicTableLabelProvider());
-
-		topicsTreeViewer.setInput(RosTopicsList.getTopicsList().getTopics());
-		topicsTreeViewer.expandToLevel(2);
+		col1.addListener(SWT.Selection, new SortListener(allTopicsTable,1));
+		allTopicsTable.getColumn(0).pack();
 	}
 
-	public void createDataToDiskSettingsTreeSection(Composite parent) {
-		Composite c = setupTreeSectionComposite(parent, 2);
+	public void createTopicSettingsTableSection(Composite parent) {
+		Composite c = setupTableSectionComposite(parent, 2, true);
 
-		dataToDiskSettingsTree = new Tree(c, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
-		dataToDiskSettingsTree.setHeaderVisible(true);
+		topicSettingsTable = new Table(c, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
+		topicSettingsTable.setHeaderVisible(true);
+		topicSettingsTable.setLinesVisible(true);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-		dataToDiskSettingsTree.setLayoutData(gd);
+		topicSettingsTable.setLayoutData(gd);
 
-		dataToDiskSettingsTreeViewer = new TreeViewer(dataToDiskSettingsTree);
-
-		TreeColumn col1 = new TreeColumn(dataToDiskSettingsTree, SWT.LEFT);
-		dataToDiskSettingsTree.setLinesVisible(true);
-		col1.setText("Topic");
-		col1.setWidth(dataToDiskSettingsTreeWidths[0]);
-
-		TreeColumn col2 = new TreeColumn(dataToDiskSettingsTree, SWT.LEFT);
-		col2.setText("Downlink");
-		col2.setWidth(dataToDiskSettingsTreeWidths[1]);
-
-		TreeColumn col3 = new TreeColumn(dataToDiskSettingsTree, SWT.LEFT);
-		col3.setText("Freq (Hz)");
-		col3.setWidth(dataToDiskSettingsTreeWidths[2]);
-
-		dataToDiskSettingsTree.addControlListener(new ControlAdapter() {
-			@Override
-			public void controlResized(ControlEvent e) {
-				fillColumn();
-			}
-		});
-
-		dataToDiskSettingsTreeViewer.setContentProvider( new RosTopicTreeContentProvider());
-		dataToDiskSettingsTreeViewer.setLabelProvider(new RosTopicTableLabelProvider());
-
-		dataToDiskSettingsTreeViewer.setInput(RosTopicsList.getDataToDiskSettings().getTopics());
-		dataToDiskSettingsTreeViewer.expandToLevel(2);
+		for(int i=0; i< topicSettingsHeaders.length; i++) {
+			final TableColumn col = new TableColumn(topicSettingsTable, SWT.LEFT);
+			col.setText(topicSettingsHeaders[i]);
+			col.setWidth(dataToDiskSettingsTreeWidths[i]);
+			col.addListener(SWT.Selection, new SortListener(topicSettingsTable,topicSettingsHeaders.length));
+			topicSettingsTable.getColumn(i).pack();
+		}
 	}
 
 	@Inject @Optional
@@ -240,13 +209,12 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		if(a == null) {
 			return;
 		}
-		agentValid = (a != null);
-		agent = a; 
+		agent = a;
 		agentNameLabel.setText(agent.name() + " " + titleString );
 		commandPublisher = CommandPublisher.getInstance(agent);
 		subscribe();
 	}
-	
+
 	public void unsubscribe() {
 		if(getAgent() != null) {
 			RapidMessageCollector.instance().removeRapidMessageListener(participantId, getAgent(), this);
@@ -257,10 +225,10 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		if (getAgent() == null){
 			return;
 		}
-		
+
 		final Agent agent = getAgent();
 		final String id = participantId;
-		
+
 		DdsTask.dispatchExec(new Runnable() {
 			@Override
 			public void run() {
@@ -274,7 +242,7 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 			}
 		});
 	}
-	
+
 	protected List<MessageType> getMessageTypes() {
 		List<MessageType> ret = new ArrayList<MessageType>();
 		for(int i=0; i<getSampleType().length; i++) {
@@ -282,7 +250,7 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		}
 		return ret;
 	}
-	
+
 	protected MessageType[] getSampleType() {
 		return sampleType;
 	}
@@ -302,106 +270,47 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 			}
 		}
 	}
-	
+
 	private void sendSetDataToDiskConfigurationCmd() {
 		commandPublisher.sendGenericNoParamsCommand(
 				DATA_METHOD_SET_DATA_TO_DISK.VALUE, 
 				DATA.VALUE);
 	}
 
-	public void makeDiskDataDisplay(Composite parent) {
-		Composite c = setupTreeSectionComposite(parent, 3);
-
-		dataSizeTree = new Tree(c, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
-		dataSizeTree.setHeaderVisible(true);
-		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-		dataSizeTree.setLayoutData(gd);
-
-		dataSizeViewer = new TreeViewer(dataSizeTree);
-
-		TreeColumn col1 = new TreeColumn(dataSizeTree, SWT.LEFT);
-		dataSizeTree.setLinesVisible(true);
-		col1.setText("Disk");
-		col1.setWidth(dataSizeTreeWidths[0]);
-
-		TreeColumn col2 = new TreeColumn(dataSizeTree, SWT.LEFT);
-		col2.setText("Data Size");
-		col2.setWidth(dataSizeTreeWidths[1]);
-
-		TreeColumn col3 = new TreeColumn(dataSizeTree, SWT.LEFT);
-		col3.setText("Disk Size");
-		col3.setWidth(dataSizeTreeWidths[2]);
-
-		dataSizeTree.addControlListener(new ControlAdapter() {
-			@Override
-			public void controlResized(ControlEvent e) {
-				fillColumn(dataSizeTree);
-			}
-		});
-
-		dataSizeViewer.setContentProvider( new DataTreeContentProvider());
-		dataSizeViewer.setLabelProvider(new DataTableLabelProvider());
-	}
-
-	private void updateInput() {
-		if(dataSizeTree == null || dataSizeTree.isDisposed()) {
-			return;
-		}
-		Integer[] nums = new Integer[maxNumDisks];
-		for(int i = 0; i < maxNumDisks; i++) {
-			nums[i] = i;
-		}
-
-		dataSizeViewer.setInput(nums);
-		dataSizeViewer.refresh();
-		dataSizeTree.getParent().redraw();
-	}
-
-	private void updateDataToDiskTree() {
-		if(dataToDiskSettingsTree == null || dataToDiskSettingsTree.isDisposed()) {
-			return;
-		}
-		Collection<ARosTopic> c = RosTopicsList.getDataToDiskSettings().getTopics();
-//		logger.error("Data To Disk Settings =");
-//		for(ARosTopic art : c) {
-//			logger.error(art.toString());
-//		}
-		dataToDiskSettingsTreeViewer.setInput(c);
-		dataToDiskSettingsTreeViewer.refresh();
-		dataToDiskSettingsTree.getParent().redraw();
-	}	
-	
-	private void updateTopicsTree() {
-		if(topicsTree == null || topicsTree.isDisposed()) {
-			return;
-		}
-		Collection<ARosTopic> list = RosTopicsList.getTopicsList().getTopics();
-		topicsTreeViewer.setInput(list);
-		topicsTreeViewer.refresh();
-		topicsTree.getParent().redraw();
-	}	
-
-	private Composite setupTreeSectionComposite(Composite parent, int width) {
+	private Composite setupTableSectionComposite(Composite parent, int width, boolean grabVertical) {
 		Composite c = new Composite(parent, SWT.NONE);
 		GridLayout gl = new GridLayout();
 		gl.marginWidth = 0;
 		gl.verticalSpacing = 0;
 		c.setLayout(gl);
-		GridData data = new GridData(SWT.FILL, SWT.FILL, true, false);
-		data.heightHint = 200;
+		GridData data;
+		if(grabVertical) {
+			data = new GridData(SWT.FILL, SWT.FILL, true, true);
+		} else {
+			data = new GridData(SWT.FILL, SWT.TOP, true, false);
+		}
 		data.horizontalSpan = width;
 		c.setLayoutData(data);
 		return c;
 	}
-	
+
+	private Composite setupConfigComposite(Composite parent, int width) {
+		Composite c = new Composite(parent, SWT.NONE);
+		GridLayout gl = new GridLayout(2,false);
+		c.setLayout(gl);
+		GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
+		data.horizontalSpan = width;
+		c.setLayoutData(data);
+		return c;
+	}
+
 	private Composite setupNarrowTreeSectionComposite(Composite parent, int width) {
 		Composite c = new Composite(parent, SWT.NONE);
 		GridLayout gl = new GridLayout();
 		gl.marginWidth = 0;
 		gl.verticalSpacing = 0;
 		c.setLayout(gl);
-		GridData data = new GridData(SWT.BEGINNING, SWT.FILL, false, false);
-		data.heightHint = 200;
+		GridData data = new GridData(SWT.BEGINNING, SWT.FILL, false, true);
 		data.horizontalSpan = width;
 		c.setLayoutData(data);
 		return c;
@@ -415,6 +324,7 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		public void inputChanged(Viewer viewer, Object oldInput,
 				Object newInput) { /**/ }
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public Object[] getElements(Object inputElement) {
 			if(inputElement instanceof Collection<?>) {
@@ -475,28 +385,6 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		public void removeListener(ILabelProviderListener listener) { /**/ }
 	}	
 
-	class DataTableLabelProvider implements ITableLabelProvider{
-
-		public Image getColumnImage(Object element, int columnIndex){ return null; }
-
-		public String getColumnText(Object element, int columnIndex){
-			switch (columnIndex){
-			case 0: return diskNameLabel[(Integer) element];
-			case 1: return dataSizeLabel[(Integer) element];
-			case 2: return diskSizeLabel[(Integer) element];
-			default: return null;
-			}
-		}
-
-		public void addListener(ILabelProviderListener listener) { /**/ }
-
-		public void dispose() { /**/ }
-
-		public boolean isLabelProperty(Object element, String property){ return false; }
-
-		public void removeListener(ILabelProviderListener listener) { /**/ }
-	}	
-
 	protected class DataTreeContentProvider implements ITreeContentProvider {
 		@Override
 		public void dispose() { /**/ }
@@ -520,31 +408,31 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		public boolean hasChildren(Object element) { return false; }
 	}
 
-	protected void updateDiskDataLabels() {
-		diskNameLabel = new String[maxNumDisks];
-		dataSizeLabel = new String[maxNumDisks];
-		diskSizeLabel = new String[maxNumDisks];
-	}
-
 	public void onAstrobeeStateChange(AggregateAstrobeeState aggregateState) {
 
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
-				if(downloadButton == null || downloadButton.isDisposed()) {
+				if(configureButton[0] == null || configureButton[0].isDisposed()) {
+					return;
+				}
+
+				updateTables();
+
+				if(!aggregateState.getAccessControl().equals(myId)) {
+					disableConfigs();
 					return;
 				}
 				
-				updateTopicsTree();
-				updateDataToDiskTree();
+				if(aggregateState.isRecordingData()) {
+					startRecordButton.setCompositeEnabled(false);
+					stopRecordButton.setCompositeEnabled(true);
+					recordingNameLabel.setText(recordingString + aggregateState.getRecordingName());
+				} else {
+					startRecordButton.setCompositeEnabled(true);
+					stopRecordButton.setCompositeEnabled(false);
+					recordingNameLabel.setText(notRecordingString + aggregateState.getRecordingName());
+				}
 				
-				if(!aggregateState.getAccessControl().equals(myId)) {
-					downloadButton.setCompositeEnabled(false);
-					stopDownloadButton.setCompositeEnabled(false);
-					clearDataButton.setCompositeEnabled(false);
-					configureButton.setCompositeEnabled(false);
-					configureCombo.setEnabled(false);
-					return;
-				} 
 				AstrobeeStateGds astrobeeState = aggregateState.getAstrobeeState();
 				AstrobeeStateGds.OperatingState opState = astrobeeState.getOperatingState();
 				if(opState == null) {
@@ -553,52 +441,32 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 				switch(opState) {
 				case READY:
 					if(astrobeeState.getSubMobilityState() == 0){
-						downloadButton.setCompositeEnabled(true);
-						stopDownloadButton.setCompositeEnabled(true);
-						clearDataButton.setCompositeEnabled(true);
-						configureButton.setCompositeEnabled(true);
-						configureCombo.setEnabled(true);
-					}else{
-						downloadButton.setCompositeEnabled(false);
-						stopDownloadButton.setCompositeEnabled(false);
-						clearDataButton.setCompositeEnabled(false);
+						enableConfigs();
 					}
 					break;
 				case TELEOPERATION:
-					configureCombo.setEnabled(true);
-					configureButton.setCompositeEnabled(true);
+					enableConfigs();
 					break;
 				default:
-					configureButton.setCompositeEnabled(false);
-					downloadButton.setCompositeEnabled(false);
-					stopDownloadButton.setCompositeEnabled(false);
-					clearDataButton.setCompositeEnabled(false);
-					configureCombo.setEnabled(false);
+					disableConfigs();
 				}
 
 			}
 		});
 	}
 
-	private void updateDiskStatus() {
-		Vector<DiskInfoGds> diskInfo = diskStateHolder.getDiskInfo();
-		if(diskInfo == null) {
-			return;
+	private void enableConfigs(){
+		for(int i=0;i<NUM_FAVORITES;i++) {
+			configureButton[i].setCompositeEnabled(true);
 		}
-
-		maxNumDisks = diskInfo.size();
-		updateDiskDataLabels();
-
-		int i = 0;		
-		for(DiskInfoGds info: diskInfo) {
-			diskNameLabel[i] = info.getName();
-			dataSizeLabel[i] = humanReadable(info.getDataSize());
-			diskSizeLabel[i] = humanReadable(info.getDiskSize());
-			i++;
-		}
-		updateInput();
 	}
-	
+
+	private void disableConfigs() {
+		for(int i=0;i<NUM_FAVORITES;i++) {
+			configureButton[i].setCompositeEnabled(false);
+		}
+	}
+
 	public static String humanReadable(double size) {
 		String[] bytes = new String[] { "B", "KB", "MB", "GB"};
 		if(size <= 0){
@@ -606,101 +474,25 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		}
 		//Math.log calculates how many zeroes in the entered number, and the division tells whether the output should be in bytes,
 		//kilobytes, megabytes, etc. 	
-	    int digitGroups = (int)(Math.log10(size)/Math.log10(1024));
-	    return new DecimalFormat("#,##0.#").format(size/Math.pow(1024, digitGroups)) + " " + bytes[digitGroups];
+		int digitGroups = (int)(Math.log10(size)/Math.log10(1024));
+		return new DecimalFormat("#,##0.#").format(size/Math.pow(1024, digitGroups)) + " " + bytes[digitGroups];
 	}
 
-	protected void makeDownloadButton(Composite downloadComposite) {
-		downloadButton = new CommandButton(downloadComposite, SWT.NONE);
-		downloadButton.setText("Download Data");
-		downloadButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		downloadButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		downloadButton.setCompositeEnabled(agentValid);
-		downloadButton.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// XXX ADD the immediate or delayed parameter
-				commandPublisher.sendGenericNoParamsCommand(
-						DATA_METHOD_DOWNLOAD_DATA.VALUE,
-						DATA.VALUE);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// no-op
-			}
-		});
-	}
-	
-	protected void makeStopDownloadButton(Composite downloadComposite) {
-		stopDownloadButton = new CommandButton(downloadComposite, SWT.NONE);
-		stopDownloadButton.setText("Stop Data Download");
-		stopDownloadButton.setCompositeEnabled(agentValid);
-		stopDownloadButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		stopDownloadButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		stopDownloadButton.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// XXX ADD the immediate or delayed parameter
-				commandPublisher.sendGenericNoParamsCommand(
-						DATA_METHOD_STOP_DOWNLOAD.VALUE,
-						DATA.VALUE);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// no-op
-			}
-		});
-	}
-	
-	protected void makeClearDataButton(Composite downloadComposite) {
-		clearDataButton = new CommandButton(downloadComposite, SWT.NONE);
-		clearDataButton.setText("Clear Data");
-		clearDataButton.setCompositeEnabled(agentValid);
-		clearDataButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		clearDataButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		clearDataButton.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				commandPublisher.sendGenericNoParamsCommand(
-						DATA_METHOD_CLEAR_DATA.VALUE,
-						DATA.VALUE);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// no-op
-			}
-		});
-	}
-	
-	protected void makeDataDownloadButtons(Composite parent) {
-		Composite downloadComposite = new Composite(parent, SWT.LEFT);
-		GuiUtils.giveGridLayout(downloadComposite, 5);
-		
-		GridData gdThreeWide = new GridData(SWT.FILL, SWT.CENTER, true, false);
-		gdThreeWide.horizontalSpan = 3;
-		gdThreeWide.verticalSpan = 6;
-		downloadComposite.setLayoutData(gdThreeWide);
-
-		makeDownloadButton(downloadComposite);
-		makeStopDownloadButton(downloadComposite);
-		makeClearDataButton(downloadComposite);
-		
+	protected void makeConfigureDataSection(Composite parent) {
+		Composite configureComposite = setupTableSectionComposite(parent, 3, false);
+		GuiUtils.giveGridLayout(configureComposite, 3);	
 		initConfigurationFiles();
-		makeConfigureCombo(downloadComposite);
-		makeConfigureButton(downloadComposite);
-		
-	}
 
-//	protected void makeConfigureDataSection(Composite parent) {
-//		Composite configureComposite = new Composite(parent, SWT.LEFT);
-//		GuiUtils.giveGridLayout(configureComposite, 2);	
-//		initConfigurationFiles();
-//		makeConfigureCombo(configureComposite);
-//		makeConfigureButton(configureComposite);
-//	}
+		for(int i=0;i<NUM_FAVORITES;i++) {
+			Composite comp = setupConfigComposite(configureComposite, 1);
+			comp.setBackground(gray1);
+			makeConfigureCombo(comp, i);
+			makeConfigureButton(comp, i);
+		}
+
+		createStartRecordingButton(configureComposite);
+		createStopRecordingButton(configureComposite);
+	}
 
 	protected void initConfigurationFiles() {
 		configureFiles = ConfigFileWrangler.getInstance().getDataToDiskFiles();
@@ -710,28 +502,27 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		}
 	}
 
-	protected void makeConfigureCombo(Composite parent) {
-		configureCombo = new Combo(parent, SWT.READ_ONLY);
-		configureCombo.setItems(configureFilesNames);
-		configureCombo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		configureCombo.setEnabled(false);
+	protected void makeConfigureCombo(Composite parent, int num) {
+		configureCombo[num] = new Combo(parent, SWT.READ_ONLY);
+		configureCombo[num].setItems(configureFilesNames);
+		configureCombo[num].setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 	}
 
-	protected void makeConfigureButton(Composite parent) {
-		configureButton = new CommandButton(parent, SWT.NONE);
-		configureButton.setText("Configure Data");
-		configureButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		configureButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		configureButton.addSelectionListener(new SelectionListener() {
+	protected void makeConfigureButton(Composite parent, int num) {
+		configureButton[num] = new CommandButton(parent, SWT.NONE);
+		configureButton[num].setText("Configure Data");
+		configureButton[num].setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		configureButton[num].setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		configureButton[num].addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(configureCombo.getSelectionIndex() == -1) {
+				if(configureCombo[num].getSelectionIndex() == -1) {
 					//print a message - nothing selected
 					System.out.println("no configuration selected");
 					return;
 				}
 
-				File selected = configureFiles[configureCombo.getSelectionIndex()];
+				File selected = configureFiles[configureCombo[num].getSelectionIndex()];
 				System.out.println(selected.getAbsolutePath());
 				if(selected.exists()){
 					try {
@@ -753,76 +544,68 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		});
 	}
 
+	private void createStartRecordingButton(Composite parent) {
+		Composite comp = new Composite(parent, SWT.NONE);
+		comp.setLayout(new GridLayout(2,true));
+		GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
+		data.horizontalSpan = 2;
+		comp.setLayoutData(data);
+
+		GuiUtils.giveGridLayout(parent, 3);	
+		comp.setBackground(gray1);
+
+		startRecordDescriptionText = new Text(comp, SWT.BORDER);
+		startRecordDescriptionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		startRecordButton = new CommandButton(comp, SWT.NONE);
+		startRecordButton.setText(START_RECORD_STRING);
+		startRecordButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		startRecordButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		startRecordButton.setCompositeEnabled(true);
+		startRecordButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String param = startRecordDescriptionText.getText();
+				commandPublisher.sendGenericOneStringCommand(
+						DATA_METHOD_START_RECORDING.VALUE,
+						DATA.VALUE, 
+						DATA_METHOD_START_RECORDING_PARAM_DESCRIPTION.VALUE, 
+						param);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
+	}
+
+	private void createStopRecordingButton(Composite parent) {
+		stopRecordButton = new CommandButton(parent, SWT.NONE);
+		stopRecordButton.setText(STOP_RECORD_STRING);
+		stopRecordButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		stopRecordButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		stopRecordButton.setCompositeEnabled(true);
+		stopRecordButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				commandPublisher.sendGenericNoParamsCommand(
+						DATA_METHOD_STOP_RECORDING.VALUE,
+						DATA.VALUE);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
+	}
+
 	private void createAgentNameLabel(Composite parent) {
 		agentNameLabel = new Label(parent, SWT.None);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.horizontalSpan = entireWidth;
+		data.horizontalSpan = entireWidth-1;
 		agentNameLabel.setLayoutData(data);
 		agentNameLabel.setText(titleString);
-		Font bigFont = GuiUtils.makeBigFont(parent, agentNameLabel);
-		agentNameLabel.setFont(bigFont);
-	}
-
-	protected void fillColumn(Tree tree) {
-		// calculate dataTreeWidths
-		int columnsWidth = 0;
-		for (int i = 0; i < tree.getColumnCount() - 1; i++) {
-			columnsWidth += tree.getColumn(i).getWidth();
-		}
-
-		Point size = tree.getSize();
-
-		int scrollBarWidth;
-		ScrollBar verticalBar = tree.getVerticalBar();
-		if(verticalBar.isVisible()) {
-			scrollBarWidth = verticalBar.getSize().x + 10;
-		} else {
-			scrollBarWidth = 0;
-		}
-
-		// adjust column according to available horizontal space
-		TreeColumn lastColumn = tree.getColumn(tree.getColumnCount() - 1);
-		if(columnsWidth + dataSizeTreeWidths[dataSizeTreeWidths.length - 1] + tree.getBorderWidth() * 2 < size.x - scrollBarWidth) {
-			lastColumn.setWidth(size.x - scrollBarWidth - columnsWidth - tree.getBorderWidth() * 2);
-
-		} else {
-			// fall back to minimum, scrollbar will show
-			if(lastColumn.getWidth() != dataSizeTreeWidths[dataSizeTreeWidths.length - 1]) {
-				lastColumn.setWidth(dataSizeTreeWidths[dataSizeTreeWidths.length - 1]);
-			}
-		}
-	}
-
-	protected void fillColumn() {
-		// calculate widths
-		int columnsWidth = 0;
-		for (int i = 0; i < dataToDiskSettingsTree.getColumnCount() - 1; i++) {
-			columnsWidth += dataToDiskSettingsTree.getColumn(i).getWidth();
-		}
-
-		Point size = dataToDiskSettingsTree.getSize();
-
-		int scrollBarWidth;
-		ScrollBar verticalBar = dataToDiskSettingsTree.getVerticalBar();
-		if (verticalBar.isVisible()) {
-			scrollBarWidth = verticalBar.getSize().x + 10;
-		} else {
-			scrollBarWidth = 0;
-		}
-
-		// adjust column according to available horizontal space
-		TreeColumn lastColumn = dataToDiskSettingsTree.getColumn(dataToDiskSettingsTree.getColumnCount() - 1);
-		if ((columnsWidth + dataToDiskSettingsTreeWidths[dataToDiskSettingsTreeWidths.length - 1]
-				+ dataToDiskSettingsTree.getBorderWidth() * 2) < (size.x - scrollBarWidth)) {
-			lastColumn.setWidth(size.x - scrollBarWidth - columnsWidth
-					- dataToDiskSettingsTree.getBorderWidth() * 2);
-
-		} else {
-			// fall back to minimum, scrollbar will show
-			if (lastColumn.getWidth() != dataToDiskSettingsTreeWidths[dataToDiskSettingsTreeWidths.length - 1]) {
-				lastColumn.setWidth(dataToDiskSettingsTreeWidths[dataToDiskSettingsTreeWidths.length - 1]);
-			}
-		}
 	}
 
 	@PreDestroy
@@ -831,26 +614,94 @@ public class DataToDiskPart implements AstrobeeStateListener, FrequentTelemetryL
 		unsubscribe();
 	}
 
-	@Inject @Optional
-	public void acceptComponentHolder(DiskStateHolder diskStateHolder) {
-		this.diskStateHolder = diskStateHolder;
-		diskStateHolder.addListener(this);
+	public void onConfigUpdate(Object config) {
+		// TODO Auto-generated method stub
 	}
+	private void updateTables(){
+		Display.getDefault().asyncExec(new Runnable() {
 
-	public void onSampleUpdate(Object sample) {
-		if(savedDisplay.isDisposed()) {
-			return;
-		}
-		savedDisplay.asyncExec(new Runnable() {
+			@Override
 			public void run() {
-				if(agentNameLabel != null && !agentNameLabel.isDisposed()) {
-					updateDiskStatus();
+				if(allTopicsTable.isVisible()){
+					Collection<ARosTopic> allTopics = RosTopicsList.getTopicsList().getTopics();
+					//										if(!apkFromAstrobee.isEmpty()){
+					allTopicsTable.removeAll();
+					//										}
+					for(final ARosTopic topic : allTopics){
+						final TableItem item = new TableItem(allTopicsTable, SWT.NONE);
+						item.setText(new String[]{topic.topicName});
+					}
+					if(allTopicsTable.getSortColumn() != null){
+						for(Listener listener: allTopicsTable.getSortColumn().getListeners(SWT.Selection)){
+							if(listener instanceof SortListener){
+								SortListener list = (SortListener)listener;
+								list.refresh(allTopicsTable.getSortColumn());
+							}
+						}
+					}	
 				}
+
+				//update bottom table
+				Collection<ARosTopic> selTopics = RosTopicsList.getDataToDiskSettings().getTopics();
+
+				topicSettingsTable.removeAll();
+				for(final ARosTopic topic : selTopics) {
+					final TableItem item = new TableItem(topicSettingsTable, SWT.NONE);
+					item.setText(new String[]{topic.topicName, topic.getDownlink().toString(),Float.toString(topic.getFrequency())});
+				}
+
+				if(topicSettingsTable.getSortColumn() != null){
+					for(Listener listener: topicSettingsTable.getSortColumn().getListeners(SWT.Selection)){
+						if(listener instanceof SortListener){
+							SortListener list = (SortListener)listener;
+							list.refresh(topicSettingsTable.getSortColumn());
+						}
+					}
+				}	
 			}
+
 		});
 	}
 
-	public void onConfigUpdate(Object config) {
-		// TODO Auto-generated method stub
+	class SortListener implements Listener{
+		final Table table;
+		final int size;
+		SortListener(final Table table,int size){
+			this.table = table;
+			this.size = size;
+		}
+
+		public void refresh(final TableColumn tableColumn){
+			updateTable(tableColumn, (table.getSortDirection() == SWT.UP) ? SWT.DOWN : SWT.UP );
+		}
+		private void updateTable(final TableColumn tableColumn,final int sortDirection){
+			final TableColumn sortColumn = tableColumn;
+			final int byteFlipper = (sortDirection == SWT.UP) ?  1 : -1;
+			final TableItem[] items = table.getItems();
+
+			Arrays.sort(items, new Comparator<TableItem>() {
+				@Override
+				public int compare(final TableItem o1, final TableItem o2) {
+					return byteFlipper * o1.getText().compareTo(o2.getText());
+				}
+			});
+			for(final TableItem item : items){
+				List<String> values = new ArrayList<String>();
+				for(int i = 0;i < size; i++){
+					values.add(item.getText(i));
+				}
+				item.dispose();
+				final TableItem row = new TableItem(table, SWT.NONE);
+				row.setText(values.toArray(new String[size]));
+			}
+			table.setSortColumn(sortColumn);
+			table.setSortDirection((sortDirection == SWT.UP) ? SWT.DOWN: SWT.UP);
+		}
+
+		@Override
+		public void handleEvent(final Event arg0) {
+			updateTable(((TableColumn)arg0.widget),table.getSortDirection());
+		}
+
 	}
 }

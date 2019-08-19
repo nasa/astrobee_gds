@@ -31,8 +31,10 @@ package rapid.ext.astrobee;
 /** Open or close gripper */
 /** Clear data */
 /** Start downloading data */
-/** Set active data-to-disk configuration to be the data-to-disk file most recently uplinked; the file specifies which data to save to free flyer onboard storage, and at what rates */
+/** Set data-to-disk configuration to be the data-to-disk file most recently uplinked; the file specifies which data to save to free flyer onboard storage, and at what rates */
+/** Starts the recording of the topics configured with the set data to disk command. */
 /** Stop downloading data */
+/** Stops the recording of the topics configured with the set data to disk command. */
 /** Pass data to guest science APK */
 /** Specify which guest science APK to send the data to */
 public class GUESTSCIENCE_METHOD_CUSTOM_GUEST_SCIENCE_DTYPE_APK_NAME {    

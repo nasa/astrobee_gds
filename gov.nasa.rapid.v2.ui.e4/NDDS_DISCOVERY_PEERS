@@ -8,4 +8,3 @@ builtin.shmem://        ; The builtin builtin 'shmem' transport plugin
 ;; Unicast
 localhost               ; A comma can be used a separator
 127.0.0.1               ;
-

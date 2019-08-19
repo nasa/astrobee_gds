@@ -30,10 +30,21 @@ public class SetCamera extends FreeFlyerCommand {
 	protected OptionsForOneCamera options;
 
 	// copy these to top level for FSW
+	protected String cameraMode;
 	protected String presetName;
 	protected String resolution;
 	protected float frameRate;
 	protected float bandwidth;
+
+	public String getCameraMode() {
+		return cameraMode;
+	}
+
+	public void setCameraMode(String cameraMode) {
+		String old = this.cameraMode;
+		this.cameraMode = cameraMode;
+		firePropertyChange("cameraMode", old, cameraMode);
+	}
 
 	public String getCameraName() {
 		return cameraName;
@@ -96,6 +107,7 @@ public class SetCamera extends FreeFlyerCommand {
 		int presetInd = Integer.valueOf(presetIndex);
 		OptionsForOneCamera.CameraPreset preset = options.getPresetNumber(presetInd);
 		// XXX do we have to set these through the setters for JSON to rewrite them???
+		cameraMode = preset.getCameraMode();
 		presetName = preset.getPresetName();
 		resolution = preset.getResolution();
 		bandwidth = preset.getBandwidth();
@@ -157,6 +169,7 @@ public class SetCamera extends FreeFlyerCommand {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cameraMode == null) ? 0 : cameraMode.hashCode());
 		result = prime * result + ((cameraName == null) ? 0 : cameraName.hashCode());
 		result = prime * result + ((presetIndex == null) ? 0 : presetIndex.hashCode());
 		result = prime * result + ((options == null) ? 0 : options.hashCode());
@@ -187,6 +200,16 @@ public class SetCamera extends FreeFlyerCommand {
 		}
 
 		SetCamera other = (SetCamera)o;
+
+		if (cameraMode == null) {
+			if (other.cameraMode != null) {
+				return false;
+			}
+		} else {
+			if (!cameraMode.equals(other.cameraMode)) {
+				return false;
+			}
+		}
 
 		if(cameraName == null) {
 			if(other.cameraName != null) {

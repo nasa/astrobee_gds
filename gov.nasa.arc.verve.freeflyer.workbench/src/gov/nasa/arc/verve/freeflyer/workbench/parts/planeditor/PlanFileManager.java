@@ -26,7 +26,6 @@ import gov.nasa.arc.irg.plan.model.PlanLibrary;
 import gov.nasa.arc.irg.plan.model.Sequenceable;
 import gov.nasa.arc.irg.plan.model.TypedObject;
 import gov.nasa.arc.irg.plan.modulebay.ModuleBayPlan;
-import gov.nasa.arc.irg.plan.ui.io.WorkbenchConstants;
 import gov.nasa.arc.irg.plan.ui.plancompiler.PlanCompiler;
 import gov.nasa.arc.verve.robot.freeflyer.utils.ContextNames;
 
@@ -72,8 +71,6 @@ public class PlanFileManager implements PropertyChangeListener {
 	@PostConstruct
 	public void setup() {
 		context.set(PlanFileManager.class, this);
-		//		context.set(ContextNames.APPEND_STATION_ENABLED, false);
-		setPlanClosed();
 	}
 
 	public void onClosePlanCommand() {

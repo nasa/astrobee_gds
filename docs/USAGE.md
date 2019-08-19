@@ -73,8 +73,8 @@ by crew, has only the first four tabs (not the Advanced Guest Science tab).
 [Run Plan Tab](run_plan_tab.md) <br>
 [Teleoperate Tab](teleoperate_tab.md) <br>
 [Guest Science/Advanced Guest Science Tabs](guest_science_tab.md) <br>
-[Debugging Tab](debugging_tab.md) <br>
-[Video Tab](video tab.md) <br>
+[Engineering, Other, and Debugging Tabs](debugging_tab.md) <br>
+[Video Tab](video_tab.md) <br>
 [Plan Editor Tab](plan_editor_tab.md) <br>
 [Modeling Tab](modeling_tab.md) <br>
 [Config Files](config_files.md) <br>
@@ -175,25 +175,26 @@ can operate before needing to recharge. If more than one hour is left, the time 
 on the selected robot. When an Astrobee first wakes up, nobody has control on it. If the Control field does not match the
  id of the user of the Control Station, only Grab Control and Stop commands can be sent from the Control Station 
  to that Astrobee.
+* The <b>Grab Control button</b> grabs access control on the selected Astrobee(s) if the Crew Control
+Station does not already have access control.
+  * When the Grab Control button is clicked, the Control Station sends an `ACCESSCONTROL_METHOD_REQUESTCONTROL`
+message to the selected Astrobee.  The Astrobee sends back a `ACCESSCONTROL_STATE` message with a cookie, and
+the Control Station then sends an `ACCESSCONTROL_METHOD_GRABCONTROL` with the cookie. If the cookie
+does not match the last cookie the Astrobee sent, the GrabControl command will fail. This interaction
+is mediated by the `GrabControlManager` in `gov.nasa.arc.irg.freeflyer.rapid.state` on the Control Station.
+* The <b>Station Keep</b> button commands the selected Astrobee to cancel any movement commands and
+station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`)
+* The <b>Stop Recording</b> button tells the selected Astrobee to stop recording data to disk 
+(`DATA_METHOD_STOP_RECORDING`)
 * The <b>Docking Station light</b> is green if the Docking Station is powered and connected.
 It is cyan otherwise.</li>
 * <b>GPS </b> displays the date and time. </li>
 
-
-## Grab Control Button ##
-
-All tabs have a <b> Grab Control button</b> that grabs access control on the selected Astrobee(s) if the Crew Control
-Station does not already have access control.
-
-When the Grab Control button is clicked, the Control Station sends an `ACCESSCONTROL_METHOD_REQUESTCONTROL`
-message to the Astrobee.  The Astrobee sends back a `ACCESSCONTROL_STATE` message with a cookie, and
-the Control Station then sends an `ACCESSCONTROL_METHOD_GRABCONTROL` with the cookie. If the cookie
-does not match the last cookie the Astrobee sent, the GrabControl command will fail. This interaction
-is mediated by the `GrabControlManager` in `gov.nasa.arc.irg.freeflyer.rapid.state` on the Control Station.
  
 ## Health  ##
 ![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure5.PNG 
 "Health subtab")
+
 
 The <b>Health subtab</b>, on the Run Plan and Teleoperate tabs, displays status information
  about the Astrobee selected in the Top Bar. The information comes from the 

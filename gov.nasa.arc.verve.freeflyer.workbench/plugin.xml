@@ -344,6 +344,53 @@
             widget="gov.nasa.arc.verve.freeflyer.workbench.widget.CustomGuestScienceWidget">
       </binding>
    </extension>
- 
-
+    <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.SetCheckObstacles"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.SetCheckObstaclesWidget">
+      </binding>
+   </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.SetCheckZones"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.SetCheckZonesWidget">
+      </binding>
+   </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.SetHolonomicMode"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.SetHolonomicModeWidget">
+      </binding>
+   </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.SetPlanner"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.SetPlannerWidget">
+      </binding>
+   </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.SetTelemetryRate"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.SetTelemetryRateWidget">
+      </binding>
+   </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.SwitchLocalization"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.SwitchLocalizationWidget">
+      </binding>
+   </extension>
+    <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.BoundWidget">
+      <binding
+            class="gov.nasa.arc.irg.plan.freeflyer.command.StartRecording"
+            widget="gov.nasa.arc.verve.freeflyer.workbench.widget.StartRecordingWidget">
+      </binding>
+   </extension>
 </plugin>

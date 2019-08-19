@@ -1,0 +1,51 @@
+{	
+	"type" : "CameraConfigurationFile",
+	"cameraConfigs" : [ {
+	    "name" : "NavCam",
+	    "position" : [0.12517, 0.0381, 0.12039],
+	    "rotation" : [0, 0, 0, 1],
+	    "horiz_fov" : 40,
+	    "vert_fov" : 130,
+	    "type" : "2D"
+	},
+	{
+	    "name" : "HazCam",
+	    "position" : [0.13602, -0.00635, -0.0127],
+	    "rotation" : [0, 0, 0, 1],
+	    "horiz_fov" : 62,
+	    "vert_fov" : 45,
+	    "type" : "depth"
+	},
+	{
+	    "name" : "SciCam",
+	    "position" : [0.13607, -0.00635, 0.1],
+	    "rotation" : [0, 0, 0, 1],
+	    "horiz_fov" : 54.8,
+	    "vert_fov" : 42.5,
+	    "type" : "2D"
+	},
+	{
+	    "name" : "PerchCam",
+	    "position" : [-0.13919, 0.05441, 0.01151],
+	    "rotation" : [0, 0, 1, 0],
+	    "horiz_fov" : 45,
+	    "vert_fov" : 62,
+	    "type" : "depth"
+	},
+	{
+	    "name" : "DockCam",
+	    "position" : [-0.12094, -0.05715, 0.01905],
+	    "rotation" : [0, 0, 1, 0],
+	    "horiz_fov" : 130,
+	    "vert_fov" : 40,
+	    "type" : "2D"
+	},
+	{
+	    "name" : "SpeedCam",
+	    "position" : [0, 0, 0.0719],
+	    "rotation" : [0.70711, 0, -0.70711, 0],
+	    "horiz_fov" : 20,
+	    "vert_fov" : 20,
+	    "type" : "2D"
+	} ]
+}

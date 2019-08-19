@@ -57,9 +57,9 @@ public class StandardControls implements AstrobeeStateListener, SelectedAgentCon
 	private String grabControlString = "Grab Control";
 	protected boolean astrobeeSelected = false;
 	
-	protected String stopString = "Stop";
-	protected CommandButton stopButton;
-	
+	protected String stationKeepString = "Station Keep";
+	protected CommandButton stationKeepButton;
+
 	protected String myId;
 	protected AstrobeeStateManager astrobeeStateManager;
 	protected int wholeWidth = 2;
@@ -98,16 +98,16 @@ public class StandardControls implements AstrobeeStateListener, SelectedAgentCon
 	private void makeTopCommandButtons(Composite parent) {
 		makeGrabControlButton(parent);
 		makeSendZonesButton(parent);
-		makeStopButton(parent);
-		makeTerminateButton(parent);
+		makeStationKeepButton(parent);
+		makeIdlePropulsionButton(parent);
 	}
 	
-	protected void makeStopButton(Composite parent) {
-		stopButton = new CommandButton(parent, SWT.NONE);
-		stopButton.setText(stopString);
-		stopButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-		stopButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-		stopButton.addSelectionListener(new SelectionListener() {
+	protected void makeStationKeepButton(Composite parent) {
+		stationKeepButton = new CommandButton(parent, SWT.NONE);
+		stationKeepButton.setText(stationKeepString);
+		stationKeepButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stationKeepButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stationKeepButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				commandPublisher.sendGenericNoParamsCommand(
@@ -162,7 +162,7 @@ public class StandardControls implements AstrobeeStateListener, SelectedAgentCon
 		});
 	}
 	
-	private void makeTerminateButton(Composite parent) {
+	private void makeIdlePropulsionButton(Composite parent) {
 		idlePropulsionButton = new CommandButton(parent, SWT.NONE);
 		idlePropulsionButton.setText(idlePropulsionString);
 		idlePropulsionButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
@@ -202,7 +202,7 @@ public class StandardControls implements AstrobeeStateListener, SelectedAgentCon
 		}
 		if(idlePropulsionButton != null) {
 			idlePropulsionButton.setEnabled(true);
-			stopButton.setEnabled(true);
+			stationKeepButton.setEnabled(true);
 		}
 	}
 	
@@ -252,20 +252,20 @@ public class StandardControls implements AstrobeeStateListener, SelectedAgentCon
 				case FLYING:
 				case DRIFTING:
 				case STOPPING:
-					stopButton.setCompositeEnabled(true);
+					stationKeepButton.setCompositeEnabled(true);
 					break;
 				case PERCHING:
 				case DOCKING:
 					if(aggregateState.getAstrobeeState().getSubMobilityState() == 0) {
 						// perched or docked
-						stopButton.setCompositeEnabled(false);
+						stationKeepButton.setCompositeEnabled(false);
 					} else {
 						// still in the process of perching or docking
-						stopButton.setCompositeEnabled(true);
+						stationKeepButton.setCompositeEnabled(true);
 					}
 					break;
 				default:
-					stopButton.setCompositeEnabled(false);
+					stationKeepButton.setCompositeEnabled(false);
 					break;
 				}
 			}

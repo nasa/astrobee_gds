@@ -399,7 +399,7 @@ public class CreatePlanTrace extends AbstractPlanTrace implements PropertyChange
 	}
 
 	protected void setupDraggablePreviewModel() {
-		draggablePreviewModel = new FreeFlyerBasicModel(.1524, "white");
+		draggablePreviewModel = new FreeFlyerBasicModel("white");
 		draggablePreviewModel.setScale(.99);
 		draggablePreviewNode = new Node("DraggablePreview");
 		draggablePreviewNode.attachChild(draggablePreviewModel);

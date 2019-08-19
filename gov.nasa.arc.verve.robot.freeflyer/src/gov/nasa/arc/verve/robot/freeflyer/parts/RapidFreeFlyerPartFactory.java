@@ -19,8 +19,10 @@ public class RapidFreeFlyerPartFactory implements IRobotPartFactory {
 		else if(id.equals(RapidFreeFlyerRobot.AXES))          return new RobotPartAxes(id, robot);
 		else if(id.equals(RapidFreeFlyerRobot.RADIAL_GRID))   return new RobotPartRadialGrid(id, robot);
 		else if(id.equals(RapidFreeFlyerRobot.POSE_HISTORY))  return new RobotPartBreadCrumb(id, robot);
-		else if(id.equals(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW)) 
+		else if(id.equals(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW))
 			return new RobotPartDraggablePreview(id, robot);
+		else if(id.equals(RapidFreeFlyerRobot.RELATIVE_DRAGGABLE_PREVIEW)) 
+			return new RobotPartRelativeDraggablePreview(id, robot);
 		else if(id.equals(RapidFreeFlyerRobot.JOINTS )){
 			return new RapidFreeFlyerArmPartJoint(id, robot, pp, FreeFlyerMessageType.JOINT_SAMPLE_TYPE);
 		}

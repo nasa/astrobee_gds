@@ -4,122 +4,125 @@
     <children xsi:type="basic:PartStack" xmi:id="_x9dHYDeqEeS2rPb--ZwdFg" elementId="gov.nasa.arc.ff.ocu.partstack.1">
       <tags>NoMove</tags>
       <tags>NoMove</tags>
-      <children xsi:type="basic:CompositePart" xmi:id="_ZUyUoBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.compositepart.overviewTab" label="Overview">
+      <children xsi:type="basic:CompositePart" xmi:id="_ZUyUoBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.compositepart.overview.tab" label="Overview">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_yUesYBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.overviewSash">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_yUesYBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.overview.sash">
           <tags>NoMove</tags>
           <children xsi:type="basic:Part" xmi:id="_fVq5ABvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.part.0" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBarDockLightNoSelector">
             <variables>NoMove</variables>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_3yhCYBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.2" containerData="3000">
             <tags>NoMove</tags>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_68IesBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.overviewTopZone" containerData="1000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_68IesBvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.overview.topZone" containerData="1000" horizontal="true">
               <tags>NoMove</tags>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_7UIH8BvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.overviewBottomZone" containerData="2000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_7UIH8BvOEeebxLuq6Dsmmg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.overview.bottomZone" containerData="2000" horizontal="true">
               <tags>NoMove</tags>
             </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_zEqKMHmlEeWPjMk6hG7tgg" elementId="gov.nasa.arc.ff.ocu.compositepart.guestScienceTab" label="Guest Science">
+      <children xsi:type="basic:CompositePart" xmi:id="_zEqKMHmlEeWPjMk6hG7tgg" elementId="gov.nasa.arc.ff.ocu.compositepart.guestScience.tab" label="Guest Science">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScienceSash" containerData="">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScience.sash" containerData="">
           <tags>NoMove</tags>
-          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.guestScienceTopBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBarDockLightNoSelector">
+          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.guestScience.topBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBarDockLightNoSelector">
             <variables>NoMove</variables>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000">
             <tags>NoMove</tags>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScienceTopZone" containerData="1000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScience.topZone" containerData="1000" horizontal="true">
               <tags>NoMove</tags>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScienceBottomZone" containerData="2000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScience.bottomZone" containerData="2000" horizontal="true">
               <tags>NoMove</tags>
             </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_egFVUIAPEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.compositepart.runTab" label="Run Plan">
+      <children xsi:type="basic:CompositePart" xmi:id="_egFVUIAPEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.compositepart.run.tab" label="Run Plan">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlanSash" containerData="">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlan.sash" containerData="">
           <tags>NoMove</tags>
-          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.runPlanTopBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar">
+          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.runPlan.topBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar">
             <variables>NoMove</variables>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000">
             <tags>NoMove</tags>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlanTopZone" containerData="1000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlan.topZone" containerData="1000" horizontal="true">
               <tags>NoMove</tags>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlanBottomZone" containerData="2000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlan.bottomZone" containerData="2000" horizontal="true">
               <tags>NoMove</tags>
             </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_egFVUIAPEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.compositepart.teleopTab" label="Teleoperate">
+      <children xsi:type="basic:CompositePart" xmi:id="_egFVUIAPEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.compositepart.teleop.tab" label="Teleoperate">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleopSash" containerData="">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleop.sash" containerData="">
           <tags>NoMove</tags>
-          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.teleopTopBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar">
+          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.teleop.topBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar">
             <variables>NoMove</variables>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000">
             <tags>NoMove</tags>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleopTopZones" containerData="1000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleop.topZones" containerData="1000" horizontal="true">
               <tags>NoMove</tags>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleopBottomZones" containerData="2000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleop.bottomZones" containerData="2000" horizontal="true">
               <tags>NoMove</tags>
             </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_7G7pkF2ZEeaRII0imefDZA" elementId="gov.nasa.arc.ff.ocu.compositepart.advancedGuestScienceTab" label="Advanced Guest Science">
+      <children xsi:type="basic:CompositePart" xmi:id="_7G7pkF2ZEeaRII0imefDZA" elementId="gov.nasa.arc.ff.ocu.compositepart.advancedGuestScience.tab" label="Advanced Guest Science">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScienceSash" containerData="">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScience.sash" containerData="">
           <tags>NoMove</tags>
-          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.guestScienceTopBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBarDockLightNoSelector">
+          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.guestScience.topBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBarDockLightNoSelector">
             <variables>NoMove</variables>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000">
             <tags>NoMove</tags>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScienceTopZone" containerData="1000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScience.topZone" containerData="1000" horizontal="true">
               <tags>NoMove</tags>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScienceBottomZone" containerData="2000" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScience.bottomZone" containerData="2000" horizontal="true">
               <tags>NoMove</tags>
             </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_XuLXQEHsEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.ff.ocu.compositepart.advancedTab" label="Advanced">
+      <children xsi:type="basic:CompositePart" xmi:id="_XuLXQEHsEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.ff.ocu.compositepart.engineering.tab" label="Engineering">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedSash" containerData="">
-          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.advancedTopBar" containerData="140" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar"/>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.sash" containerData="">
+          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.engineering.topBar" containerData="140" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar"/>
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000" horizontal="true">
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedLeftColumn" containerData="1000"/>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedMiddleRight" containerData="2000">
-              <children xsi:type="basic:PartSashContainer" xmi:id="_rVFpwCTCEemoQtL7rKQycg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedUpperRight" containerData="2000" horizontal="true"/>
-              <children xsi:type="basic:PartSashContainer" xmi:id="_r2yBkCTCEemoQtL7rKQycg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedLowerRight" containerData="1000"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.leftColumn" containerData="1000"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.middleRight" containerData="2000">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_rVFpwCTCEemoQtL7rKQycg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.upperRight" containerData="1000" horizontal="true"/>
+              <children xsi:type="basic:PartSashContainer" xmi:id="_r2yBkCTCEemoQtL7rKQycg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.lowerRight" containerData="2000"/>
             </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_cxu9IHSMEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.compositepart.advanced2Tab" label="Advanced 2">
+      <children xsi:type="basic:CompositePart" xmi:id="_cxu9IHSMEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.compositepart.other.tab" label="Other">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advanced2Sash" containerData="">
-          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.advanced2TopBar" containerData="140" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar"/>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.sash" containerData="">
+          <children xsi:type="basic:Part" xmi:id="_kpWusNi5EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.part.other.topBar" containerData="140" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar"/>
           <children xsi:type="basic:PartSashContainer" xmi:id="_OShsIHSNEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.0" containerData="3000" horizontal="true">
-            <children xsi:type="basic:PartSashContainer" xmi:id="_VfykEHSNEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advanced2LeftColumn" containerData="2000"/>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_coYXYHSNEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.advanced2RightColumn" containerData="1000"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_VfykEHSNEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.leftColumn" containerData="1000"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_coYXYHSNEea0KoWX881ABw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.rightColumn" containerData="2000">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_r-eTYKc3Eem4a5LlMWk2Dg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.upperRight" containerData="1000" horizontal="true"/>
+              <children xsi:type="basic:PartSashContainer" xmi:id="_oTq1kKc3Eem4a5LlMWk2Dg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.lowerRight" containerData="1000"/>
+            </children>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_Jc15cHT1EeSNCrR7KFY8uA" elementId="gov.nasa.arc.ff.ocu.compositepart.debugTab" label="Debugging">
+      <children xsi:type="basic:CompositePart" xmi:id="_Jc15cHT1EeSNCrR7KFY8uA" elementId="gov.nasa.arc.ff.ocu.compositepart.debug.tab" label="Debugging">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_EtLukIfYEem1ItnfyWqihg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.debugSash">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_EtLukIfYEem1ItnfyWqihg" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.debug.sash">
           <children xsi:type="basic:PartSashContainer" xmi:id="_SklhEHT1EeSNCrR7KFY8uA" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.14" containerData="1500" horizontal="true">
             <children xsi:type="basic:PartStack" xmi:id="_e8OMIHT1EeSNCrR7KFY8uA" elementId="gov.nasa.arc.ff.ocu.partstack.debug.upperleft" containerData="1000"/>
             <children xsi:type="basic:PartStack" xmi:id="_Z3o4IIfuEemb_4OrgwPZPQ" elementId="gov.nasa.arc.ff.ocu.partstack.debug.uppermiddle" containerData="1000"/>
@@ -132,11 +135,11 @@
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_4VzFkIbvEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.compositepart.videoTab" label="Video">
+      <children xsi:type="basic:CompositePart" xmi:id="_4VzFkIbvEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.compositepart.video.tab" label="Video">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_OClkgIckEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.videoSash">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_OClkgIckEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.video.sash">
           <tags>NoMove</tags>
-          <children xsi:type="basic:Part" xmi:id="_Gxf9gIcZEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.part.videoTopBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar">
+          <children xsi:type="basic:Part" xmi:id="_Gxf9gIcZEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.part.video.topBar" containerData="130" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.TopBar">
             <variables>NoMove</variables>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_B6S9AIckEemEL5PCQtt6EQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.4" containerData="3000">
@@ -158,21 +161,21 @@
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_egFVUIAPEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.compositepart.planEditorTab" label="Plan Editor">
+      <children xsi:type="basic:CompositePart" xmi:id="_egFVUIAPEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.compositepart.planEditor.tab" label="Plan Editor">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.planEditorSash" containerData="300">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.planEditor.sash" containerData="300">
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000" horizontal="true">
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.planEditorLeftZones" containerData="1000"/>
-            <children xsi:type="basic:PartStack" xmi:id="_rwQGoNi-EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partstack.planEditorRightZone" containerData="2000"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.planEditor.leftZones" containerData="1000"/>
+            <children xsi:type="basic:PartStack" xmi:id="_rwQGoNi-EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partstack.planEditor.rightZone" containerData="2000"/>
           </children>
         </children>
       </children>
-      <children xsi:type="basic:CompositePart" xmi:id="_Pa8GcHmqEeWPjMk6hG7tgg" elementId="gov.nasa.arc.ff.ocu.compositepart.modelingTab" label="Modeling">
+      <children xsi:type="basic:CompositePart" xmi:id="_Pa8GcHmqEeWPjMk6hG7tgg" elementId="gov.nasa.arc.ff.ocu.compositepart.modeling.tab" label="Modeling">
         <tags>NoMove</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.modelingSash" containerData="">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_Cl_HAIGFEeSlD_WWCxjgTw" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.modeling.sash" containerData="">
           <children xsi:type="basic:PartSashContainer" xmi:id="_EovOsNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.18" containerData="3000">
-            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.modelingTopZones" containerData="1000" horizontal="true"/>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.modelingBottomZones" containerData="2000" horizontal="true"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_hJ9McNi1EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.modeling.topZones" containerData="1000" horizontal="true"/>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_8jBkcNi3EeSh4v9M4elSvQ" elementId="gov.nasa.arc.ff.ocu.partsashcontainer.modeling.bottomZones" containerData="2000" horizontal="true"/>
           </children>
         </children>
       </children>
@@ -195,6 +198,7 @@
         <children xsi:type="menu:MenuSeparator" xmi:id="_ETUZIBZAEeetT8CrhIjZKw" elementId="gov.nasa.arc.ff.ocu.menuseparator.1"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_F30FoKBSEeWPOd_zyz3elw" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.makeVideoWindow" label="Live Images Window" command="_LlGYkKBSEeWPOd_zyz3elw"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_8rbaIBMGEeau5dmSNV3h6w" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.VideoStreamWindow" label="Live Video Window" command="_4RWbgBMGEeau5dmSNV3h6w"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_VE5l0KNhEemTV4_TQCGmzA" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.numbersWindow" label="Numbers Window" command="_H7JWwKNgEemTV4_TQCGmzA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_yS2AwC1WEei8PrR14FBmzw" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.newTelemetryPart" label="New Telemetry Part" command="_pQgdkC1WEei8PrR14FBmzw"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_-KZWcNGzEeWZlri5cMUdJA" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.showSceneGraphControls" label="Scene Graph Controls" command="_zXIBINGzEeWZlri5cMUdJA"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_8yIqoOSZEeWylYiGf7y2Sg" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.openBookmarkManager" label="Bookmark Manager" command="_rZtYsN_XEeWCb5o6hk-FuQ"/>
@@ -212,7 +216,8 @@
       </children>
       <children xsi:type="menu:Menu" xmi:id="_zpbu4OFmEeWmGcDEUgVZbw" elementId="gov.nasa.arc.ff.ocu.menu.help" label="Help" mnemonics="h">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_ZArSkPIEEeW85ptvbZ9zVQ" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.help" label="Help Document" command="_lsT3sPIEEeW85ptvbZ9zVQ"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_3K2AIOFmEeWmGcDEUgVZbw" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.about" label="About Astrobee Workbench" command="_dgXUEOFoEeWmGcDEUgVZbw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_QaC7MLMCEem8C4c9Qwbm5A" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.legalNotices" label="Legal Notices" command="_DmkosLMCEem8C4c9Qwbm5A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_3K2AIOFmEeWmGcDEUgVZbw" elementId="gov.nasa.arc.ff.ocu.handledmenuitem.about" label="About Astrobee Control Station" command="_dgXUEOFoEeWmGcDEUgVZbw"/>
       </children>
     </mainMenu>
   </children>
@@ -243,6 +248,8 @@
   <handlers xmi:id="_yzAywBJ0EeiNqKeZekVqiQ" elementId="gov.nasa.arc.ff.ocu.handler.discoverpeers" contributionURI="bundleclass://gov.nasa.arc.ff.ocu/gov.nasa.arc.ff.ocu.handlers.DiscoverPeersHandler" command="_wkAkkBJ0EeiNqKeZekVqiQ"/>
   <handlers xmi:id="_fWcBIC1WEei8PrR14FBmzw" elementId="gov.nasa.arc.ff.ocu.handler.5" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.handlers.TelemetryWindowHandler" command="_pQgdkC1WEei8PrR14FBmzw"/>
   <handlers xmi:id="_tjQrcE7wEeiNT6s0g3BYew" elementId="gov.nasa.arc.ff.ocu.handler.spaceproxy" contributionURI="bundleclass://gov.nasa.arc.ff.ocu/gov.nasa.arc.ff.ocu.handlers.UpdateSpaceProxyHandler" command="_j0Ug8E7wEeiNT6s0g3BYew"/>
+  <handlers xmi:id="_z2FQgKNgEemTV4_TQCGmzA" elementId="gov.nasa.arc.ff.ocu.handler.9" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.handlers.NewNumbersWindowHandler" command="_H7JWwKNgEemTV4_TQCGmzA"/>
+  <handlers xmi:id="__dPb0LMBEem8C4c9Qwbm5A" elementId="gov.nasa.arc.ff.ocu.handler.10" contributionURI="bundleclass://gov.nasa.arc.ff.ocu/gov.nasa.arc.ff.ocu.handlers.LegalNoticesHandler" command="_DmkosLMCEem8C4c9Qwbm5A"/>
   <bindingTables xmi:id="_hBcAwNzLEeW9Ke4fD6jF6A" elementId="gov.nasa.arc.ff.ocu.bindingtable.1" bindingContext="_73oVMNzNEeW9Ke4fD6jF6A">
     <bindings xmi:id="_rAJv0NzPEeW9Ke4fD6jF6A" elementId="gov.nasa.arc.ff.ocu.keybinding.1" keySequence="M1+N" command="_BgIZEF4hEeSTCq5BOAixcg">
       <tags>type:user</tags>
@@ -298,6 +305,7 @@
     <bindings xmi:id="_cXXZIBgnEeiL2to8KZNzRw" elementId="gov.nasa.arc.ff.ocu.keybinding.17" keySequence="M1+3" command="_wkAkkBJ0EeiNqKeZekVqiQ">
       <tags>type:user</tags>
     </bindings>
+    <bindings xmi:id="_sZvI0KNiEemTV4_TQCGmzA" elementId="gov.nasa.arc.ff.ocu.keybinding.18" keySequence="M1+U"/>
   </bindingTables>
   <rootContext xmi:id="_73oVMNzNEeW9Ke4fD6jF6A" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="Dialog and Window"/>
   <commands xmi:id="_BgIZEF4hEeSTCq5BOAixcg" elementId="gov.nasa.arc.ff.ocu.command.new" commandName="New"/>
@@ -327,6 +335,8 @@
   <commands xmi:id="_wkAkkBJ0EeiNqKeZekVqiQ" elementId="gov.nasa.arc.ff.ocu.command.discoverpeers" commandName="DiscoverPeers"/>
   <commands xmi:id="_pQgdkC1WEei8PrR14FBmzw" elementId="gov.nasa.arc.ff.ocu.command.newTelemetryTable" commandName="New Telemetry Table"/>
   <commands xmi:id="_j0Ug8E7wEeiNT6s0g3BYew" elementId="gov.nasa.arc.ff.ocu.command.spaceproxy" commandName="SpaceProxy"/>
+  <commands xmi:id="_H7JWwKNgEemTV4_TQCGmzA" elementId="gov.nasa.arc.ff.ocu.command.newnumbersview" commandName="NewNumbersView"/>
+  <commands xmi:id="_DmkosLMCEem8C4c9Qwbm5A" elementId="gov.nasa.arc.ff.ocu.command.legalnotices" commandName="LegalNotices"/>
   <addons xmi:id="_3nWnES8CEeSpBo3YVDi5bg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_3nWnEi8CEeSpBo3YVDi5bg" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_3nWnEy8CEeSpBo3YVDi5bg" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

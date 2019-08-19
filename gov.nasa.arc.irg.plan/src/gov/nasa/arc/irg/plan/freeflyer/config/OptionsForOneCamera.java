@@ -111,6 +111,7 @@ public  class OptionsForOneCamera {
 	public static class CameraPreset {
 		protected String presetName;
 		protected String resolution;
+		protected String cameraMode;
 		protected float frameRate;
 		protected float bandwidth;
 
@@ -129,6 +130,12 @@ public  class OptionsForOneCamera {
 		}
 		public void setResolution(String resolution) {
 			this.resolution = resolution;
+		}
+		public String getCameraMode() {
+			return cameraMode;
+		}
+		public void setCameraMode(String cameraMode) {
+			this.cameraMode = cameraMode;
 		}
 		public float getFrameRate() {
 			return frameRate;
@@ -149,6 +156,7 @@ public  class OptionsForOneCamera {
 			int result = 1;
 			result = prime * result + ((presetName == null) ? 0 : presetName.hashCode());
 			result = prime * result + ((resolution == null) ? 0 : resolution.hashCode());
+			result = prime * result + ((cameraMode == null) ? 0 : cameraMode.hashCode());
 			result = prime * result + Float.floatToIntBits(frameRate);
 			result = prime * result + Float.floatToIntBits(bandwidth);
 			return result;
@@ -185,7 +193,15 @@ public  class OptionsForOneCamera {
 					return false;
 				}
 			}
-
+			if(cameraMode == null) {
+				if(other.cameraMode != null) {
+					return false;
+				}
+			} else {
+				if(!cameraMode.equals(other.cameraMode)) {
+					return false;
+				}
+			}
 			if(Math.abs(frameRate - other.frameRate) > EPSILON) {
 				return false;
 			}

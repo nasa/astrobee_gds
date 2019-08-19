@@ -20,7 +20,7 @@ package gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView;
 import gov.nasa.arc.irg.plan.ui.io.EnlargeableButton;
 import gov.nasa.arc.verve.freeflyer.workbench.helpers.LiveTelemetryViewMovementRegistry;
 import gov.nasa.arc.verve.freeflyer.workbench.parts.standard.BeeCommandingPartOnTeleoperateTab;
-import gov.nasa.arc.verve.robot.freeflyer.utils.ContextNames;
+import gov.nasa.arc.verve.freeflyer.workbench.utils.TrackVisibleBeeCommandingSubtab;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -51,7 +50,7 @@ public class Teleop3dView extends LiveTelemetryView {
 	@Override
 	protected boolean showMe() {
 		if(super.showMe()) {
-			freeFlyerScenario.teleopTranslateTabActive(false);
+			freeFlyerScenario.teleopAbsoluteTranslateTabOnTop(false);
 			return true;
 		}
 		return false;
@@ -78,18 +77,9 @@ public class Teleop3dView extends LiveTelemetryView {
 	}
 	
 	protected class ArrowsDialogWithPreviewButton extends ArrowsDialog {
-		private final String SHOW_PREVIEW_STRING = "Show Preview";
-		private final String HIDE_PREVIEW_STRING = "Hide Preview";
-
-		private final String SHOW_PREVIEW_TOOLTIP = "Preview Pose Specified by Manual Inputs";
-		private final String HIDE_PREVIEW_TOOLTIP = "Hide Preview";
-		
 		private final String CENTER_ON_PREVIEW_TOOLTIP = "Put Preview at the Center of the Map";
-		private final String SNAP_TO_BEE_STRING = "Snap Preview to Bee";
-		private final String SNAP_TO_BEE_TOOLTIP = "Enter Current Astrobee Coordinates into Manual Inputs";
+		private EnlargeableButton zoomToPreviewButton;
 
-		private EnlargeableButton previewToggle, zoomToPreviewButton, snapToBee;
-		
 		public ArrowsDialogWithPreviewButton(Shell parent) {
 			super(parent);
 		}
@@ -104,44 +94,8 @@ public class Teleop3dView extends LiveTelemetryView {
 			createZoomOutButton(parent);
 			createResetViewButton(parent);
 			createZoomToBeeButton(parent);
-			createShowPreviewToggle(parent);
 			createZoomToPreviewButton(parent);
-			createSnapToBeeButton(parent);
 			return parent;
-		}
-		
-		private void createShowPreviewToggle(Composite parent) {
-			previewToggle = new EnlargeableButton(parent, SWT.TOGGLE);
-			previewToggle.setText(SHOW_PREVIEW_STRING);
-			previewToggle.setToolTipText(SHOW_PREVIEW_TOOLTIP);
-			GridData rvGD = new GridData(SWT.FILL, SWT.TOP, true, false);
-			rvGD.horizontalSpan = 2;
-			previewToggle.setLayoutData(rvGD);
-			previewToggle.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-			previewToggle.addSelectionListener(new SelectionListener() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					Button btn = (Button) e.getSource();
-
-					// XXX do we really need this next line???
-					freeFlyerScenario.teleopTranslateTabActive(btn.getSelection());
-					if(btn.getSelection()) {
-						previewToggle.setText(HIDE_PREVIEW_STRING);
-						previewToggle.setToolTipText(HIDE_PREVIEW_TOOLTIP);
-						application.getContext().set(ContextNames.SHOW_TELEOP_PREVIEW, false);
-					} else {
-						previewToggle.setText(SHOW_PREVIEW_STRING);
-						previewToggle.setToolTipText(SHOW_PREVIEW_TOOLTIP);
-						application.getContext().set(ContextNames.SHOW_TELEOP_PREVIEW, true);
-					}
-				}
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent e)  {/**/}
-			});
-			if(!haveBeeToZoomTo()) {
-				previewToggle.setEnabled(false);
-			}
 		}
 		
 		protected void createZoomToBeeButton(Composite parent) {
@@ -177,7 +131,14 @@ public class Teleop3dView extends LiveTelemetryView {
 			zoomToPreviewButton.addSelectionListener(new SelectionListener() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					LiveTelemetryViewMovementRegistry.zoomToPreview();
+					if(TrackVisibleBeeCommandingSubtab.INSTANCE.isAbsolutePreviewShowing()) {
+						LiveTelemetryViewMovementRegistry.zoomToAbsolutePreview();
+						return;
+					}
+					if(TrackVisibleBeeCommandingSubtab.INSTANCE.isRelativePreviewShowing()) {
+						LiveTelemetryViewMovementRegistry.zoomToRelativePreview();
+						return;
+					}
 				}
 
 				@Override
@@ -188,31 +149,6 @@ public class Teleop3dView extends LiveTelemetryView {
 			}
 		}
 		
-		protected void createSnapToBeeButton(Composite parent) {
-			snapToBee = new EnlargeableButton(parent, SWT.None);
-			GridData cbGD = new GridData(SWT.FILL, SWT.TOP, true, false);
-			cbGD.horizontalSpan = 2;
-			snapToBee.setLayoutData(cbGD);
-			snapToBee.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-			snapToBee.setText(SNAP_TO_BEE_STRING);
-			snapToBee.setToolTipText(SNAP_TO_BEE_TOOLTIP);
-			snapToBee.addSelectionListener(new SelectionListener() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-
-					snapToBee();
-				}
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent e) {
-					// no-op
-				}
-			});
-			if(!haveBeeToZoomTo()) {
-				snapToBee.setEnabled(false);
-			}
-		}
-		
 		public void snapToBee() {
 			manualCommandPart.snapToBee();
 		}
@@ -220,9 +156,7 @@ public class Teleop3dView extends LiveTelemetryView {
 		public void disableButtonsThatZoomToBee() {
 			if(zoomToPreviewButton != null && !zoomToPreviewButton.isDisposed()) {
 				zoomToPreviewButton.setEnabled(false);
-				previewToggle.setEnabled(false);
 				zoomToPreviewButton.setEnabled(false);
-				snapToBee.setEnabled(false);
 				zoomToBeeButton.setEnabled(false);
 			}
 		}
@@ -230,9 +164,7 @@ public class Teleop3dView extends LiveTelemetryView {
 		public void enableButtonsThatZoomToBee() {
 			if(zoomToPreviewButton != null && !zoomToPreviewButton.isDisposed()) {
 				zoomToPreviewButton.setEnabled(true);
-				previewToggle.setEnabled(true);
 				zoomToPreviewButton.setEnabled(true);
-				snapToBee.setEnabled(true);
 				zoomToBeeButton.setEnabled(true);
 			}
 		}

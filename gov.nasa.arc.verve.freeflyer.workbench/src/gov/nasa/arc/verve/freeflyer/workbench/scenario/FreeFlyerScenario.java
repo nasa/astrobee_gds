@@ -21,6 +21,7 @@ import gov.nasa.arc.irg.freeflyer.rapid.FreeFlyerStrings;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AggregateAstrobeeState;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateListener;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateManager;
+import gov.nasa.arc.irg.plan.freeflyer.plan.FreeFlyerPlan;
 import gov.nasa.arc.irg.plan.model.modulebay.LocationGenerator;
 import gov.nasa.arc.irg.plan.ui.io.WorkbenchConstants;
 import gov.nasa.arc.irg.util.ui.IrgUI;
@@ -42,9 +43,12 @@ import gov.nasa.arc.verve.rcp.e4.scenario.ScenarioUpdater;
 import gov.nasa.arc.verve.robot.AbstractRobot;
 import gov.nasa.arc.verve.robot.exception.TelemetryException;
 import gov.nasa.arc.verve.robot.freeflyer.FreeFlyerAvatarBuilder;
+import gov.nasa.arc.verve.robot.freeflyer.PlanPreviewRobot;
 import gov.nasa.arc.verve.robot.freeflyer.RapidFreeFlyerRobot;
 import gov.nasa.arc.verve.robot.freeflyer.SmartDockModel;
+import gov.nasa.arc.verve.robot.freeflyer.parts.FreeFlyerBasicModel;
 import gov.nasa.arc.verve.robot.freeflyer.parts.RobotPartDraggablePreview;
+import gov.nasa.arc.verve.robot.freeflyer.parts.RobotPartRelativeDraggablePreview;
 import gov.nasa.arc.verve.robot.freeflyer.scenery.CompositeIssModel;
 import gov.nasa.arc.verve.robot.freeflyer.scenery.GraniteLab;
 import gov.nasa.arc.verve.robot.rapid.RapidRobot;
@@ -96,6 +100,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 
 	protected Vector<RapidFreeFlyerRobot> robotsList;
 	protected AbstractGuestSciencePlanTrace[] guestSciencePlanTraces;
+	protected PlanPreviewRobot planPreviewRobot;
 
 	protected Node issModel;
 	protected Node modulesLightingNode;
@@ -108,19 +113,20 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 	private Map<String,BoxesNode> keepins;
 	private ColoredBoxListNode coloredBoxes;
 	private List<ScenarioToggleListener> listeners = new ArrayList<>();
-	private boolean previewTeleop = false;
+	private boolean previewTeleopAbsolute = false;
+	private boolean previewTeleopRelative = false;
 	private boolean showingAllRobots = true;
-	
+
 	double xLightsOffset = LightsCameraProperties.getPropertyAsDouble("xLightsOffset");
 	double yLightsOffset = LightsCameraProperties.getPropertyAsDouble("yLightsOffset");
 	double zLightsOffset = LightsCameraProperties.getPropertyAsDouble("zLightsOffset");
-	
+
 	@Inject
 	public FreeFlyerScenario(Ardor3DEclipseNotPlugin a3enp, MApplication app) {
 		super(); // <-- do we need this??
 		robotsList = new Vector<RapidFreeFlyerRobot>();
 		guestSciencePlanTraces = new AbstractGuestSciencePlanTrace[AgentsFromCommandLine.INSTANCE.getNumAgents()];
-		
+
 		Ardor3D.initialize(a3enp);
 		start();
 		hideAllRobots();
@@ -129,7 +135,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		showingAllRobots = true;
 		ActiveAgentSet.INSTANCE.addListener(this);
 	}
-	
+
 	@Inject @Optional
 	public void acceptAstrobeeStateManager(AstrobeeStateManager manager) {
 		manager.addListener(this, MessageTypeExtAstro.CURRENT_ZONES_COMPRESSED_TYPE);
@@ -138,7 +144,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 	public Node getRoot() {
 		return root;
 	}
-	
+
 	/**
 	 * Start the scenario. 
 	 * @return true if start was successful or if scenario was already started
@@ -150,13 +156,20 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 				ImportExportManager.INSTANCE.startup();
 				root =  new Node("FreeFlyerScenarioRoot");
 				root.getSceneHints().setCullHint(CullHint.Never);
-				
+
 				modulesLightingNode = new Node("EvenLightingNode");
 				handrailsLightingNode = new Node("TrueColorLightingNode");
 				root.attachChild(modulesLightingNode);
 				root.attachChild(handrailsLightingNode);
 				addCoordinateFrame();
 				setupDefaultRenderStates();
+
+				Node model = new FreeFlyerBasicModel("green");
+				planPreviewRobot = new PlanPreviewRobot();
+				planPreviewRobot.attachToNodesIn(model);
+				root.attachChild(planPreviewRobot.getRobotNode());
+				planPreviewRobot.getRobotNode().getSceneHints().setCullHint(CullHint.Always);
+				planPreviewRobot.getRobotNode().getSensorsNode().getSceneHints().setCullHint(CullHint.Always);
 
 				//===================================================
 				try {
@@ -166,6 +179,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 					logAnError("Error While Building robot Avatar", e);
 				} 
 
+
 				if(WorkbenchConstants.worldIsGraniteLab()) {
 					GraniteLab graniteLab =  new GraniteLab();
 					root.attachChild(graniteLab);
@@ -174,25 +188,24 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 					CompositeIssModel iss = new CompositeIssModel(generator.getModelsToLoad());
 					issModel = iss.getModel();
 					modulesLightingNode.attachChild(issModel);
-					
+
 					coloredBoxes = new ColoredBoxListNode();
 					root.attachChild(coloredBoxes);
 
 					handrailsLightingNode.attachChild(HandrailModelingNode.getStaticInstance());
-					
+
 					SmartDockModel smartDock = new SmartDockModel();
 					root.attachChild(smartDock.getModel());
-					
+
 				}
-//					setupLights();		
-				
+				//					setupLights();		
+
 				initializeKeepouts();
-				
 
 				root.attachChild(CreatePlanTrace.getStaticInstance());
-				
+
 				root.attachChild(RunPlanTrace.getStaticInstance());
-				
+
 				guestSciencePlanTraces[0] = GuestSciencePlanTraceOne.getGuestScienceInstance();
 				guestSciencePlanTraces[1] = GuestSciencePlanTraceTwo.getGuestScienceInstance();
 				guestSciencePlanTraces[2] = GuestSciencePlanTraceThree.getGuestScienceInstance();
@@ -200,7 +213,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 				for(int i=0; i<AgentsFromCommandLine.INSTANCE.getNumAgents(); i++) {
 					root.attachChild(guestSciencePlanTraces[i]);
 				}
-				
+
 				root.attachChild(AddViaMapPlane.getStaticInstance());
 
 				root.attachChild(KeepoutModelingNode.getStaticInstance());
@@ -229,32 +242,36 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		}
 		return started;
 	}
-	
+
+	public void previewPlan(FreeFlyerPlan plan) {
+		planPreviewRobot.previewPlan(plan);
+	}
+
 	private void initializeKeepouts() {
 		keepouts = new HashMap<String,BoxesNode>();
 		keepins = new HashMap<String,BoxesNode>();
-		
+
 		for(int i=0; i<AgentsFromCommandLine.INSTANCE.getNumAgents(); i++) {
 			String agentName = AgentsFromCommandLine.INSTANCE.getAgent(i).name();
 			ZonesNodesHelper znh = ZonesNodesHelper.get(agentName);
 			keepins.put(agentName, znh.getKeepins());
 			root.attachChild(keepins.get(agentName));
 			keepins.get(agentName).getSceneHints().setCullHint(CullHint.Always);
-			
+
 			keepouts.put(agentName, znh.getKeepouts());
 			root.attachChild(keepouts.get(agentName));
 			keepouts.get(agentName).getSceneHints().setCullHint(CullHint.Always);
 		}
-		
+
 		ZonesNodesHelper znh = ZonesNodesHelper.get("Config");
 		keepins.put("Config", znh.getKeepins());
 		root.attachChild(znh.getKeepins());
 		keepouts.put("Config", znh.getKeepouts());
 		root.attachChild(znh.getKeepouts());
-		
+
 		hideAllKeepins();
 	}
-	
+
 	private void makeAndAttachThreeRobots() throws Exception {
 		FreeFlyerAvatarBuilder ffab = new FreeFlyerAvatarBuilder();
 
@@ -263,11 +280,11 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 			robotsList.add(rffr);
 			root.attachChild(rffr.getRobotNode());
 			// setting visibleByDefault doesn't actually make these invisible on startup
-			rffr.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW).setVisible(false);
+			rffr.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW).setVisible(false);
 		}
 		hideAllPreviewModels();
 	}
-	
+
 	public RapidFreeFlyerRobot[] getAllRobots() {
 		// not sure why using toArray() and casting threw exception at runtime
 		RapidFreeFlyerRobot[] ret = new RapidFreeFlyerRobot[robotsList.size()];
@@ -331,14 +348,14 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 	public AbstractRobot getPrimaryRobot() {
 		return primaryRobot;
 	}
-	
+
 	// takes the "rapid/Robot" form of string and returns "Robot"
 	protected String shorten(String tooLong) {
 		String[] tokens = tooLong.split("/");
 		String shortName = tokens[tokens.length-1];
 		return shortName;
 	}
-	
+
 	protected String getPrimaryRobotShortName() {
 		if(primaryRobot == null) {
 			return "";
@@ -348,7 +365,9 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 
 	/** Show CreatePlanTrace, no robots or traces */
 	public void planEditorTabActive() {
-		previewTeleop = false;
+		stopPlanPreview();
+		previewTeleopAbsolute = false;
+		previewTeleopRelative = false;
 
 		showCreatePlanTrace();
 		showConfigKeepouts();
@@ -359,16 +378,22 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		hideGuestSciencePlanTraces();
 	}
 
+	public void stopPlanPreview() {
+		planPreviewRobot.stopPreview();
+	}
+
 	/** Show RunPlanTrace and all connected robots, hide other things */
 	public void showRobotsRunPlanTraceAndKeepoutsNoPreview() {
-		previewTeleop = false;
+		previewTeleopAbsolute = false;
+		previewTeleopRelative = false;
 
 		showRobotsRunPlanTraceAndKeepouts();
 	}
-	
+
 	public void showRobotsGuestSciencePlanTraceAndKeepoutsNoPreview() {
-		previewTeleop = false;
-		
+		previewTeleopAbsolute = false;
+		previewTeleopRelative = false;
+
 		showAllRobots();
 		hideRunPlanTrace();		
 		showConfigKeepouts(); // need showKeepoutsOfAllRobots();
@@ -377,12 +402,46 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		showGuestSciencePlanTraces();
 	}
 
-	/** Show all connected robots and RunPlanTrace; and translation preview if true */
-	public void teleopTranslateTabActive(boolean previewing) {
-		previewTeleop = previewing;
+	/** Show all connected robots and RunPlanTrace; and absolute translation preview if true */
+	public void teleopAbsoluteTranslateTabOnTop(boolean previewing) {
+		previewTeleopAbsolute = previewing;
+		previewTeleopRelative = false;
 		showRobotsRunPlanTraceAndKeepouts();
 
 		showPreviewModelOfPrimaryRobot();
+	}
+
+	/** Show all connected robots and RunPlanTrace; and relative translation preview if true */
+	public void teleopRelativeTranslateTabOnTop(boolean previewing) {
+		previewTeleopAbsolute = false;
+		previewTeleopRelative = previewing;
+		showRobotsRunPlanTraceAndKeepouts();
+
+		showPreviewModelOfPrimaryRobot();
+	}
+
+	public void showAbsolutePreview(boolean showAbsolute) {
+		previewTeleopAbsolute = showAbsolute;
+		if(primaryRobot != null) {
+			RobotPartDraggablePreview robT = ((RobotPartDraggablePreview)primaryRobot.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW));
+			if(previewTeleopAbsolute) {
+				robT.showDraggablePreview();
+			} else {
+				robT.hideDraggablePreview();
+			}
+		}
+	}
+
+	public void showRelativePreview(boolean showRelative) {
+		previewTeleopRelative = showRelative;
+		if(primaryRobot != null) {
+			RobotPartDraggablePreview robT = ((RobotPartDraggablePreview)primaryRobot.getPart(RapidFreeFlyerRobot.RELATIVE_DRAGGABLE_PREVIEW));
+			if(previewTeleopRelative) {
+				robT.showDraggablePreview();
+			} else {
+				robT.hideDraggablePreview();
+			}
+		}
 	}
 
 	private void showRobotsRunPlanTraceAndKeepouts() {
@@ -412,6 +471,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 				rffr.getRobotNode().getSensorsNode().getSceneHints().setCullHint(CullHint.Always);
 			}
 		}
+		planPreviewRobot.getRobotNode().getSceneHints().setCullHint(CullHint.Always);
 	}
 
 	private void showAllRobots() {
@@ -435,16 +495,20 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		Spatial baseRobot = primaryRobot.getRobotNode();
 		baseRobot.getSceneHints().setCullHint(CullHint.Inherit);
 	}
-	
+
 	public void showPreviewModelOfPrimaryRobot() {
 		if(primaryRobot != null) {
-			if(previewTeleop) {
-				RobotPartDraggablePreview robT = ((RobotPartDraggablePreview)primaryRobot.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW));
+			if(previewTeleopAbsolute) {
+				RobotPartDraggablePreview robT = ((RobotPartDraggablePreview)primaryRobot.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW));
+				robT.showDraggablePreview();
+			}
+			if(previewTeleopRelative) {
+				RobotPartRelativeDraggablePreview robT = ((RobotPartRelativeDraggablePreview)primaryRobot.getPart(RapidFreeFlyerRobot.RELATIVE_DRAGGABLE_PREVIEW));
 				robT.showDraggablePreview();
 			}
 		}
 	}
-	
+
 	@Inject @Optional
 	public void acceptPrimaryBee(@Named(FreeFlyerStrings.PRIMARY_BEE) Agent newPrimary) {
 		if(newPrimary == null) {
@@ -457,9 +521,12 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		RobotPartDraggablePreview robT;
 
 		for(RapidFreeFlyerRobot rffr : robotsList) {
-			robT = ((RobotPartDraggablePreview)rffr.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW));
+			robT = ((RobotPartDraggablePreview)rffr.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW));
+			robT.hideDraggablePreview();
+			robT = ((RobotPartDraggablePreview)rffr.getPart(RapidFreeFlyerRobot.RELATIVE_DRAGGABLE_PREVIEW));
 			robT.hideDraggablePreview();
 		}
+		planPreviewRobot.getRobotNode().getSceneHints().setCullHint(CullHint.Always);
 	}
 
 	private void addCoordinateFrame() {
@@ -515,7 +582,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		dl3.setAmbient(new ColorRGBA(ColorRGBA.WHITE));
 		dl3.setAttenuate(false);
 		dl3.setEnabled(true);
-		
+
 		for(Spatial child : root.getChildren()) {
 			Node node = (Node) child;
 
@@ -536,7 +603,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		lightState.setEnabled(true);
 		node.setRenderState(lightState);
 		LightState ls = (LightState) node.getLocalRenderState(RenderState.StateType.Light);
-		
+
 		final List<Vector3> WHITE_POS = new ArrayList<Vector3>();
 		WHITE_POS.add(new Vector3(-8.3 + xLightsOffset, 0 + yLightsOffset, 0 + zLightsOffset));
 		WHITE_POS.add(new Vector3(-7.2 + xLightsOffset, -5 + yLightsOffset, 0 + zLightsOffset));
@@ -544,11 +611,11 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		WHITE_POS.add(new Vector3(7.5 + xLightsOffset, 0 + yLightsOffset, 0 + zLightsOffset));
 
 		WHITE_POS.add(new Vector3(9 + xLightsOffset, 7.5 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		WHITE_POS.add(new Vector3(8.5 + xLightsOffset, -4 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		WHITE_POS.add(new Vector3(7.5 + xLightsOffset, -10.5 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		for(final Vector3 w : WHITE_POS){
 			final PointLight point = new PointLight();
 			point.setDiffuse(new ColorRGBA(intensity,intensity,intensity,1));
@@ -561,26 +628,26 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 			point.setLocation(w);
 			ls.attach(point);
 		}
-		
+
 		final List<Vector3> BLUE_POS = new ArrayList<Vector3>();
 		BLUE_POS.add(new Vector3(-7.2 + xLightsOffset, -3.5 + yLightsOffset, 0 + zLightsOffset));
 		BLUE_POS.add(new Vector3(-6.8 + xLightsOffset, -1.0 + yLightsOffset, 0 + zLightsOffset));
 		BLUE_POS.add(new Vector3(-5 + xLightsOffset, 0 + yLightsOffset, 0 + zLightsOffset));
 		BLUE_POS.add(new Vector3(-3 + xLightsOffset, 0 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		BLUE_POS.add(new Vector3(3 + xLightsOffset, 0 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		BLUE_POS.add(new Vector3(5.5 + xLightsOffset, 0 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		BLUE_POS.add(new Vector3(8 + xLightsOffset, 1.5 + yLightsOffset, 0 + zLightsOffset));
 		BLUE_POS.add(new Vector3(8.5 + xLightsOffset, -1.5 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		BLUE_POS.add(new Vector3(8 + xLightsOffset, 5 + yLightsOffset, 0 + zLightsOffset));
 		BLUE_POS.add(new Vector3(8.5 + xLightsOffset, -7 + yLightsOffset, 0 + zLightsOffset));
-		
+
 		BLUE_POS.add(new Vector3(7.5 + xLightsOffset, -10.5 + yLightsOffset, 0 + zLightsOffset));
 		BLUE_POS.add(new Vector3(8.5 + xLightsOffset, -11 + yLightsOffset, -1 + zLightsOffset));
-		
+
 		for(final Vector3 p : BLUE_POS){
 			final PointLight point = new PointLight();
 			point.setDiffuse(new ColorRGBA(0,0,1,1));
@@ -601,26 +668,26 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 		}
 		keepouts.get(getPrimaryRobotShortName()).getSceneHints().setCullHint(CullHint.Inherit);
 	}
-	
+
 	public void showConfigKeepouts() {
 		keepouts.get("Config").getSceneHints().setCullHint(CullHint.Inherit);
 	}
-	
+
 	public void showAllKeepouts() {
 		for(RapidFreeFlyerRobot rffr : robotsList) {
 			keepouts.get(shorten(rffr.getName())).getSceneHints().setCullHint(CullHint.Always);
 		}
 		keepouts.get("Config").getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	public void hideKeepoutsOfPrimaryRobot() {
 		keepouts.get(getPrimaryRobotShortName()).getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	public void hideConfigKeepouts() {
 		keepouts.get("Config").getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	public void hideAllKeepouts() {
 		for(RapidFreeFlyerRobot rffr : robotsList) {
 			keepouts.get(shorten(rffr.getName())).getSceneHints().setCullHint(CullHint.Always);
@@ -631,26 +698,26 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 	public void showKeepinsOfPrimaryRobot() {
 		keepins.get(getPrimaryRobotShortName()).getSceneHints().setCullHint(CullHint.Inherit);
 	}
-	
+
 	public void showConfigKeepins() {
 		keepins.get("Config").getSceneHints().setCullHint(CullHint.Inherit);
 	}
-	
+
 	public void hideKeepinsOfPrimaryRobot() {
 		keepins.get(getPrimaryRobotShortName()).getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	public void hideConfigKeepins() {
 		keepins.get("Config").getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	public void hideAllKeepins() {
 		for(RapidFreeFlyerRobot rffr : robotsList) {
 			keepins.get(shorten(rffr.getName())).getSceneHints().setCullHint(CullHint.Always);
 		}
 		keepins.get("Config").getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	public void addToggleListener(ScenarioToggleListener part) {
 		if(listeners.size() > 0) {
 			ScenarioToggleListener listener = listeners.get(0);
@@ -737,7 +804,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 			}
 		}
 	}
-	
+
 	public void showGuestSciencePlanTraces() {
 		for(int i=0; i<AgentsFromCommandLine.INSTANCE.getNumAgents(); i++) {
 			if(guestSciencePlanTraces[i] != null) {
@@ -745,7 +812,7 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 			}
 		}
 	}
-	
+
 	public void hideGuestSciencePlanTraces() {
 		for(int i=0; i<AgentsFromCommandLine.INSTANCE.getNumAgents(); i++) {
 			if(guestSciencePlanTraces[i] != null) {
@@ -851,20 +918,20 @@ public class FreeFlyerScenario implements IVerveScenario, IActiveAgentSetListene
 	@Override
 	public void activeAgentAdded(Agent agent, String participantId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void activeAgentRemoved(Agent agent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onAstrobeeStateChange(AggregateAstrobeeState stateKeeper) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
+
 }

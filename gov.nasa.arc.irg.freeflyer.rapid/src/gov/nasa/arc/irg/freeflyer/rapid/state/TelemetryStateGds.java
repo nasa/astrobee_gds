@@ -24,8 +24,11 @@ import org.apache.log4j.Logger;
 import rapid.ext.astrobee.CameraInfo;
 import rapid.ext.astrobee.CameraInfoConfig;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_COMM_STATUS;
+import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_CPU_STATE;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_DISK_STATE;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_EKF_STATE;
+import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_GNC_STATE;
+import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_PMC_CMD_STATE;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_POSITION;
 import rapid.ext.astrobee.TelemetryConfig;
 import rapid.ext.astrobee.TelemetryState;
@@ -36,6 +39,9 @@ public class TelemetryStateGds {
 	private TelemetryFrequency ekfStateRate;
 	private TelemetryFrequency commStatusRate;
 	private TelemetryFrequency diskStateRate;
+	private TelemetryFrequency cpuStateRate;
+	private TelemetryFrequency gncStateRate;
+	private TelemetryFrequency pmcCmdStateRate;
 
 	private Vector<CameraInfoGds> cameras;
 
@@ -52,6 +58,9 @@ public class TelemetryStateGds {
 		ekfStateRate = new TelemetryFrequency(original.ekfStateRate);
 		commStatusRate = new TelemetryFrequency(original.commStatusRate);
 		diskStateRate = new TelemetryFrequency(original.diskStateRate);
+		cpuStateRate = new TelemetryFrequency(original.cpuStateRate);
+		gncStateRate = new TelemetryFrequency(original.gncStateRate);
+		pmcCmdStateRate = new TelemetryFrequency(original.pmcCmdStateRate);
 
 		synchronized(cameras) {
 			cameras.clear();
@@ -73,6 +82,9 @@ public class TelemetryStateGds {
 		ekfStateRate = new TelemetryFrequency(SETTINGS_TELEMETRY_TYPE_EKF_STATE.VALUE);
 		commStatusRate = new TelemetryFrequency(SETTINGS_TELEMETRY_TYPE_COMM_STATUS.VALUE);
 		diskStateRate = new TelemetryFrequency(SETTINGS_TELEMETRY_TYPE_DISK_STATE.VALUE);
+		cpuStateRate = new TelemetryFrequency(SETTINGS_TELEMETRY_TYPE_CPU_STATE.VALUE);
+		gncStateRate = new TelemetryFrequency(SETTINGS_TELEMETRY_TYPE_GNC_STATE.VALUE);
+		pmcCmdStateRate = new TelemetryFrequency(SETTINGS_TELEMETRY_TYPE_PMC_CMD_STATE.VALUE);
 
 		cameras = new Vector<CameraInfoGds>();
 		for(int i=0; i<3; i++) {
@@ -100,6 +112,9 @@ public class TelemetryStateGds {
 		ekfStateRate.setFrequency(telState.ekfStateRate);
 		commStatusRate.setFrequency(telState.commStatusRate);
 		diskStateRate.setFrequency(telState.diskStateRate);
+		cpuStateRate.setFrequency(telState.cpuStateRate);
+		gncStateRate.setFrequency(telState.gncStateRate);
+		pmcCmdStateRate.setFrequency(telState.pmcCmdStateRate);
 
 		if(!doneIngestingConfig) {
 			savedTelemetryState = telState;
@@ -119,7 +134,8 @@ public class TelemetryStateGds {
 	}
 
 	public TelemetryFrequency[] getTelemetryFrequencies() {
-		return new TelemetryFrequency[] {positionRate, ekfStateRate, commStatusRate, diskStateRate };
+		return new TelemetryFrequency[] {
+				positionRate, ekfStateRate, commStatusRate, diskStateRate, cpuStateRate, gncStateRate, pmcCmdStateRate };
 	}
 
 	public Vector<CameraInfoGds> getCameras() {
@@ -132,7 +148,10 @@ public class TelemetryStateGds {
 		sb.append(positionRate.toString() + ", ");
 		sb.append(ekfStateRate.toString() + ", ");
 		sb.append(commStatusRate.toString() + ", ");
-		sb.append(diskStateRate.toString() + "\n");
+		sb.append(diskStateRate.toString() + ", ");
+		sb.append(cpuStateRate.toString() + ", ");
+		sb.append(gncStateRate.toString() + ", ");
+		sb.append(pmcCmdStateRate.toString() + "\n");
 
 		for(CameraInfoGds cam : cameras) {
 			sb.append(cam.toString() + "\n");
@@ -149,6 +168,9 @@ public class TelemetryStateGds {
 		result = prime * result + ((ekfStateRate == null) ? 0 : ekfStateRate.hashCode());
 		result = prime * result + ((commStatusRate == null) ? 0 : commStatusRate.hashCode());
 		result = prime * result + ((diskStateRate == null) ? 0 : diskStateRate.hashCode());
+		result = prime * result + ((cpuStateRate == null) ? 0 : cpuStateRate.hashCode());
+		result = prime * result + ((gncStateRate == null) ? 0 : gncStateRate.hashCode());
+		result = prime * result + ((pmcCmdStateRate == null) ? 0 : pmcCmdStateRate.hashCode());
 		result = prime * result + ((cameras == null) ? 0 : cameras.hashCode());
 		result = prime * result + ((savedTelemetryState == null) ? 0 : savedTelemetryState.hashCode());
 		return result;
@@ -190,6 +212,27 @@ public class TelemetryStateGds {
 					return false;
 				}
 			} else if (!diskStateRate.equals(other.diskStateRate)) {
+				return false;
+			}
+			if (cpuStateRate == null) {
+				if (other.cpuStateRate != null) {
+					return false;
+				}
+			} else if (!cpuStateRate.equals(other.cpuStateRate)) {
+				return false;
+			}
+			if (gncStateRate == null) {
+				if (other.gncStateRate != null) {
+					return false;
+				}
+			} else if (!gncStateRate.equals(other.gncStateRate)) {
+				return false;
+			}
+			if (pmcCmdStateRate == null) {
+				if (other.pmcCmdStateRate != null) {
+					return false;
+				}
+			} else if (!pmcCmdStateRate.equals(other.pmcCmdStateRate)) {
 				return false;
 			}
 			if (cameras == null) {

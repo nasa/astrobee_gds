@@ -45,8 +45,8 @@ public class WorkbenchConstants {
 	public static final String HONEY = "Honey";
 	public static final String QUEEN = "Queen";
 	public static final String BUMBLE = "Bumble";
-	
-	public static final String STOP_BUTTON_TEXT = "Station Keep Bee";
+
+	public static final String STOP_BUTTON_TEXT = "Station Keep";
 	
 	public static final String CONNECTED_TOOLTIP = "Connected to Selected Astrobee";
 	public static final String DISCONNECTED_TOOLTIP = "Not Connected to an Astrobee";

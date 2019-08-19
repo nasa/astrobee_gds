@@ -37,7 +37,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.log4j.Logger;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -69,7 +68,7 @@ import com.ardor3d.math.Vector3;
  * NOTE: not all MessageTypes are repeated through to listeners
  */
 public class AstrobeeStateManager implements IRapidMessageListener  {
-	private static final Logger logger = Logger.getLogger(AstrobeeStateManager.class);
+//	private static final Logger logger = Logger.getLogger(AstrobeeStateManager.class);
 	protected String participantId = Rapid.PrimaryParticipant;
 	protected Agent agent;
 	protected MessageType[] sampleType;

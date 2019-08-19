@@ -30,7 +30,6 @@ import gov.nasa.arc.irg.plan.ui.io.OperatingLimitsConfigListLoader;
 import gov.nasa.arc.irg.plan.ui.io.WorkbenchConstants;
 import gov.nasa.arc.verve.freeflyer.workbench.helpers.SelectedAgentConnectedRegistry;
 import gov.nasa.arc.verve.freeflyer.workbench.parts.standard.AbstractControlPanel;
-import gov.nasa.arc.verve.freeflyer.workbench.parts.standard.StandardControls;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.CommandButton;
 import gov.nasa.rapid.idl.ext.astrobee.message.MessageTypeExtAstro;
@@ -99,12 +98,9 @@ public class OperatingLimitsPart extends AbstractControlPanel implements Astrobe
 		super(manager);
 		GridLayout gl = new GridLayout(1, false);
 		parent.setLayout(gl);
-
-		standardControls = new StandardControls(parent, astrobeeStateManager);
-		if(agent != null) {
-			standardControls.onAgentSelected(agent);
-		}
 		
+		GuiUtils.makeHorizontalSeparator(parent, 1);
+
 		Composite inner = new Composite(parent, SWT.NONE);
 		GridData gdThreeWide = new GridData(SWT.BEGINNING, SWT.BEGINNING, true, false);
 		gdThreeWide.horizontalSpan = 3;
@@ -121,11 +117,10 @@ public class OperatingLimitsPart extends AbstractControlPanel implements Astrobe
 			optionsCombo.setItems( makeConfigsList());
 			optionsCombo.setText(selectString);
 			optionsCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-			optionsCombo.setEnabled(false);
 			myId = Agent.getEgoAgent().name();
 
 			configureButton = new CommandButton(inner, SWT.NONE);
-			configureButton.setText("Configure Data");
+			configureButton.setText("Configure Operating Limits");
 			configureButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 			configureButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 			configureButton.addSelectionListener(new SelectionListener() {
@@ -368,9 +363,6 @@ public class OperatingLimitsPart extends AbstractControlPanel implements Astrobe
 
 		asm.addListener(this, MessageTypeExtAstro.AGENT_STATE_TYPE);
 		astrobeeStateManager = asm;
-		if(standardControls != null) {
-			standardControls.acceptAstrobeeStateManager(astrobeeStateManager);
-		}
 	}
 
 	@Inject @Optional

@@ -62,44 +62,47 @@ public class BookmarkManagerDialog extends Dialog{
 	private String makeBookmarkString = "Make Bookmark...";
 	private String makeBookmarkLabelString = "Bookmark This Location";
 	private TypedObject selected;
-	private EnlargeableButton addButton;
+	private EnlargeableButton addButtonTeleop, addButtonPlanEditor;
 	protected MApplication application;
 	boolean onTeleopTab = false;
 	private IncrementableText[] pos;
 	private IncrementableText[] rot;
+	private BeeCommandingPartOnTeleoperateTab manualTeleopPart;
 	
 	@Inject
 	public BookmarkManagerDialog(@Optional @Named(IServiceConstants.ACTIVE_SHELL) Shell parentShell,
-			 MApplication mapp) {
+			MApplication mapp) {
 		super(parentShell);
 		application = mapp;
 		setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
-		
-		MElementContainer<MUIElement> parent = application.getContext().get(EPartService.class).getActivePart().getParent();
+
+		EPartService eps = application.getContext().get(EPartService.class);
+		MElementContainer<MUIElement> parent = eps.getActivePart().getParent();
+
 		while(parent != null){
 			if(parent.getElementId().toLowerCase().contains("teleop")){
 				onTeleopTab = !onTeleopTab;
-				final MPart part = application.getContext().get(EPartService.class).findPart("gov.nasa.arc.verve.freeflyer.workbench.part.manualCommanding");
-				pos = ((BeeCommandingPartOnTeleoperateTab) part.getObject()).getCurrentPosition();
-				rot = ((BeeCommandingPartOnTeleoperateTab) part.getObject()).getCurrentRotation();
+				manualTeleopPart = (BeeCommandingPartOnTeleoperateTab)application.getContext().get(EPartService.class).findPart("gov.nasa.arc.verve.freeflyer.workbench.part.manualCommanding").getObject();
 				break;
 			}
 			parent = parent.getParent();	
 		}
 	}
-	
+
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		
+
 		loadBookmarkList();
 		Composite top = setupTopOfCoordinateArea(parent);
-		
-		makeAddBookmarkLine(top);
+
+		makeAddBookmarkFromTeleopLine(top);
+		makeAddBookmarkFromPlanEditorLine(top);
 		makeDeleteBookmarkLine(top);
+		updateAddButtonEnabled();
 		
 		return parent;
 	}
-	
+
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
@@ -113,11 +116,11 @@ public class BookmarkManagerDialog extends Dialog{
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
 	}
-	
+
 	@Inject @Optional
 	public void acceptTypedObject(TypedObject selected) {
 		this.selected = selected;
-		if(addButton == null || addButton.isDisposed()) {
+		if(addButtonTeleop == null || addButtonTeleop.isDisposed()) {
 			return;
 		}
 		updateAddButtonEnabled();
@@ -129,56 +132,54 @@ public class BookmarkManagerDialog extends Dialog{
 		application.getContext().set(BookmarkManagerDialog.class, null);
 		return returnValue;
 	}
-	
+
 	private void updateAddButtonEnabled() {
-		if(selected instanceof ModuleBayStation || onTeleopTab) {
-			addButton.setEnabled(true);
+		if(selected instanceof ModuleBayStation) { 
+			addButtonPlanEditor.setEnabled(true);
 		} else {
-			addButton.setEnabled(false);
+			addButtonPlanEditor.setEnabled(false);
+		}
+		if( onTeleopTab ) {
+			addButtonTeleop.setEnabled(true);
+			addButtonPlanEditor.setEnabled(false);
 		}
 	}
-	
-	protected void makeAddBookmarkLine(Composite top) {
+
+	protected void makeAddBookmarkFromTeleopLine(Composite top) {
 		Label l2 = new Label(top, SWT.NONE);
 		l2.setText(makeBookmarkLabelString);
-		
-		addButton = new EnlargeableButton(top, SWT.CENTER);
-		addButton.setText(makeBookmarkString);
-		addButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-		addButton.setButtonLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+
+		addButtonTeleop = new EnlargeableButton(top, SWT.CENTER);
+		addButtonTeleop.setText(makeBookmarkString + " (Teleop)");
+		addButtonTeleop.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		addButtonTeleop.setButtonLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
 
 		// Create a label to display what the user typed in
 		final Label label = new Label(top, SWT.NONE);
 		label.setText("\t\t\t\t\t");
-		updateAddButtonEnabled();
-		addButton.addSelectionListener(new SelectionListener() {
+		addButtonTeleop.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(!(selected instanceof ModuleBayStation || onTeleopTab)) {
-					return; 
-				}
-				
 				InputDialog dlg = new InputDialog(Display.getCurrent().getActiveShell(),
-						"Save Location as Bookmark", "Enter a name for the bookmark", "<name>", null);
+						"Save the location of the Teleop Preview as a Bookmark", "Enter a name for the bookmark", "<name>", null);
 				if (dlg.open() == Window.OK) {
 					String name = dlg.getValue();
-					
+
 					StationBookmark newSB = null;
 					ModuleBayStation station = null;;
-					if(!onTeleopTab){
-						station = (ModuleBayStation)selected;
-						newSB = new StationBookmark(name, station.getCoordinate());
-					}else{
-						station = new ModuleBayStation();
-						station.setCoordinate(new ModuleBayPoint((float)pos[0].getNumber(),
-								(float)pos[1].getNumber(),
-								(float)pos[2].getNumber(),
-								(float)rot[0].getNumber(),
-								(float)rot[1].getNumber(),
-								(float)rot[2].getNumber()));
-						newSB = new StationBookmark(name, station.getCoordinate());
-					}
+
+					pos = manualTeleopPart.getCurrentPosition();
+					rot = manualTeleopPart.getCurrentRotation();
 					
+					station = new ModuleBayStation();
+					station.setCoordinate(new ModuleBayPoint((float)pos[0].getNumber(),
+							(float)pos[1].getNumber(),
+							(float)pos[2].getNumber(),
+							(float)rot[0].getNumber(),
+							(float)rot[1].getNumber(),
+							(float)rot[2].getNumber()));
+					newSB = new StationBookmark(name, station.getCoordinate());
+
 					BookmarkListBuilder.addBookmark(newSB);
 					try {
 						BookmarkListBuilder.saveBookmarksList();
@@ -187,7 +188,7 @@ public class BookmarkManagerDialog extends Dialog{
 						return;
 					}
 					label.setText("Bookmark Saved");
-					
+
 					updateComboBoxes();
 					ModuleBayPoint mbp = station.getCoordinate();
 					mbp.setBookmark(newSB);
@@ -199,7 +200,59 @@ public class BookmarkManagerDialog extends Dialog{
 			}
 		});
 	}
-	
+
+	protected void makeAddBookmarkFromPlanEditorLine(Composite top) {
+		Label l2 = new Label(top, SWT.NONE);
+		l2.setText(makeBookmarkLabelString);
+
+		addButtonPlanEditor = new EnlargeableButton(top, SWT.CENTER);
+		addButtonPlanEditor.setText(makeBookmarkString + " (Plan Editor)");
+		addButtonPlanEditor.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		addButtonPlanEditor.setButtonLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+
+		// Create a label to display what the user typed in
+		final Label label = new Label(top, SWT.NONE);
+		label.setText("\t\t\t\t\t");
+		addButtonPlanEditor.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(!(selected instanceof ModuleBayStation) || onTeleopTab) {
+					return; 
+				}
+
+				InputDialog dlg = new InputDialog(Display.getCurrent().getActiveShell(),
+						"Save the location of the selected Plan Station as a bookmark", "Enter a name for the bookmark", "<name>", null);
+				if (dlg.open() == Window.OK) {
+					String name = dlg.getValue();
+
+					StationBookmark newSB = null;
+					ModuleBayStation station = null;;
+					if(!onTeleopTab){
+						station = (ModuleBayStation)selected;
+						newSB = new StationBookmark(name, station.getCoordinate());
+					}
+
+					BookmarkListBuilder.addBookmark(newSB);
+					try {
+						BookmarkListBuilder.saveBookmarksList();
+					} catch (Exception e1) {
+						label.setText("Error saving bookmark");
+						return;
+					}
+					label.setText("Bookmark Saved");
+
+					updateComboBoxes();
+					ModuleBayPoint mbp = station.getCoordinate();
+					mbp.setBookmark(newSB);
+				}
+			}	
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) { //
+			}
+		});
+	}
+
 	protected void makeDeleteBookmarkLine(Composite top) {
 		Label l1 = new Label(top, SWT.NONE);
 		l1.setText("Delete Bookmark");
@@ -207,7 +260,7 @@ public class BookmarkManagerDialog extends Dialog{
 		GridData gd = new GridData(SWT.LEFT, SWT.CENTER, true, false);
 		deleteCombo.setLayoutData(gd);
 		deleteCombo.setItems(bookmarkNames);
-		
+
 		EnlargeableButton deleteButton = new EnlargeableButton(top, SWT.CENTER);
 		deleteButton.setText("Delete");
 		deleteButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
@@ -219,15 +272,15 @@ public class BookmarkManagerDialog extends Dialog{
 				try {
 					BookmarkListBuilder.saveBookmarksList();
 					updateComboBoxes();
-//					// need to reset the bookmark of the current model in the box
-//					ModuleBayStation mbp = (ModuleBayStation)parent.getModel();
-//					StationBookmark sb = mbp.getCoordinate().getBookmark();
-//					if(sb != null) {
-//						int index = BookmarkListBuilder.getIndexOfBookmark(sb);
-//						bookmarksCombo.select(index);
-//					}
-					
-					
+					//					// need to reset the bookmark of the current model in the box
+					//					ModuleBayStation mbp = (ModuleBayStation)parent.getModel();
+					//					StationBookmark sb = mbp.getCoordinate().getBookmark();
+					//					if(sb != null) {
+					//						int index = BookmarkListBuilder.getIndexOfBookmark(sb);
+					//						bookmarksCombo.select(index);
+					//					}
+
+
 				} catch (Exception e1) {
 					System.out.println("Error deleting bookmark");
 				}
@@ -238,7 +291,7 @@ public class BookmarkManagerDialog extends Dialog{
 			}
 		});
 	}
-	
+
 	protected void updateComboBoxes() {
 		loadBookmarkList();
 		deleteCombo.setItems(bookmarkNames);
@@ -252,7 +305,7 @@ public class BookmarkManagerDialog extends Dialog{
 		top.setLayout(new GridLayout(3, false));
 		return top;
 	}
-	
+
 	private void loadBookmarkList() {
 		bookmarks = BookmarkListBuilder.getStaticBookmarkList();
 

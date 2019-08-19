@@ -1,0 +1,40 @@
+{
+  "type" : "CameraPresets",
+  "optionsForOneCamera": [ 
+  	{
+  	"cameraName": "Dock",
+  	"preset": [ {
+		"presetName": "High Def Stream",
+		"resolution" : "1024_768",
+		"cameraMode" : "Streaming",
+		"frameRate" : 5,
+		"bandwidth" : 640
+  		},
+  		{
+		"presetName": "Low Def Stream",
+		"resolution" : "640_480",
+		"cameraMode" : "Streaming",
+		"frameRate" : 4,
+		"bandwidth" : 92
+  		} 
+  	]
+  	},{
+  	"cameraName": "Navigation",
+  	"preset": [ {
+		"presetName": "High Def Stream",
+		"resolution" : "1920_1080",
+		"cameraMode" : "Streaming",
+		"frameRate" : 5,
+		"bandwidth" : 100
+  		},
+  		{
+		"presetName": "Low Def Stream",
+		"resolution" : "640_480",
+		"cameraMode" : "Streaming",
+		"frameRate" : 25,
+		"bandwidth" : 300
+  		} 
+  	]
+  	}
+  	]
+}

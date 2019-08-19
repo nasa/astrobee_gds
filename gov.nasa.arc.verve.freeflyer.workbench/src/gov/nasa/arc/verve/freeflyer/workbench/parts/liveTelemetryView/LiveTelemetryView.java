@@ -82,7 +82,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -372,9 +371,17 @@ abstract public class LiveTelemetryView extends AbstractArdor3dViewLwjgl impleme
 		}
 	}
 
-	public void zoomToPreview() {
+	public void zoomToAbsolutePreview() {
 		AbstractRobot selectedRobot = freeFlyerScenario.getPrimaryRobot();
-		RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)selectedRobot.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW);
+		RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)selectedRobot.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW);
+		Vector3 vec = new Vector3(0, 0, 0);
+		getCameraControl().setCenterOfInterest(rpdp.getNode(), vec);
+		getCameraControl().setDistance(AUTO_ZOOM_DISTANCE);
+	}
+	
+	public void zoomToRelativePreview() {
+		AbstractRobot selectedRobot = freeFlyerScenario.getPrimaryRobot();
+		RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)selectedRobot.getPart(RapidFreeFlyerRobot.RELATIVE_DRAGGABLE_PREVIEW);
 		Vector3 vec = new Vector3(0, 0, 0);
 		getCameraControl().setCenterOfInterest(rpdp.getNode(), vec);
 		getCameraControl().setDistance(AUTO_ZOOM_DISTANCE);
@@ -613,8 +620,8 @@ abstract public class LiveTelemetryView extends AbstractArdor3dViewLwjgl impleme
 
 			createZoomInButton(parent);
 			createZoomOutButton(parent);
-			createZoomToBeeButton(parent);
 			createResetViewButton(parent);
+			createZoomToBeeButton(parent);
 
 			return parent;
 		}
@@ -852,9 +859,12 @@ abstract public class LiveTelemetryView extends AbstractArdor3dViewLwjgl impleme
 						LiveTelemetryViewMovementRegistry.resetViews();
 					} else if(e.character == 'z') {
 						LiveTelemetryViewMovementRegistry.zoomToBee();
-					} else if(e.character == 'p') {
-						LiveTelemetryViewMovementRegistry.zoomToPreview();
-					} else if(e.character == 's') {
+					} else if(e.character == 'a') {
+						LiveTelemetryViewMovementRegistry.zoomToAbsolutePreview();
+					} else if(e.character == 'l') {
+						LiveTelemetryViewMovementRegistry.zoomToRelativePreview();
+					}
+					else if(e.character == 's') {
 
 					}
 				}

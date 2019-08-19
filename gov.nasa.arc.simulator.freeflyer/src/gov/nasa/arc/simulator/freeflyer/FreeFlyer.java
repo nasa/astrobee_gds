@@ -116,7 +116,6 @@ public class FreeFlyer {
 			// create the participant
 			createParticipant(PARTICIPANT_ID);
 		} catch (final DdsEntityCreationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -128,7 +127,6 @@ public class FreeFlyer {
 			// create the participant
 			createParticipant(PARTICIPANT_ID);
 		} catch (final DdsEntityCreationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
@@ -188,21 +186,6 @@ public class FreeFlyer {
 
 	public void publishData(){
 		try {
-			//			final EkfPoseSubsystem ekfPoseSubsystem = new EkfPoseSubsystem();
-			//			ekfPoseSubsystem.publishTelemetry();
-			//			
-			//			final AlvarOverheadSubsystem alvarOverheadSubsystem = new AlvarOverheadSubsystem();
-			//			alvarOverheadSubsystem.publishTelemetry();
-			//			
-			//			final VizPoseSubsystem vizPoseSubsystem = new VizPoseSubsystem();
-			//			vizPoseSubsystem.publishTelemetry();
-			//
-			//			final ImageSubsystem imageSubsystem = new ImageSubsystem();
-			//			imageSubsystem.publishTelemetry();
-			//			
-			//			final FreeFlyerAgentSubsystem freeFlyerAgentSubsystem = new FreeFlyerAgentSubsystem();
-			//			freeFlyerAgentSubsystem.publishTelemetry();
-
 			AccessControlSubsystem.getInstance().publishSample();
 
 			AgentStatePublisher.getInstance().publishSimulatorAstrobeeState();
@@ -228,10 +211,6 @@ public class FreeFlyer {
 				FaultStateSubsystem faultStateSubsystem = FaultStateSubsystem.getInstance();
 				faultStateSubsystem.startFaultGenerator();
 			}
-
-			//			ImageSubsystem imageSubsystem = new ImageSubsystem();
-			//			imageSubsystem.publishTelemetry();
-
 			
 			// Just until we get the GuestScience messages straightened out
 			GuestScienceApkStatePublisher.getInstance().publishSimulatorGuestScienceApkState();
@@ -241,12 +220,6 @@ public class FreeFlyer {
 			PositionPublisher.getInstance().publishTelemetry(startX, startY, startZ);
 
 			TelemetryPublisher.getInstance();
-			//			CompressSubsystem zipSystem = new CompressSubsystem();
-			//			zipSystem.publishTelemetry();
-
-			//PlanStatusSubsystem planStatuSubsystem = new PlanStatusSubsystem();
-			//planStatuSubsystem.publishTelemetry();
-
 
 		} catch (final Exception e) {
 			// TODO Auto-generated catch block

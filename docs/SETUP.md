@@ -23,7 +23,9 @@
   * Under "Help" click "Install New Software"
   * Under the 'Work with' dropdown, select 'Luna' and wait for it to load available packages
   * Under 'General Purpose Tools' select 'Eclipse Plug-In Development Environment'
-  * Click 'Next' and install the plugin, restarting Eclipse
+    * If 'Eclipse Plug-In Development Environment' is not available, see if "Hide items that are already installed" is
+    checked. The plug-in may be installed already.
+  * Click 'Next' and install the plug-in, restarting Eclipse
 
 ## Import source ##
 * Under 'File' click 'Import ...'
@@ -77,4 +79,3 @@ Java Application.
   simulator cannot spawn two  Astrobee simulators.
   * If simulator is on a different computer from the Control Station, run the Control Station with 
   `-peer <ip of simulator>`
-

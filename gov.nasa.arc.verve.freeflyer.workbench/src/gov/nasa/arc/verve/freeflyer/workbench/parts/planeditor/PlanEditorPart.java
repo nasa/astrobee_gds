@@ -35,8 +35,8 @@ import gov.nasa.arc.verve.ardor3d.e4.framework.VerveScenarioStarted;
 import gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView.TabName;
 import gov.nasa.arc.verve.freeflyer.workbench.scenario.AddViaMapPlane;
 import gov.nasa.arc.verve.freeflyer.workbench.scenario.AddViaMapTypedObject;
+import gov.nasa.arc.verve.freeflyer.workbench.scenario.FreeFlyerScenario;
 import gov.nasa.arc.verve.freeflyer.workbench.undo.DelegateCommandStack;
-import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
 import gov.nasa.arc.verve.robot.freeflyer.plan.AbstractPlanTrace;
 import gov.nasa.arc.verve.robot.freeflyer.plan.PlanEditsListener;
 import gov.nasa.arc.verve.robot.freeflyer.plan.PlanEditsRegistry;
@@ -81,7 +81,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -110,7 +109,7 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 	protected SimpleDateFormat dateFormat;
 	protected Label duration, planName, power,planValid;
 	protected Color notValidColor, validColor, noPlanColor;
-	protected EnlargeableButton validButton;
+	protected EnlargeableButton validButton, previewButton, stopPreviewButton;
 	protected EnlargeableButton addButton, deleteButton, addViaMapButton;
 	protected String noPlanString = "No Plan";
 	protected String validString = "Validated";
@@ -131,7 +130,9 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 	private boolean planDirty = false;
 	private final String DIRTY_STRING = "*";
 	public TabName MY_TAB_NAME = TabName.PLAN_EDITOR;
-	
+	@Inject
+	public FreeFlyerScenario freeflyerScenario;
+
 	@Inject
 	public PlanEditorPart(final Shell shell, final Display display, final MApplication app) {
 		dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -207,13 +208,9 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 		final GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gd.horizontalAlignment = SWT.LEFT;
 		parent.setLayoutData(gd);
-		
-		GuiUtils.makeHorizontalSeparator(parent, 1);
 
 		final Label partTitle = new Label(parent, SWT.None);
 		partTitle.setText("Plan Editor");
-//		final Font bigFont = GuiUtils.makeBigFont(parent, partTitle);
-//		partTitle.setFont( bigFont );
 	}
 
 	@Inject @Optional 
@@ -250,7 +247,6 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 		final GridLayout layout = new GridLayout(3, true);
 		c.setLayout(layout);
 		c.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-
 
 		makeAddButton(c);
 		makeDeleteButton(c);
@@ -320,13 +316,48 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 		planValid.setText(noPlanString);
 	}
 
-	public void generatePower(){
-		final double generatePower = PlanCompiler.generatePower(planBuilder.getPlan());
-		power.setText( DecimalFormat.getInstance().format(generatePower) + " W" );
-		if(generatePower > 196)
-			power.setBackground(warningColor);
-		else
-			power.setBackground(whiteColor);
+	private void makePreviewButton(final Composite c) {
+		previewButton = new EnlargeableButton(c, SWT.PUSH);
+		final GridData previewButtonGridData = new GridData(SWT.FILL, SWT.TOP, true, false);
+		previewButton.setLayoutData(previewButtonGridData);
+		previewButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		previewButton.setText("Preview");
+		previewButton.setEnabled(false);
+		previewButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				freeflyerScenario.previewPlan(planBuilder.getPlan());
+				stopPreviewButton.setEnabled(true);
+			}
+
+			@Override
+			public void widgetDefaultSelected(final SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+	}
+	
+	private void makeStopPreviewButton(final Composite c) {
+		stopPreviewButton = new EnlargeableButton(c, SWT.PUSH);
+		final GridData previewButtonGridData = new GridData(SWT.FILL, SWT.TOP, true, false);
+		stopPreviewButton.setLayoutData(previewButtonGridData);
+		stopPreviewButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stopPreviewButton.setText("Stop Preview");
+		stopPreviewButton.setEnabled(false);
+		stopPreviewButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				freeflyerScenario.stopPlanPreview();
+				stopPreviewButton.setEnabled(false);
+			}
+
+			@Override
+			public void widgetDefaultSelected(final SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	private void makeValidButton(final Composite c) {
@@ -366,6 +397,15 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 
 			}
 		});
+	}
+
+	public void generatePower(){
+		final double generatePower = PlanCompiler.generatePower(planBuilder.getPlan());
+		power.setText( DecimalFormat.getInstance().format(generatePower) + " W" );
+		if(generatePower > 196)
+			power.setBackground(warningColor);
+		else
+			power.setBackground(whiteColor);
 	}
 
 	private void makeAddButton(final Composite c) {
@@ -452,8 +492,17 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 	}
 
 	public void createTreeSection(final Composite parent) {
+		final Composite b = new Composite(parent, SWT.NONE);
+		final GridLayout layout = new GridLayout(2, true);
+		b.setLayout(layout);
+		b.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		
+		makePreviewButton(b);
+		makeStopPreviewButton(b);
+		
+		
 		final Composite c = setupTreeSectionComposite(parent);
-
+		
 		planTree = new Tree(c, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
 		planTree.setHeaderVisible(true);
 		final GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -537,6 +586,8 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 			duration.setText(convertLongToString(plan.getCalculatedDuration()));
 			validButton.setEnabled(true);
 			addViaMapButton.setEnabled(true);
+			previewButton.setEnabled(true);
+			stopPreviewButton.setEnabled(false);
 		} else {
 			removeAsPropertyChangeListener();
 			if(!addViaMapButton.getText().equals(addViaMapString)) {
@@ -551,6 +602,8 @@ public class PlanEditorPart implements PropertyChangeListener, PlanEditsListener
 			delegateCommandStack.exitClickToAddMode();
 			planBuilder = builder;
 			addViaMapButton.setEnabled(false);
+			previewButton.setEnabled(false);
+			stopPreviewButton.setEnabled(false);
 		}
 
 		if(planTreeViewer != null) {

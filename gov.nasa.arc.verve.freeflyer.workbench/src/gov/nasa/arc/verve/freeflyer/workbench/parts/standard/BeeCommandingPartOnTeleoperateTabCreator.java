@@ -18,11 +18,16 @@
 package gov.nasa.arc.verve.freeflyer.workbench.parts.standard;
 
 import gov.nasa.arc.irg.plan.bookmarks.StationBookmark;
+import gov.nasa.arc.irg.plan.modulebay.ModuleBayPoint;
+import gov.nasa.arc.irg.plan.modulebay.ModuleBayStation;
 import gov.nasa.arc.irg.plan.ui.io.BookmarkListBuilder;
+import gov.nasa.arc.irg.plan.ui.io.EnlargeableButton;
 import gov.nasa.arc.irg.plan.ui.io.WorkbenchConstants;
 import gov.nasa.arc.irg.util.ui.ColorProvider;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
+import gov.nasa.arc.verve.freeflyer.workbench.utils.TrackVisibleBeeCommandingSubtab;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.CommandButton;
+import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.IncrementableText;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.IncrementableTextHorizontal;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.IncrementableTextHorizontalInt;
 
@@ -30,7 +35,9 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -41,58 +48,57 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 
-import rapid.ACCESSCONTROL;
-import rapid.ACCESSCONTROL_METHOD_REQUESTCONTROL;
 import rapid.MOBILITY;
 import rapid.MOBILITY_METHOD_STOPALLMOTION;
 
 public class BeeCommandingPartOnTeleoperateTabCreator {
 	private static Logger logger = Logger.getLogger(BeeCommandingPartOnTeleoperateTabCreator.class);
-	
-	protected BeeCommandingPartOnTeleoperateTab beeCommandingPartOnTeleoperateTab;
+
+	protected BeeCommandingPartOnTeleoperateTab commandingPart;
 	protected double translationRadius = 20;
 	protected final double MIN_ROTATION = -180, MAX_ROTATION = 180;
-	
+
 	protected final double RAD_TO_DEG = 180.0 / Math.PI;
-	private final Color colorOrange = ColorProvider.get(238,118,0);
-	private String NO_BOOKMARKS_FOUND_STRING = "No Bookmarks Found";
+	protected final Color colorOrange = ColorProvider.get(238,118,0);
+	protected String NO_BOOKMARKS_FOUND_STRING = "No Bookmarks Found";
 
-	private final String BOOKMARKS_TOOLTIP = "Enter Premade Set of Coordinates into Manual Inputs";
-	private final String MOVE_TOOLTIP = "Move Astrobee to Pose Specified in Manual Inputs";
-	private final String APPLY_OPTIONS_TOOLTIP = "Send Selected Options to Astrobee";
+	protected final String BOOKMARKS_TOOLTIP = "Enter Premade Set of Coordinates into Manual Inputs";
+	protected final String MOVE_TOOLTIP = "Move Astrobee to Pose Specified in Manual Inputs";
+	protected final String APPLY_OPTIONS_TOOLTIP = "Send Selected Options to Astrobee";
 
-	private final String ROLL_TOOLTIP = "Rotation about ISS Forward Axis";
-	private final String PITCH_TOOLTIP = "Rotation about ISS Starboard Axis";
-	private final String YAW_TOOLTIP = "Rotation about ISS Nadir Axis";
-	
-	private final String[] ROTATION_TOOLTIP = {ROLL_TOOLTIP, PITCH_TOOLTIP, YAW_TOOLTIP};
-	
-	private final String X_TOOLTIP = "ISS Forward-Aft Axis Coordinate";
-	private final String Y_TOOLTIP = "ISS Starboard-Port Axis Coordinate";
-	private final String Z_TOOLTIP = "ISS Nadir-Zenith Axis Coordinate";
-	
-	private final String[] TRANSLATION_TOOLTIP = {X_TOOLTIP, Y_TOOLTIP, Z_TOOLTIP};
-	
+	protected final String ROLL_TOOLTIP = "Rotation about ISS Forward Axis";
+	protected final String PITCH_TOOLTIP = "Rotation about ISS Starboard Axis";
+	protected final String YAW_TOOLTIP = "Rotation about ISS Nadir Axis";
+
+	protected final String[] ROTATION_TOOLTIP = {ROLL_TOOLTIP, PITCH_TOOLTIP, YAW_TOOLTIP};
+
+	protected final String X_TOOLTIP = "ISS Forward-Aft Axis Coordinate";
+	protected final String Y_TOOLTIP = "ISS Starboard-Port Axis Coordinate";
+	protected final String Z_TOOLTIP = "ISS Nadir-Zenith Axis Coordinate";
+
+	protected final String[] TRANSLATION_TOOLTIP = {X_TOOLTIP, Y_TOOLTIP, Z_TOOLTIP};
+
 	@Inject
 	protected MApplication application;
-	
+
 
 	protected void createMainTab(BeeCommandingPartOnTeleoperateTab beeCommandingPartOnTeleoperateTab, Composite parent) {
-		this.beeCommandingPartOnTeleoperateTab = beeCommandingPartOnTeleoperateTab;
+		this.commandingPart = beeCommandingPartOnTeleoperateTab;
 
 		Composite translateTab = new Composite(parent, SWT.NONE);
 		GridLayout gl = new GridLayout(7, false);
 		gl.marginHeight = 0;
 		translateTab.setLayout(gl);
 
-		createInitializationWithBookmarkComposite(translateTab);
+		createBookmarksAndPreviewComposite(translateTab);
 
 		Label verticalSeparator = new Label(translateTab, SWT.SEPARATOR | SWT.VERTICAL);
 		GridDataFactory.fillDefaults().grab(false, true).applyTo(verticalSeparator);
 
-		createManualInputsComposite(translateTab);
+		createManualInputsInnerComposite(translateTab);
 
 		Label verticalSeparator2 = new Label(translateTab, SWT.SEPARATOR | SWT.VERTICAL);
 		GridDataFactory.fillDefaults().grab(false, true).applyTo(verticalSeparator2);
@@ -105,49 +111,75 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 		createCommandsComposite(translateTab);
 	}
 
-	protected void createInitializationWithBookmarkComposite(Composite parent) {
-		Composite innerComposite = createInitializationComposite(parent);
-		createBookmarkLine(innerComposite);
+	protected void createBookmarksAndPreviewComposite(Composite parent) {
+		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
+		GridDataFactory.fillDefaults().grab(true, true).applyTo(innerComposite);
+
+		Label l = new Label(innerComposite, SWT.None);
+		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, false).applyTo(l);
+		l.setText("Preview");
+
+		createShowPreviewButton(innerComposite);
+		createSnapToBeeButton(innerComposite);
+
+		Label hsep = new Label(innerComposite, SWT.SEPARATOR | SWT.HORIZONTAL); // spacer
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(hsep);
+
+		//Composite innerInnerComposite = GuiUtils.setupInnerComposite(innerComposite, 1, GridData.FILL_HORIZONTAL);
+
+		Label l2 = new Label(innerComposite, SWT.None);
+		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, false).applyTo(l2);
+		l2.setText("Location Bookmarks");
+
+		createCreateBookmarkButton(innerComposite);
+
+		createBookmarkCombo(innerComposite);
+
 	}
 
-	protected void createManualInputsComposite(Composite parent) {
+	protected void createManualInputsInnerComposite(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerCompositeEvenSpacing(parent, 7, GridData.FILL_HORIZONTAL);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(innerComposite);
 
+		fillManualInputsInnerComposite(innerComposite);
+	}
+
+	protected void fillManualInputsInnerComposite(Composite innerComposite) {
+
 		Label spacer1 = new Label(innerComposite, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.CENTER).grab(true, false).span(2,1).applyTo(spacer1);
-		
+
 		Label l = new Label(innerComposite, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.CENTER).grab(true, false).span(3,1).applyTo(l);
-		
+
 		l.setText("Manual Move Inputs");
 
 		Label unitsLabel = new Label(innerComposite, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.END).grab(true, false).span(4,1).applyTo(unitsLabel);
 		unitsLabel.setText("Meters");
-		
+
 		Label spacer = new Label(innerComposite, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.END).grab(true, false).applyTo(spacer);
-		
+
 		Label unitsLabeld = new Label(innerComposite, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.END).grab(true, false).span(2,1).applyTo(unitsLabeld);
 		unitsLabeld.setText("Degrees         ");
-		
+
 		Composite leftParent = GuiUtils.setupInnerCompositeEvenSpacing(innerComposite, 4, GridData.FILL_BOTH);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, true).span(4,1).applyTo(leftParent);
-		
+
 		Composite rightParent = GuiUtils.setupInnerCompositeEvenSpacing(innerComposite, 3, GridData.FILL_BOTH);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, true).span(4,1).applyTo(rightParent);
-		
+
 		for(int i=0; i<3; i++) {
 			createTranslationInput(leftParent, i);
 		}
-		
+
 		for(int i=0; i<3; i++) {
 			createRotationInput(rightParent, i);
 		}
 	}
-	
+
 	protected void createOptionsComposite(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 2, GridData.FILL_HORIZONTAL);
 		GridDataFactory.fillDefaults().grab(false, false).applyTo(innerComposite);
@@ -161,14 +193,18 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 		// Do in 2 columns so the checkmarks align vertically
 		createCheckboxesColumn(innerComposite);
 		createCheckmarksColumn(innerComposite);
-		
+
 		createApplyOptionsButton(innerComposite);
 	}
-	
+
 	protected void createCommandsComposite(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
 		GridDataFactory.fillDefaults().grab(false, false).applyTo(innerComposite);
 
+		createCommandsInnerComposite(innerComposite);
+	}
+
+	protected void createCommandsInnerComposite(Composite innerComposite) {
 		Composite innerInnerComposite = GuiUtils.setupInnerComposite(innerComposite, 1, GridData.FILL_HORIZONTAL);
 		Label l = new Label(innerInnerComposite, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.BEGINNING).grab(true,false).applyTo(l);
@@ -177,68 +213,121 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 		createStopButton(innerComposite);
 		createMoveButton(innerComposite);
 
-		beeCommandingPartOnTeleoperateTab.moveDisabledExplanationLabel = new Label(innerComposite, SWT.None); // spacer
-		beeCommandingPartOnTeleoperateTab.moveDisabledExplanationLabel.setText(beeCommandingPartOnTeleoperateTab.LONG_BLANK_STRING);
-		beeCommandingPartOnTeleoperateTab.moveDisabledExplanationLabel.setForeground(colorOrange);
+		commandingPart.moveDisabledExplanationLabel = new Label(innerComposite, SWT.None); // spacer
+		commandingPart.moveDisabledExplanationLabel.setText(commandingPart.LONG_BLANK_STRING);
+		commandingPart.moveDisabledExplanationLabel.setForeground(colorOrange);
 	}
-	
-	protected Composite createInitializationComposite(Composite parent) {
+
+	protected Composite createBookmarkComposite(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
-		GridDataFactory.fillDefaults().grab(false, false).applyTo(innerComposite);
+		GridDataFactory.fillDefaults().grab(true, true).applyTo(innerComposite);
 
 		Composite innerInnerComposite = GuiUtils.setupInnerComposite(innerComposite, 1, GridData.FILL_HORIZONTAL);
-		
-		Label l = new Label(innerInnerComposite, SWT.None);
-		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.BEGINNING).grab(true, false).applyTo(l);
-		l.setText("Initialization");
 
-		createGrabControlButton(innerComposite);
-		
-		Label hsep = new Label(innerComposite, SWT.SEPARATOR | SWT.HORIZONTAL); // spacer
-		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, true).applyTo(hsep);
-		
+		Label l = new Label(innerInnerComposite, SWT.None);
+		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, false).applyTo(l);
+		l.setText("Create Location Bookmark");
+
+		createCreateBookmarkButton(innerComposite);
+
 		Composite innerComposite2 = GuiUtils.setupInnerComposite(innerComposite, 1, GridData.FILL_BOTH);
 		Label locationBookmarkLabel = new Label(innerComposite2, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.CENTER).grab(true, true).applyTo(locationBookmarkLabel);
-		locationBookmarkLabel.setText("Locations");
-		
+		locationBookmarkLabel.setText("Select Location Bookmark");
+
+		createBookmarkCombo(innerComposite);
+
 		return innerComposite;
 	}
-	
-	private void createBookmarkLine(Composite parent) {
+
+	protected void createCreateBookmarkButton(Composite parent) {
+		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
+		commandingPart.createBookmarkButton = new EnlargeableButton(innerComposite, SWT.TOGGLE);
+		commandingPart.createBookmarkButton.setText(commandingPart.CREATE_BOOKMARK_BUTTON_STRING);
+		commandingPart.createBookmarkButton.setToolTipText(commandingPart.CREATE_BOOKMARK_BUTTON_TOOLTIP);
+		commandingPart.createBookmarkButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.createBookmarkButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.createBookmarkButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				InputDialog dlg = new InputDialog(Display.getCurrent().getActiveShell(),
+						"Save the location of the Teleop Preview as a Bookmark", "Enter a name for the bookmark", "<name>", null);
+				if (dlg.open() == Window.OK) {
+					String name = dlg.getValue();
+
+					StationBookmark newSB = null;
+					ModuleBayStation station = null;;
+
+					IncrementableText[] pos = commandingPart.getCurrentPosition();
+					IncrementableText[] rot = commandingPart.getCurrentRotation();
+
+					station = new ModuleBayStation();
+					station.setCoordinate(new ModuleBayPoint((float)pos[0].getNumber(),
+							(float)pos[1].getNumber(),
+							(float)pos[2].getNumber(),
+							(float)rot[0].getNumber(),
+							(float)rot[1].getNumber(),
+							(float)rot[2].getNumber()));
+					newSB = new StationBookmark(name, station.getCoordinate());
+
+					BookmarkListBuilder.addBookmark(newSB);
+					try {
+						BookmarkListBuilder.saveBookmarksList();
+					} catch (Exception e1) {
+						return;
+					}
+
+					updateComboBoxes();
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	private void updateComboBoxes() {
+		loadLocationBookmarkList();
+		commandingPart.locationBookmarksCombo.setItems(commandingPart.bookmarkNames);
+	}
+
+	private void createBookmarkCombo(Composite parent) {
 		loadLocationBookmarkList();
 
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo = new Combo(innerComposite, SWT.READ_ONLY);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.setEnabled(false);
+		commandingPart.locationBookmarksCombo = new Combo(innerComposite, SWT.READ_ONLY);
+		commandingPart.locationBookmarksCombo.setEnabled(false);
 		GridData gd = new GridData(SWT.LEFT, SWT.CENTER, true, true);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.setLayoutData(gd);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.setItems(beeCommandingPartOnTeleoperateTab.bookmarkNames);
+		commandingPart.locationBookmarksCombo.setLayoutData(gd);
+		commandingPart.locationBookmarksCombo.setItems(commandingPart.bookmarkNames);
 		//		bookmarksCombo.setEnabled(false);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.setText(beeCommandingPartOnTeleoperateTab.NO_BOOKMARK_SELECTED_STRING);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.setToolTipText(BOOKMARKS_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.addSelectionListener(new SelectionAdapter() {
+		commandingPart.locationBookmarksCombo.setText(commandingPart.NO_BOOKMARK_SELECTED_STRING);
+		commandingPart.locationBookmarksCombo.setToolTipText(BOOKMARKS_TOOLTIP);
+		commandingPart.locationBookmarksCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (beeCommandingPartOnTeleoperateTab.NO_BOOKMARK_SELECTED_STRING.equals(beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.getText())) {
+				if (commandingPart.NO_BOOKMARK_SELECTED_STRING.equals(commandingPart.locationBookmarksCombo.getText())) {
 					return;
 				}
 
-				StationBookmark bookmark = BookmarkListBuilder.getStaticBookmarkList().getBookmarkFromName(beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.getText());
+				StationBookmark bookmark = BookmarkListBuilder.getStaticBookmarkList().getBookmarkFromName(commandingPart.locationBookmarksCombo.getText());
 				if(bookmark == null) {
-					logger.error("Chosen Location " + beeCommandingPartOnTeleoperateTab.locationBookmarksCombo.getText() + " was null");
+					logger.error("Chosen Location " + commandingPart.locationBookmarksCombo.getText() + " was null");
 					return;
 				}
-				
-				beeCommandingPartOnTeleoperateTab.justSetLocationBookmark = true;
 
-				beeCommandingPartOnTeleoperateTab.getDraggablePreview().setX(bookmark.getLocation().getX());
-				beeCommandingPartOnTeleoperateTab.getDraggablePreview().setY(bookmark.getLocation().getY());
-				beeCommandingPartOnTeleoperateTab.getDraggablePreview().setZ(bookmark.getLocation().getZ());
+				commandingPart.justSetLocationBookmark = true;
 
-				beeCommandingPartOnTeleoperateTab.getDraggablePreview().setRoll((int)bookmark.getLocation().getRoll());
-				beeCommandingPartOnTeleoperateTab.getDraggablePreview().setPitch((int)bookmark.getLocation().getPitch());
-				beeCommandingPartOnTeleoperateTab.getDraggablePreview().setYaw((int)bookmark.getLocation().getYaw());
+				commandingPart.getDraggablePreview().setX(bookmark.getLocation().getX());
+				commandingPart.getDraggablePreview().setY(bookmark.getLocation().getY());
+				commandingPart.getDraggablePreview().setZ(bookmark.getLocation().getZ());
+
+				commandingPart.getDraggablePreview().setRoll((int)bookmark.getLocation().getRoll());
+				commandingPart.getDraggablePreview().setPitch((int)bookmark.getLocation().getPitch());
+				commandingPart.getDraggablePreview().setYaw((int)bookmark.getLocation().getYaw());
 
 				// so you can still see what bookmark you selected
 				new Thread( new Runnable() {
@@ -246,7 +335,7 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 					public void run() {
 						try {
 							Thread.sleep(200);
-							beeCommandingPartOnTeleoperateTab.justSetLocationBookmark = false;
+							commandingPart.justSetLocationBookmark = false;
 						} catch (InterruptedException e) {
 							//
 						}
@@ -255,63 +344,38 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 			}
 		});
 	}
-	
-	private void loadLocationBookmarkList() {
-		beeCommandingPartOnTeleoperateTab.locationBookmarks = BookmarkListBuilder.getStaticBookmarkList();
 
-		if(beeCommandingPartOnTeleoperateTab.locationBookmarks == null) {
-			beeCommandingPartOnTeleoperateTab.bookmarkNames = new String[]{NO_BOOKMARKS_FOUND_STRING};
+	private void loadLocationBookmarkList() {
+		commandingPart.locationBookmarks = BookmarkListBuilder.getStaticBookmarkList();
+
+		if(commandingPart.locationBookmarks == null) {
+			commandingPart.bookmarkNames = new String[]{NO_BOOKMARKS_FOUND_STRING};
 		} else {
-			String[] justBookmarks = beeCommandingPartOnTeleoperateTab.locationBookmarks.getArrayOfNames();
-			beeCommandingPartOnTeleoperateTab.bookmarkNames = new String[justBookmarks.length + 1];
-			beeCommandingPartOnTeleoperateTab.bookmarkNames[0] = beeCommandingPartOnTeleoperateTab.NO_BOOKMARK_SELECTED_STRING;
+			String[] justBookmarks = commandingPart.locationBookmarks.getArrayOfNames();
+			commandingPart.bookmarkNames = new String[justBookmarks.length + 1];
+			commandingPart.bookmarkNames[0] = commandingPart.NO_BOOKMARK_SELECTED_STRING;
 			for(int i=0; i<justBookmarks.length; i++) {
-				beeCommandingPartOnTeleoperateTab.bookmarkNames[i+1] = justBookmarks[i];
+				commandingPart.bookmarkNames[i+1] = justBookmarks[i];
 			}
 		}
-	}
-	
-	protected void createGrabControlButton(Composite parent) {
-		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
-
-		beeCommandingPartOnTeleoperateTab.grabControlButtonOnMainTab = new CommandButton(innerComposite, SWT.NONE);
-		beeCommandingPartOnTeleoperateTab.grabControlButtonOnMainTab.setText("Grab Control");
-		beeCommandingPartOnTeleoperateTab.grabControlButtonOnMainTab.setToolTipText(WorkbenchConstants.GRAB_CONTROL_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.grabControlButtonOnMainTab.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.grabControlButtonOnMainTab.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.grabControlButtonOnMainTab.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				beeCommandingPartOnTeleoperateTab.astrobeeStateManager.startRequestingControl();
-
-				beeCommandingPartOnTeleoperateTab.commandPublisher.sendGenericNoParamsCommand(
-						ACCESSCONTROL_METHOD_REQUESTCONTROL.VALUE,
-						ACCESSCONTROL.VALUE);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// no-op
-			}
-		});
 	}
 
 	private void createTranslationInput(Composite parent, int index) {
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, true).span(4,1).applyTo(parent);
 		Label leftLabel = new Label(parent, SWT.None);
 		leftLabel.setLayoutData(new GridData(SWT.END, SWT.FILL, true, true));
-		leftLabel.setText(beeCommandingPartOnTeleoperateTab.translationInputLabel[index][0]);
-		beeCommandingPartOnTeleoperateTab.translationInput[index] = new IncrementableTextHorizontal(parent, 0.0, 0.05);
-		beeCommandingPartOnTeleoperateTab.translationInput[index].setAllowableRange(-translationRadius, translationRadius);
-		beeCommandingPartOnTeleoperateTab.translationInput[index].setToolTipText(TRANSLATION_TOOLTIP[index]);
-		beeCommandingPartOnTeleoperateTab.translationInput[index].setArrowToolTipText("m");
+		leftLabel.setText(commandingPart.translationInputLabel[index][0]);
+		commandingPart.translationInput[index] = new IncrementableTextHorizontal(parent, 0.0, 0.05);
+		commandingPart.translationInput[index].setAllowableRange(-translationRadius, translationRadius);
+		commandingPart.translationInput[index].setToolTipText(TRANSLATION_TOOLTIP[index]);
+		commandingPart.translationInput[index].setArrowToolTipText("m");
 		GridData gd = new GridData(SWT.CENTER, SWT.FILL, true, true);
 		gd.horizontalSpan = 2;
-		
-		beeCommandingPartOnTeleoperateTab.translationInput[index].setLayoutData(gd);
-	
+
+		commandingPart.translationInput[index].setLayoutData(gd);
+
 		Label rightLabel = new Label(parent, SWT.NONE);
-		rightLabel.setText(beeCommandingPartOnTeleoperateTab.translationInputLabel[index][1]);
+		rightLabel.setText(commandingPart.translationInputLabel[index][1]);
 		rightLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.FILL, true, true));
 	}
 
@@ -319,94 +383,97 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, true).span(3,1).applyTo(parent);
 		Label rotationAxisLabel = new Label(parent, SWT.None);
 		GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.FILL).grab(true, true).applyTo(rotationAxisLabel);
-		rotationAxisLabel.setText(beeCommandingPartOnTeleoperateTab.rotationInputLabel[index]);
+		rotationAxisLabel.setText(commandingPart.rotationInputLabel[index]);
 		rotationAxisLabel.setToolTipText(ROTATION_TOOLTIP[index]);
-		rotationAxisLabel.setForeground(beeCommandingPartOnTeleoperateTab.rotationColor[index]);
-		
-		beeCommandingPartOnTeleoperateTab.rotationInput[index] = new IncrementableTextHorizontalInt(parent, 0, 15);
-		beeCommandingPartOnTeleoperateTab.rotationInput[index].setToolTipText(ROTATION_TOOLTIP[index]);
-		beeCommandingPartOnTeleoperateTab.rotationInput[index].setArrowToolTipText("deg");
-		
+		rotationAxisLabel.setForeground(commandingPart.rotationColor[index]);
+
+		commandingPart.rotationInput[index] = new IncrementableTextHorizontalInt(parent, 0, 15);
+		commandingPart.rotationInput[index].setToolTipText(ROTATION_TOOLTIP[index]);
+		commandingPart.rotationInput[index].setArrowToolTipText("deg");
+
 		GridData gd = new GridData(SWT.CENTER, SWT.FILL, true, true);
 		gd.horizontalSpan = 2;
-		beeCommandingPartOnTeleoperateTab.rotationInput[index].setLayoutData(gd);
-		beeCommandingPartOnTeleoperateTab.rotationInput[index].setAllowableRange(MIN_ROTATION, MAX_ROTATION);
+		commandingPart.rotationInput[index].setLayoutData(gd);
+		commandingPart.rotationInput[index].setAllowableRange(MIN_ROTATION, MAX_ROTATION);
 	}
-	
+
 	protected void createCheckboxesColumn(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
 		createFaceForwardButton(innerComposite);
 		createCheckObstaclesButton(innerComposite);
 		createCheckKeepoutsButton(innerComposite);
 	}
-	
+
 	protected void createCheckmarksColumn(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
 
-		beeCommandingPartOnTeleoperateTab.faceForwardCheckmark = new Label(innerComposite, SWT.None);
-		beeCommandingPartOnTeleoperateTab.faceForwardCheckmark.setImage(beeCommandingPartOnTeleoperateTab.unknownCheckedImage);
-		GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).applyTo(beeCommandingPartOnTeleoperateTab.faceForwardCheckmark);
-		
-		beeCommandingPartOnTeleoperateTab.checkObstaclesCheckmark = new Label(innerComposite, SWT.None);
-		beeCommandingPartOnTeleoperateTab.checkObstaclesCheckmark.setImage(beeCommandingPartOnTeleoperateTab.unknownCheckedImage);
-		GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).applyTo(beeCommandingPartOnTeleoperateTab.checkObstaclesCheckmark);
-		
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsCheckmark = new Label(innerComposite, SWT.None);
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsCheckmark.setImage(beeCommandingPartOnTeleoperateTab.unknownCheckedImage);
-		GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).applyTo(beeCommandingPartOnTeleoperateTab.checkKeepoutsCheckmark);
+		commandingPart.faceForwardCheckmark = new Label(innerComposite, SWT.None);
+		commandingPart.faceForwardCheckmark.setImage(commandingPart.unknownCheckedImage);
+		GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).applyTo(commandingPart.faceForwardCheckmark);
+
+		commandingPart.checkObstaclesCheckmark = new Label(innerComposite, SWT.None);
+		commandingPart.checkObstaclesCheckmark.setImage(commandingPart.unknownCheckedImage);
+		GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).applyTo(commandingPart.checkObstaclesCheckmark);
+
+		commandingPart.checkKeepoutsCheckmark = new Label(innerComposite, SWT.None);
+		commandingPart.checkKeepoutsCheckmark.setImage(commandingPart.unknownCheckedImage);
+		GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).applyTo(commandingPart.checkKeepoutsCheckmark);
 	}
-	
+
 	protected void createFaceForwardButton(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
 
-		beeCommandingPartOnTeleoperateTab.faceForwardButton = new Button(innerComposite, SWT.CHECK);
-		beeCommandingPartOnTeleoperateTab.faceForwardButton.setText(beeCommandingPartOnTeleoperateTab.FACE_FORWARD_BUTTON_STRING);
-		beeCommandingPartOnTeleoperateTab.faceForwardButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.faceForwardButton.setToolTipText(beeCommandingPartOnTeleoperateTab.FACE_FORWARD_BUTTON_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.faceForwardButton.setSelection(true);
+		commandingPart.faceForwardButton = new Button(innerComposite, SWT.CHECK);
+		commandingPart.faceForwardButton.setText(commandingPart.FACE_FORWARD_BUTTON_STRING);
+		commandingPart.faceForwardButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
+		commandingPart.faceForwardButton.setToolTipText(commandingPart.FACE_FORWARD_BUTTON_TOOLTIP);
+		commandingPart.faceForwardButton.setSelection(true);
 	}
 
 	protected void createCheckObstaclesButton(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
 
-		beeCommandingPartOnTeleoperateTab.checkObstaclesButton = new Button(innerComposite, SWT.CHECK);
-		beeCommandingPartOnTeleoperateTab.checkObstaclesButton.setText(beeCommandingPartOnTeleoperateTab.CHECK_OBSTACLES_BUTTON_STRING);
-		beeCommandingPartOnTeleoperateTab.checkObstaclesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.checkObstaclesButton.setToolTipText(beeCommandingPartOnTeleoperateTab.CHECK_OBSTACLES_BUTTON_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.checkObstaclesButton.setSelection(true);
+		commandingPart.checkObstaclesButton = new Button(innerComposite, SWT.CHECK);
+		commandingPart.checkObstaclesButton.setText(commandingPart.CHECK_OBSTACLES_BUTTON_STRING);
+		commandingPart.checkObstaclesButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
+		commandingPart.checkObstaclesButton.setToolTipText(commandingPart.CHECK_OBSTACLES_BUTTON_TOOLTIP);
+		commandingPart.checkObstaclesButton.setSelection(true);
 	}
 
 	protected void createCheckKeepoutsButton(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_BOTH);
 
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsButton = new Button(innerComposite, SWT.CHECK);
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsButton.setText(beeCommandingPartOnTeleoperateTab.CHECK_KEEPOUTS_BUTTON_STRING);
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsButton.setToolTipText(beeCommandingPartOnTeleoperateTab.CHECK_KEEPOUTS_BUTTON_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.checkKeepoutsButton.setSelection(true);
+		commandingPart.checkKeepoutsButton = new Button(innerComposite, SWT.CHECK);
+		commandingPart.checkKeepoutsButton.setText(commandingPart.CHECK_KEEPOUTS_BUTTON_STRING);
+		commandingPart.checkKeepoutsButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
+		commandingPart.checkKeepoutsButton.setToolTipText(commandingPart.CHECK_KEEPOUTS_BUTTON_TOOLTIP);
+		commandingPart.checkKeepoutsButton.setSelection(true);
+	}
+
+	protected String getMoveButtonName() {
+		return "Move Absolute";
 	}
 
 	protected void createMoveButton(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
-		beeCommandingPartOnTeleoperateTab.moveButton = new CommandButton(innerComposite, SWT.NONE);
-		beeCommandingPartOnTeleoperateTab.moveButton.setText("Move");
-		beeCommandingPartOnTeleoperateTab.moveButton.setToolTipText(MOVE_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.moveButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
-		beeCommandingPartOnTeleoperateTab.moveButton.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
-		beeCommandingPartOnTeleoperateTab.moveButton.addSelectionListener(new SelectionListener() {
+		commandingPart.moveButton = new CommandButton(innerComposite, SWT.NONE);
+		commandingPart.moveButton.setText(getMoveButtonName());
+		commandingPart.moveButton.setToolTipText(MOVE_TOOLTIP);
+		commandingPart.moveButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
+		commandingPart.moveButton.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
+		commandingPart.moveButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				double x = beeCommandingPartOnTeleoperateTab.translationInput[0].getNumber();
-				double y = beeCommandingPartOnTeleoperateTab.translationInput[1].getNumber();
-				double z = beeCommandingPartOnTeleoperateTab.translationInput[2].getNumber();
+				double x = commandingPart.translationInput[0].getNumber();
+				double y = commandingPart.translationInput[1].getNumber();
+				double z = commandingPart.translationInput[2].getNumber();
 
-				double roll = beeCommandingPartOnTeleoperateTab.rotationInput[0].getNumber();
-				double pitch = beeCommandingPartOnTeleoperateTab.rotationInput[1].getNumber();
-				double yaw = beeCommandingPartOnTeleoperateTab.rotationInput[2].getNumber();
+				double roll = commandingPart.rotationInput[0].getNumber();
+				double pitch = commandingPart.rotationInput[1].getNumber();
+				double yaw = commandingPart.rotationInput[2].getNumber();
 
-				//System.out.println("building ABSOLUTE cmd " + x + ", " + y + ", " + z + "; " + roll/RAD_TO_DEG +", " + pitch/RAD_TO_DEG + ", " + yaw/RAD_TO_DEG);
-				beeCommandingPartOnTeleoperateTab.commandPublisher.sendTranslateRotateCommandFromAbsoluteCoordinates
-					(x, y, z, roll/RAD_TO_DEG, pitch/RAD_TO_DEG, yaw/RAD_TO_DEG);
+				commandingPart.commandPublisher.sendTranslateRotateCommandFromAbsoluteCoordinates
+				(x, y, z, roll/RAD_TO_DEG, pitch/RAD_TO_DEG, yaw/RAD_TO_DEG);
 			}
 
 			@Override
@@ -414,40 +481,39 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 				// no-op
 			}
 		});
-		beeCommandingPartOnTeleoperateTab.moveButton.setCompositeEnabled(false);
+		commandingPart.moveButton.setCompositeEnabled(false);
 	}
-	
+
 	protected void createApplyOptionsButton(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
-		
+
 		GridDataFactory.fillDefaults().grab(true, false).span(2,1).applyTo(innerComposite);
-		
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab = new CommandButton(innerComposite, SWT.NONE);
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab.setText("Apply Options");
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab.setToolTipText(APPLY_OPTIONS_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab.addSelectionListener(new SelectionListener() {
+
+		commandingPart.applyOptionsOnMainTab = new CommandButton(innerComposite, SWT.NONE);
+		commandingPart.applyOptionsOnMainTab.setText("Apply Options");
+		commandingPart.applyOptionsOnMainTab.setToolTipText(APPLY_OPTIONS_TOOLTIP);
+		commandingPart.applyOptionsOnMainTab.setButtonLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
+		commandingPart.applyOptionsOnMainTab.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
+		commandingPart.applyOptionsOnMainTab.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(beeCommandingPartOnTeleoperateTab.faceForwardButton.getSelection()) {
-					beeCommandingPartOnTeleoperateTab.commandPublisher.sendEnableHolonomicCommand(false);
+				if(commandingPart.faceForwardButton.getSelection()) {
+					commandingPart.commandPublisher.sendEnableHolonomicCommand(false);
 				} else {
-					beeCommandingPartOnTeleoperateTab.commandPublisher.sendEnableHolonomicCommand(true);
+					commandingPart.commandPublisher.sendEnableHolonomicCommand(true);
 				}
 
-				if(beeCommandingPartOnTeleoperateTab.checkObstaclesButton.getSelection()) {
-					beeCommandingPartOnTeleoperateTab.commandPublisher.sendCheckObstaclesCommand(true);
+				if(commandingPart.checkObstaclesButton.getSelection()) {
+					commandingPart.commandPublisher.sendCheckObstaclesCommand(true);
 				} else {
-					beeCommandingPartOnTeleoperateTab.commandPublisher.sendCheckObstaclesCommand(false);
+					commandingPart.commandPublisher.sendCheckObstaclesCommand(false);
 				}
 
-				if(beeCommandingPartOnTeleoperateTab.checkKeepoutsButton.getSelection()) {
-					beeCommandingPartOnTeleoperateTab.commandPublisher.sendCheckKeepoutsCommand(true);
+				if(commandingPart.checkKeepoutsButton.getSelection()) {
+					commandingPart.commandPublisher.sendCheckKeepoutsCommand(true);
 				} else {
-					beeCommandingPartOnTeleoperateTab.commandPublisher.sendCheckKeepoutsCommand(false);
+					commandingPart.commandPublisher.sendCheckKeepoutsCommand(false);
 				}
-
 			}
 
 			@Override
@@ -455,20 +521,69 @@ public class BeeCommandingPartOnTeleoperateTabCreator {
 				// no-op
 			}
 		});
-		beeCommandingPartOnTeleoperateTab.applyOptionsOnMainTab.setCompositeEnabled(false);
+		commandingPart.applyOptionsOnMainTab.setCompositeEnabled(false);
+	}
+
+	protected void createShowPreviewButton(Composite parent) {
+		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
+		commandingPart.showPreviewButton = new EnlargeableButton(innerComposite, SWT.TOGGLE);
+		commandingPart.showPreviewButton.setText(commandingPart.SHOW_PREVIEW_STRING);
+		commandingPart.showPreviewButton.setToolTipText(commandingPart.SHOW_PREVIEW_TOOLTIP);
+		commandingPart.showPreviewButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.showPreviewButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.showPreviewButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button btn = (Button) e.getSource();
+				TrackVisibleBeeCommandingSubtab.INSTANCE.setAbsolutePreviewShowing(btn.getSelection());
+				commandingPart.freeFlyerScenario.showAbsolutePreview(btn.getSelection());
+				if(btn.getSelection()) {
+					commandingPart.showPreviewButton.setText(commandingPart.HIDE_PREVIEW_STRING);
+					commandingPart.showPreviewButton.setToolTipText(commandingPart.HIDE_PREVIEW_TOOLTIP);
+				} else {
+					commandingPart.showPreviewButton.setText(commandingPart.SHOW_PREVIEW_STRING);
+					commandingPart.showPreviewButton.setToolTipText(commandingPart.SHOW_PREVIEW_TOOLTIP);
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
+	}
+
+	protected void createSnapToBeeButton(Composite parent) {
+		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
+		commandingPart.snapToBeeButton = new EnlargeableButton(innerComposite, SWT.PUSH);
+		commandingPart.snapToBeeButton.setText(commandingPart.SNAP_TO_BEE_STRING);
+		commandingPart.snapToBeeButton.setToolTipText(commandingPart.SNAP_TO_BEE_TOOLTIP);
+		commandingPart.snapToBeeButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.snapToBeeButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.snapToBeeButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				commandingPart.snapToBee();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
 	}
 
 	protected void createStopButton(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, 1, GridData.FILL_HORIZONTAL);
-		beeCommandingPartOnTeleoperateTab.stopButtonOnMainTab = new CommandButton(innerComposite, SWT.NONE);
-		beeCommandingPartOnTeleoperateTab.stopButtonOnMainTab.setText(WorkbenchConstants.STOP_BUTTON_TEXT);
-		beeCommandingPartOnTeleoperateTab.stopButtonOnMainTab.setToolTipText(WorkbenchConstants.STOP_TOOLTIP);
-		beeCommandingPartOnTeleoperateTab.stopButtonOnMainTab.setButtonLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		beeCommandingPartOnTeleoperateTab.stopButtonOnMainTab.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		beeCommandingPartOnTeleoperateTab.stopButtonOnMainTab.addSelectionListener(new SelectionListener() {
+		commandingPart.stopButtonOnMainTab = new CommandButton(innerComposite, SWT.NONE);
+		commandingPart.stopButtonOnMainTab.setText(WorkbenchConstants.STOP_BUTTON_TEXT);
+		commandingPart.stopButtonOnMainTab.setToolTipText(WorkbenchConstants.STOP_TOOLTIP);
+		commandingPart.stopButtonOnMainTab.setButtonLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.stopButtonOnMainTab.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		commandingPart.stopButtonOnMainTab.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				beeCommandingPartOnTeleoperateTab.commandPublisher.sendGenericNoParamsCommand(
+				commandingPart.commandPublisher.sendGenericNoParamsCommand(
 						MOBILITY_METHOD_STOPALLMOTION.VALUE,
 						MOBILITY.VALUE);
 			}

@@ -23,16 +23,16 @@ import gov.nasa.arc.irg.freeflyer.rapid.LogPoster;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AggregateAstrobeeState;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateListener;
 import gov.nasa.arc.irg.freeflyer.rapid.state.AstrobeeStateManager;
-import gov.nasa.arc.irg.freeflyer.rapid.state.CameraInfoGds;
 import gov.nasa.arc.irg.freeflyer.rapid.state.TelemetryStateGds.TelemetryFrequency;
 import gov.nasa.arc.irg.plan.ui.io.EnlargeableButton;
+import gov.nasa.arc.verve.freeflyer.workbench.helpers.SelectedAgentConnectedRegistry;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
 import gov.nasa.rapid.v2.e4.agent.Agent;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Vector;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -42,20 +42,17 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import rapid.ext.astrobee.SETTINGS_CAMERA_NAME_DOCK;
-import rapid.ext.astrobee.SETTINGS_CAMERA_NAME_NAV;
-import rapid.ext.astrobee.SETTINGS_CAMERA_NAME_SCI;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_COMM_STATUS;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_CPU_STATE;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_DISK_STATE;
@@ -64,43 +61,21 @@ import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_GNC_STATE;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_PMC_CMD_STATE;
 import rapid.ext.astrobee.SETTINGS_TELEMETRY_TYPE_POSITION;
 
-public class DataToGdsPart2 implements AstrobeeStateListener {
+public class DataToGdsPart implements AstrobeeStateListener {
 	protected Agent agent;
 	private Label agentNameLabel;
 	private int entireWidth = 3;
-	private String titleString = "Data to GDS 2";
-	private final String YES_STRING = "Yes";
-	private final String NO_STRING = "No";
-	private final String DEFAULT_NUMBER = " 0.0";
-
+	private String titleString = "Data to GDS";
 	protected AstrobeeStateManager astrobeeStateManager;
 	protected String myId;
-
+	private Composite parent;
+	
 	private String[] setTelemetryHeadings = {"Telemetry", "Current Freq", "Change to (Hz)", ""};
 	private String initialFrequency = "5" +"\t";
 
 	private HashMap<String, Label> currentTelemetryRate = new HashMap<String, Label>();
 	private HashMap<String, Text> telemetryRateInput = new HashMap<String, Text>();
 	private HashMap<String, EnlargeableButton> setTelemetryRateButton = new HashMap<String, EnlargeableButton>();
-
-
-	private String[] setCameraHeadings = {"Camera", "Streaming", "Resolution", "FPS", "Bandwidth",""};
-	private int[] setCameraHeadingWidths = {1, 2, 2, 2, 2, 1};
-
-	private HashMap<String, Label> currentStreaming = new HashMap<String, Label>();
-	private HashMap<String, Label> currentResolution = new HashMap<String, Label>();
-	private HashMap<String, Label> currentFrameRate = new HashMap<String, Label>();
-	private HashMap<String, Label> currentBandwidth = new HashMap<String, Label>();
-
-	private HashMap<String, EnlargeableButton> streamingInput = new HashMap<String, EnlargeableButton>();
-	private HashMap<String, Combo> resolutionInput = new HashMap<String, Combo>();
-	private HashMap<String, Text> frameRateInput = new HashMap<String, Text>();
-	private HashMap<String, Text> bandwidthInput = new HashMap<String, Text>();
-
-	private HashMap<String, EnlargeableButton> setCameraButton = new HashMap<String, EnlargeableButton>();
-
-	private String[] possibleCameras = 
-		{SETTINGS_CAMERA_NAME_SCI.VALUE, SETTINGS_CAMERA_NAME_NAV.VALUE, SETTINGS_CAMERA_NAME_DOCK.VALUE};
 
 	private String[] possibleTelemetries = {SETTINGS_TELEMETRY_TYPE_POSITION.VALUE,
 			SETTINGS_TELEMETRY_TYPE_EKF_STATE.VALUE,
@@ -111,20 +86,39 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 			SETTINGS_TELEMETRY_TYPE_PMC_CMD_STATE.VALUE};
 
 	@Inject
-	public DataToGdsPart2(Composite parent) {
-		GridLayout gl = new GridLayout(1, false);
-		gl.numColumns = 1;
+	public DataToGdsPart(Composite inParent) {
+		final ScrolledComposite sc1 = new ScrolledComposite(inParent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		final Composite c1 = new Composite(sc1, SWT.NONE);
+		sc1.setContent(c1);
+		parent = c1;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+		makeComposite();
+	}
+	
+	public void makeComposite() {
+		GridLayout gl = new GridLayout(2, false);
+		//gl.numColumns = 2;
 		parent.setLayout(gl);
 
 		myId = Agent.getEgoAgent().name();
 		
-		GuiUtils.makeHorizontalSeparator(parent, 1);
+		GuiUtils.makeHorizontalSeparator(parent, 2);
 		createAgentNameLabel(parent);
 		makeConfigureTelemetrySection(parent);
-		GuiUtils.makeHorizontalSeparator(parent, 1);
-		makeSetCameraSection(parent);
-	}
 
+		repackTheParent();
+	}
+	
+	private void repackTheParent() {
+		parent.setSize(parent.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		parent.pack();
+		parent.layout();
+		parent.update();
+	}
+	
 	@Inject @Optional
 	public void acceptAstrobeeStateManager(AstrobeeStateManager asm) {
 		astrobeeStateManager = asm;
@@ -138,12 +132,6 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 		for(EnlargeableButton b : setTelemetryRateButton.values()) {
 			b.setEnabled(true);
 		}
-		for(EnlargeableButton b : setCameraButton.values()) {
-			b.setEnabled(true);
-		}
-		for(EnlargeableButton b : streamingInput.values()) {
-			b.setEnabled(true);
-		}
 	}
 
 	@Inject @Optional
@@ -153,8 +141,10 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 		}
 
 		agent = a; 
-		agentNameLabel.setText(agent.name() + " " + titleString );
-
+		if(agentNameLabel != null ) {
+			agentNameLabel.setText(agent.name() + " " + titleString );
+		}
+		
 		if(astrobeeStateManager != null) {
 			astrobeeStateManager.addListener(this);
 		}
@@ -165,7 +155,6 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 			return;
 		}
 
-		updateCameraData(AggregateAstrobeeState.getInstance().getTelemetryState().getCameras());
 		updateTelemetryData(AggregateAstrobeeState.getInstance().getTelemetryState().getTelemetryFrequencies());
 
 		if(stateKeeper.getAccessControl().equals(myId)) {
@@ -183,47 +172,6 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 		}
 	}
 
-	private void updateCameraData(Vector<CameraInfoGds> input) {
-
-		for(CameraInfoGds cig : input) {
-			String name = cig.getName();
-
-			Label stream = currentStreaming.get(name);
-			if(stream != null) {
-				if(cig.isStreaming()) {
-					stream.setText(YES_STRING);
-				} else {
-					stream.setText(NO_STRING);
-				}
-			}
-
-			Label resLbl = currentResolution.get(name);
-			if(resLbl != null)
-					resLbl.setText(cig.getCurrentResolutionString());
-				
-				
-			String[] res = cig.getAvailResolutions();
-			Combo resCombo = resolutionInput.get(name);
-			if(resCombo != null){
-				resCombo.setItems( res );
-				for(int j=0; j<res.length; j++) {
-					if(res[j].equals(cig.getCurrentResolutionString())) {
-						resCombo.select(j);
-						break;
-					}
-				}
-			}
-				
-			Label framerate = currentFrameRate.get(name);
-			if(framerate != null)
-				framerate.setText(Float.toString(cig.getFrameRate()));
-
-			Label bandwidth = currentBandwidth.get(name);
-			if(bandwidth != null)
-				bandwidth.setText(Float.toString(cig.getBandwidth()));
-		}
-	}
-
 	protected void makeConfigureTelemetrySection(Composite parent) {
 		Composite innerComposite = GuiUtils.setupInnerComposite(parent, setTelemetryHeadings.length, GridData.VERTICAL_ALIGN_FILL);
 
@@ -234,19 +182,6 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 		}
 		for(int i=0; i<possibleTelemetries.length; i++) {
 			createATelemetryRow(innerComposite, possibleTelemetries[i]);
-		}
-	}
-
-	protected void makeSetCameraSection(Composite parent) {
-		Composite innerComposite = GuiUtils.setupInnerComposite(parent, countColumnsInCameraRow(), GridData.VERTICAL_ALIGN_FILL);
-
-		for(int i=0; i<setCameraHeadings.length; i++) {
-			Label l = new Label(innerComposite, SWT.None);
-			l.setText(setCameraHeadings[i]);
-			GridDataFactory.fillDefaults().grab(true, false).span(this.setCameraHeadingWidths[i],1).applyTo(l);
-		}
-		for(int i=0; i<possibleCameras.length; i++) {
-			createACameraRow(innerComposite, possibleCameras[i]);
 		}
 	}
 
@@ -287,90 +222,6 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 			public void widgetDefaultSelected(SelectionEvent e) { /**/ }
 		});
 		setTelemetryRateButton.put(name, setButton);
-	}
-
-	protected void createACameraRow(Composite c, String name) {
-		Label nameLabel = new Label(c, SWT.None);
-		nameLabel.setText(name);
-
-		Label currStream = new Label(c, SWT.None);
-		currStream.setText("_____");
-		currentStreaming.put(name, currStream);
-
-		EnlargeableButton streamButton = new EnlargeableButton(c, SWT.CHECK);
-		streamButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-		streamButton.setButtonLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-		streamButton.addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				CommandPublisher publisher = CommandPublisher.getInstance(agent);
-				if(streamButton.getSelection()) {
-					// start streaming this camera
-					publisher.sendSetCameraStreamingCommand(name, true);
-				} else {
-					// stop streaming this camera
-					publisher.sendSetCameraStreamingCommand(name, false);
-				}
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		
-		streamingInput.put(name, streamButton);
-
-		Label currRes = new Label(c, SWT.None);
-		currRes.setText("__________");
-		currentResolution.put(name, currRes);
-
-		resolutionInput.put(name, new Combo(c, SWT.READ_ONLY));
-
-		Label currFps = new Label(c, SWT.None);
-		currFps.setText("_____");
-		currentFrameRate.put(name, currFps);
-
-		Text fpsInput = new Text(c, SWT.BORDER);
-		fpsInput.setText(DEFAULT_NUMBER);
-		frameRateInput.put(name, fpsInput);
-
-		Label currBandwidth = new Label(c, SWT.None);
-		currBandwidth.setText("______");
-		currentBandwidth.put(name, currBandwidth);
-
-		Text bwInput = new Text(c, SWT.BORDER);
-		bwInput.setText(DEFAULT_NUMBER);
-		bandwidthInput.put(name, bwInput);
-
-		EnlargeableButton setButton = new EnlargeableButton(c, SWT.None);
-		setButton.setText("Set");
-		setButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-		setButton.setButtonLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-
-		setButton.addSelectionListener(new SelectionListener() {
-			private final String cameraName = name;
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				CommandPublisher publisher = CommandPublisher.getInstance(agent);
-
-				try {
-					Float framerate = Float.valueOf(frameRateInput.get(cameraName).getText());
-					Float bandwidth = Float.valueOf(bandwidthInput.get(cameraName).getText());
-
-					String resolution = resolutionInput.get(cameraName).getText();
-					publisher.sendSetCameraParamsCommand(cameraName, 
-							resolution, framerate, bandwidth);
-				} catch (NumberFormatException nfe) {
-					// TODO popup real error message
-					LogPoster.postToLog("Error", "Enter a number for frequency and bandwidth", "workbench");
-				}
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) { /**/ }
-		});
-		setCameraButton.put(name, setButton);
 	}
 
 	protected class TelemFreqTreeContentProvider implements ITreeContentProvider {
@@ -429,13 +280,5 @@ public class DataToGdsPart2 implements AstrobeeStateListener {
 	@PreDestroy
 	public void preDestroy() {
 		astrobeeStateManager.removeListener(this);
-	}
-
-	protected int countColumnsInCameraRow() {
-		int cols = 0;
-		for(int i=0; i<setCameraHeadingWidths.length; i++) {
-			cols += setCameraHeadingWidths[i];
-		}
-		return cols;
 	}
 }

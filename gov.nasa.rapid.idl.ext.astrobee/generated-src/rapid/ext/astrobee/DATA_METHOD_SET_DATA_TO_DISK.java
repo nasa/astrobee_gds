@@ -31,7 +31,7 @@ package rapid.ext.astrobee;
 /** Open or close gripper */
 /** Clear data */
 /** Start downloading data */
-/** Set active data-to-disk configuration to be the data-to-disk file most recently uplinked; the file specifies which data to save to free flyer onboard storage, and at what rates */
+/** Set data-to-disk configuration to be the data-to-disk file most recently uplinked; the file specifies which data to save to free flyer onboard storage, and at what rates */
 
 public class DATA_METHOD_SET_DATA_TO_DISK {    
 

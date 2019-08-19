@@ -109,18 +109,11 @@ public class AdminControlPanel extends AbstractControlPanel implements FrequentT
 		if(agent != null) {
 			standardControls.onAgentSelected(agent);
 		}
-		//Composite middleComposite = new Composite(parent, SWT.None);
 		makeAdminButtons(topComposite);
-		//Composite lowerComposite = new Composite(parent, SWT.None);
 		makeCommStateDisplay(topComposite);
 	}
 
 	private void makeAdminButtons(Composite parent) {
-//		GridLayout gl = new GridLayout(2, true);
-//		parent.setLayout(gl);
-
-		//makeStopButton(parent);
-
 		noopButton = new CommandButton(parent, SWT.NONE);
 		noopButton.setText("No-Op");
 		noopButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -156,9 +149,6 @@ public class AdminControlPanel extends AbstractControlPanel implements FrequentT
 	}
 
 	public void makeCommStateDisplay(Composite parent) {
-//		GridLayout gl = new GridLayout(1, false);
-//		parent.setLayout(gl);
-
 		wirelessStatusTree = new Tree(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gd.horizontalSpan = 2;

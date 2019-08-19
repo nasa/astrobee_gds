@@ -68,6 +68,8 @@ public class KeepoutModelingPart extends AbstractDatabindingWidget implements Pr
 	private IEclipseContext context;
 	private static KeepoutModelingPart instance;
 
+	private String noKeepoutOpen = "Got to Modeling->Open Keepout File to edit keepouts.\t";
+
 	// to set up the incrementable texts
 	private double startValue = 0;
 	private double incrementSize = 0.1;
@@ -98,7 +100,7 @@ public class KeepoutModelingPart extends AbstractDatabindingWidget implements Pr
 	
 	public void setKeepoutBuilder(KeepoutBuilder builder) {
 		if(builder == null) {
-			keepoutName.setText("No keepout file open.\t");
+			keepoutName.setText(noKeepoutOpen);
 			addKeepoutButton.setEnabled(false);
 			deleteButton.setEnabled(false);
 			confirmButton.setEnabled(false);
@@ -171,8 +173,8 @@ public class KeepoutModelingPart extends AbstractDatabindingWidget implements Pr
 		GridData nameData = new GridData(SWT.LEFT, SWT.LEFT, true, true);
 		nameData.horizontalSpan = 3;
 		keepoutName.setLayoutData(nameData);
-		keepoutName.setText("No keepout file open.\t");
-		
+		keepoutName.setText(noKeepoutOpen);
+
 		createAddKeepoutButton(controls);
 		Label tipLabel = new Label(controls, SWT.CENTER);
 		tipLabel.setText("Click on a keepout to edit it.");

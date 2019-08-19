@@ -222,6 +222,13 @@ public class TrajectoryBoundsCheck {
 		return checkEdges(x, y, z, r, q);
 	}
 
+	public boolean isAstrobeeSafeQuaternion(double x, double y, double z, Quaternion q) {
+		double r = beeRadius + margin;
+
+		return checkEdges(x, y, z, r, q);
+	}
+
+
 	private boolean checkEdges(double x, double y, double z, double r, Quaternion q) {
 		double[][] corners = getCorners(x, y, z, r, q);
 		double[][][] edges = getEdges(corners);

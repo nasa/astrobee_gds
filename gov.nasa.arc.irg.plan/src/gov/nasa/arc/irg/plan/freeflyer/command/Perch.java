@@ -22,7 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Perch extends FreeFlyerCommand {
 
 	public int getCalculatedDuration() {
-		return 12;
+		return 60;
 	}
 
 	@JsonIgnore

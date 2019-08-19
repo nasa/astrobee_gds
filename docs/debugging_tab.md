@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # Debugging, Advanced, and Advanced 2 tabs
 
 The Debugging, Advanced, and Advanced 2 tabs have subtabs that display detailed debugging information and allow
+=======
+# Engineering, Other and Debugging tabs
+
+The Engineering, Other and Debugging tabs have subtabs that display detailed debugging information and allow
+>>>>>>> master
 engineers to send low-level commands.
 
 ## Debugging Tab
@@ -41,8 +47,7 @@ refresh the list of topics.
 Code in `gov.nasa.arc.verve.freeflyer.workbench.parts.engineering.RawRapidTelemetryPart`.
 This subtab displays the latest messages on the topics that are checked in the Received Topics subtab.
 
-## Advanced Tab
-
+## Engineering Tab
 ### Health subtab
 
 This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.DetailedHealthAndStatusPart`) lists the
@@ -64,17 +69,37 @@ at which Astrobee sends telemetry to the Control Station (using the `SETTINGS_ME
 command). You can also use this tab to configure the cameras on Astrobee (via `SETTINGS_METHOD_SET_CAMERA`),
  and start or stop them from streaming images (via `SETTINGS_METHOD_SET_CAMERA_STREAMING`) 
  
- (About the name of the tab, the Control Station is also called "GDS", for "Ground Data System".)
+(Regarding the name of the tab, the Control Station is also called "GDS", for "Ground Data System".)
 
-### Power State
+### Data To Disk
 
-This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.EpsPart`) displays the information from the 
-EpsConfig and EpsState messages.
+This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DataToDiskPart`) displays the ROS Topics the 
+robot can log (from the DataTopicsList message), and which topics it is logging (from the DataToDiskState message).
+Click a column heading in the table to sort by that column.
+
+To change which rostopics the Astrobee will log (but not whether Astrobee is currently logging anything), 
+select a configuration file from a dropdown and click the associated "Configure" button. The dropdowns are populated
+ with the names of the files in the DataToDisk folder (see [Config Files](config_files.md)). There are multiple 
+ Configure dropdown-button pairs to make it faster to change between recording profiles.  When you
+click Configure Data, the CompressedFilePublisher compresses and sends the selected json file on topic
+`astrobee_compressed_file-data_to_disk`. When the DataToDiskPart receives the CompressedFileAck, it sends 
+`DATA_METHOD_SET_DATA_TO_DISK`. 
+
+To actually start or stop recording data to disk, use the buttons labeled Start Recording and Stop Recording,
+ which send `DATA_METHOD_START_RECORDING` and `DATA_METHOD_STOP_RECORDING` commands. Start recording takes a 
+ string parameter that is used as part of the filename of the recorded data; enter this parameter in the text
+ box next to the Start Recording button.
+
+### Localization Commands
+
+Use this tab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.LocalizationCommandsPart`) to switch
+ localization methods, reset the EKF, initialize the bias, idle propulsion, or no-op.
+
+## Other Tab
 
 ### Standard Controls 
 
-Use this subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.StandardControls`, created by the 
-`OperatingLimitsPart`) to Grab Control 
+This subtab `gov.nasa.arc.verve.freeflyer.workbench.parts.standard.AdminControlPanel`. Use it to Grab Control 
 or Stop (same as Station Keep on the other tabs) the Astrobee. The Send Zones button uses the 
 `SendZonesManager` to send the keepin and keepout zones in the current `{world}` folder to the robot. The zones
 are first concatenated into one file, and the file is sent as a Compressed file on topic 
@@ -82,7 +107,22 @@ are first concatenated into one file, and the file is sent as a Compressed file 
 `SETTINGS_METHOD_SET_ZONES`. The set zones command overwrites the keepin and keepout zones originally on 
 the robot. 
 
-Idle propulsion turns off the propulsion units by sending `MOBILITY_METHOD_IDLE_PROPULSION`.
+Idle propulsion turns off the propulsion units by sending `MOBILITY_METHOD_IDLE_PROPULSION`. The No-Op and Wipe 
+High Level Processor buttons send `ADMIN_METHOD_NOOP` and `ADMIN_METHOD_WIPE_HLP`, respectively.
+The table displays the content of the CommState message.
+
+### Component States
+
+This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.ComponentsPart`) displays the content 
+from the ComponentConfig and ComponentState message. For each component, it displays whether or not the component
+is present. If it is present, it displays if it is powered, its temperature and its current draw.
+
+### Inertia Properties
+
+This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.InertiaPart`) displays the contents of the 
+InertialProperties message.  To change the inertia properties on the robot, select an inertia configuration
+ from the dropdown that is populated by `InertiaConfigurations.json`. Click Configure Inertia, which sends
+ `SETTINGS_METHOD_SET_INERTIA` with the appropriate parameters.
  
 ### Operating Limits
  
@@ -91,40 +131,13 @@ Code is in `gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.OperatingLimit
 Limits, select a named configuration in the dropdown, which is populated by `OperatingLimitsConfigurations.json`.
 Then click Configure Data, which sends `SETTINGS_METHOD_SET_OPERATING_LIMITS` with the appropriate parameters.
 
-## Advanced 2 Tab
+### Power State
 
-### Component States
+This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.EpsPart`) displays the information from the 
+EpsConfig and EpsState messages.
 
-This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.ComponentsPart`) displays the content 
-from the ComponentConfig and ComponentState message. For each component, it displays whether or not the component
-is present. If it is present, it displays if it is powered, its temperature and its current draw.
+### Camera Streaming Configuration
 
-### Data To Disk
-
-This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DataToDiskPart`) displays the ROS Topics the 
-robot can log (from the DataTopicsList message), and which topics it is logging (from the DataToDiskState message).
-
-
-To change which rostopics the Astrobee is logging, select a configuration file from the dropdown. The dropdown is
-populated with the names of the files in the DataToDisk folder (see [Config Files](config_files.md)). When you
-click Configure Data, the CompressedFilePublisher compresses and sends the selected json file on topic
-`astrobee_compressed_file-data_to_disk`. When the DataToDiskPart receives the CompressedFileAck, it sends 
-`DATA_METHOD_SET_DATA_TO_DISK`.
- 
- You can also send commands to start (`DATA_METHOD_DOWNLOAD_DATA`) and stop (`DATA_METHOD_STOP_DOWNLOAD`) 
- downloading data, and to clear data (`DATA_METHOD_CLEAR_DATA`) with the labeled buttons.
-
-### Standard Controls
-
-This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.AdminControlPanel`) contains the same Standard
-Controls listed above. In addition, the No-Op and Wipe High Level Processor buttons send `ADMIN_METHOD_NOOP` and
-`ADMIN_METHOD_WIPE_HLP`, respectively.
-
-The table displays the content of the CommState message.
-
-### Inertia Properties
-
-This subtab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.InertiaPart`) displays the contents of the 
-InertialProperties message.  To change the inertia properties on the robot, select an inertia configuration
- from the dropdown that is populated by `InertiaConfigurations.json`. Click Configure Inertia, which sends
- `SETTINGS_METHOD_SET_INERTIA` with the appropriate parameters.
+Use this tab (`gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.CameraStreamingConfigurationPart`) 
+to adjust settings to stream images to the ground. Make sure that you know the effects of these
+commands in FSW before using them. (At one point, adjusting streaming settings also changed recording settings.)

@@ -41,9 +41,15 @@ public class LiveTelemetryViewMovementRegistry {
 		}
 	}
 	
-	public static void zoomToPreview() {
+	public static void zoomToAbsolutePreview() {
 		for(LiveTelemetryView v: s_registry) {
-			v.zoomToPreview();
+			v.zoomToAbsolutePreview();
+		}
+	}
+	
+	public static void zoomToRelativePreview() {
+		for(LiveTelemetryView v: s_registry) {
+			v.zoomToRelativePreview();
 		}
 	}
 	

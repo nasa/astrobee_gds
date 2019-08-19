@@ -265,7 +265,9 @@ public class LogPoster {
 	
 	private static String prettyPrintTeleopCommand(Command cmd) {
 		if(cmd.cmdName.equals(MOBILITY_METHOD_SIMPLEMOVE6DOF.VALUE)) {
-			return "Translate: "
+			String mode = ((ParameterUnion)cmd.arguments.userData.get(0)).s();
+			
+			return toTitleCase(mode) + " Translate: "
 					+ df.format(((ParameterUnion)cmd.arguments.userData.get(1)).vec3d().userData[0]) + ", "
 					+ df.format(((ParameterUnion)cmd.arguments.userData.get(1)).vec3d().userData[1]) + ", "
 					+ df.format(((ParameterUnion)cmd.arguments.userData.get(1)).vec3d().userData[2])

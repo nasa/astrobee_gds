@@ -22,8 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Undock extends FreeFlyerCommand {
 
 	public int getCalculatedDuration() {
-		// TODO Auto-generated method stub
-		return 4;
+		return 60;
 	}
 	@JsonIgnore
 	public static String getClassNameForWidgetDropdown() {

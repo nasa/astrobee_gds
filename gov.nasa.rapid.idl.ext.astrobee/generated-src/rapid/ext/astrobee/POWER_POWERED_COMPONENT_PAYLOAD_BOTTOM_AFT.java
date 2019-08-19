@@ -30,9 +30,11 @@ package rapid.ext.astrobee;
 /** Whether to perform a pan, tilt, or both. */
 /** Open or close gripper */
 /** Clear data */
-/** Start downloading data */
-/** Set active data-to-disk configuration to be the data-to-disk file most recently uplinked; the file specifies which data to save to free flyer onboard storage, and at what rates */
+/** Start downloading data *
+/** Set data-to-disk configuration to be the data-to-disk file most recently uplinked; the file specifies which data to save to free flyer onboard storage, and at what rates */
+/** Starts the recording of the topics configured with the set data to disk command. */
 /** Stop downloading data */
+/** Stops the recording of the topics configured with the set data to disk command. */
 /** Pass data to guest science APK */
 /** Specify which guest science APK to send the data to */
 /** The data to send (e.g. could be JSON-encoded data structure) */
@@ -58,6 +60,7 @@ package rapid.ext.astrobee;
 /** Generic command used to make up a command after the Control Station freeze. */
 /** Set camera parameters. */
 /** Camera name */
+/** Desired camera mode. Either streaming or recording. */
 /** Desired frame size in pixels. */
 /** Applies to both modes of camera. */
 /** Only for sci camera; related to quality, may change name to bitrate. */

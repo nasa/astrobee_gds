@@ -48,20 +48,22 @@ public class ConfigFileWrangler {
 
 	private String configFolderName = "ControlStationConfig";
 
+	private final String inertiaConfigName = "AllInertiaConfig.json";
+	private final String opLimitsConfigName = "AllOperatingLimitsConfig.json";
 	private final String bookmarksName = "BookmarksList.json";
-	private final String cameraConfigName = "CameraConfigurations.json";
-	private final String cameraPresetName = "SetCameraPresets.json";
-	private final String coloredBoxesName = "ColoredBoxesConfigurations.json";
 	private final String globalPref = "global.properties";
+	private final String cameraConfigName = "GraphicsCameraFovs.json";
+	private final String coloredBoxesName = "GraphicsColoredBoxes.json";
+	private final String lightsCameraPropertiesName = "GraphicsLightsCamera.properties";
 	private final String helpDoc = "help.html";
 	private final String helpFolder = "helpfiles";
-	private final String guestScienceConfigName = "GuestScienceConfigurations.json";
 	private final String handrailsName = "HandrailConfig.json";
 	private final String healthAndStatusConfigName = "HealthConfig.txt";
-	private final String inertiaConfigName = "InertiaConfigurations.json";
-	private final String lightsCameraPropertiesName = "LightsCamera.properties";
-	private final String opLimitsConfigName = "OperatingLimitsConfigurations.json";
-	private final String planPayloadConfigName = "PlanPayloadConfigurations.json";
+	private final String legalDoc = "legal_notice.html";
+	private final String guestScienceConfigName = "PlanEditorGuestScience.json";
+	private final String planPayloadConfigName = "PlanEditorPayloadConfig.json";
+	private final String cameraPresetName = "PlanEditorSetCameraConfig.json";
+
 	private final String teleopCommandsConfigName = "TeleopCommandConfigurations.json";
 
 	private final String issConfigName = "IssConfiguration.json";
@@ -583,6 +585,10 @@ public class ConfigFileWrangler {
 
 	public String getIssModelsPath(){
 		return worldConfigDirPath + File.separator + modelsFolderName;
+	}
+	
+	public String getLegalDocUrlString() {
+		return configDirPath + File.separator + helpFolder + File.separator + legalDoc;
 	}
 
 	public String getLightsCameraPath(){

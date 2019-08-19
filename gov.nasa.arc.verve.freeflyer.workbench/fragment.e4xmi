@@ -21,7 +21,7 @@
     <elements xsi:type="application:Addon" xmi:id="_owBjkBY8EeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.addon.17" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.handlers.ShowTeleoperationTabReferredHandler"/>
     <elements xsi:type="application:Addon" xmi:id="_kk58sCSPEeebxLuq6Dsmmg" elementId="gov.nasa.arc.verve.freeflyer.workbench.addon.18" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.handlers.ShowOverviewTabReferredHandler"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_nPwlQBvPEeebxLuq6Dsmmg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.overviewTopZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_nPwlQBvPEeebxLuq6Dsmmg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.overview.topZone">
     <elements xsi:type="basic:PartStack" xmi:id="_yR8gUBvPEeebxLuq6Dsmmg" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.14">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_1FWcEBvPEeebxLuq6Dsmmg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.astrobeeStatus" containerData="5000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.OverviewTopPart" label="Bee Status">
@@ -29,7 +29,7 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_mBunsBvWEeebxLuq6Dsmmg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.overviewBottomZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_mBunsBvWEeebxLuq6Dsmmg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.overview.bottomZone">
     <elements xsi:type="basic:PartStack" xmi:id="_txER8BvWEeebxLuq6Dsmmg" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.15" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_uiiyMBvWEeebxLuq6Dsmmg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.wakeAstrobees" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.DockingStationStatusAndCommandingPart" label="Docking Station Status and Commanding">
@@ -43,10 +43,10 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Oq5ccB5NEeebxLuq6Dsmmg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.overviewSash">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Oq5ccB5NEeebxLuq6Dsmmg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.overview.sash">
     <elements xsi:type="basic:Part" xmi:id="_haV-IB5NEeebxLuq6Dsmmg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_p2dmMF8sEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScienceTopZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_p2dmMF8sEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScience.topZone">
     <elements xsi:type="basic:PartStack" xmi:id="_ge2pwBgMEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.10" containerData="5000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_6bNx8F8sEeaRII0imefDZA" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.guestScienceTopBar" containerData="5000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.SimplifiedGuestScienceTopPart" label="Bee Selection and Status">
@@ -54,7 +54,7 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_aDSTQHmsEeWPjMk6hG7tgg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScienceBottomZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_aDSTQHmsEeWPjMk6hG7tgg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScience.bottomZone">
     <elements xsi:type="basic:PartStack" xmi:id="_mBx_cBgPEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.12" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_vLA68HmsEeWPjMk6hG7tgg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.dummyView" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.SimplifiedGuestScienceSidePart" label="Commanding for -">
@@ -74,10 +74,10 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_HG1poHmnEeWPjMk6hG7tgg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScienceSash" positionInList="">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_HG1poHmnEeWPjMk6hG7tgg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.guestScience.sash" positionInList="">
     <elements xsi:type="basic:Part" xmi:id="_igrIkHmnEeWPjMk6hG7tgg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_TcdOsNmGEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlanTopZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_TcdOsNmGEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlan.topZone">
     <elements xsi:type="basic:PartStack" xmi:id="__vu9oBgKEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.5" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_Vpj_cNmGEeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.telemetryPanel" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.HealthPart" label="Health">
@@ -91,7 +91,7 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_THnKoNmHEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlanBottomZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_THnKoNmHEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlan.bottomZone">
     <elements xsi:type="basic:PartStack" xmi:id="_ukY2gBgLEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.7" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_YosqENmGEeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.planTablePanel" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LivePlanPart" label="Live Plan">
@@ -111,10 +111,10 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vcG7ANmHEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlanSash">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vcG7ANmHEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.runPlan.sash">
     <elements xsi:type="basic:Part" xmi:id="_xbRWYNmHEeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.2" containerData="80" accessibilityPhrase="Log Button Bar" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_gnNlUNlxEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleopTopZones">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_gnNlUNlxEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleop.topZones">
     <elements xsi:type="basic:PartStack" xmi:id="_-R8UgBgLEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.8" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_nq3eMNmFEeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.telemetryPanel" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.HealthPart" label="Health">
@@ -132,10 +132,11 @@
       <children xsi:type="basic:Part" xmi:id="_8FbK0BZkEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.docking" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.DockingPart" label="Docking">
         <tags>NoMove</tags>
       </children>
-      <children xsi:type="basic:Part" xmi:id="_Hrw7MHHBEemgvsZW1lkixw" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.relativeCommanding" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.RelativeCommanding" label="Relative Commanding"/>
+      <children xsi:type="basic:Part" xmi:id="_Hrw7MHHBEemgvsZW1lkixw" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.relativeCommanding" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.RelativeCommandingPart" label="Relative Commanding"/>
+      <children xsi:type="basic:Part" xmi:id="_kGppcLh4Eem-x_ESs7eNZg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.relativeCommandingText" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.RelativeCommandingTextPart" label="Relative Commanding Text"/>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_GjimENmHEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleopBottomZones">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_GjimENmHEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleop.bottomZones">
     <elements xsi:type="basic:PartStack" xmi:id="_I9c08BgMEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.9" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_tI2w4NmFEeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.instrumentControlPanel" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.teleop.MiscellaneousCommandsPart" label="Miscellaneous Commands">
@@ -155,10 +156,10 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Ru-rMNjAEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleopSash">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Ru-rMNjAEeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.teleop.sash">
     <elements xsi:type="basic:Part" xmi:id="_XED5gNjAEeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_CIbakF2TEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScienceTopZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_CIbakF2TEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScience.topZone">
     <elements xsi:type="basic:PartStack" xmi:id="_qD2OEBgMEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.11" containerData="5000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_XuXBMF2TEeaRII0imefDZA" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.guestScienceTopBar" containerData="5000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.AdvancedGuestScienceTopPart" label="Astrobee Selection and Status">
@@ -166,7 +167,7 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_k6CscF2gEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScienceBottomZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_k6CscF2gEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScience.bottomZone">
     <elements xsi:type="basic:PartStack" xmi:id="_fIGYIBiOEeetT8CrhIjZKw" elementId="gov.nasa.arc.verve.freeflyer.workbench.partstack.13" containerData="1000">
       <tags>NoMove</tags>
       <children xsi:type="basic:Part" xmi:id="_11vYkF2gEeaRII0imefDZA" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.simpleView" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.guestscience.AdvancedGuestScienceSidePart" label="Commanding for -">
@@ -189,34 +190,40 @@
       </children>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_S53mYF2yEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScienceSash">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_S53mYF2yEeaRII0imefDZA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedGuestScience.sash">
     <elements xsi:type="basic:Part" xmi:id="_cw25oF2yEeaRII0imefDZA" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar">
       <tags>NoMove</tags>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_PUePcEHuEeWsmsZfUWSvfQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedLeftColumn">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_PUePcEHuEeWsmsZfUWSvfQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.leftColumn">
     <elements xsi:type="basic:Part" xmi:id="_7-bcEEa0EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.telemetryPanel" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DetailedHealthAndStatusPart" label="Telemetry Panel"/>
     <elements xsi:type="basic:Part" xmi:id="_AaXXkHSPEea0KoWX881ABw" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.faultsPart" containerData="2000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.FaultsPart" label="Faults Part"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_4bakAHSOEea0KoWX881ABw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedUpperRight">
-    <elements xsi:type="basic:Part" xmi:id="_dFST8EHuEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.dataToGdsPart2" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DataToGdsPart2" label="Data To GDS 2"/>
-    <elements xsi:type="basic:Part" xmi:id="_kts20EHuEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.operatingLimits" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.OperatingLimitsPart" label="Operating Limits"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_4bakAHSOEea0KoWX881ABw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.upperRight">
+    <elements xsi:type="basic:Part" xmi:id="_dFST8EHuEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.dataToGdsPart" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DataToGdsPart" label="Data To GDS"/>
+    <elements xsi:type="basic:Part" xmi:id="_n-1PMKdREemtKNzOVPERRA" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.localizationCommands" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.LocalizationCommandsPart" label="Localization Commands"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_s3KskEa1EeWsmsZfUWSvfQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedLowerRight">
-    <elements xsi:type="basic:Part" xmi:id="_9Hs70Ea1EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.powerStatusSplit" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.EpsPart" label="Power Status"/>
-  </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_sGr2sELXEeWsmsZfUWSvfQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advancedSash">
-    <elements xsi:type="basic:Part" xmi:id="_u3qwkELXEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar"/>
-  </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_nJx9sG5QEeeMfqy_pxo4Dw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advanced2LeftColumn">
-    <elements xsi:type="basic:Part" xmi:id="_9bI1MEa1EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.componentStatusSplit" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.ComponentsPart" label="Component Status"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_s3KskEa1EeWsmsZfUWSvfQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.lowerRight">
     <elements xsi:type="basic:Part" xmi:id="_7GkWQEHuEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.dataToDisk" containerData="2000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DataToDiskPart" label="Data To Disk"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_miKUMHbjEea0KoWX881ABw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advanced2RightColumn">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_sGr2sELXEeWsmsZfUWSvfQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.engineering.sash">
+    <elements xsi:type="basic:Part" xmi:id="_u3qwkELXEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_nJx9sG5QEeeMfqy_pxo4Dw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.leftColumn">
     <elements xsi:type="basic:Part" xmi:id="_Gba_YEa1EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.controlPanelRunSwap" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.AdminControlPanel" label="Admin Control Panel"/>
+    <elements xsi:type="basic:Part" xmi:id="_9bI1MEa1EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.componentStatusSplit" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.ComponentsPart" label="Component Status"/>
     <elements xsi:type="basic:Part" xmi:id="_K4N60Ea1EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.powerStatusSplit" containerData="2000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.InertiaPart" label="Inertia Part"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_HfF-kHSPEea0KoWX881ABw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.advanced2Sash">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_miKUMHbjEea0KoWX881ABw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.rightColumn"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Oa0LwKc4Eem4a5LlMWk2Dg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.upperRight">
+    <elements xsi:type="basic:Part" xmi:id="_kts20EHuEeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.operatingLimits" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.OperatingLimitsPart" label="Operating Limits"/>
+    <elements xsi:type="basic:Part" xmi:id="_hLIQIKc4Eem4a5LlMWk2Dg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.cameraConfiguration" containerData="1000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.CameraStreamingConfigurationPart" label="Camera Configuration"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Tx_EwKc4Eem4a5LlMWk2Dg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.lowerRight">
+    <elements xsi:type="basic:Part" xmi:id="_9Hs70Ea1EeWsmsZfUWSvfQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.powerStatusSplit" containerData="600" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.EpsPart" label="Power Status"/>
+    <elements xsi:type="basic:Part" xmi:id="_YiV9wKcqEemZaPS-Jfl_2A" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.dataSize" containerData="400" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.advanced.DataSizePart" label="Data Size"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_HfF-kHSPEea0KoWX881ABw" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.other.sash">
     <elements xsi:type="basic:Part" xmi:id="_KrVREHSPEea0KoWX881ABw" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar" tooltip=""/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_XtWVMHT2EeSNCrR7KFY8uA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.debug.upperleft">
@@ -255,10 +262,10 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_HZ7E4IcYEemEL5PCQtt6EQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.video.lowerright">
     <elements xsi:type="basic:Part" xmi:id="_cAmXgIckEemEL5PCQtt6EQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.camera3" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LiveImagesPart" label="Camera 3"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_UFpdENi_EeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.videoSash">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_UFpdENi_EeSh4v9M4elSvQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.video.sash">
     <elements xsi:type="basic:Part" xmi:id="_cb9AsNi_EeSh4v9M4elSvQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.logButtonBar" containerData="80" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.standard.LogButtonBar" label="Log Button Bar"/>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_2GgRS9XNemVZst9X6E4TDL" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.modelingTopZones">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_2GgRS9XNemVZst9X6E4TDL" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.modeling.topZones">
     <elements xsi:type="basic:Part" xmi:id="_94ZBeipAilOzmCSS8TpOj4" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.interactiveKeepoutModeler" containerData="2000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.ModelingPart" label="Interactive Modeling Tools">
       <tags>NoMove</tags>
     </elements>
@@ -266,12 +273,12 @@
       <tags>NoMove</tags>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_LtQMYHmtEeWPjMk6hG7tgg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.modelingBottomZones">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_LtQMYHmtEeWPjMk6hG7tgg" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.modeling.bottomZones">
     <elements xsi:type="basic:Part" xmi:id="_jUzFcHmtEeWPjMk6hG7tgg" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.modeling3dView" containerData="3000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView.Modeling3dView" label="Interactive Modeling Viewer">
       <tags>NoMove</tags>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_6RsxwD6KEeSvPd9hvDn3HQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.planEditorLeftZones">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_6RsxwD6KEeSvPd9hvDn3HQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partsashcontainer.planEditor.leftZones">
     <elements xsi:type="basic:Part" xmi:id="_-mr1AD6KEeSvPd9hvDn3HQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.createPlanView" containerData="2000" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.planeditor.PlanEditorPart" label="Create Plan View">
       <tags>NoMove</tags>
       <menus xsi:type="menu:PopupMenu" xmi:id="_OcNRQLbyEeSQhNLp3uhaOg" elementId="gov.nasa.arc.verve.freeflyer.workbench.popupmenu.1">
@@ -297,7 +304,7 @@
       <tags>NoMove</tags>
     </elements>
   </fragments>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vSf8oD6zEeSvPd9hvDn3HQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.planEditorRightZone">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vSf8oD6zEeSvPd9hvDn3HQ" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.planEditor.rightZone">
     <elements xsi:type="basic:Part" xmi:id="_yXNDwD6zEeSvPd9hvDn3HQ" elementId="gov.nasa.arc.verve.freeflyer.workbench.part.planEditor3dView" contributionURI="bundleclass://gov.nasa.arc.verve.freeflyer.workbench/gov.nasa.arc.verve.freeflyer.workbench.parts.liveTelemetryView.PlanEditor3dView" label="Interactive Plan Viewer">
       <tags>NoMove</tags>
     </elements>

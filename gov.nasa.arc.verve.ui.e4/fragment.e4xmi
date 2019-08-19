@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_VZ7UcFr0EeS3GcCkHT2wGQ">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_VZ7UcFr0EeS3GcCkHT2wGQ">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_JqHXAFr3EeS3GcCkHT2wGQ" featurename="addons" parentElementId="gov.nasa.arc.ff.ocu.application">
     <elements xsi:type="application:Addon" xmi:id="_MaU00Fr3EeS3GcCkHT2wGQ" elementId="gov.nasa.arc.verve.ui.e4.addon.0" contributionURI="bundleclass://gov.nasa.arc.verve.ui.e4/gov.nasa.arc.verve.ui.e4.ImageRegistryKeeper"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_qE6JgK5lEemnVuX9ccUhcA" featurename="children" parentElementId="gov.nasa.arc.ff.ocu.partstack.debug.uppermiddle">
+    <elements xsi:type="basic:Part" xmi:id="_OohQYK5mEemnVuX9ccUhcA" elementId="gov.nasa.arc.verve.ui.e4.part.1" containerData="3000" contributionURI="bundleclass://gov.nasa.arc.verve.ui.e4/gov.nasa.arc.verve.ui.e4.view.SceneGraphTreeViewPart"/>
   </fragments>
 </fragment:ModelFragments>

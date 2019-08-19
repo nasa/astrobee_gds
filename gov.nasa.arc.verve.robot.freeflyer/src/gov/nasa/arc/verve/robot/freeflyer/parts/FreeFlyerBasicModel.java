@@ -38,18 +38,22 @@ public class FreeFlyerBasicModel extends Node {
 	protected float beeRadius = 0.1524f;
 	protected float[] alarmMatValues = {(255f/255f), (133f/255f), (36f/255f)};
 
-	// color may be red, blue, orange, yellow, green, purple, pink, or gray
+	/**
+	 * @param color red, blue, orange, yellow, green, purple, pink, mint, rose, or gray
+	 */
 	public FreeFlyerBasicModel(String name, double size, String color) {
 		super(name);
 		halfSideLength = size+fudgeFactor/2.0;
 		prepareColor(color);
 		init(color);
 	}
-	
-	// color may be red, blue, orange, yellow, green, purple, pink, or gray
-	public FreeFlyerBasicModel(double size, String color) {
+
+	/** 
+	 * @param color red, blue, orange, yellow, green, purple, pink, mint, rose, or gray
+	 */
+	public FreeFlyerBasicModel(String color) {
 		super(color+"SingleModel");
-		halfSideLength = size+fudgeFactor/2.0;
+		halfSideLength = beeRadius+fudgeFactor/2.0;
 		prepareColor(color);
 		init(color);
 	}
@@ -70,7 +74,7 @@ public class FreeFlyerBasicModel extends Node {
 	public void hideAlarmColor() {
 		setAllPartsToMaterial(normalMaterial);
 	}
-	
+
 	protected void setAllPartsToMaterial(MaterialState mat) {
 		base.setRenderState(mat);
 		leftProp.setRenderState(mat);
@@ -78,25 +82,25 @@ public class FreeFlyerBasicModel extends Node {
 		//frontFace.setRenderState(mat);
 		//frontRamp.setRenderState(mat);
 	}
-	
+
 	protected void init(String color) {
 		normalMaterial = makeMaterialState(hColor[0], hColor[1], hColor[2]);
 		xMaterial = makeMaterialState(0, 0, 0.6f);
 		myName = color + "FreeFlyer-m_base";
 		alarmMaterial = makeMaterialState(alarmMatValues[0],alarmMatValues[1],alarmMatValues[2]);
-		
+
 		makeCenterBox();
 		makeLeftProp();
 		makeRightProp();
 		makeFrontFace();
 		makeFrontRamp();
-		
+
 		bound = new Box("BoundingBox", new Vector3(0, 0, 0), beeRadius, beeRadius, beeRadius);
 		attachChild(bound);
 		updateModelAndWorldBounds();
 		bound.getSceneHints().setCullHint(CullHint.Always);
 	}
-	
+
 	protected void makeCenterBox() {
 		base = new Box(myName + "-center", new Vector3(),
 				halfSideLength - fudgeFactor, 
@@ -106,7 +110,7 @@ public class FreeFlyerBasicModel extends Node {
 		base.updateModelBound();
 		attachChild(base);
 	}
-	
+
 	protected void makeLeftProp() {
 		leftProp = new Box(myName + "-left", new Vector3(0, halfSideLength*0.75, 0),
 				halfSideLength, 
@@ -116,7 +120,7 @@ public class FreeFlyerBasicModel extends Node {
 		leftProp.updateModelBound();
 		attachChild(leftProp);
 	}
-	
+
 	protected void makeRightProp() {
 		rightProp = new Box(myName + "-right", new Vector3(0, -halfSideLength*0.75, 0),
 				halfSideLength, 
@@ -126,7 +130,7 @@ public class FreeFlyerBasicModel extends Node {
 		rightProp.updateModelBound();
 		attachChild(rightProp);
 	}
-	
+
 	protected void makeFrontFace() {
 		frontFace = new Box(myName + "-front", new Vector3(halfSideLength, 0, -halfSideLength/2),
 				0, 
@@ -136,20 +140,20 @@ public class FreeFlyerBasicModel extends Node {
 		frontFace.updateModelBound();
 		attachChild(frontFace);
 	}
-	
+
 	protected void makeFrontRamp() {
 		Vector3 cornerOne = new Vector3(halfSideLength, halfSideLength, -3*halfSideLength/4);
 		Vector3 cornerTwo = new Vector3(3*halfSideLength/4, -halfSideLength, -halfSideLength);
 		Vector3 center = new Vector3((cornerOne.getX() + cornerTwo.getX()) / 2,
-									(cornerOne.getY() + cornerTwo.getY()) / 2,
-									(cornerOne.getZ() + cornerTwo.getZ()) / 2);
-		
-		frontRamp = new Box(myName + "-frontRamp", 
+				(cornerOne.getY() + cornerTwo.getY()) / 2,
+				(cornerOne.getZ() + cornerTwo.getZ()) / 2);
+
+		frontRamp = new Box(myName + "-frontRamp",
 				new Vector3(0, 0, 0), 
 				halfSideLength/(4*Math.sqrt(2)), 
 				halfSideLength, 
 				0);
-		
+
 		Matrix3 rot = new Matrix3();
 		rot.fromAngles(0, -Math.PI/4, 0);
 		frontRamp.setRotation(rot);
@@ -184,6 +188,9 @@ public class FreeFlyerBasicModel extends Node {
 		else if(color.equals("green")) {
 			hColor = new Float[]{ 0.0f, 0.39f, 0.0f };
 		}
+		else if(color.equals("mint")) {
+			hColor = new Float[]{ 0.60f, 1.00f, 0.60f };
+		}
 		else if(color.equals("blue")) {
 			hColor = new Float[]{ 0.0f, 0.0f, 0.5f };
 		}
@@ -192,6 +199,9 @@ public class FreeFlyerBasicModel extends Node {
 		}
 		else if(color.equals("pink")) {
 			hColor = new Float[]{ 1.0f, 0.08f, 0.52f };
+		}
+		else if(color.equals("rose")) {
+			hColor = new Float[]{ 1.00f, 0.7f, 0.9f };
 		}
 		else if(color.equals("white")) {
 			hColor = new Float[]{ 1.0f, 1.0f, 1.0f };
@@ -203,7 +213,7 @@ public class FreeFlyerBasicModel extends Node {
 			hColor = new Float[]{ 0.6f, 0.6f, 0.6f };
 		}
 	}
-	
+
 	public void updateModelAndWorldBounds() {
 		for(Spatial child : getChildren()) {
 			if(child instanceof Mesh) {
@@ -213,7 +223,7 @@ public class FreeFlyerBasicModel extends Node {
 		}
 		this.updateWorldBound(true);
 	}
-	
+
 	@Override
 	public RenderState setRenderState(RenderState rs) {
 		if(rs instanceof MaterialState) {
@@ -224,12 +234,12 @@ public class FreeFlyerBasicModel extends Node {
 			return setRenderState(rs);
 		}
 	}
-	
+
 	@Override
 	public void setTranslation(ReadOnlyVector3 t) {
 		super.setTranslation(t);
 	}
-	
+
 	@Override
 	public BoundingVolume getWorldBound() {
 		bound.updateModelBound();

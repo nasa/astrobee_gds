@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
-
 /**
  * Child classes create widgets on the Miscellaneous Commands subtab
  * @author ddwheele

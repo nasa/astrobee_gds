@@ -22,8 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class Unperch extends FreeFlyerCommand {
 
 	public int getCalculatedDuration() {
-		// TODO Auto-generated method stub
-		return 5;
+		return 60;
 	}
 
 	@JsonIgnore

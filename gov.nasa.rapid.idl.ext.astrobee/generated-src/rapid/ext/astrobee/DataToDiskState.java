@@ -36,6 +36,7 @@ import com.rti.dds.cdr.CdrHelper;
 public class DataToDiskState  extends rapid.Message implements Copyable, Serializable{
 
     public String name=  "" ; /* maximum length = (32) */
+    public boolean recording= false;
     public rapid.ext.astrobee.SaveSettingSequence64 topicSaveSettings = (rapid.ext.astrobee.SaveSettingSequence64)rapid.ext.astrobee.SaveSettingSequence64.create();
 
     public DataToDiskState() {
@@ -62,6 +63,7 @@ public class DataToDiskState  extends rapid.Message implements Copyable, Seriali
 
         super.clear();
         name=  ""; 
+        recording= false;
         if (topicSaveSettings != null) {
             topicSaveSettings.clear();
         }
@@ -86,6 +88,9 @@ public class DataToDiskState  extends rapid.Message implements Copyable, Seriali
         if(!name.equals(otherObj.name)) {
             return false;
         }
+        if(recording != otherObj.recording) {
+            return false;
+        }
         if(!topicSaveSettings.equals(otherObj.topicSaveSettings)) {
             return false;
         }
@@ -98,6 +103,7 @@ public class DataToDiskState  extends rapid.Message implements Copyable, Seriali
 
         __result = super.hashCode();
         __result += name.hashCode(); 
+        __result += (recording == true)?1:0;
         __result += topicSaveSettings.hashCode(); 
         return __result;
     }
@@ -122,6 +128,7 @@ public class DataToDiskState  extends rapid.Message implements Copyable, Seriali
         DataToDiskState typedDst = this;
         super.copy_from(typedSrc);
         typedDst.name = typedSrc.name;
+        typedDst.recording = typedSrc.recording;
         typedDst.topicSaveSettings = (rapid.ext.astrobee.SaveSettingSequence64) typedDst.topicSaveSettings.copy_from(typedSrc.topicSaveSettings);
 
         return this;
@@ -143,6 +150,8 @@ public class DataToDiskState  extends rapid.Message implements Copyable, Seriali
 
         CdrHelper.printIndent(strBuffer, indent+1);        
         strBuffer.append("name: ").append(name).append("\n");  
+        CdrHelper.printIndent(strBuffer, indent+1);        
+        strBuffer.append("recording: ").append(recording).append("\n");  
         strBuffer.append(topicSaveSettings.toString("topicSaveSettings ", indent+1));
 
         return strBuffer.toString();

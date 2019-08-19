@@ -96,7 +96,8 @@ public class GdsFaultState {
 	}
 	
 	public GdsFaultState copyFrom(GdsFaultState original) {
-		allFaults = new HashMap<Integer,GdsFault>(original.allFaults);
+		allFaults = new HashMap<Integer,GdsFault>();
+
 		for(Integer i : original.allFaults.keySet()) {
 			allFaults.put(new Integer(i), new GdsFault(original.allFaults.get(i)));
 		}

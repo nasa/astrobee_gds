@@ -87,6 +87,13 @@ table and then selecting from the drop-down menus in the `FreeFlyerPlanWidget` i
 * Some actions can be reversed by going to Edit -> Undo
   * Adding a Station and deleting a Station can be undone
   * Moving a Station via the Coordinate Based tab can be undone.
+  
+### Preview ###
+* To preview the Plan, click Preview and a green preview model will follow the Plan trajectory at approximately
+ten times speed.
+  * The preview cannot be paused.
+  * If a Segment translates and rotates simultaneously, the preview will interpolate 
+  the translation only (the rotation will jump).
 
 ## Manage Bookmarks ##
 * Under View menu, select Open Bookmark Manager. This opens 

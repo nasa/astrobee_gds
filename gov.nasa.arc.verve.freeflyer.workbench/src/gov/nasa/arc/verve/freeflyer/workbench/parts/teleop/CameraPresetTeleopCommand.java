@@ -45,14 +45,16 @@ import org.eclipse.swt.widgets.Label;
 	  	{
 	  	"cameraName": "Dock",
 	  	"preset": [ {
-			"presetName": "High Definition",
+			"presetName": "High Definition Rec",
 			"resolution" : "1024_768",
+			"cameraMode" : "Recording",
 			"frameRate" : 5,
 			"bandwidth" : 640
 	  		},
 	  		{
-			"presetName": "Low Definition",
+			"presetName": "Low Definition Stream",
 			"resolution" : "640_480",
+			"cameraMode" : "Streaming",
 			"frameRate" : 4,
 			"bandwidth" : 92
 	  		} 
@@ -60,14 +62,16 @@ import org.eclipse.swt.widgets.Label;
 	  	},{
 	  	"cameraName": "Navigation",
 	  	"preset": [ {
-			"presetName": "High Definition",
+			"presetName": "High Definition Rec+Stream",
 			"resolution" : "1920_1080",
+			"cameraMode" : "Both",
 			"frameRate" : 5,
 			"bandwidth" : 100
 	  		},
 	  		{
-			"presetName": "Low Definition",
+			"presetName": "Low Definition Rec+Stream",
 			"resolution" : "640_480",
+			"cameraMode" : "Both",
 			"frameRate" : 25,
 			"bandwidth" : 300
 	  		} 
@@ -159,7 +163,8 @@ public class CameraPresetTeleopCommand extends AbstractTeleopCommandConfig {
 				if(preset != null) {
 					commandPublisher.sendSetCameraParamsCommand(firstCombo.getText(),
 							preset.getResolution(),
-							preset.getFrameRate(), 
+							preset.getCameraMode(),
+							preset.getFrameRate(),
 							preset.getBandwidth());
 				}
 			}

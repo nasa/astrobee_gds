@@ -12,22 +12,25 @@ following unique subtabs:
 ## Bee Commanding ##
 
 The <b>Bee Commanding subtab</b> (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.BeeCommandingPartOnTeleoperateTab.java`)
- sends commands that move the position and orientation of the selected Astrobee. Widgets
+ sends commands that move the position and orientation of the selected Astrobee, using "world" coordinates
+ (ie, the Space Station Analysis coordinate frame). Widgets
   in this subtab are created in `BeeCommandingPartOnTeleoperateTabCreator.java`.
-  It has the following sections:
+  The Bee Commanding subtab has the following sections:
 
-### Initialization
+### Preview
 
-The <b> Initialization section</b> in the Bee Commanding subtab includes the Grab Control button.
+"Preview" refers to the draggable white "Astrobee" model (`RobotPartDraggablePreview`) in the Interactive Map. The 
+Preview shows where the current values in the Manual Move Inputs section will send the Astrobee. The **Show/Hide Preview button** 
+toggles the visibility of the Preview in the Interactive Map.  The **Snap Preview to Bee button** puts the current position
+of the Astrobee into the boxes in the Manual Move Inputs section (which then moves the Preview to that location
+ via databinding).
 
-### Locations 
-The <b> Locations section</b> includes a <b>locations dropdown</b>, from which 
-to select a named location (coordinate and orientation) in the ISS. (Locations are specified as Bookmarks on the Plan
- Editor tab and stored in the `BookmarksList.json` config file). When you select a Location, the Control Station
-  sets the position and  orientation of the white Preview 
-  (`gov.nasa.arc.verve.robot.freeflyer.parts.RobotPartDraggablePreview.java`) in the Interactive Map subtab to that
-   location. The Manual Move Inputs update from the position of the Preview.
-
+### Location Bookmarks
+The <b> Locations Bookmarks section</b> includes a **Create Location Bookmark** button. If you click it, you will be 
+prompted for a name to save the current location and orientation of draggable Preview. Location bookmarks are stored in 
+the `BookmarksList.json` config file. When you select a bookmark from the <b>locations dropdown</b>, the Control Station
+puts the saved position and orientation into the boxes in the Manual Move Inputs section (which then moves the 
+Preview to that location via databinding).
 
 ### Manual Move Inputs
 
@@ -54,6 +57,7 @@ Apply Options button is clicked. If the checkbox to the left of the option is
 checked, the Apply Options button will send a command to turn on that option.
 If there is a green checkmark to the right of the option, the Astrobee already has
 that option turned on.  Options include:
+
 * <b> Face Forward </b> (`SETTINGS_METHOD_SET_HOLONOMIC_MODE`) requires the Astrobee to face the direction of motion.
 Unchecking this option allows the Astrobee to fly sideways or backwards, which may be
 desirable to collect specific video or science data. However, the Astrobee does not 
@@ -80,7 +84,7 @@ the Options section. This is done by sending the associated commands with the ap
 The <b> Commands section</b> in the Bee Commanding subtab has buttons to send commands to the selected Astrobee.
 It includes these buttons:
 
-* <b>Station Keep Bee </b> commands the Astrobee to cancel any movement commands and
+* <b>Station Keep </b> commands the Astrobee to cancel any movement commands and
 station keep at its current position by sending the `MOBILITY_METHOD_STOPALLMOTION` command.
 
 * <b> Move </b> commands the Astrobee to go to the position specified 
@@ -90,7 +94,6 @@ in the Manual Move Inputs section by sending the `MOBILITY_METHOD_SIMPLEMOVE6DOF
 
 ![alt text](https://github.com/nasa/astrobee_gds/blob/master/gov.nasa.arc.ff.ocu/helpfiles/Figure12.PNG 
 "Perching Arm subtab")
-
 
 The <b>Perching Arm subtab</b> 
 (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.PerchingArmPart.java`)
@@ -175,33 +178,30 @@ stop and wait for the obstacle to move. (NB: As of July 2019, this command is no
  Robot Software and there is no scheduled implementation date. To command Astrobee to dock, please use the manual
  Dock command on the Miscellaneous Commands tab, or on the Debugging tab.)
 
+## Relative Commanding ##
 
-## Relative Commanding
+The **Relative Commanding subtab** (`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.RelativeCommandingPart.java`)
+ sends commands that move the position and orientation of the selected Astrobee, using relative coordinates (framename = 
+ body). Widgets in this subtab are created in `RelativeCommandingPartCreator.java`.
+ 
+  The Relative Commanding subtab is the same as the Bee Commanding subtab, except that it is bound to 
+`gov.nasa.arc.verve.robot.freeflyer.parts.RobotPartRelativeDraggablePreview` and the **Move Relative button** sends  
+`MOBILITY_METHOD_SIMPLEMOVE6DOF` with frame set to "body".
+
+## Relative Commanding Text
 
 The <b>Relative Commanding</b> subtab 
-(`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.RelativeCommanding.java`) 
+(`gov.nasa.arc.verve.freeflyer.workbench.parts.standard.RelativeCommandingText.java`) 
 is not included in the Crew Control Station; it is intended for use by engineers only.
-It has these sections:
+It has ten commanding textbox-button pairs. There are ten pairs to allow the user to queue up relative commands for an 
+efficient activity.
 
-### Initialization
-The <b> Initialization section</b> includes the Grab Control button discussed above.
+Each **textbox** allows the user to input a position relative to the robot's current position. The input must take 
+the form "x, y, z, qx, qy, qz, qw". x, y, z are distances in meters along the robot's forward, right, and down axes, 
+and qx, qy, qz, qw are components of a quaternion relative to Astrobee's current position.
 
-
-### Input
-The <b>Input section</b> in the Relative Commanding subtab has a textbox that allows the user to input a position relative
-to the robot's current position. The input needs to take the form "x, y, z, qx, qy, qz, qw". x, y, z are distances in meters
-along the robot's forward, right, and down axes, and qx, qy, qz, qw are components of a quaternion relative to Astrobee's
-current position.
-
-### Commands
-
-The <b> Commands section</b> in the Docking subtab has buttons to send commands to the selected Astrobee.
-It includes:
-
-*The <b>Station Keep Bee</b> button commands the Astrobee to cancel any movement commands and
-station keep at its current position. (`MOBILITY_METHOD_STOPALLMOTION`)
-<li> The <b> Move </b> button commands the Astrobee to move to the position specified in the 
-Input textbox. (`MOBILITY_METHOD_SIMPLEMOVE6DOF` with frame set to "body")
+Each **Move Relative** button commands the Astrobee to move to the position specified in its corresponding textbox. 
+(`MOBILITY_METHOD_SIMPLEMOVE6DOF` with frame set to "body")
 
 ## Interactive Map
 

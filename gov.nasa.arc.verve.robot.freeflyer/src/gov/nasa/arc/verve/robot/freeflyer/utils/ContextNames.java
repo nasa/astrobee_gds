@@ -59,16 +59,19 @@ public class ContextNames {
 	
 	/** KeepoutBox that is currently selected */
 	final public static String SELECTED_KEEPOUT = "selectedKeepout";
-	
-	/** Boolean that is true if the teleop preview should show */
-	final public static String SHOW_TELEOP_PREVIEW = "showTeleopPreview";
-	
+		
 	/** Vector3 to preview teleop translation */
 	final public static String TELEOP_TRANSLATION = "teleopTranslation";
+	
+	/** Vector3 to preview teleop translation */
+	final public static String RELATIVE_TELEOP_TRANSLATION = "relativeTeleopTranslation";
 	
 	/** Vector3 to preview teleop rotation */
 	final public static String TELEOP_ROTATION_RADIANS = "teleopRotationRadians";
 	
+	/** Vector3 to preview teleop rotation */
+	final public static String RELATIVE_TELEOP_ROTATION_RADIANS = "relativeTeleopRotationRadians";
+
 	/** false if selected robot has checkKeepouts as false, true otherwise */
 	final public static String CHECK_KEEPOUTS_ENABLED = "checkKeepoutsEnabled";
 	
@@ -83,8 +86,7 @@ public class ContextNames {
 	
 	/** StationBox to get the currently selected station */
 	final public static String SELECTED_STATION = "selectedStation";
-	
-	
+
 	/** HandrailBuilder that is current active */
 	final public static String HANDRAIL_BUILDER = "handrailBuilder";
 	

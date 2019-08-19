@@ -18,7 +18,6 @@
 package gov.nasa.arc.irg.freeflyer.rapid.state;
 
 import gov.nasa.arc.irg.plan.ui.io.ConfigFileWrangler;
-import gov.nasa.arc.irg.plan.ui.io.WorkbenchConstants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,23 +59,26 @@ public class AstrobeeStateAdapter {
 	private final String processorName = "Processor";
 	private final String mobilityName = "Mobility";
 	private final String localizationName = "Localization";
+	private final String recordingName = "Recording Data to Disk";
+	private final String recordingNameName = "Data to Disk Filename";
+	private final String recordingSummaryName = "Data to Disk";
 	private final String DISABLED_STRING = "Disabled";
 	
 	private final int priorityOffset = 33; // Astrobee can report up to 32 faults
 	private final int priorityIgnoreOffset = 101;
 
 	private final String[] allData = { accessControlName,
-			operatingStateName, planExecutionStateName, rawMobilityStateName, subMobilityStateName, operatingLimitsName, 
-			planName, planStatusName,
-			armMobilityName, armGripperName };
+			operatingStateName, planExecutionStateName, rawMobilityStateName, subMobilityStateName,
+			operatingLimitsName, planName, planStatusName, armMobilityName, armGripperName,
+			recordingSummaryName };
 	
 	private final String[] faultData = { processorName, mobilityName, localizationName };
 
-	private String[] standardData = { operatingStateName, mobilityStateName, operatingLimitsName, planName, planStatusName };
+	private String[] standardData = { operatingStateName, mobilityStateName, operatingLimitsName,
+			planName, planStatusName, recordingSummaryName };
 
 	public AstrobeeStateAdapter(AggregateAstrobeeState state) {
 		aggregateState = state;
-
 		standardData = prepareListOfStandardData(ConfigFileWrangler.getInstance().getHealthAndStatusConfigPath());
 
 		setupStandardHealthAndStatusData();
@@ -90,7 +92,6 @@ public class AstrobeeStateAdapter {
 			File file = new File(filename);
 			Scanner reader = new Scanner(file);
 			while(reader.hasNextLine()) {
-
 				namesVector.add(reader.nextLine());
 			}
 			reader.close();
@@ -148,6 +149,38 @@ public class AstrobeeStateAdapter {
 				@Override
 				public String getValue() {
 					return aggregateState.getAstrobeeState().getOperatingStateName();
+				}
+			});
+			return;
+		}
+		if(topicName.equals(recordingSummaryName)) {
+			columnData.add(new StateTableRow(recordingSummaryName, aggregateState, priority, true) {
+				@Override
+				public String getValue() {
+					if(aggregateState.isRecordingData()) {
+						return "Recording " + aggregateState.getRecordingName();
+					}
+					else {
+						return "Not Recording " + aggregateState.getRecordingName();
+					}
+				}
+			});
+			return;
+		}
+		if(topicName.equals(recordingName)) {
+			columnData.add(new StateTableRow(recordingName, aggregateState, priority) {
+				@Override
+				public String getValue() {
+					return Boolean.toString(aggregateState.isRecordingData());
+				}
+			});
+			return;
+		}
+		if(topicName.equals(recordingNameName)) {
+			columnData.add(new StateTableRow(recordingNameName, aggregateState, priority) {
+				@Override
+				public String getValue() {
+					return aggregateState.getRecordingName();
 				}
 			});
 			return;

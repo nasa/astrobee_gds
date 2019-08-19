@@ -47,16 +47,27 @@ public class PowerOnItemWidget extends AbstractFreeFlyerWidget {
 
 		payloadsCombo = new Combo(this, SWT.READ_ONLY);
 		try {
-			payloadsCombo.setItems(PlanPayloadConfigListLoader.getArrayOfNames());	
+			String[] items = PlanPayloadConfigListLoader.getArrayOfNames();
+			payloadsCombo.setItems(items);
+			if(items.length > 1) {
+				payloadsCombo.select(0);
+			}
 			payloadsCombo.addModifyListener(new ModifyListener() {
 				@Override
 				public void modifyText(ModifyEvent e) {
-					try {
-						PlanPayloadConfig config;
-						config = PlanPayloadConfigListLoader.getPlanPayloadConfigFromName(payloadsCombo.getText());
-						powerLabel.setText(Double.toString(config.getPower()));
-					} catch (Exception ex) {
-						showErrorDialog(shell, "Error Reading Plan Payload Config File", ex.getMessage());
+					String selectedText = payloadsCombo.getText();
+					if(!selectedText.equals("")) {
+						try {
+							PlanPayloadConfig config = 
+									PlanPayloadConfigListLoader.getPlanPayloadConfigFromName(selectedText);
+							powerLabel.setText(Double.toString(config.getPower()));
+						} catch (Exception ex) {
+							String msg = ex.getMessage();
+							if (msg == null) {
+								msg = "No message available";
+							}
+							showErrorDialog(shell, "Error Reading Plan Payload Config File", msg);
+						}
 					}
 				}
 			});

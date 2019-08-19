@@ -17,6 +17,7 @@
  *****************************************************************************/
 package gov.nasa.arc.verve.freeflyer.workbench.parts.standard;
 
+import gov.nasa.arc.irg.freeflyer.rapid.CommandPublisher;
 import gov.nasa.arc.irg.freeflyer.rapid.FreeFlyerStrings;
 import gov.nasa.arc.irg.freeflyer.rapid.frequent.AstrobeeBattMinutesListener;
 import gov.nasa.arc.irg.freeflyer.rapid.frequent.EpsStateHolder;
@@ -33,10 +34,16 @@ import gov.nasa.arc.verve.freeflyer.workbench.helpers.SelectedAgentConnectedRegi
 import gov.nasa.arc.verve.freeflyer.workbench.scenario.FreeFlyerScenario;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.Berth;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.GuiUtils;
+import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.CommandButton;
+import gov.nasa.dds.system.DdsTask;
+import gov.nasa.rapid.idl.ext.astrobee.message.MessageTypeExtAstro;
+import gov.nasa.rapid.v2.e4.Rapid;
 import gov.nasa.rapid.v2.e4.agent.ActiveAgentSet;
 import gov.nasa.rapid.v2.e4.agent.Agent;
 import gov.nasa.rapid.v2.e4.agent.IActiveAgentSetListener;
+import gov.nasa.rapid.v2.e4.message.IRapidMessageListener;
 import gov.nasa.rapid.v2.e4.message.MessageType;
+import gov.nasa.rapid.v2.e4.message.collector.RapidMessageCollector;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +69,7 @@ import org.eclipse.swt.SWTException;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -71,7 +79,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 
-public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener, IActiveAgentSetListener, AstrobeeStateListener, FrequentTelemetryListener, SelectedAgentConnectedListener {
+import rapid.ACCESSCONTROL;
+import rapid.ACCESSCONTROL_METHOD_REQUESTCONTROL;
+import rapid.MOBILITY_METHOD_STOPALLMOTION;
+import rapid.ext.astrobee.DATA;
+import rapid.ext.astrobee.DATA_METHOD_STOP_RECORDING;
+import rapid.ext.astrobee.MOBILITY;
+
+public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener, IActiveAgentSetListener, 
+		AstrobeeStateListener, FrequentTelemetryListener, SelectedAgentConnectedListener {
 	private static final Logger logger = Logger.getLogger(TopBar.class);
 	private StyledText  time;
 	private final Timer timer = new Timer(false); // this is the timer that will run the throttled updates
@@ -80,11 +96,18 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 	protected Label dockConnectedTitle, dockConnectedLed;
 	private Label battLabel;
 	private Label controlLabel;
-
-	protected String ASTROBEE_SELECTOR_TOOLTIP = "Select an Astrobee to Control";
-	protected String DOCK_CONNECTED_TOOLTIP = "Connected to Docking Station";
-	protected String DOCK_DISCONNECTED_TOOLTIP = "Disconnected from Docking Station";
-
+	protected CommandButton grabControlButton, stationKeepButton, stopRecordingButton;
+	protected CommandPublisher commandPublisher;
+	protected MessageType[] sampleType;
+	
+	protected final String ASTROBEE_SELECTOR_TOOLTIP = "Select an Astrobee to Control";
+	protected final String DOCK_CONNECTED_TOOLTIP = "Connected to Docking Station";
+	protected final String DOCK_DISCONNECTED_TOOLTIP = "Disconnected from Docking Station";
+	private final String GRAB_CONTROL_STRING = "Grab Control";
+	private final String STOP_RECORDING_STRING = "Stop Recording Data";
+	protected boolean waitingToSendSetCommand = false;
+	protected String participantId = Rapid.PrimaryParticipant;
+	
 	private final Color white, cyan, orange;
 
 	@Inject
@@ -129,6 +152,10 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		this.sync = sync;
 		myId = Agent.getEgoAgent().name();
 
+		sampleType = new MessageType[] {
+				MessageTypeExtAstro.COMPRESSED_FILE_ACK_TYPE,
+		};
+
 		white = display.getSystemColor(SWT.COLOR_WHITE);
 		cyan = display.getSystemColor(SWT.COLOR_CYAN);
 		orange = ColorProvider.get(255, 165, 0);
@@ -161,14 +188,17 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 	}
 
 	protected void createComposite(final Composite parent) {
-		int cellsAcross = 7;
+		int cellsAcross = 10;
 
 		parent.setLayout(new GridLayout(cellsAcross,false));
 
 		createPartitionsCombo(parent);
 		createCommCircle(parent);
 		createBattLabel(parent);
-		createControlLabel(parent); 
+		createControlLabel(parent);
+		createGrabControlButton(parent);
+		createStationKeepButton(parent);
+		createStopRecordingButton(parent);
 
 		createCenterSpacer(parent);
 
@@ -213,7 +243,7 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 			return;
 		}
 		onSelectedAgentConnected();
-		
+
 		// don't think I need next line anymore
 		TopBarDataHolder.getInstance().setSavedBee(Agent.valueOf(partitionsCombo.getText()));
 
@@ -222,13 +252,12 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		application.getContext().set(FreeFlyerStrings.PRIMARY_BEE,TopBarDataHolder.getInstance().getSavedBee());
 	}
 
-
 	@Override
 	public void activeAgentSetChanged() {
 		populatePartitionsCombo();
 		updateDockLed();
 	}
-	
+
 	/** returns true if it selected the bee (ie, was only one available and no savedBee) */
 	protected boolean selectOnlyBee() {
 		if(TopBarDataHolder.getInstance().getSavedBee() == null) { 
@@ -267,26 +296,26 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		sync.asyncExec(new Runnable() {
 			public synchronized void run() {
 
-//				System.out.println("Setting names to:");
-//				for(String s : agentNamesArray) {
-//					System.out.println(s);
-//				}
-				
+				//				System.out.println("Setting names to:");
+				//				for(String s : agentNamesArray) {
+				//					System.out.println(s);
+				//				}
+
 				partitionsCombo.setItems(agentNamesArray);
-			
-				
+
+
 				boolean selectedSomething = selectSavedBee();
-				
+
 				if(!selectedSomething) {
 					selectedSomething = selectOnlyBee();
 				}
-				
+
 				if(selectedSomething) {
 					putNewlySelectedItemInContextAsPrimaryBee();
 				} else {
 					partitionsCombo.select(0); // select the select string
 				}
-				
+
 				partitionsCombo.pack(true);
 			}
 		});
@@ -302,6 +331,7 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		setAgentFromTopBarDataHolderInCombo();
 		forceUpdateOfControlField = true;
 		forceUpdateOfBattField = true;
+		commandPublisher = CommandPublisher.getInstance(a);
 	}
 
 	protected void setAgentFromTopBarDataHolderInCombo() {
@@ -340,7 +370,7 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 				agentStrings.add(a.name());
 			}
 		}
-		
+
 		agentStrings.remove(SELECTED_STRING);
 		agentStrings.add(0, SELECTED_STRING);
 
@@ -400,6 +430,7 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 	public void acceptAstrobeeStateManager(final AstrobeeStateManager asm) {
 		astrobeeStateManager = asm;
 		astrobeeStateManager.addListener(this, MessageType.ACCESSCONTROL_STATE_TYPE);
+
 	}
 
 	@Inject @Optional
@@ -424,6 +455,54 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		if( ( !aggregateAstrobeeState.getAccessControl().equals(savedController)) || forceUpdateOfControlField )  {
 			updateController(aggregateAstrobeeState.getAccessControl());
 		}
+
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				if(grabControlButton == null || grabControlButton.isDisposed()) {
+					return;
+				}
+				if(aggregateAstrobeeState.getAccessControl() == null || !selectedAgentIsConnected) {
+					return;
+				}
+				if(aggregateAstrobeeState.getAccessControl().equals(myId)) {
+					grabControlButton.setCompositeEnabled(false);
+				} else {
+					grabControlButton.setCompositeEnabled(true);
+					return;
+				}
+				
+				if(aggregateAstrobeeState.isRecordingData()) {
+					stopRecordingButton.setCompositeEnabled(true);
+				} else {
+					stopRecordingButton.setCompositeEnabled(false);
+				}
+
+				if(aggregateAstrobeeState.getAstrobeeState() == null || aggregateAstrobeeState.getAstrobeeState().getOperatingState() == null) {
+					return;
+				}
+
+				switch(aggregateAstrobeeState.getAstrobeeState().getMobilityState()) {
+				case FLYING:
+				case DRIFTING:
+				case STOPPING:
+					stationKeepButton.setCompositeEnabled(true);
+					break;
+				case PERCHING:
+				case DOCKING:
+					if(aggregateAstrobeeState.getAstrobeeState().getSubMobilityState() == 0) {
+						// perched or docked
+						stationKeepButton.setCompositeEnabled(false);
+					} else {
+						// still in the process of perching or docking
+						stationKeepButton.setCompositeEnabled(true);
+					}
+					break;
+				default:
+					stationKeepButton.setCompositeEnabled(false);
+					break;
+				}
+			}
+		});
 	}
 
 	protected void updateBatteryLevel() {
@@ -582,7 +661,7 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		connectedLed.setImage(cyanImage);
 		connectedLed.setToolTipText(WorkbenchConstants.DISCONNECTED_TOOLTIP);
 	}
-	
+
 	protected void createCommCircle(final Composite parent) {
 		final Composite innerComposite = setupInnerComposite(parent, GridData.HORIZONTAL_ALIGN_BEGINNING);
 
@@ -671,16 +750,79 @@ public class TopBar implements IConnectionListener, AstrobeeBattMinutesListener,
 		centerSpacer.setLayoutData(spacerGd);
 	}
 
+	private void createGrabControlButton(Composite parent) {
+		grabControlButton = new CommandButton(parent, SWT.NONE);
+		grabControlButton.setText(GRAB_CONTROL_STRING);
+		grabControlButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		grabControlButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		grabControlButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				astrobeeStateManager.startRequestingControl();
+
+				commandPublisher.sendGenericNoParamsCommand(
+						ACCESSCONTROL_METHOD_REQUESTCONTROL.VALUE,
+						ACCESSCONTROL.VALUE);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
+	}
+
+	protected void createStationKeepButton(Composite parent) {
+		stationKeepButton = new CommandButton(parent, SWT.NONE);
+		stationKeepButton.setText(WorkbenchConstants.STOP_BUTTON_TEXT);
+		stationKeepButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stationKeepButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stationKeepButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				commandPublisher.sendGenericNoParamsCommand(
+						MOBILITY_METHOD_STOPALLMOTION.VALUE,
+						MOBILITY.VALUE);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
+	}
+
+	protected void createStopRecordingButton(Composite parent) {
+		stopRecordingButton = new CommandButton(parent, SWT.NONE);
+		stopRecordingButton.setText(STOP_RECORDING_STRING);
+		stopRecordingButton.setButtonLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stopRecordingButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		stopRecordingButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				commandPublisher.sendGenericNoParamsCommand(
+						DATA_METHOD_STOP_RECORDING.VALUE,
+						DATA.VALUE);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// no-op
+			}
+		});
+	}
+	
+	
 	@Override
 	public void activeAgentAdded(Agent agent, String participantId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void activeAgentRemoved(Agent agent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

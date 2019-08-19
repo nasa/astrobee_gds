@@ -85,4 +85,18 @@
             customization="gov.nasa.arc.irg.plan.ui.widget.customization.NoParametersCustomization">
       </customization>
    </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.Customization">
+      <customization
+            class="gov.nasa.arc.irg.plan.freeflyer.command.InitializeBias"
+            customization="gov.nasa.arc.irg.plan.ui.widget.customization.NoParametersCustomization">
+      </customization>
+   </extension>
+   <extension
+         point="gov.nasa.ensemble.ui.databinding.e4.gov.nasa.ensemble.ui.databinding.widget.Customization">
+      <customization
+            class="gov.nasa.arc.irg.plan.freeflyer.command.StopRecording"
+            customization="gov.nasa.arc.irg.plan.ui.widget.customization.NoParametersCustomization">
+      </customization>
+   </extension>
 </plugin>

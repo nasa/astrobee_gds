@@ -161,19 +161,19 @@ public class AggregateAstrobeeState {
 	}
 
 	public void ingestDataToDiskState(DataToDiskState dataState) {
-		RosTopicsList rtl = RosTopicsList.getDataToDiskSettings();
-		rtl.clear(); // forget the past. we are not being stateful
+		RosTopicsList.clear(); // forget the past. we are not being stateful
+		RosTopicsList.setRecordingName(dataState.name);
+		RosTopicsList.setRecordingData(dataState.recording);
 		for(int i=0; i<dataState.topicSaveSettings.userData.size(); i++) {
 			SaveSetting setting = (SaveSetting)dataState.topicSaveSettings.userData.get(i);
-			rtl.setThisTopicsSettings(setting);
+			RosTopicsList.setThisTopicsSettings(setting);
 		}
 	}
 
 	public void ingestDataTopicsList(DataTopicsList dataConfig) {
-		RosTopicsList rtl = RosTopicsList.getTopicsList();
-		rtl.clear(); // Topics list should not be stateful either.
+		RosTopicsList.clear(); // Topics list should not be stateful either.
 		for(int i=0; i<dataConfig.topics.userData.size(); i++) {
-			rtl.addTopicName((String)dataConfig.topics.userData.get(i));
+			RosTopicsList.addTopicName((String)dataConfig.topics.userData.get(i));
 		}
 	}
 
@@ -188,7 +188,10 @@ public class AggregateAstrobeeState {
 	public boolean isThisSubsystemDisabled(String subsystemName) {
 		return gdsFaultState.isThisSubsystemDisabled(subsystemName);
 	}
-	
+
+	public boolean isRecordingData() {
+		return RosTopicsList.isRecordingData();
+	}
 	
 	public boolean isAnySubsystemDisabled() {
 		return gdsFaultState.isAnySubsystemDisabled();
@@ -220,6 +223,10 @@ public class AggregateAstrobeeState {
 
 	public GdsFaultState getGdsFaultState() {
 		return gdsFaultState;
+	}
+	
+	public String getRecordingName() {
+		return RosTopicsList.getRecordingName();
 	}
 
 	public void ingestPlanStatus(PlanStatus ps) {
@@ -272,6 +279,7 @@ public class AggregateAstrobeeState {
 		positionGds = new PositionGds();
 		telemetryState.clear();
 		receivedDataAboutSelectedAstrobee = false;
+		RosTopicsList.clear();
 	}
 
 	@Override

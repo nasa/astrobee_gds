@@ -30,7 +30,6 @@ import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 @JsonSubTypes({  
 	@Type(value = Sequenceable.class, name = "Sequenceable"),  
 	@Type(value = FreeFlyerCommand.class, name = "FreeFlyerCommand"),
-
 	@Type(value = ArmPanAndTilt.class, name = "armPanAndTilt"),
 	@Type(value = ClearData.class, name = "clearData"),
 	@Type(value = CustomGuestScience.class, name = "customGuestScience"),
@@ -39,6 +38,7 @@ import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 	@Type(value = SetFlashlightBrightness.class, name = "setFlashlightBrightness"),
 	@Type(value = GenericCommand.class, name = "genericCommand"),
 	@Type(value = GripperControl.class, name = "gripperControl"),
+	@Type(value = InitializeBias.class, name = "initializeBias"),
 	@Type(value = IdlePropulsion.class, name = "idlePropulsion"),
 	@Type(value = PausePlan.class, name = "pausePlan"),
 	@Type(value = Perch.class, name = "perch"),
@@ -47,11 +47,20 @@ import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 	@Type(value = SetCameraRecording.class, name = "setCameraRecording"),
 	@Type(value = SetCamera.class, name = "setCamera"),
 	@Type(value = SetCameraStreaming.class, name = "setCameraStreaming"),
+	@Type(value = SetCheckObstacles.class, name = "setCheckObstacles"),
+	@Type(value = SetCheckZones.class, name = "setCheckZones"),
+	@Type(value = SetHolonomicMode.class, name = "setHolonomicMode"),
+	@Type(value = SetPlanner.class, name = "setPlanner"),
+	@Type(value = SetTelemetryRate.class, name = "setTelemetryRate"),
 	@Type(value = StartGuestScience.class, name = "startGuestScience"),
+	@Type(value = StartRecording.class, name = "startRecording"),
+	@Type(value = StopRecording.class, name = "stopRecording"),
 	@Type(value = StopGuestScience.class, name = "stopGuestScience"),
+	@Type(value = SwitchLocalization.class, name = "switchLocalization"),
 	@Type(value = Undock.class, name = "undock"),
 	@Type(value = Unperch.class, name = "unperch"),
 	@Type(value = Wait.class, name = "wait")
+
 })
 public abstract class FreeFlyerCommand extends PlanCommand {
 
@@ -82,15 +91,24 @@ public abstract class FreeFlyerCommand extends PlanCommand {
 		commandTypes.add(GenericCommand.class);
 		commandTypes.add(GripperControl.class);
 		commandTypes.add(IdlePropulsion.class);
+		commandTypes.add(InitializeBias.class);
 		commandTypes.add(PausePlan.class);
 		commandTypes.add(Perch.class);
 		commandTypes.add(PowerOffItem.class);
 		commandTypes.add(PowerOnItem.class);
-		commandTypes.add(SetCameraRecording.class);
 		commandTypes.add(SetCamera.class);
-		commandTypes.add(StartGuestScience.class);
-		commandTypes.add(StopGuestScience.class);
+		commandTypes.add(SetCameraRecording.class);
 		commandTypes.add(SetCameraStreaming.class);
+		commandTypes.add(SetCheckObstacles.class);
+		commandTypes.add(SetCheckZones.class);
+		commandTypes.add(SetHolonomicMode.class);
+		commandTypes.add(SetPlanner.class);
+		commandTypes.add(SetTelemetryRate.class);
+		commandTypes.add(StartGuestScience.class);
+		commandTypes.add(StartRecording.class);
+		commandTypes.add(StopRecording.class);
+		commandTypes.add(StopGuestScience.class);
+		commandTypes.add(SwitchLocalization.class);
 		commandTypes.add(Undock.class);
 		commandTypes.add(Unperch.class);
 		commandTypes.add(Wait.class);

@@ -43,7 +43,11 @@ public class PowerOffItemWidget extends AbstractFreeFlyerWidget {
 		
 		payloadsCombo = new Combo(this, SWT.READ_ONLY);
 		try {
-			payloadsCombo.setItems(PlanPayloadConfigListLoader.getArrayOfNames());	
+			String[] items = PlanPayloadConfigListLoader.getArrayOfNames();
+			payloadsCombo.setItems(items);
+			if(items.length > 1) {
+				payloadsCombo.select(0);
+			}
 		} catch (Exception e) {
 			showErrorDialog(shell, "Error Reading Plan Payload Config File", e.getMessage());
 		}

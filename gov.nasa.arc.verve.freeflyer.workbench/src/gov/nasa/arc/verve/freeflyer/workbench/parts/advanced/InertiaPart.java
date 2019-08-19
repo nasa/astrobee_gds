@@ -102,7 +102,6 @@ public class InertiaPart implements AstrobeeStateListener {
 		optionsCombo.setItems( makeConfigsList());
 		optionsCombo.setText(selectString);
 		optionsCombo.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
-		optionsCombo.setEnabled(false);
 		myId = Agent.getEgoAgent().name();
 
 		configureButton = new CommandButton(parent, SWT.NONE);

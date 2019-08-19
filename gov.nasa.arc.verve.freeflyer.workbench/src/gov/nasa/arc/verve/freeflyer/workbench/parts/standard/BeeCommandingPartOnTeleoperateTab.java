@@ -29,6 +29,7 @@ import gov.nasa.arc.irg.plan.ui.io.EnlargeableButton;
 import gov.nasa.arc.irg.util.ui.ColorProvider;
 import gov.nasa.arc.verve.freeflyer.workbench.scenario.FreeFlyerScenario;
 import gov.nasa.arc.verve.freeflyer.workbench.utils.Berth;
+import gov.nasa.arc.verve.freeflyer.workbench.utils.TrackVisibleBeeCommandingSubtab;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.CommandButton;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.CreateValueStrategy;
 import gov.nasa.arc.verve.freeflyer.workbench.widget.helpers.IncrementableText;
@@ -60,6 +61,9 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.IPartListener;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
@@ -74,9 +78,8 @@ import org.eclipse.swt.widgets.Label;
 import com.ardor3d.math.Quaternion;
 import com.ardor3d.math.Vector3;
 
-public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierListener, AstrobeeStateListener, IPreviewMovedListener {
+public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierListener, AstrobeeStateListener, IPreviewMovedListener, IPartListener {
 	private static final Logger logger = Logger.getLogger(BeeCommandingPartOnTeleoperateTab.class);
-	protected CommandButton grabControlButtonOnMainTab;
 	protected String accessControlName = "";
 
 	protected CommandPublisher commandPublisher;
@@ -88,7 +91,7 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 
 	protected final String TELEOP_DISALLOWED_STRING = "Potential collision";
 	protected final String LONG_BLANK_STRING = "\t\t";
-	protected final String NO_BOOKMARK_SELECTED_STRING = "No Location Selected";
+	protected final String NO_BOOKMARK_SELECTED_STRING = "Select Bookmarked Location";
 	protected final String BLANK_STRING = " ";
 	protected final double RAD_TO_DEG = 180.0 / Math.PI;
 	protected final double DEG_TO_RAD = Math.PI / 180.0;
@@ -96,12 +99,10 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 
 	protected Berth selectedBerth = null;
 
-	protected Vector3 dragTranslationVec = new Vector3(0,0,0);
-
 	LiveTeleopVerifier teleopVerifier;
 
 	protected boolean onTop = false; // if Teleoperation tab is selected
-	private boolean previewedTeleopIsLegal = true;
+	protected boolean previewedTeleopIsLegal = true;
 	private boolean beeIsSafeStopped = false;
 	private boolean justSwitchedRobots = false; // if we just switch selected robots
 
@@ -111,10 +112,28 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 	protected final Color greenColor = ColorProvider.get(59,181,74);
 	protected final Color blueColor = ColorProvider.get(59,82,164);
 
-	protected CommandButton moveButton, stopButtonOnMainTab;
+	protected EnlargeableButton createBookmarkButton, setToCurrentPositionButton;
+	protected Combo locationBookmarksCombo;
+	
+	protected EnlargeableButton showPreviewButton, snapToBeeButton;
+	
 	protected Button faceForwardButton, checkObstaclesButton, checkKeepoutsButton;
 	protected Label faceForwardCheckmark, checkObstaclesCheckmark, checkKeepoutsCheckmark;
 	protected CommandButton applyOptionsOnMainTab;
+
+	protected CommandButton moveButton, stopButtonOnMainTab;
+	
+	protected final String CREATE_BOOKMARK_BUTTON_STRING = "Create Location Bookmark";
+	protected final String CREATE_BOOKMARK_BUTTON_TOOLTIP = "Bookmark the Location of the Preview";
+
+	protected final String SHOW_PREVIEW_STRING = "Show Preview";
+	protected final String HIDE_PREVIEW_STRING = "Hide Preview";
+
+	protected final String SHOW_PREVIEW_TOOLTIP = "Preview Pose Specified by Manual Inputs";
+	protected final String HIDE_PREVIEW_TOOLTIP = "Hide Preview";
+	
+	protected final String SNAP_TO_BEE_STRING = "Snap Preview to Bee";
+	protected final String SNAP_TO_BEE_TOOLTIP = "Enter Current Astrobee Coordinates into Manual Inputs";
 
 	protected final String FACE_FORWARD_BUTTON_STRING = "Face Forward";
 	protected final String FACE_FORWARD_BUTTON_TOOLTIP = "Require Astrobee to Face Direction of Motion";
@@ -131,10 +150,7 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 	protected final String CHECK_KEEPOUTS_CHECKED_TOOLTIP = "Astrobee Will Stop Before Entering a Keepout";
 	protected final String CHECK_KEEPOUTS_UNCHECKED_TOOLTIP = "Astrobee Will Enter Keepouts";
 
-	protected EnlargeableButton setToCurrentPositionButton;
-	protected Combo locationBookmarksCombo;
-
-	BeeCommandingPartOnTeleoperateTabCreator beeCommandingPartOnTeleoperateTabCreator;
+	BeeCommandingPartOnTeleoperateTabCreator commandingPartCreator;
 
 	protected IncrementableText[] translationInput = new IncrementableText[3];
 	protected String[][] translationInputLabel = {{"Aft","Fwd"},{"Port","Stbd"},{"Ovhd","Deck"}};
@@ -164,12 +180,16 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 	protected boolean checkingKeepouts = true;
 
 	@Inject 
-	public BeeCommandingPartOnTeleoperateTab(MApplication application, Composite parent) {
+	public BeeCommandingPartOnTeleoperateTab(EPartService eps, MApplication application, Composite parent) {
 		m_dataBindingContext = new DataBindingContext();
 
 		savedContext = application.getContext();
 		savedContext.set(BeeCommandingPartOnTeleoperateTab.class, this);
+
+		eps.addPartListener(this);
+		
 		setup();
+		loadCheckedImages();
 		createControls(parent);
 	}
 	
@@ -180,38 +200,15 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 	}
 
 	protected void createControls(Composite parent) {
-		loadCheckedImages();
-
-		beeCommandingPartOnTeleoperateTabCreator = new BeeCommandingPartOnTeleoperateTabCreator();
-		beeCommandingPartOnTeleoperateTabCreator.createMainTab(this, parent);
+		commandingPartCreator = new BeeCommandingPartOnTeleoperateTabCreator();
+		commandingPartCreator.createMainTab(this, parent);
 	}
 
 	@PostConstruct
 	public void postConstruct() {
 		bindUI();
 		setContextInDraggablePreviews();
-		setToCurrentPosition();
-		teleopVerifier.checkPositionAndNotifyListeners();
-	}
-
-	private void setToCurrentPosition() {
-		Vector3 astrobeePosition = astrobeeStateManager.getAstrobeePosition();
-		translationInput[0].setTextString(astrobeePosition.getX());
-		translationInput[0].setTextString(astrobeePosition.getY());
-		translationInput[0].setTextString(astrobeePosition.getZ());
-
-		Quaternion q = astrobeeStateManager.getAstrobeeOrientation();
-		double[] ea = q.toEulerAngles(null);
-
-		double pitch = ea[0] * RAD_TO_DEG;
-		double yaw = ea[1] * RAD_TO_DEG;
-		double roll = ea[2] * RAD_TO_DEG;
-
-		rotationInput[0].setTextStringInt((int)roll);
-		rotationInput[1].setTextStringInt((int)pitch);
-		rotationInput[2].setTextStringInt((int)yaw);
-
-		teleopVerifier.checkPositionAndNotifyListeners();
+		snapToBee();
 	}
 
 	public IncrementableText[] getCurrentPosition(){
@@ -222,27 +219,27 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		return rotationInput;
 	}
 
-	private void setContextInDraggablePreviews() {
+	protected void setContextInDraggablePreviews() {
 		RapidFreeFlyerRobot[] robotsList = freeFlyerScenario.getAllRobots();
 		for(int i=0; i<robotsList.length; i++) {
 			RapidFreeFlyerRobot robot = robotsList[i];
-			RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)robot.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW);
+			RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)robot.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW);
 			rpdp.setContext(savedContext);
 		}	
 	}
 
 	// connect DraggablePreviews to TeleopVerifierListeners and PreviewMovedListeners
-	private void connectDraggablePreviewsToListeners() {
+	protected void connectDraggablePreviewsToListeners() {
 		RapidFreeFlyerRobot[] robotsList = freeFlyerScenario.getAllRobots();
 		for(int i=0; i<robotsList.length; i++) {
 			RapidFreeFlyerRobot robot = robotsList[i];
-			RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)robot.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW);
+			RobotPartDraggablePreview rpdp = (RobotPartDraggablePreview)robot.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW);
 			teleopVerifier.addListener(rpdp);
 			rpdp.setPreviewMovedListener(this);
 		}
 	}
 
-	private void setup() {
+	protected void setup() {
 		teleopVerifier = savedContext.get(LiveTeleopVerifier.class);
 		if(teleopVerifier == null) {
 			ContextInjectionFactory.make(LiveTeleopVerifier.class, savedContext); 
@@ -256,7 +253,6 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		if(teleop == null) {
 			return;
 		}
-		dragTranslationVec.set(teleop);
 		translationInput[0].setTextString(teleop.getX());
 		translationInput[1].setTextString(teleop.getY());
 		translationInput[2].setTextString(teleop.getZ());
@@ -291,19 +287,21 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		result &= bind("x", translationInput[0], getDraggablePreview());
 		result &= bind("y", translationInput[1], getDraggablePreview());
 		result &= bind("z", translationInput[2], getDraggablePreview());
-
-		//		translationInput[0].setBinding(bd);
+		
 		result &= bind("roll", rotationInput[0], getDraggablePreview());
 		result &= bind("pitch", rotationInput[1], getDraggablePreview());
 		result &= bind("yaw", rotationInput[2], getDraggablePreview());
-
-		//result &= bind("draggablePreviewVisible", previewToggle, getDraggablePreview());
-		if(teleopVerifier != null) {
-			teleopVerifier.updateTeleopTranslation(convertToVector3(translationInput, 1));
-			teleopVerifier.updateTeleopRotation(convertToVector3(rotationInput, DEG_TO_RAD));
-			teleopVerifier.checkPositionAndNotifyListeners();
-		}
+		
+		checkTeleopVerifier();
 		return result;
+	}
+	
+	protected void checkTeleopVerifier() {
+		if(teleopVerifier != null) {
+			teleopVerifier.updateAbsoluteTeleopTranslation(convertToVector3(translationInput, 1));
+			teleopVerifier.updateAbsoluteTeleopRotation(convertToVector3(rotationInput, DEG_TO_RAD));
+			teleopVerifier.checkAbsolutePositionAndNotifyListeners();
+		}
 	}
 
 	protected Vector3 convertToVector3(IncrementableText[] input, double scaleFactor) {
@@ -327,8 +325,6 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		}
 
 		IObservableValue modelObservableValue = BeanProperties.value(feature).observe(model);
-		//or
-		//IObservableValue modelObservableValue =  BeansObservables.observeValue(getRealm(), model, feature);
 
 		if (modelObservableValue == null){
 			return false;
@@ -338,23 +334,19 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		ISWTObservableValue targetObservableValue = WidgetProperties.text(SWT.Modify).observeDelayed(DELAY, widget.getTextControl());
 
 		Binding bd = m_dataBindingContext.bindValue(targetObservableValue, modelObservableValue,
-				CreateValueStrategy.getTargetToModelStrategy(feature), null);
-
-		//		IObservableValue validationStatus = bd.getValidationStatus();
-		//		validationStatus.addValueChangeListener(new DecoratingValueChangedListener(widget.getTextControl()));		
+				CreateValueStrategy.getTargetToModelStrategy(feature), null);	
 
 		bindings.add(bd);
 		widget.setBinding(bd);
 		return true;
 	}
 
-
-	RobotPartDraggablePreview getDraggablePreview() {
+	protected RobotPartDraggablePreview getDraggablePreview() {
 		if(freeFlyerScenario == null || freeFlyerScenario.getPrimaryRobot() == null) {
 			return null;
 		}
 		return (RobotPartDraggablePreview)freeFlyerScenario.getPrimaryRobot()
-				.getPart(RapidFreeFlyerRobot.DRAGGABLE_PREVIEW);
+				.getPart(RapidFreeFlyerRobot.ABSOLUTE_DRAGGABLE_PREVIEW);
 	}
 
 	@Inject
@@ -402,7 +394,7 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 
 	@Override
 	public void onAstrobeeStateChange(AggregateAstrobeeState aggregateState) {
-		if(grabControlButtonOnMainTab == null) {
+		if(moveButton == null) {
 			return;
 		}
 		Display.getDefault().asyncExec(new Runnable() {
@@ -473,7 +465,6 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 				accessControlJustChanged = true;
 				iHaveControl = false;
 			}
-			grabControlButtonOnMainTab.setCompositeEnabled(true);
 			moveButton.setCompositeEnabled(false);
 			setEnableButtonsThatAreAlwaysEnabledIfWeHaveControl(false);
 			return false;
@@ -482,7 +473,6 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 				accessControlJustChanged = true;
 				iHaveControl = true;
 			}
-			grabControlButtonOnMainTab.setCompositeEnabled(false);
 			setEnableButtonsThatAreAlwaysEnabledIfWeHaveControl(true);
 			return true;
 		}
@@ -573,10 +563,6 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		}
 	}
 
-	public void setOnTop(boolean onTop) {
-		this.onTop = onTop;
-	}
-
 	public void onPreviewMoved() {
 		if(justSetLocationBookmark) {
 			return;
@@ -616,22 +602,22 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		rotationInput[2].setTextStringInt((int)Math.round(yaw));
 		rotationInput[2].updateBinding();
 
-		teleopVerifier.checkPositionAndNotifyListeners();
+		teleopVerifier.checkAbsolutePositionAndNotifyListeners();
 	}
 
 	@Override
-	public void allowMovement() {
+	public void allowAbsoluteMovement() {
 		previewedTeleopIsLegal = true;
 		enableMoveButtonIfAllowed();
 	}
 
 	@Override
-	public void disallowMovement() {
+	public void disallowAbsoluteMovement() {
 		previewedTeleopIsLegal = false;
 		enableMoveButtonIfAllowed();
 	}
 
-	private void enableMoveButtonIfAllowed() {
+	protected void enableMoveButtonIfAllowed() {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				if( moveButton == null ) { //openPreviewTabName == null ) {
@@ -654,4 +640,37 @@ public class BeeCommandingPartOnTeleoperateTab implements LiveTeleopVerifierList
 		uncheckedImage = IssUiActivator.getImageFromRegistry("transparent");
 		unknownCheckedImage = IssUiActivator.getImageFromRegistry("transparent");
 	}
+
+	@Override
+	public void allowRelativeMovement() {
+		// we aren't relative
+	}
+
+	@Override
+	public void disallowRelativeMovement() {
+		// we aren't relative
+	}
+
+	@Override
+	public void partActivated(MPart part) {}
+
+	@Override
+	public void partBroughtToTop(MPart part) {
+		TrackVisibleBeeCommandingSubtab.INSTANCE.ingestPartBroughtToTop(part.getElementId());
+		if(TrackVisibleBeeCommandingSubtab.INSTANCE.isBeeCommandingOnTop()) {
+			freeFlyerScenario.showAbsolutePreview(TrackVisibleBeeCommandingSubtab.INSTANCE.isAbsolutePreviewShowing());
+		} else if(TrackVisibleBeeCommandingSubtab.INSTANCE.isRelativeCommandingOnTop()) {
+			// hide because sibling is showing
+			freeFlyerScenario.showAbsolutePreview(false);
+		}
+	}
+
+	@Override
+	public void partDeactivated(MPart part) {}
+
+	@Override
+	public void partHidden(MPart part) {}
+
+	@Override
+	public void partVisible(MPart part) {}
 }

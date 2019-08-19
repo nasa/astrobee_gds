@@ -23,7 +23,7 @@ public class DownloadData extends AbstractDataCommand {
 
 	@Override
 	public int getCalculatedDuration() {
-		return 3;
+		return 0;
 	}
 	
 	@JsonIgnore

@@ -24,9 +24,11 @@ import java.util.Map;
 import rapid.ext.astrobee.SaveSetting;
 
 public class RosTopicsList {
-	protected Map<String, ARosTopic> topicNames;
+	protected static Map<String, ARosTopic> topicNames = new HashMap<String,ARosTopic>();
 	static RosTopicsList DATA_TO_DISK_SETTINGS;
 	static RosTopicsList TOPICS_LIST;
+	static boolean recordingData = false;
+	static String recordingName;
 	public enum DownlinkOption {IMMEDIATE, DELAYED }
 
 	public static RosTopicsList getDataToDiskSettings() {
@@ -42,31 +44,43 @@ public class RosTopicsList {
 		}
 		return TOPICS_LIST;
 	}
-
-	private RosTopicsList() {
-		topicNames = new HashMap<String,ARosTopic>();
-	}
 	
-	public Collection<ARosTopic> getTopics() {
+	public static Collection<ARosTopic> getTopics() {
 		return topicNames.values();
 	}
 
-	public void clear() {
+	public static void clear() {
 		topicNames.clear();
 	}
+	
+	public static void setRecordingName(String name) {
+		recordingName = name;
+	}
+	
+	public static String getRecordingName() {
+		return recordingName;
+	}
 
-	public void addTopicName(String topicName) {
+	public static void addTopicName(String topicName) {
 		ARosTopic newTopic = new ARosTopic(topicName);
 		topicNames.put(topicName, newTopic);
 	}
-	
-	public void setThisTopicsSettings(SaveSetting ss){
+
+	public static void setThisTopicsSettings(SaveSetting ss){
 		ARosTopic art = new ARosTopic(ss.topicName);
 		art.setDownlinkOption(ss.downlinkOption);
 		art.setFrequency(ss.frequency);
 		topicNames.put(ss.topicName, art);	
 	}
+
+	public static void setRecordingData(boolean rec) {
+		recordingData = rec;
+	}
 	
+	public static boolean isRecordingData() {
+		return recordingData;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -76,7 +90,7 @@ public class RosTopicsList {
 		return sb.toString();
 	}
 
-	public class ARosTopic {
+	public static class ARosTopic {
 		public final String topicName;
 		private DownlinkOption downlink;
 		private float frequency;

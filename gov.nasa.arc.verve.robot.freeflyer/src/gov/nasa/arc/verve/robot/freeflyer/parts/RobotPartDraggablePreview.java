@@ -23,12 +23,12 @@ import com.ardor3d.math.type.ReadOnlyVector3;
 import com.ardor3d.scenegraph.Node;
 
 public class RobotPartDraggablePreview extends AbstractRobotPart implements LiveTeleopVerifierListener {
-	private FreeFlyerBasicModel m_preview = null;
-	private double displayX, displayY, displayZ;
-	private int displayRoll, displayPitch, displayYaw;
+	protected FreeFlyerBasicModel m_preview = null;
+	protected double displayX, displayY, displayZ;
+	protected int displayRoll, displayPitch, displayYaw;
 	boolean draggablePreviewVisible = true;
-	private IEclipseContext context;
-	private IPreviewMovedListener previewMovedListener;
+	protected IEclipseContext context;
+	protected IPreviewMovedListener previewMovedListener;
 
 	protected int roundTo = 1;// cm to round to
 	protected float halfRoundTo = 0.5f;
@@ -62,9 +62,13 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		this.previewMovedListener = previewMovedListener;
 	}
 
+	protected String getNodeName() {
+		return getRobot().getName() + ":DraggablePreview";
+	}
+	
 	@Override
 	public void attachToNodesIn(Node model) throws IllegalStateException {
-		m_node = new Node(getRobot().getName() + ":DraggablePreview");
+		m_node = new Node();
 		m_preview = new FreeFlyerBasicModel();
 
 		getRobot().getRobotNode().getConceptsNode().attachChild(m_node);
@@ -106,7 +110,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		};
 	}
 	
-	private void translateFromDrag(ReadOnlyVector3 vec) {
+	protected void translateFromDrag(ReadOnlyVector3 vec) {
 		if(displayX !=  round(vec.getX())) {
 			hasBeenDraggedX = true;
 			displayX = round(vec.getX());
@@ -125,8 +129,8 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			context.set(ContextNames.TELEOP_TRANSLATION, vec); // tell LiveTeleopVerifier to check again because we just moved
 		} 
 	}
-	private void rotateFromDrag(ReadOnlyMatrix3 m33) {
-		// receive matrix from VERVE	
+	protected void rotateFromDrag(ReadOnlyMatrix3 m33) {
+		// receive matrix from VERVE
 		Vector3 v = MathHelp.findZYXEulerAngles(m33);
 		double A = v.getX();
 		double B = v.getY();
@@ -153,7 +157,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		}
 	}
 
-	private void translate() {
+	protected void translateFromDisplayText() {
 		Vector3 move = new Vector3(displayX, displayY, displayZ);
 
 		if(context != null) {
@@ -169,7 +173,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		}
 	}
 
-	private void rotate() {
+	protected void rotateFromDisplayText() {
 		double rollRadians = displayRoll * Math.PI / 180.0;
 		double pitchRadians = displayPitch * Math.PI / 180.0;
 		double yawRadians = displayYaw * Math.PI / 180.0;
@@ -196,7 +200,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			return;
 		}
 		this.displayX = x;
-		translate();
+		translateFromDisplayText();
 		if(previewMovedListener != null) {
 			previewMovedListener.onPreviewMoved();
 		}
@@ -208,7 +212,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			return;
 		}
 		this.displayY = y;
-		translate();
+		translateFromDisplayText();
 		if(previewMovedListener != null) {
 			previewMovedListener.onPreviewMoved();
 		}
@@ -220,7 +224,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			return;
 		}
 		this.displayZ = z;
-		translate();
+		translateFromDisplayText();
 		if(previewMovedListener != null) {
 			previewMovedListener.onPreviewMoved();
 		}
@@ -244,7 +248,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			return;
 		}
 		this.displayRoll = roll;
-		rotate();
+		rotateFromDisplayText();
 		if(previewMovedListener != null) {
 			previewMovedListener.onPreviewMoved();
 		}
@@ -256,7 +260,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			return;
 		}
 		this.displayPitch = pitch;
-		rotate();
+		rotateFromDisplayText();
 		if(previewMovedListener != null) {
 			previewMovedListener.onPreviewMoved();
 		}
@@ -268,7 +272,7 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 			return;
 		}
 		this.displayYaw = yaw;
-		rotate();
+		rotateFromDisplayText();
 		if(previewMovedListener != null) {
 			previewMovedListener.onPreviewMoved();
 		}	
@@ -286,11 +290,11 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		return displayYaw;
 	}
 
-	private void showAlarmColor() {
+	protected void showAlarmColor() {
 		m_preview.showAlarmColor();
 	}
 
-	private void hideAlarmColor() {
+	protected void hideAlarmColor() {
 		m_preview.hideAlarmColor();
 	}
 
@@ -310,11 +314,11 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		VerveInteractManagers.INSTANCE.setSpatialTarget(null);
 	}
 
-	public void allowMovement() {
+	public void allowAbsoluteMovement() {
 		hideAlarmColor();
 	}
 
-	public void disallowMovement() {
+	public void disallowAbsoluteMovement() {
 		showAlarmColor();
 	}
 
@@ -357,5 +361,15 @@ public class RobotPartDraggablePreview extends AbstractRobotPart implements Live
 		double ret = bigD/100.0;
 
 		return ret;
+	}
+
+	@Override
+	public void allowRelativeMovement() {
+		// ignore, we are not relative
+	}
+
+	@Override
+	public void disallowRelativeMovement() {
+		// ignore, we are not relative
 	}
 }
