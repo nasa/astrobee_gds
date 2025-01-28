@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-# Debugging, Advanced, and Advanced 2 tabs
-
-The Debugging, Advanced, and Advanced 2 tabs have subtabs that display detailed debugging information and allow
-=======
 # Engineering, Other and Debugging tabs
 
 The Engineering, Other and Debugging tabs have subtabs that display detailed debugging information and allow
->>>>>>> master
 engineers to send low-level commands.
 
 ## Debugging Tab
